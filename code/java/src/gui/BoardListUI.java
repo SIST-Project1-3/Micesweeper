@@ -9,7 +9,7 @@ public class BoardListUI {
 
 	// Constructor
 	public BoardListUI() {
-		initialized();
+		initialize();
 		
 	}
 
