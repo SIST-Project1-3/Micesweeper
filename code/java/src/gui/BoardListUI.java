@@ -62,7 +62,6 @@ public class BoardListUI implements WindowListener {
 		DefaultTableModel model = new DefaultTableModel(colNames, 0);
 		JTable table = new JTable(model);
 
-		table.setModel(model);
 		table.setRowHeight(25);
 		JScrollPane sp_table = new JScrollPane(table);
 
