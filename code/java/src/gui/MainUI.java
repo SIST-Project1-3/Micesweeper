@@ -36,6 +36,7 @@ public class MainUI implements ActionListener, WindowListener {
 	private void initialize() {
 		frame = new JFrame();
 		frame.setLayout(new BorderLayout(10, 10));
+		frame.setTitle("Áã·ÚÃ£±â");
 
 		frame.getContentPane().add(createNorthPanel(), "North");
 		frame.getContentPane().add(createCenterPanel(), "Center");
