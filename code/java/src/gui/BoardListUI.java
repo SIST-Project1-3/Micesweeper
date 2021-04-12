@@ -10,6 +10,7 @@ public class BoardListUI {
 	// Constructor
 	public BoardListUI() {
 		initialize();
+		
 	}
 
 	// Method
