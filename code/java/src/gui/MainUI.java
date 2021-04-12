@@ -14,6 +14,7 @@ import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JList;
 import javax.swing.JPanel;
+import javax.swing.JScrollPane;
 import javax.swing.JTextArea;
 import javax.swing.JTextField;
 import javax.swing.SwingConstants;
@@ -23,6 +24,8 @@ public class MainUI implements ActionListener, WindowListener {
 	// Field
 	JFrame frame;
 	ArrayList<JButton> list_btn = new ArrayList<JButton>();
+	DefaultListModel<String> listmodel_room;
+	JList<String> jlist_room;
 
 	// Constructor
 	public MainUI() {
@@ -75,20 +78,35 @@ public class MainUI implements ActionListener, WindowListener {
 		label_capacity.setFont(Commons.getFont());
 		panel_label.add(label_name);
 		panel_label.add(label_capacity);
-		DefaultListModel<String> listmodel_room = new DefaultListModel<String>();
-		JList<String> jlist_room = new JList<String>(listmodel_room);
+		listmodel_room = new DefaultListModel<String>();
+		// 테스트용 방 목록 생성
+		String[] rooms = { "첫번째 방입니다.", "두번째 방이거든요", "세번째 방이더라구요", "네번째 방인 것 같아요", "다섯번째인가봐요", "육번째", "칠", "네이밍", "귀찮아",
+				"칸을", "넘기자", "영", "차", "영", "차", "영", "차" };
+		for (String str : rooms) {
+			String str_room = str + " - 1/2";
+			listmodel_room.addElement(str_room);
+		}
+		jlist_room = new JList<String>(listmodel_room);
 		jlist_room.setFont(Commons.getFont());
-		panel_center.add(jlist_room, "Center");
+		JScrollPane sp_room = new JScrollPane(jlist_room);
+		panel_center.add(sp_room, "Center");
 		panel_center.add(panel_label, "North");
 
 		JPanel panel_east = new JPanel(new BorderLayout());
 		JLabel label_users = new JLabel("접속중인 사람");
 		label_users.setFont(Commons.getFont());
 		DefaultListModel<String> listmodel_user = new DefaultListModel<String>();
+		// 1. test용 유저 추가
+		String[] users = { "이창민", "박준성", "오다빈", "박건희", "이창민", "박준성", "오다빈", "박건희", "이창민", "박준성", "오다빈", "박건희", "이창민",
+				"박준성", "오다빈", "박건희", "이창민", "박준성", "오다빈", "박건희", };
+		for (String str : users) {
+			listmodel_user.addElement(str);
+		}
 		JList<String> jlist_user = new JList<String>(listmodel_user);
 		jlist_user.setFont(Commons.getFont());
-		panel_east.add(jlist_user, "Center");
+		JScrollPane sp_user = new JScrollPane(jlist_user);
 		panel_east.add(label_users, "North");
+		panel_east.add(sp_user, "Center");
 
 		panel.add(panel_center, "Center");
 		panel.add(panel_east, "East");
