@@ -69,7 +69,7 @@ public class ProfileUI implements ActionListener{
 		
 		//프로필 사진 & 크기조절
 		//사용자가 선택한 이미지가 삽입될 수 있게 만들어야 함
-		ImageIcon icon = new ImageIcon("images/고양이.png"); 
+		ImageIcon icon = new ImageIcon("images/고양이.png"); 
 		Image img = icon.getImage();
 		Image changeImg = img.getScaledInstance(200, 200, Image.SCALE_SMOOTH);
 		ImageIcon changeIcon = new ImageIcon(changeImg);
@@ -108,7 +108,7 @@ public class ProfileUI implements ActionListener{
 	
 	public void file_form() {
 		//프로필 이미지 파일 수정 창 생성
-		//Toolkit.getDefaultToolkit().getImage("/Users/ohdavi/Downloads/쥐뢰찾기 이미지/고양이.png");
+		//Toolkit.getDefaultToolkit().getImage("/Users/ohdavi/Downloads/쥐뢰찾기이미지/고양이.png");
 		//FileChooser
 		f = new JFrame("프로필 수정");
 		JPanel find_panel= new JPanel();
