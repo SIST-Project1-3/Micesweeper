@@ -1,6 +1,7 @@
 package gui;
 
 import java.awt.BorderLayout;
+import java.awt.Dimension;
 import java.awt.FlowLayout;
 import java.awt.GridLayout;
 import java.awt.event.WindowEvent;
@@ -92,8 +93,10 @@ public class BoardViewUI implements WindowListener {
 		String[] colNames = { "작성자", "내용" };
 		DefaultTableModel model = new DefaultTableModel(colNames, 0);
 		JTable table = new JTable(model);
-		table.setRowHeight(2);
+		table.getColumn("작성자").setPreferredWidth(100);
+		table.getColumn("내용").setPreferredWidth(600);
 		JScrollPane sp_table = new JScrollPane(table);
+		sp_table.setPreferredSize(new Dimension(500, 50));
 		panel_viewComment.add(sp_table);
 
 		JPanel panel_writeComment = new JPanel(new BorderLayout());
