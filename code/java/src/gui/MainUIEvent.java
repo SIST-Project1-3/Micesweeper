@@ -29,6 +29,8 @@ public class MainUIEvent implements ActionListener, WindowListener, MouseListene
 			new BoardListUI();
 		} else if (obj == ui.list_btn.get(3)) { // 게임종료
 			ui.exit();
+		} else if(obj== ui.btn_send || obj == ui.tf_chat) {
+			// 채팅 전송
 		}
 	}
 

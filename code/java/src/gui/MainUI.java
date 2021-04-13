@@ -29,6 +29,8 @@ public class MainUI {
 	// Field
 	JFrame frame;
 	ArrayList<JButton> list_btn = new ArrayList<JButton>();
+	JButton btn_send;
+	JTextField tf_chat;
 	DefaultListModel<String> listmodel_room;
 	JList<String> jlist_room;
 	MainUIEvent event = new MainUIEvent(this);
@@ -68,7 +70,7 @@ public class MainUI {
 		Image img = icon.getImage();
 		img = img.getScaledInstance(500, 100, Image.SCALE_SMOOTH);
 		JLabel label_img = new JLabel(new ImageIcon(img));
-		
+
 		panel_img.add(label_img);
 
 		panel_north.add(panel_img);
@@ -122,13 +124,21 @@ public class MainUI {
 	}
 
 	public JPanel createSouthPanel() {
-		JPanel panel = new JPanel(new BorderLayout());
+		JPanel panel = new JPanel(new BorderLayout(10, 10));
 
 		JPanel panel_center = new JPanel(new BorderLayout());
 		JTextArea ta = new JTextArea();
-		JTextField tf_chat = new JTextField();
+		JPanel panel_tf = new JPanel(new BorderLayout());
+		btn_send = new JButton("전송");
+		btn_send.setFont(Commons.getFont());
+		tf_chat = new JTextField();
+		tf_chat.setFont(Commons.getFont());
+		tf_chat.addActionListener(event);
+		btn_send.addActionListener(event);
+		panel_tf.add(tf_chat, "Center");
+		panel_tf.add(btn_send, "East");
 		panel_center.add(ta, "Center");
-		panel_center.add(tf_chat, "South");
+		panel_center.add(panel_tf, "South");
 
 		JPanel panel_btn = new JPanel(new GridLayout(4, 1));
 		String[] str_btn = { "방 생성", "내 기록", "커뮤니티", "게임종료" };
