@@ -92,8 +92,9 @@ public class BoardViewUI implements WindowListener {
 		String[] colNames = { "작성자", "내용" };
 		DefaultTableModel model = new DefaultTableModel(colNames, 0);
 		JTable table = new JTable(model);
+		table.setRowHeight(2);
 		JScrollPane sp_table = new JScrollPane(table);
-//		panel_viewComment.add(sp_table);
+		panel_viewComment.add(sp_table);
 
 		JPanel panel_writeComment = new JPanel(new BorderLayout());
 		tf_write = new JTextField();
