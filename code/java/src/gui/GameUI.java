@@ -4,6 +4,8 @@ import java.awt.EventQueue;
 
 import javax.swing.JFrame;
 import java.awt.BorderLayout;
+import java.awt.Dimension;
+
 import javax.swing.JPanel;
 import java.awt.GridLayout;
 import javax.swing.JButton;
@@ -16,10 +18,11 @@ import javax.swing.JTextPane;
 import javax.swing.SwingConstants;
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
+import java.util.ArrayList;
 
 public class GameUI {
 
-	private JFrame frame;
+	private JFrame mainframe;
 	private JTextField textField;
 
 	/**
@@ -30,7 +33,7 @@ public class GameUI {
 			public void run() {
 				try {
 					GameUI window = new GameUI();
-					window.frame.setVisible(true);
+					window.mainframe.setVisible(true);
 				} catch (Exception e) {
 					e.printStackTrace();
 				}
@@ -49,276 +52,131 @@ public class GameUI {
 	 * Initialize the contents of the frame.
 	 */
 	private void initialize() {
-		frame = new JFrame();
-		frame.setBounds(100,100,1280,720);
-		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		frame.getContentPane().setLayout(new BorderLayout(0, 0));
+		
+		ArrayList<JButton> mice = new ArrayList<JButton>();
+		mainframe = new JFrame();
+		mainframe.setBounds(100,100,1280,720);
+		mainframe.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		mainframe.getContentPane().setLayout(new BorderLayout(0, 0));
 		
 		JPanel westpanel = new JPanel();
 		westpanel.setSize(300,500);
-		frame.getContentPane().add(westpanel, BorderLayout.WEST);
-		westpanel.setLayout(new GridLayout(4, 1, 0, 50));
+		mainframe.getContentPane().add(westpanel, BorderLayout.WEST);
+		westpanel.setLayout(new GridLayout(3, 1, 0, 50));
 		
-		JPanel panel_6_1 = new JPanel();
-		westpanel.add(panel_6_1);
+		JPanel bangjangpanel = new JPanel();
+		westpanel.add(bangjangpanel);
 		
-		JLabel lblNewLabel_1 = new JLabel("\uBC29\uC7A5 \uD45C\uC2DC\uC6A9");
-		panel_6_1.add(lblNewLabel_1);
+		JLabel bangjangpyosilabel = new JLabel("방장 표시용");
+		bangjangpanel.add(bangjangpyosilabel);
 		
-		JPanel panel_3 = new JPanel();
-		westpanel.add(panel_3);
+		JPanel bangjangimagepanel = new JPanel();
+		westpanel.add(bangjangimagepanel);
 		
-		JPanel panel_4 = new JPanel();
-		westpanel.add(panel_4);
-		panel_4.setLayout(new FlowLayout(FlowLayout.CENTER, 5, 5));
+		JPanel bangjangprofilepanel = new JPanel();
+		westpanel.add(bangjangprofilepanel);
+		bangjangprofilepanel.setLayout(new GridLayout(2, 1, 0, 20));
 		
-		JLabel lblNewLabel = new JLabel("\uBC29\uC7A5 ID");
-		lblNewLabel.setFont(new Font("굴림", Font.PLAIN, 24));
-		panel_4.add(lblNewLabel);
+		JLabel bangjangidlabel = new JLabel("방장 ID");
+		bangjangidlabel.setHorizontalAlignment(SwingConstants.CENTER);
+		bangjangidlabel.setFont(Commons.getFont());
+		bangjangprofilepanel.add(bangjangidlabel);
 		
-		JPanel panel_5 = new JPanel();
-		westpanel.add(panel_5);
-		panel_5.setLayout(new FlowLayout(FlowLayout.CENTER, 5, 5));
-		
-		JButton btnNewButton_16 = new JButton("\uD504\uB85C\uD544 \uBCF4\uAE30");
-		btnNewButton_16.setFont(new Font("굴림", Font.PLAIN, 24));
-		panel_5.add(btnNewButton_16);
+		JButton watchprofilebtn = new JButton("프로필 보기");
+		watchprofilebtn.setFont(Commons.getFont());
+		bangjangprofilepanel.add(watchprofilebtn);
 		JPanel centerpanel = new JPanel();
-		frame.getContentPane().add(centerpanel, BorderLayout.CENTER);
+		mainframe.getContentPane().add(centerpanel, BorderLayout.CENTER);
 		centerpanel.setLayout(new GridLayout(0, 1, 0, 0));
 		
 		JPanel panel = new JPanel();
 		centerpanel.add(panel);
-		panel.setLayout(new GridLayout(9, 9, 5, 5));
+		panel.setLayout(new FlowLayout(FlowLayout.CENTER, 5, 5));
 		
-		JButton btnNewButton1_1 = new JButton("  ");
-		panel.add(btnNewButton1_1);
-		JButton btnNewButton1_2 = new JButton("  ");
-		panel.add(btnNewButton1_2);
-		JButton btnNewButton1_3 = new JButton("  ");
-		panel.add(btnNewButton1_3);
-		JButton btnNewButton1_4 = new JButton("  ");
-		panel.add(btnNewButton1_4);
-		JButton btnNewButton1_5 = new JButton("  ");
-		panel.add(btnNewButton1_5);
-		JButton btnNewButton1_6 = new JButton("  ");
-		panel.add(btnNewButton1_6);
-		JButton btnNewButton1_7 = new JButton("  ");
-		panel.add(btnNewButton1_7);
-		JButton btnNewButton1_8 = new JButton("  ");
-		panel.add(btnNewButton1_8);
-		JButton btnNewButton1_9 = new JButton("  ");
-		panel.add(btnNewButton1_9);
-		JButton btnNewButton2_1 = new JButton("  ");
-		panel.add(btnNewButton2_1);
-		JButton btnNewButton2_2 = new JButton("  ");
-		panel.add(btnNewButton2_2);
-		JButton btnNewButton2_3 = new JButton("  ");
-		panel.add(btnNewButton2_3);
-		JButton btnNewButton2_4 = new JButton("  ");
-		panel.add(btnNewButton2_4);
-		JButton btnNewButton2_5 = new JButton("  ");
-		panel.add(btnNewButton2_5);
-		JButton btnNewButton2_6 = new JButton("  ");
-		panel.add(btnNewButton2_6);
-		JButton btnNewButton2_7 = new JButton("  ");
-		panel.add(btnNewButton2_7);
-		JButton btnNewButton2_8 = new JButton("  ");
-		panel.add(btnNewButton2_8);
-		JButton btnNewButton2_9 = new JButton("  ");
-		panel.add(btnNewButton2_9);
-		JButton btnNewButton3_1 = new JButton("  ");
-		panel.add(btnNewButton3_1);
-		JButton btnNewButton3_2 = new JButton("  ");
-		panel.add(btnNewButton3_2);
-		JButton btnNewButton3_3 = new JButton("  ");
-		panel.add(btnNewButton3_3);
-		JButton btnNewButton3_4 = new JButton("  ");
-		panel.add(btnNewButton3_4);
-		JButton btnNewButton3_5 = new JButton("  ");
-		panel.add(btnNewButton3_5);
-		JButton btnNewButton3_6 = new JButton("  ");
-		panel.add(btnNewButton3_6);
-		JButton btnNewButton3_7 = new JButton("  ");
-		panel.add(btnNewButton3_7);
-		JButton btnNewButton3_8 = new JButton("  ");
-		panel.add(btnNewButton3_8);
-		JButton btnNewButton3_9 = new JButton("  ");
-		panel.add(btnNewButton3_9);
-		JButton btnNewButton4_1 = new JButton("  ");
-		panel.add(btnNewButton4_1);
-		JButton btnNewButton4_2 = new JButton("  ");
-		panel.add(btnNewButton4_2);
-		JButton btnNewButton4_3 = new JButton("  ");
-		panel.add(btnNewButton4_3);
-		JButton btnNewButton4_4 = new JButton("  ");
-		panel.add(btnNewButton4_4);
-		JButton btnNewButton4_5 = new JButton("  ");
-		panel.add(btnNewButton4_5);
-		JButton btnNewButton4_6 = new JButton("  ");
-		panel.add(btnNewButton4_6);
-		JButton btnNewButton4_7 = new JButton("  ");
-		panel.add(btnNewButton4_7);
-		JButton btnNewButton4_8 = new JButton("  ");
-		panel.add(btnNewButton4_8);
-		JButton btnNewButton4_9 = new JButton("  ");
-		panel.add(btnNewButton4_9);
-		JButton btnNewButton5_1 = new JButton("  ");
-		panel.add(btnNewButton5_1);
-		JButton btnNewButton5_2 = new JButton("  ");
-		panel.add(btnNewButton5_2);
-		JButton btnNewButton5_3 = new JButton("  ");
-		panel.add(btnNewButton5_3);
-		JButton btnNewButton5_4 = new JButton("  ");
-		panel.add(btnNewButton5_4);
-		JButton btnNewButton5_5 = new JButton("  ");
-		panel.add(btnNewButton5_5);
-		JButton btnNewButton5_6 = new JButton("  ");
-		panel.add(btnNewButton5_6);
-		JButton btnNewButton5_7 = new JButton("  ");
-		panel.add(btnNewButton5_7);
-		JButton btnNewButton5_8 = new JButton("  ");
-		panel.add(btnNewButton5_8);
-		JButton btnNewButton5_9 = new JButton("  ");
-		panel.add(btnNewButton5_9);
-		JButton btnNewButton6_1 = new JButton("  ");
-		panel.add(btnNewButton6_1);
-		JButton btnNewButton6_2 = new JButton("  ");
-		panel.add(btnNewButton6_2);
-		JButton btnNewButton6_3 = new JButton("  ");
-		panel.add(btnNewButton6_3);
-		JButton btnNewButton6_4 = new JButton("  ");
-		panel.add(btnNewButton6_4);
-		JButton btnNewButton6_5 = new JButton("  ");
-		panel.add(btnNewButton6_5);
-		JButton btnNewButton6_6 = new JButton("  ");
-		panel.add(btnNewButton6_6);
-		JButton btnNewButton6_7 = new JButton("  ");
-		panel.add(btnNewButton6_7);
-		JButton btnNewButton6_8 = new JButton("  ");
-		panel.add(btnNewButton6_8);
-		JButton btnNewButton6_9 = new JButton("  ");
-		panel.add(btnNewButton6_9);
-		JButton btnNewButton7_1 = new JButton("  ");
-		panel.add(btnNewButton7_1);
-		JButton btnNewButton7_2 = new JButton("  ");
-		panel.add(btnNewButton7_2);
-		JButton btnNewButton7_3 = new JButton("  ");
-		panel.add(btnNewButton7_3);
-		JButton btnNewButton7_4 = new JButton("  ");
-		panel.add(btnNewButton7_4);
-		JButton btnNewButton7_5 = new JButton("  ");
-		panel.add(btnNewButton7_5);
-		JButton btnNewButton7_6 = new JButton("  ");
-		panel.add(btnNewButton7_6);
-		JButton btnNewButton7_7 = new JButton("  ");
-		panel.add(btnNewButton7_7);
-		JButton btnNewButton7_8 = new JButton("  ");
-		panel.add(btnNewButton7_8);
-		JButton btnNewButton7_9 = new JButton("  ");
-		panel.add(btnNewButton7_9);
-		JButton btnNewButton8_1 = new JButton("  ");
-		panel.add(btnNewButton8_1);
-		JButton btnNewButton8_2 = new JButton("  ");
-		panel.add(btnNewButton8_2);
-		JButton btnNewButton8_3 = new JButton("  ");
-		panel.add(btnNewButton8_3);
-		JButton btnNewButton8_4 = new JButton("  ");
-		panel.add(btnNewButton8_4);
-		JButton btnNewButton8_5 = new JButton("  ");
-		panel.add(btnNewButton8_5);
-		JButton btnNewButton8_6 = new JButton("  ");
-		panel.add(btnNewButton8_6);
-		JButton btnNewButton8_7 = new JButton("  ");
-		panel.add(btnNewButton8_7);
-		JButton btnNewButton8_8 = new JButton("  ");
-		panel.add(btnNewButton8_8);
-		JButton btnNewButton8_9 = new JButton("  ");
-		panel.add(btnNewButton8_9);
-		JButton btnNewButton9_1 = new JButton("  ");
-		panel.add(btnNewButton9_1);
-		JButton btnNewButton9_2 = new JButton("  ");
-		panel.add(btnNewButton9_2);
-		JButton btnNewButton9_3 = new JButton("  ");
-		panel.add(btnNewButton9_3);
-		JButton btnNewButton9_4 = new JButton("  ");
-		panel.add(btnNewButton9_4);
-		JButton btnNewButton9_5 = new JButton("  ");
-		panel.add(btnNewButton9_5);
-		JButton btnNewButton9_6 = new JButton("  ");
-		panel.add(btnNewButton9_6);
-		JButton btnNewButton9_7 = new JButton("  ");
-		panel.add(btnNewButton9_7);
-		JButton btnNewButton9_8 = new JButton("  ");
-		panel.add(btnNewButton9_8);
-		JButton btnNewButton9_9 = new JButton("  ");
-		panel.add(btnNewButton9_9);
+		JPanel gamepanel = new JPanel();
+		panel.add(gamepanel);
+		gamepanel.setLayout(new GridLayout(9, 9, 0, 0));
 		
 		
+		
+		
+		for (int a =1; a<10; a++) {
+			for (int b=1; b<10; b++) {
+				JButton btn = new JButton(a + "_" + b);
+				btn.setFont(Commons.getFont());
+				btn.setPreferredSize(new Dimension(52, 52));
+				gamepanel.add(btn);
+				mice.add(btn);
+			}
+		}
 		
 		
 		
 		JPanel southpanel = new JPanel();
-		frame.getContentPane().add(southpanel, BorderLayout.SOUTH);
+		mainframe.getContentPane().add(southpanel, BorderLayout.SOUTH);
 		southpanel.setLayout(new BorderLayout(0, 0));
 		
-		JPanel panel_1 = new JPanel();
-		southpanel.add(panel_1, BorderLayout.EAST);
-		panel_1.setLayout(new GridLayout(2, 0, 0, 20));
+		JPanel readypanel = new JPanel();
+		southpanel.add(readypanel, BorderLayout.EAST);
+		readypanel.setLayout(new GridLayout(2, 0, 0, 20));
 		
-		JButton btnNewButton_14 = new JButton("\uC900\uBE44");
-		btnNewButton_14.setFont(new Font("굴림", Font.PLAIN, 24));
-		btnNewButton_14.addActionListener(new ActionListener() {
+		JButton readybutton = new JButton("준비");
+		readybutton.setFont(Commons.getFont());
+		readybutton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 			}
 		});
-		panel_1.add(btnNewButton_14);
+		readypanel.add(readybutton);
 		
-		JButton btnNewButton_15 = new JButton("\uB098\uAC00\uAE30");
-		btnNewButton_15.setFont(new Font("굴림", Font.PLAIN, 24));
-		btnNewButton_15.addActionListener(new ActionListener() {
+		JButton exitbutton = new JButton("나가기");
+		exitbutton.setFont(Commons.getFont());
+		exitbutton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 			}
 		});
-		panel_1.add(btnNewButton_15);
+		readypanel.add(exitbutton);
 		
-		JPanel panel_2 = new JPanel();
-		southpanel.add(panel_2, BorderLayout.CENTER);
-		panel_2.setLayout(new BorderLayout(0, 0));
+		JPanel chatpanel = new JPanel();
+		southpanel.add(chatpanel, BorderLayout.CENTER);
+		chatpanel.setLayout(new BorderLayout(0, 0));
 		
 		JTextArea textArea = new JTextArea();
 		textArea.setRows(10);
-		panel_2.add(textArea, BorderLayout.CENTER);
+		chatpanel.add(textArea, BorderLayout.CENTER);
+		
+		JPanel chatpanel_send = new JPanel();
+		chatpanel.add(chatpanel_send, BorderLayout.SOUTH);
+		chatpanel_send.setLayout(new BorderLayout(0, 0));
 		
 		textField = new JTextField();
-		panel_2.add(textField, BorderLayout.SOUTH);
 		textField.setColumns(1);
+		chatpanel_send.add(textField);
+		
+		JButton send = new JButton("send");
+		chatpanel_send.add(send, BorderLayout.EAST);
 		
 		JPanel eastpanel = new JPanel();
-		frame.getContentPane().add(eastpanel, BorderLayout.EAST);
-		eastpanel.setLayout(new GridLayout(4, 1, 0, 50));
+		mainframe.getContentPane().add(eastpanel, BorderLayout.EAST);
+		eastpanel.setLayout(new GridLayout(3, 1, 0, 50));
 		
-		JPanel panel_6 = new JPanel();
-		eastpanel.add(panel_6);
+		JPanel imsipanel = new JPanel();
+		eastpanel.add(imsipanel);
 		
-		JPanel panel_3_2 = new JPanel();
-		eastpanel.add(panel_3_2);
+		JPanel imagepanel = new JPanel();
+		eastpanel.add(imagepanel);
 		
-		JPanel panel_4_1 = new JPanel();
-		eastpanel.add(panel_4_1);
-		panel_4_1.setLayout(new FlowLayout(FlowLayout.CENTER, 5, 5));
+		JPanel profilepanel = new JPanel();
+		eastpanel.add(profilepanel);
+		profilepanel.setLayout(new GridLayout(2, 1, 0, 20));
 		
-		JLabel lblId = new JLabel("ID");
-		lblId.setFont(new Font("굴림", Font.PLAIN, 24));
-		panel_4_1.add(lblId);
+		JLabel idlabel = new JLabel("ID");
+		idlabel.setHorizontalAlignment(SwingConstants.CENTER);
+		idlabel.setFont(Commons.getFont());
+		profilepanel.add(idlabel);
 		
-		JPanel panel_5_1 = new JPanel();
-		eastpanel.add(panel_5_1);
-		panel_5_1.setLayout(new FlowLayout(FlowLayout.CENTER, 5, 5));
-		
-		JButton btnNewButton_16_2 = new JButton("\uD504\uB85C\uD544 \uBCF4\uAE30");
-		btnNewButton_16_2.setFont(new Font("굴림", Font.PLAIN, 24));
-		panel_5_1.add(btnNewButton_16_2);
+		JButton watchprofilebtn_1 = new JButton("프로필 보기");
+		watchprofilebtn_1.setFont(Commons.getFont());
+		profilepanel.add(watchprofilebtn_1);
 	}
 
 }
