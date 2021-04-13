@@ -4,6 +4,8 @@ import java.awt.BorderLayout;
 import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.MouseEvent;
+import java.awt.event.MouseListener;
 import java.awt.event.WindowEvent;
 import java.awt.event.WindowListener;
 import java.util.ArrayList;
@@ -13,19 +15,26 @@ import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JList;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTextArea;
 import javax.swing.JTextField;
 import javax.swing.SwingConstants;
 
-public class MainUI implements ActionListener, WindowListener {
+public class MainUI {
 
 	// Field
 	JFrame frame;
 	ArrayList<JButton> list_btn = new ArrayList<JButton>();
 	DefaultListModel<String> listmodel_room;
 	JList<String> jlist_room;
+	MainUIEvent event = new MainUIEvent(this);
+
+	String[] rooms = { "첫번째 방입니다.", "두번째 방이거든요", "세번째 방이더라구요", "네번째 방인 것 같아요", "다섯번째인가봐요", "육번째", "칠", "네이밍", "귀찮아",
+			"칸을", "넘기자", "영", "차", "영", "차", "영", "차" };
+	String[] users = { "이창민", "박준성", "오다빈", "박건희", "이창민", "박준성", "오다빈", "박건희", "이창민", "박준성", "오다빈", "박건희", "이창민", "박준성",
+			"오다빈", "박건희", "이창민", "박준성", "오다빈", "박건희", };
 
 	// Constructor
 	public MainUI() {
@@ -45,7 +54,7 @@ public class MainUI implements ActionListener, WindowListener {
 		frame.setSize(500, 500);
 		frame.setVisible(true);
 
-		frame.addWindowListener(this);
+		frame.addWindowListener(event);
 	}
 
 	public JPanel createNorthPanel() {
@@ -81,14 +90,14 @@ public class MainUI implements ActionListener, WindowListener {
 		panel_label.add(label_capacity);
 		listmodel_room = new DefaultListModel<String>();
 		// 테스트용 방 목록 생성
-		String[] rooms = { "첫번째 방입니다.", "두번째 방이거든요", "세번째 방이더라구요", "네번째 방인 것 같아요", "다섯번째인가봐요", "육번째", "칠", "네이밍", "귀찮아",
-				"칸을", "넘기자", "영", "차", "영", "차", "영", "차" };
 		for (String str : rooms) {
 			String str_room = str + " - 1/2";
 			listmodel_room.addElement(str_room);
 		}
+		//
 		jlist_room = new JList<String>(listmodel_room);
 		jlist_room.setFont(Commons.getFont());
+		jlist_room.addMouseListener(event);
 		JScrollPane sp_room = new JScrollPane(jlist_room);
 		panel_center.add(sp_room, "Center");
 		panel_center.add(panel_label, "North");
@@ -98,8 +107,6 @@ public class MainUI implements ActionListener, WindowListener {
 		label_users.setFont(Commons.getFont());
 		DefaultListModel<String> listmodel_user = new DefaultListModel<String>();
 		// 1. test용 유저 추가
-		String[] users = { "이창민", "박준성", "오다빈", "박건희", "이창민", "박준성", "오다빈", "박건희", "이창민", "박준성", "오다빈", "박건희", "이창민",
-				"박준성", "오다빈", "박건희", "이창민", "박준성", "오다빈", "박건희", };
 		for (String str : users) {
 			listmodel_user.addElement(str);
 		}
@@ -129,7 +136,7 @@ public class MainUI implements ActionListener, WindowListener {
 		for (String str : str_btn) {
 			JButton btn = new JButton(str);
 			btn.setFont(Commons.getFont());
-			btn.addActionListener(this);
+			btn.addActionListener(event);
 			list_btn.add(btn);
 			panel_btn.add(btn);
 		}
@@ -142,53 +149,10 @@ public class MainUI implements ActionListener, WindowListener {
 	}
 
 	public void exit() {
-		System.exit(0);
-	}
-
-	@Override
-	public void actionPerformed(ActionEvent e) {
-		Object obj = e.getSource();
-	}
-
-	@Override
-	public void windowOpened(WindowEvent e) {
-		// TODO Auto-generated method stub
-
-	}
-
-	@Override
-	public void windowClosing(WindowEvent e) {
-		exit();
-	}
-
-	@Override
-	public void windowClosed(WindowEvent e) {
-		// TODO Auto-generated method stub
-
-	}
-
-	@Override
-	public void windowIconified(WindowEvent e) {
-		// TODO Auto-generated method stub
-
-	}
-
-	@Override
-	public void windowDeiconified(WindowEvent e) {
-		// TODO Auto-generated method stub
-
-	}
-
-	@Override
-	public void windowActivated(WindowEvent e) {
-		// TODO Auto-generated method stub
-
-	}
-
-	@Override
-	public void windowDeactivated(WindowEvent e) {
-		// TODO Auto-generated method stub
-
+		int answer = JOptionPane.showConfirmDialog(null, Commons.getMsg("정말로 종료하시겠습니까?"));
+		if (answer == 0) {
+			System.exit(0);
+		}
 	}
 
 	public static void main(String[] args) {

@@ -77,7 +77,7 @@ public class BoardListUI implements WindowListener {
 	}
 
 	public void exit() {
-		System.exit(0);
+		frame.dispose();
 	}
 
 	@Override
