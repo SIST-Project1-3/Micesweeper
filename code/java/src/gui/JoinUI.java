@@ -16,7 +16,7 @@ import javax.swing.JTextField;
 
 public class JoinUI implements ActionListener{
 	JFrame f;
-	JPanel north_panel, west_panel, center_panel, south_panel,
+	JPanel west_panel, center_panel, south_panel,
 		  label_panel, tf_panel, btn_panel, id_check_panel;
 	String[] joinlist = {"ID","PW","PW확인","닉네임"};
 	JButton join_btn, id_check_btn, cancel_btn;
@@ -27,7 +27,6 @@ public class JoinUI implements ActionListener{
 
 	public void init() {
 		f = new JFrame("회원가입");
-		north_panel = new JPanel();
 		west_panel = new JPanel();
 		center_panel = new JPanel();
 		south_panel = new JPanel();
@@ -35,10 +34,6 @@ public class JoinUI implements ActionListener{
 		tf_panel = new JPanel(new GridLayout(4, 1));
 		btn_panel = new JPanel(new FlowLayout());
 		id_check_panel = new JPanel(new FlowLayout());
-		
-		//상단의 회원가입 표시
-		JLabel north_label = new JLabel("회원가입");
-		north_label.setFont(Commons.getFont());
 		
 		//하단의 가입, 취소 버튼 생성
 		join_btn = new JButton("가입");
@@ -81,12 +76,10 @@ public class JoinUI implements ActionListener{
 		id_check_btn.addActionListener(this);
 		cancel_btn.addActionListener(this);
 		
-		north_panel.add(north_label);
 		west_panel.add(label_panel);
 		center_panel.add(tf_panel);
 		south_panel.add(btn_panel);
 		
-		f.add(BorderLayout.NORTH, north_panel);
 		f.add(BorderLayout.WEST, west_panel);
 		f.add(BorderLayout.CENTER, center_panel);
 		f.add(BorderLayout.SOUTH, south_panel);
