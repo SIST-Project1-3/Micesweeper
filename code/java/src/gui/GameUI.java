@@ -8,6 +8,9 @@ import java.awt.Dimension;
 
 import javax.swing.JPanel;
 import java.awt.GridLayout;
+import java.awt.Image;
+
+import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import java.awt.FlowLayout;
 import java.awt.Font;
@@ -71,6 +74,12 @@ public class GameUI {
 		bangjangpanel.add(bangjangpyosilabel);
 		
 		JPanel bangjangimagepanel = new JPanel();
+		ImageIcon icon = new ImageIcon("images/¡„.png");
+		Image img = icon.getImage();
+		Image changeImg = img.getScaledInstance(150, 150, Image.SCALE_SMOOTH);
+		ImageIcon changeIcon = new ImageIcon(changeImg);
+		JLabel img_label = new JLabel(changeIcon);
+	    bangjangimagepanel.add(img_label);
 		westpanel.add(bangjangimagepanel);
 		
 		JPanel bangjangprofilepanel = new JPanel();
@@ -82,9 +91,12 @@ public class GameUI {
 		bangjangidlabel.setFont(Commons.getFont());
 		bangjangprofilepanel.add(bangjangidlabel);
 		
+		JPanel panel_1 = new JPanel();
+		bangjangprofilepanel.add(panel_1);
+		
 		JButton watchprofilebtn = new JButton("«¡∑Œ«  ∫∏±‚");
-		watchprofilebtn.setFont(Commons.getFont());
-		bangjangprofilepanel.add(watchprofilebtn);
+		watchprofilebtn.setFont(new Font("∏º¿∫ ∞ÌµÒ", Font.BOLD, 12));
+		panel_1.add(watchprofilebtn);
 		JPanel centerpanel = new JPanel();
 		mainframe.getContentPane().add(centerpanel, BorderLayout.CENTER);
 		centerpanel.setLayout(new GridLayout(0, 1, 0, 0));
@@ -163,6 +175,12 @@ public class GameUI {
 		eastpanel.add(imsipanel);
 		
 		JPanel imagepanel = new JPanel();
+		ImageIcon icon2 = new ImageIcon("images/¡„.png");
+		Image img2 = icon2.getImage();
+		Image changeImg2 = img2.getScaledInstance(150, 150, Image.SCALE_SMOOTH);
+		ImageIcon changeIcon2 = new ImageIcon(changeImg2);
+		JLabel img_label2 = new JLabel(changeIcon2);
+	    imagepanel.add(img_label2);
 		eastpanel.add(imagepanel);
 		
 		JPanel profilepanel = new JPanel();
@@ -174,9 +192,12 @@ public class GameUI {
 		idlabel.setFont(Commons.getFont());
 		profilepanel.add(idlabel);
 		
-		JButton watchprofilebtn_1 = new JButton("«¡∑Œ«  ∫∏±‚");
-		watchprofilebtn_1.setFont(Commons.getFont());
-		profilepanel.add(watchprofilebtn_1);
+		JPanel panel_1_1 = new JPanel();
+		profilepanel.add(panel_1_1);
+		
+		JButton watchprofilebtn_2 = new JButton("«¡∑Œ«  ∫∏±‚");
+		watchprofilebtn_2.setFont(new Font("∏º¿∫ ∞ÌµÒ", Font.BOLD, 12));
+		panel_1_1.add(watchprofilebtn_2);
 	}
 
 }
