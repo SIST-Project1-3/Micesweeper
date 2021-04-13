@@ -2,6 +2,7 @@ package gui;
 
 import java.awt.BorderLayout;
 import java.awt.GridLayout;
+import java.awt.Image;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.MouseEvent;
@@ -11,6 +12,7 @@ import java.awt.event.WindowListener;
 import java.util.ArrayList;
 
 import javax.swing.DefaultListModel;
+import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
@@ -58,21 +60,18 @@ public class MainUI {
 	}
 
 	public JPanel createNorthPanel() {
-		JPanel panel_north = new JPanel(new GridLayout(2, 1));
+		JPanel panel_north = new JPanel();
 
-		JPanel panel_label1 = new JPanel();
-		JPanel panel_label2 = new JPanel();
+		JPanel panel_img = new JPanel();
 
-		JLabel label1 = new JLabel("Áã·ÚÃ£±â");
-		label1.setFont(Commons.getFont());
-		JLabel label2 = new JLabel("Game");
-		label2.setFont(Commons.getFont());
+		ImageIcon icon = new ImageIcon("images/Áã·ÚÃ£±â_·Î°í.png");
+		Image img = icon.getImage();
+		img = img.getScaledInstance(500, 100, Image.SCALE_SMOOTH);
+		JLabel label_img = new JLabel(new ImageIcon(img));
+		
+		panel_img.add(label_img);
 
-		panel_label1.add(label1);
-		panel_label2.add(label2);
-
-		panel_north.add(panel_label1);
-		panel_north.add(panel_label2);
+		panel_north.add(panel_img);
 		return panel_north;
 	}
 
