@@ -110,42 +110,40 @@ public class ProfileUI implements ActionListener{
 		//프로필 이미지 파일 수정 창 생성
 		//Toolkit.getDefaultToolkit().getImage("/Users/ohdavi/Downloads/쥐뢰찾기 이미지/고양이.png");
 		//FileChooser
-		f = new JFrame("닉네임 수정");
-		JPanel update_panel= new JPanel();
-		JPanel nick_panel= new JPanel();
-		JPanel label_panel = new JPanel(new GridLayout(2,1));
-		JPanel tf_panel = new JPanel(new GridLayout(2,1));
-		JPanel btn_panel = new JPanel();
-		JLabel update_label = new JLabel("닉네임 수정");
-		JLabel original_label = new JLabel("기존 닉네임");
-		JLabel change_label = new JLabel("변경 닉네임");
-		JTextField tf_original= new JTextField(15);
-		JTextField tf_change= new JTextField(15);
+		f = new JFrame("프로필 수정");
+		JPanel find_panel= new JPanel();
+		JPanel south_panel = new JPanel();
+		JButton btn_find = new JButton("찾기");
 		JButton btn_update = new JButton("수정");
 		JButton btn_cancel = new JButton("취소");
+		btn_update.setFont(Commons.getFont());
+		btn_update.setFont(Commons.getFont());
+		btn_cancel.setFont(Commons.getFont());
+		find_panel.add(btn_find);
+		south_panel.add(btn_update);
+		south_panel.add(btn_cancel);
 		
+		f.add(BorderLayout.CENTER,find_panel);
+		f.add(BorderLayout.SOUTH,south_panel);
 		
+		f.addWindowListener(new WindowAdapter() {
+			public void windowClosing(WindowEvent e) {
+				f.dispose();
+			}
+		});
 		
-		
-		
-		
-		
-		
-		
-		
-		
-		
+		f.setResizable(false);
+		f.setSize(300, 150);
+		f.setVisible(true);
 	}
 	
 	public void nick_form() {
 		//닉네임 수정 창 생성
 		f = new JFrame("닉네임 수정");
-		JPanel update_panel= new JPanel();
 		JPanel nick_panel= new JPanel();
 		JPanel label_panel = new JPanel(new GridLayout(2,1));
 		JPanel tf_panel = new JPanel(new GridLayout(2,1));
 		JPanel btn_panel = new JPanel();
-		JLabel update_label = new JLabel("닉네임 수정");
 		JLabel original_label = new JLabel("기존 닉네임");
 		JLabel change_label = new JLabel("변경 닉네임");
 		JTextField tf_original= new JTextField(15);
@@ -153,10 +151,8 @@ public class ProfileUI implements ActionListener{
 		JButton btn_update = new JButton("수정");
 		JButton btn_cancel = new JButton("취소");
 		
-		update_label.setFont(Commons.getFont());
 		original_label.setFont(Commons.getFont());
 		change_label.setFont(Commons.getFont());
-		update_panel.add(update_label);
 		label_panel.add(original_label);
 		label_panel.add(change_label);
 		
@@ -170,7 +166,6 @@ public class ProfileUI implements ActionListener{
 		btn_panel.add(btn_update);
 		btn_panel.add(btn_cancel);
 		
-		f.add(BorderLayout.NORTH,update_panel);
 		f.add(BorderLayout.CENTER,nick_panel);
 		f.add(BorderLayout.SOUTH,btn_panel);
 		

@@ -15,6 +15,7 @@ import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JList;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTextArea;
@@ -148,7 +149,10 @@ public class MainUI {
 	}
 
 	public void exit() {
-		System.exit(0);
+		int answer = JOptionPane.showConfirmDialog(null, Commons.getMsg("정말로 종료하시겠습니까?"));
+		if (answer == 0) {
+			System.exit(0);
+		}
 	}
 
 	public static void main(String[] args) {
