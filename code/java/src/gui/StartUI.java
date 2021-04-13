@@ -1,11 +1,8 @@
 package gui;
 
 import java.awt.BorderLayout;
-import java.awt.Frame;
 import java.awt.GridLayout;
 import java.awt.Image;
-import java.awt.Label;
-import java.awt.Panel;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.WindowAdapter;
@@ -13,12 +10,14 @@ import java.awt.event.WindowEvent;
 
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
+import javax.swing.JFrame;
 import javax.swing.JLabel;
+import javax.swing.JPanel;
 import javax.swing.JTextField;
 
 public class StartUI implements ActionListener{
-	Frame f = new Frame();
-	Panel center_panel, south_panel, login_panel, btn_panel;
+	JFrame f = new JFrame();
+	JPanel center_panel, south_panel, login_panel, btn_panel;
 	JButton login_btn, join_btn;
 	
 	public StartUI() {
@@ -26,17 +25,17 @@ public class StartUI implements ActionListener{
 	}
 	
 	public void init() {
-		f = new Frame("Áã·ÚÃ£±â");
-		center_panel = new Panel(new BorderLayout());
-		south_panel = new Panel();
-		login_panel = new Panel();
-		btn_panel = new Panel();
-		Panel label_panel = new Panel(new GridLayout(2,1));
-		Panel tf_panel = new Panel(new GridLayout(2,1));
+		f = new JFrame("Áã·ÚÃ£±â");
+		center_panel = new JPanel(new BorderLayout());
+		south_panel = new JPanel();
+		login_panel = new JPanel();
+		btn_panel = new JPanel();
+		JPanel label_panel = new JPanel(new GridLayout(2,1));
+		JPanel tf_panel = new JPanel(new GridLayout(2,1));
 		
 		//ID, PW ÀÔ·ÂÃ¢ »ý¼º
-		Label id_label = new Label("ID");
-		Label pw_label = new Label("PW");
+		JLabel id_label = new JLabel("ID");
+		JLabel pw_label = new JLabel("PW");
 		JTextField id_tf = new JTextField(15);
 		JTextField pw_tf = new JTextField(15);
 		id_label.setFont(Commons.getFont());
@@ -110,5 +109,6 @@ public class StartUI implements ActionListener{
 	public static void main(String[] args) {
 		new StartUI();
 	}
+	
 }
 

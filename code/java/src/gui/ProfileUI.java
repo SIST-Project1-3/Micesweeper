@@ -48,9 +48,15 @@ public class ProfileUI implements ActionListener{
 		nick_update_btn.setFont(Commons.getFont());
 		exit_btn.setFont(Commons.getFont());
 		
-		JTextArea nick_ta = new JTextArea(1,13);
+		JLabel nick_lable = new JLabel("닉네임");
+		JLabel score_lable = new JLabel("전적");
+		JTextArea nick_ta = new JTextArea(1,17);
+		JTextArea score_ta = new JTextArea(1,17);
+		nick_lable.setFont(Commons.getFont());
+		score_lable.setFont(Commons.getFont());
+		nick_panel.add(nick_lable);
 		nick_panel.add(nick_ta);
-		JTextArea score_ta = new JTextArea(1,20);
+		score_panel.add(score_lable);
 		score_panel.add(score_ta);
 		
 		file_panel.add(file_change_btn);
@@ -104,6 +110,31 @@ public class ProfileUI implements ActionListener{
 		//프로필 이미지 파일 수정 창 생성
 		//Toolkit.getDefaultToolkit().getImage("/Users/ohdavi/Downloads/쥐뢰찾기 이미지/고양이.png");
 		//FileChooser
+		f = new JFrame("닉네임 수정");
+		JPanel update_panel= new JPanel();
+		JPanel nick_panel= new JPanel();
+		JPanel label_panel = new JPanel(new GridLayout(2,1));
+		JPanel tf_panel = new JPanel(new GridLayout(2,1));
+		JPanel btn_panel = new JPanel();
+		JLabel update_label = new JLabel("닉네임 수정");
+		JLabel original_label = new JLabel("기존 닉네임");
+		JLabel change_label = new JLabel("변경 닉네임");
+		JTextField tf_original= new JTextField(15);
+		JTextField tf_change= new JTextField(15);
+		JButton btn_update = new JButton("수정");
+		JButton btn_cancel = new JButton("취소");
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
 	}
 	
 	public void nick_form() {
@@ -167,11 +198,16 @@ public class ProfileUI implements ActionListener{
 		ns_panel = new JPanel(new GridLayout(2,1));
 		exit_panel = new JPanel();
 		
+		JLabel nick_lable = new JLabel("닉네임");
+		JLabel score_lable = new JLabel("전적");
 		JTextArea nick_ta = new JTextArea(1,17);
+		JTextArea score_ta = new JTextArea(1,17);
+		nick_lable.setFont(Commons.getFont());
+		score_lable.setFont(Commons.getFont());
+		nick_panel.add(nick_lable);
 		nick_panel.add(nick_ta);
 		ns_panel.add(nick_panel);
-		
-		JTextArea score_ta = new JTextArea(1,17);
+		score_panel.add(score_lable);
 		score_panel.add(score_ta);
 		ns_panel.add(score_panel);
 		
@@ -204,5 +240,8 @@ public class ProfileUI implements ActionListener{
 		f.setVisible(true);
 	}
 
-		
+	public static void main(String[] args) {
+		new ProfileUI();
+	}
+	
 }
