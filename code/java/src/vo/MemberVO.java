@@ -2,6 +2,6 @@ package vo;
 
 // DAO를 통해 DB에 접근하기위한 VO
 public class MemberVO {
-	String id, pw, name;
+	String id, pw, name, rdate;
 	int win, lose;
 }

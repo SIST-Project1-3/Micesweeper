@@ -1,8 +1,8 @@
 package vo;
 
 public class BoardVO {
-	String title, content, author, date;
-	int view;
+	String title, content, author, wdate;
+	int no, viewcount;
 
 	public String getTitle() {
 		return title;
@@ -29,18 +29,18 @@ public class BoardVO {
 	}
 
 	public String getDate() {
-		return date;
+		return wdate;
 	}
 
 	public void setDate(String date) {
-		this.date = date;
+		this.wdate = date;
 	}
 
 	public int getView() {
-		return view;
+		return viewcount;
 	}
 
 	public void setView(int view) {
-		this.view = view;
+		this.viewcount = view;
 	}
 }
