@@ -29,7 +29,7 @@ public class GameUI {
 	private JTextField textField;
 
 	/**
-	 * Launch the application.
+	 * Launch the application
 	 */
 	public static void main(String[] args) {
 		EventQueue.invokeLater(new Runnable() {
@@ -45,14 +45,14 @@ public class GameUI {
 	}
 
 	/**
-	 * Create the application.
+	 * Create the application
 	 */
 	public GameUI() {
 		initialize();
 	}
 
 	/**
-	 * Initialize the contents of the frame.
+	 * Initialize the contents of the frame
 	 */
 	private void initialize() {
 		
