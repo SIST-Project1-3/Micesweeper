@@ -15,10 +15,13 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
 
-public class StartUI implements ActionListener{
+public class StartUI{
 	JFrame f = new JFrame();
 	JPanel center_panel, south_panel, login_panel, btn_panel;
 	JButton login_btn, join_btn;
+	JTextField id_tf;
+	JTextField pw_tf;
+	StartUIEvent loginEvent = new StartUIEvent(this);
 	
 	public StartUI() {
 		init();
@@ -36,8 +39,8 @@ public class StartUI implements ActionListener{
 		//ID, PW 입력창 생성
 		JLabel id_label = new JLabel("ID");
 		JLabel pw_label = new JLabel("PW");
-		JTextField id_tf = new JTextField(15);
-		JTextField pw_tf = new JTextField(15);
+		id_tf = new JTextField(15);
+		pw_tf = new JTextField(15);
 		id_label.setFont(Commons.getFont());
 		pw_label.setFont(Commons.getFont());
 		label_panel.add(id_label);
@@ -68,8 +71,8 @@ public class StartUI implements ActionListener{
 		south_panel.add(btn_panel);
 		
 		//로그인, 회원가입 버튼 액션이벤트
-		login_btn.addActionListener(this);
-		join_btn.addActionListener(this);
+		login_btn.addActionListener(loginEvent);
+		join_btn.addActionListener(loginEvent);
 		
 		f.add(BorderLayout.CENTER,center_panel);
 		f.add(BorderLayout.SOUTH,south_panel);
@@ -87,27 +90,11 @@ public class StartUI implements ActionListener{
 		
 	}
 
-	@Override
-	public void actionPerformed(ActionEvent e) {
-		Object obj = e.getSource();
-		if(obj == login_btn) {
-			login_check();
-		}else if(obj == join_btn) {
-			new JoinUI();
-		}
-	}
-	
-	//로그인 유효성 검사
-	public void login_check() {
-		//데이터베이스 연결해서 비교
-		//아이디,패스워드 틀렸을 시 '아이디/패스워드가 틀렸습니다.'메세지 띄우기
-		
-		
-	}
 	
 	public static void main(String[] args) {
 		new StartUI();
 	}
+
 	
 }
 
