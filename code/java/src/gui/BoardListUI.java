@@ -32,7 +32,7 @@ public class BoardListUI implements WindowListener {
 	// Method
 	private void initialize() {
 		frame = new JFrame();
-		frame.setTitle("Ä¿¹Â´ÏÆ¼");
+		frame.setTitle("ì»¤ë®¤ë‹ˆí‹°");
 
 		frame.add(createNorthPanel(), "North");
 		frame.add(createCenterPanel(), "Center");
@@ -46,10 +46,10 @@ public class BoardListUI implements WindowListener {
 
 	public JPanel createNorthPanel() {
 		JPanel panel = new JPanel();
-		String[] searchTarget = { "Á¦¸ñ", "±Û¾´ÀÌ" };
+		String[] searchTarget = { "ì œëª©", "ê¸€ì“´ì´" };
 		cb_search = new JComboBox<String>(searchTarget);
 		tf_search = new JTextField(10);
-		btn_search = new JButton("°Ë»ö");
+		btn_search = new JButton("ê²€ìƒ‰");
 		panel.add(cb_search);
 		panel.add(tf_search);
 		panel.add(btn_search);
@@ -58,7 +58,7 @@ public class BoardListUI implements WindowListener {
 
 	public JPanel createCenterPanel() {
 		JPanel panel = new JPanel(new BorderLayout());
-		String[] colNames = { "±Û¹øÈ£", "Á¦¸ñ", "±Û¾´ÀÌ", "Á¶È¸¼ö" };
+		String[] colNames = { "ê¸€ë²ˆí˜¸", "ì œëª©", "ê¸€ì“´ì´", "ì¡°íšŒìˆ˜" };
 		DefaultTableModel model = new DefaultTableModel(colNames, 0);
 		JTable table = new JTable(model);
 
@@ -71,7 +71,7 @@ public class BoardListUI implements WindowListener {
 
 	public JPanel createSouthPanel() {
 		JPanel panel = new JPanel(new FlowLayout(FlowLayout.RIGHT));
-		btn_write = new JButton("±Û¾²±â");
+		btn_write = new JButton("ê¸€ì“°ê¸°");
 		panel.add(btn_write);
 		return panel;
 	}

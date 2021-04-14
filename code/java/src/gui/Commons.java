@@ -8,22 +8,22 @@ import javax.swing.JButton;
 public class Commons {
 
 	public static Font getFont() {
-		Font font = new Font("¸¼Àº °íµñ", Font.BOLD,12);
+		Font font = new Font("ë§‘ì€ ê³ ë”•", Font.BOLD,12);
 		return font;
 	}
 	
 	
 	public static JButton getJButton(String name) {
-		Font font = new Font("¸¼Àº °íµñ", Font.BOLD,14);
+		Font font = new Font("ë§‘ì€ ê³ ë”•", Font.BOLD,14);
 		JButton button = new JButton(name);
 		button.setFont(font);
 		return button;
 	}
 	
 	
-	/** ¸Ş¼¼Áö Ãâ·Â **/
+	/** ë©”ì„¸ì§€ ì¶œë ¥ **/
 	public static Label getMsg(String msg) {
-		Font font = new Font("¸¼Àº °íµñ", Font.BOLD,12);
+		Font font = new Font("ë§‘ì€ ê³ ë”•", Font.BOLD,12);
 		Label label = new Label(msg);
 		label.setFont(font);
 

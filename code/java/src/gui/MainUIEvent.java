@@ -21,16 +21,16 @@ public class MainUIEvent implements ActionListener, WindowListener, MouseListene
 	@Override
 	public void actionPerformed(ActionEvent e) {
 		Object obj = e.getSource();
-		if (obj == ui.list_btn.get(0)) {// ¹æ »ı¼º
+		if (obj == ui.list_btn.get(0)) {// ë°© ìƒì„±
 			new CreateRoomUI();
-		} else if (obj == ui.list_btn.get(1)) { // ³» ±â·Ï
+		} else if (obj == ui.list_btn.get(1)) { // ë‚´ ê¸°ë¡
 			new ProfileUI();
-		} else if (obj == ui.list_btn.get(2)) { // Ä¿¹Â´ÏÆ¼
+		} else if (obj == ui.list_btn.get(2)) { // ì»¤ë®¤ë‹ˆí‹°
 			new BoardListUI();
-		} else if (obj == ui.list_btn.get(3)) { // °ÔÀÓÁ¾·á
+		} else if (obj == ui.list_btn.get(3)) { // ê²Œì„ì¢…ë£Œ
 			ui.exit();
 		} else if(obj== ui.btn_send || obj == ui.tf_chat) {
-			// Ã¤ÆÃ Àü¼Û
+			// ì±„íŒ… ì „ì†¡
 		}
 	}
 
@@ -78,11 +78,11 @@ public class MainUIEvent implements ActionListener, WindowListener, MouseListene
 	@Override
 	public void mouseClicked(MouseEvent e) {
 		JList<String> list = (JList<String>) e.getSource();
-		if (e.getClickCount() == 2) { // ´õºíÅ¬¸¯
+		if (e.getClickCount() == 2) { // ë”ë¸”í´ë¦­
 			int index = list.locationToIndex(e.getPoint());
-			int answer = JOptionPane.showConfirmDialog(null, Commons.getMsg(ui.rooms[index] + "¿¡ ÀÔÀåÇÏ½Ã°Ú½À´Ï±î?"));
+			int answer = JOptionPane.showConfirmDialog(null, Commons.getMsg(ui.rooms[index] + "ì— ì…ì¥í•˜ì‹œê² ìŠµë‹ˆê¹Œ?"));
 			if (answer == 0) {
-				JOptionPane.showMessageDialog(null, Commons.getMsg("¹æ ÀÔÀå"));
+				JOptionPane.showMessageDialog(null, Commons.getMsg("ë°© ì…ì¥"));
 				new GameUI();
 			}
 		}

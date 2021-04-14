@@ -25,20 +25,20 @@ public class BoardWriteUI {
 		frame = new JFrame();
 
 		JPanel panel_north = new JPanel();
-		JLabel label_north = new JLabel("Ä¿¹Â´ÏÆ¼");
+		JLabel label_north = new JLabel("ì»¤ë®¤ë‹ˆí‹°");
 		label_north.setFont(Commons.getFont());
 panel_north.add(label_north);
 		
 		JPanel panel_center = new JPanel(new BorderLayout());
 		JPanel panel_title = new JPanel(new BorderLayout());
-		JLabel label_title = new JLabel("Á¦¸ñ");
+		JLabel label_title = new JLabel("ì œëª©");
 		label_title.setFont(Commons.getFont());
 		JTextField tf_title = new JTextField();
 		panel_title.add(label_title, "West");
 		panel_title.add(tf_title, "Center");
 
 		JPanel panel_content = new JPanel(new BorderLayout());
-		JLabel label_content = new JLabel("³»¿ë");
+		JLabel label_content = new JLabel("ë‚´ìš©");
 		label_content.setFont(Commons.getFont());
 		JTextArea tf_content = new JTextArea();
 		panel_content.add(label_content, "West");
@@ -48,7 +48,7 @@ panel_north.add(label_north);
 		panel_center.add(panel_content, "Center");
 
 		JPanel panel_btn = new JPanel(new FlowLayout(FlowLayout.RIGHT));
-		btn_write = new JButton("ÀÛ¼º");
+		btn_write = new JButton("ìž‘ì„±");
 		btn_write.setFont(Commons.getFont());
 		panel_btn.add(btn_write, "East");
 		

@@ -11,16 +11,16 @@ import javax.swing.JButton;
 import javax.swing.JTextField;
 
 public class CreateRoomUI {
-	Frame f = new Frame("¹æ»ı¼º");
+	Frame f = new Frame("ë°©ìƒì„±");
 	Panel p_north = new Panel();
 	Panel p_center = new Panel();
 	Panel p_south = new Panel();
 	Panel p_roomName = new Panel();
-	Label l_roomCreate = new Label("¹æ»ı¼º");
-	Label l_roomName = new Label("¹æÀÌ¸§");
+	Label l_roomCreate = new Label("ë°©ìƒì„±");
+	Label l_roomName = new Label("ë°©ì´ë¦„");
 	JTextField tf_roomName = new JTextField(15);
-	JButton create = new JButton("»ı¼º");
-	JButton cancel = new JButton("Ãë¼Ò");
+	JButton create = new JButton("ìƒì„±");
+	JButton cancel = new JButton("ì·¨ì†Œ");
 	
 	public CreateRoomUI() {
 		createRoom();

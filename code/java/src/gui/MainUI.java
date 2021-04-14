@@ -35,10 +35,10 @@ public class MainUI {
 	JList<String> jlist_room;
 	MainUIEvent event = new MainUIEvent(this);
 
-	String[] rooms = { "Ã¹¹øÂ° ¹æÀÔ´Ï´Ù.", "µÎ¹øÂ° ¹æÀÌ°Åµç¿ä", "¼¼¹øÂ° ¹æÀÌ´õ¶ó±¸¿ä", "³×¹øÂ° ¹æÀÎ °Í °°¾Æ¿ä", "´Ù¼¸¹øÂ°ÀÎ°¡ºÁ¿ä", "À°¹øÂ°", "Ä¥", "³×ÀÌ¹Ö", "±ÍÂú¾Æ",
-			"Ä­À»", "³Ñ±âÀÚ", "¿µ", "Â÷", "¿µ", "Â÷", "¿µ", "Â÷" };
-	String[] users = { "ÀÌÃ¢¹Î", "¹ÚÁØ¼º", "¿À´Ùºó", "¹Ú°ÇÈñ", "ÀÌÃ¢¹Î", "¹ÚÁØ¼º", "¿À´Ùºó", "¹Ú°ÇÈñ", "ÀÌÃ¢¹Î", "¹ÚÁØ¼º", "¿À´Ùºó", "¹Ú°ÇÈñ", "ÀÌÃ¢¹Î", "¹ÚÁØ¼º",
-			"¿À´Ùºó", "¹Ú°ÇÈñ", "ÀÌÃ¢¹Î", "¹ÚÁØ¼º", "¿À´Ùºó", "¹Ú°ÇÈñ", };
+	String[] rooms = { "ì²«ë²ˆì§¸ ë°©ì…ë‹ˆë‹¤.", "ë‘ë²ˆì§¸ ë°©ì´ê±°ë“ ìš”", "ì„¸ë²ˆì§¸ ë°©ì´ë”ë¼êµ¬ìš”", "ë„¤ë²ˆì§¸ ë°©ì¸ ê²ƒ ê°™ì•„ìš”", "ë‹¤ì„¯ë²ˆì§¸ì¸ê°€ë´ìš”", "ìœ¡ë²ˆì§¸", "ì¹ ", "ë„¤ì´ë°", "ê·€ì°®ì•„",
+			"ì¹¸ì„", "ë„˜ê¸°ì", "ì˜", "ì°¨", "ì˜", "ì°¨", "ì˜", "ì°¨" };
+	String[] users = { "ì´ì°½ë¯¼", "ë°•ì¤€ì„±", "ì˜¤ë‹¤ë¹ˆ", "ë°•ê±´í¬", "ì´ì°½ë¯¼", "ë°•ì¤€ì„±", "ì˜¤ë‹¤ë¹ˆ", "ë°•ê±´í¬", "ì´ì°½ë¯¼", "ë°•ì¤€ì„±", "ì˜¤ë‹¤ë¹ˆ", "ë°•ê±´í¬", "ì´ì°½ë¯¼", "ë°•ì¤€ì„±",
+			"ì˜¤ë‹¤ë¹ˆ", "ë°•ê±´í¬", "ì´ì°½ë¯¼", "ë°•ì¤€ì„±", "ì˜¤ë‹¤ë¹ˆ", "ë°•ê±´í¬", };
 
 	// Constructor
 	public MainUI() {
@@ -49,7 +49,7 @@ public class MainUI {
 	private void initialize() {
 		frame = new JFrame();
 		frame.setLayout(new BorderLayout(10, 10));
-		frame.setTitle("Áã·ÚÃ£±â");
+		frame.setTitle("ì¥ë¢°ì°¾ê¸°");
 
 		frame.getContentPane().add(createNorthPanel(), "North");
 		frame.getContentPane().add(createCenterPanel(), "Center");
@@ -66,7 +66,7 @@ public class MainUI {
 
 		JPanel panel_img = new JPanel();
 
-		ImageIcon icon = new ImageIcon("images/Áã·ÚÃ£±â_·Î°í.png");
+		ImageIcon icon = new ImageIcon("images/ì¥ë¢°ì°¾ê¸°_ë¡œê³ .png");
 		Image img = icon.getImage();
 		img = img.getScaledInstance(500, 100, Image.SCALE_SMOOTH);
 		JLabel label_img = new JLabel(new ImageIcon(img));
@@ -83,14 +83,14 @@ public class MainUI {
 		JPanel panel_center = new JPanel(new BorderLayout());
 
 		JPanel panel_label = new JPanel(new GridLayout(1, 2));
-		JLabel label_name = new JLabel("¹æ Á¦¸ñ", SwingConstants.LEFT);
+		JLabel label_name = new JLabel("ë°© ì œëª©", SwingConstants.LEFT);
 		label_name.setFont(Commons.getFont());
-		JLabel label_capacity = new JLabel("ÀÎ¿ø ¼ö", SwingConstants.RIGHT);
+		JLabel label_capacity = new JLabel("ì¸ì› ìˆ˜", SwingConstants.RIGHT);
 		label_capacity.setFont(Commons.getFont());
 		panel_label.add(label_name);
 		panel_label.add(label_capacity);
 		listmodel_room = new DefaultListModel<String>();
-		// Å×½ºÆ®¿ë ¹æ ¸ñ·Ï »ı¼º
+		// í…ŒìŠ¤íŠ¸ìš© ë°© ëª©ë¡ ìƒì„±
 		for (String str : rooms) {
 			String str_room = str + " - 1/2";
 			listmodel_room.addElement(str_room);
@@ -104,10 +104,10 @@ public class MainUI {
 		panel_center.add(panel_label, "North");
 
 		JPanel panel_east = new JPanel(new BorderLayout());
-		JLabel label_users = new JLabel("Á¢¼ÓÁßÀÎ »ç¶÷");
+		JLabel label_users = new JLabel("ì ‘ì†ì¤‘ì¸ ì‚¬ëŒ");
 		label_users.setFont(Commons.getFont());
 		DefaultListModel<String> listmodel_user = new DefaultListModel<String>();
-		// 1. test¿ë À¯Àú Ãß°¡
+		// 1. testìš© ìœ ì € ì¶”ê°€
 		for (String str : users) {
 			listmodel_user.addElement(str);
 		}
@@ -129,7 +129,7 @@ public class MainUI {
 		JPanel panel_center = new JPanel(new BorderLayout());
 		JTextArea ta = new JTextArea();
 		JPanel panel_tf = new JPanel(new BorderLayout());
-		btn_send = new JButton("Àü¼Û");
+		btn_send = new JButton("ì „ì†¡");
 		btn_send.setFont(Commons.getFont());
 		tf_chat = new JTextField();
 		tf_chat.setFont(Commons.getFont());
@@ -141,7 +141,7 @@ public class MainUI {
 		panel_center.add(panel_tf, "South");
 
 		JPanel panel_btn = new JPanel(new GridLayout(4, 1));
-		String[] str_btn = { "¹æ »ı¼º", "³» ±â·Ï", "Ä¿¹Â´ÏÆ¼", "°ÔÀÓÁ¾·á" };
+		String[] str_btn = { "ë°© ìƒì„±", "ë‚´ ê¸°ë¡", "ì»¤ë®¤ë‹ˆí‹°", "ê²Œì„ì¢…ë£Œ" };
 		for (String str : str_btn) {
 			JButton btn = new JButton(str);
 			btn.setFont(Commons.getFont());
@@ -158,7 +158,7 @@ public class MainUI {
 	}
 
 	public void exit() {
-		int answer = JOptionPane.showConfirmDialog(null, Commons.getMsg("Á¤¸»·Î Á¾·áÇÏ½Ã°Ú½À´Ï±î?"));
+		int answer = JOptionPane.showConfirmDialog(null, Commons.getMsg("ì •ë§ë¡œ ì¢…ë£Œí•˜ì‹œê² ìŠµë‹ˆê¹Œ?"));
 		if (answer == 0) {
 			System.exit(0);
 		}

@@ -61,7 +61,7 @@ public class GameUI {
 		mainframe.setBounds(100,100,1280,720);
 		mainframe.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		mainframe.getContentPane().setLayout(new BorderLayout(0, 0));
-		mainframe.setTitle("¡„∑⁄√£±‚");
+		mainframe.setTitle("Ï•êÎ¢∞Ï∞æÍ∏∞");
 		
 		JPanel westpanel = new JPanel();
 		westpanel.setSize(300,500);
@@ -71,11 +71,11 @@ public class GameUI {
 		JPanel bangjangpanel = new JPanel();
 		westpanel.add(bangjangpanel);
 		
-		JLabel bangjangpyosilabel = new JLabel("πÊ¿Â «•Ω√øÎ");
+		JLabel bangjangpyosilabel = new JLabel("Î∞©Ïû• ÌëúÏãúÏö©");
 		bangjangpanel.add(bangjangpyosilabel);
 		
 		JPanel bangjangimagepanel = new JPanel();
-		ImageIcon icon = new ImageIcon("images/¡„.png");
+		ImageIcon icon = new ImageIcon("images/Ï•ê.png");
 		Image img = icon.getImage();
 		Image changeImg = img.getScaledInstance(150, 150, Image.SCALE_SMOOTH);
 		ImageIcon changeIcon = new ImageIcon(changeImg);
@@ -87,7 +87,7 @@ public class GameUI {
 		westpanel.add(bangjangprofilepanel);
 		bangjangprofilepanel.setLayout(new GridLayout(2, 1, 0, 20));
 		
-		JLabel bangjangidlabel = new JLabel("πÊ¿Â ID");
+		JLabel bangjangidlabel = new JLabel("Î∞©Ïû• ID");
 		bangjangidlabel.setHorizontalAlignment(SwingConstants.CENTER);
 		bangjangidlabel.setFont(Commons.getFont());
 		bangjangprofilepanel.add(bangjangidlabel);
@@ -95,8 +95,8 @@ public class GameUI {
 		JPanel panel_1 = new JPanel();
 		bangjangprofilepanel.add(panel_1);
 		
-		JButton watchprofilebtn = new JButton("«¡∑Œ«  ∫∏±‚");
-		watchprofilebtn.setFont(new Font("∏º¿∫ ∞ÌµÒ", Font.BOLD, 12));
+		JButton watchprofilebtn = new JButton("ÌîÑÎ°úÌïÑ Î≥¥Í∏∞");
+		watchprofilebtn.setFont(new Font("ÎßëÏùÄ Í≥†Îîï", Font.BOLD, 12));
 		panel_1.add(watchprofilebtn);
 		JPanel centerpanel = new JPanel();
 		mainframe.getContentPane().add(centerpanel, BorderLayout.CENTER);
@@ -133,7 +133,7 @@ public class GameUI {
 		southpanel.add(readypanel, BorderLayout.EAST);
 		readypanel.setLayout(new GridLayout(2, 0, 0, 20));
 		
-		JButton readybutton = new JButton("¡ÿ∫Ò");
+		JButton readybutton = new JButton("Ï§ÄÎπÑ");
 		readybutton.setFont(Commons.getFont());
 		readybutton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
@@ -141,7 +141,7 @@ public class GameUI {
 		});
 		readypanel.add(readybutton);
 		
-		JButton exitbutton = new JButton("≥™∞°±‚");
+		JButton exitbutton = new JButton("ÎÇòÍ∞ÄÍ∏∞");
 		exitbutton.setFont(Commons.getFont());
 		exitbutton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
@@ -176,7 +176,7 @@ public class GameUI {
 		eastpanel.add(imsipanel);
 		
 		JPanel imagepanel = new JPanel();
-		ImageIcon icon2 = new ImageIcon("images/¡„.png");
+		ImageIcon icon2 = new ImageIcon("images/Ï•ê.png");
 		Image img2 = icon2.getImage();
 		Image changeImg2 = img2.getScaledInstance(150, 150, Image.SCALE_SMOOTH);
 		ImageIcon changeIcon2 = new ImageIcon(changeImg2);
@@ -196,8 +196,8 @@ public class GameUI {
 		JPanel panel_1_1 = new JPanel();
 		profilepanel.add(panel_1_1);
 		
-		JButton watchprofilebtn_2 = new JButton("«¡∑Œ«  ∫∏±‚");
-		watchprofilebtn_2.setFont(new Font("∏º¿∫ ∞ÌµÒ", Font.BOLD, 12));
+		JButton watchprofilebtn_2 = new JButton("ÌîÑÎ°úÌïÑ Î≥¥Í∏∞");
+		watchprofilebtn_2.setFont(new Font("ÎßëÏùÄ Í≥†Îîï", Font.BOLD, 12));
 		panel_1_1.add(watchprofilebtn_2);
 	}
 

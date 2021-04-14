@@ -18,7 +18,7 @@ public class JoinUI implements ActionListener{
 	JFrame f;
 	JPanel west_panel, center_panel, south_panel,
 		  label_panel, tf_panel, btn_panel, id_check_panel;
-	String[] joinlist = {"ID","PW","PWÈ®ÀÎ","´Ğ³×ÀÓ"};
+	String[] joinlist = {"ID","PW","PWí™•ì¸","ë‹‰ë„¤ì„"};
 	JButton join_btn, id_check_btn, cancel_btn;
 	
 	public JoinUI() {
@@ -26,7 +26,7 @@ public class JoinUI implements ActionListener{
 	}
 
 	public void init() {
-		f = new JFrame("È¸¿ø°¡ÀÔ");
+		f = new JFrame("íšŒì›ê°€ì…");
 		west_panel = new JPanel();
 		center_panel = new JPanel();
 		south_panel = new JPanel();
@@ -35,29 +35,29 @@ public class JoinUI implements ActionListener{
 		btn_panel = new JPanel(new FlowLayout());
 		id_check_panel = new JPanel(new FlowLayout());
 		
-		//ÇÏ´ÜÀÇ °¡ÀÔ, Ãë¼Ò ¹öÆ° »ı¼º
-		join_btn = new JButton("°¡ÀÔ");
-		cancel_btn = new JButton("Ãë¼Ò");
+		//í•˜ë‹¨ì˜ ê°€ì…, ì·¨ì†Œ ë²„íŠ¼ ìƒì„±
+		join_btn = new JButton("ê°€ì…");
+		cancel_btn = new JButton("ì·¨ì†Œ");
 		join_btn.setFont(Commons.getFont());
 		cancel_btn.setFont(Commons.getFont());
 		btn_panel.add(join_btn);
 		btn_panel.add(cancel_btn);
 		
-		//È¸¿ø°¡ÀÔ Á¤º¸ ÀÔ·ÂÃ¢ »ı¼ºÀ» À§ÇÑ for¹®
-		//ÅØ½ºÆ®ÇÊµå¿¡ Æ÷Ä¿½º ¸ÂÃâ±î..?
+		//íšŒì›ê°€ì… ì •ë³´ ì…ë ¥ì°½ ìƒì„±ì„ ìœ„í•œ forë¬¸
+		//í…ìŠ¤íŠ¸í•„ë“œì— í¬ì»¤ìŠ¤ ë§ì¶œê¹Œ..?
 		for(String join : joinlist) {
 			JLabel join_label = new JLabel(join);
 			join_label.setFont(Commons.getFont());
 			JPanel l_panel = new JPanel(new FlowLayout(FlowLayout.LEFT,0,7));
 			JPanel t_panel = new JPanel(new FlowLayout(FlowLayout.LEFT));
 	
-			//Áßº¹È®ÀÎ ¹öÆ°À» IDÅØ½ºÆ®ÇÊµå ¿·¿¡ »ı¼ºÇÏ±â À§ÇÑ if¹®
+			//ì¤‘ë³µí™•ì¸ ë²„íŠ¼ì„ IDí…ìŠ¤íŠ¸í•„ë“œ ì˜†ì— ìƒì„±í•˜ê¸° ìœ„í•œ ifë¬¸
 			if(join.equals("ID")) {
 				l_panel.add(join_label);
 				label_panel.add(l_panel);
 				
 				JTextField join_tf = new JTextField(15);
-				id_check_btn = new JButton("Áßº¹È®ÀÎ");
+				id_check_btn = new JButton("ì¤‘ë³µí™•ì¸");
 				id_check_btn.setFont(Commons.getFont());
 				id_check_panel.add(join_tf);
 				id_check_panel.add(id_check_btn);
@@ -84,14 +84,14 @@ public class JoinUI implements ActionListener{
 		f.add(BorderLayout.CENTER, center_panel);
 		f.add(BorderLayout.SOUTH, south_panel);
 		
-		//È¸¿ø°¡ÀÔÃ¢ Á¾·á
+		//íšŒì›ê°€ì…ì°½ ì¢…ë£Œ
 		f.addWindowListener(new WindowAdapter() {
 			public void windowClosing(WindowEvent e) {
 				f.dispose();
 			}
 		});
 		
-		f.setResizable(false);	//Ã¢Å©±â º¯°æ ¸·¾Æ³õÀ½
+		f.setResizable(false);	//ì°½í¬ê¸° ë³€ê²½ ë§‰ì•„ë†“ìŒ
 		f.setSize(400, 300);
 		f.setVisible(true);
 	}
@@ -102,20 +102,20 @@ public class JoinUI implements ActionListener{
 		if(obj == id_check_btn) {
 			id_check();
 		}else if(obj == join_btn) {
-			//È¸¿ø°¡ÀÔ ÀÔ·ÂÁ¤º¸ ÀúÀå
-			//°¡ÀÔ¼º°ø½Ã 'È¸¿ø°¡ÀÔÀ» ¿Ï·áÇß½À´Ï´Ù' ¸Ş¼¼Áö »ı¼º
+			//íšŒì›ê°€ì… ì…ë ¥ì •ë³´ ì €ì¥
+			//ê°€ì…ì„±ê³µì‹œ 'íšŒì›ê°€ì…ì„ ì™„ë£Œí–ˆìŠµë‹ˆë‹¤' ë©”ì„¸ì§€ ìƒì„±
 			
 		}else if(obj == cancel_btn) {
-			//È¸¿ø°¡ÀÔÃ¢ Á¾·á
+			//íšŒì›ê°€ì…ì°½ ì¢…ë£Œ
 			f.dispose();
 		}
 	}
 	
-	//ID Áßº¹ Ã¼Å©
+	//ID ì¤‘ë³µ ì²´í¬
 	public void id_check() {
-		//µ¥ÀÌÅÍº£ÀÌ½º ¿¬°áÇØ¼­ ºñ±³ or  UNIQUE »ç¿ë?
-		//¾ÆÀÌµğ Ã¼Å© ÈÄ '»ç¿ë°¡´ÉÇÑ ¾ÆÀÌµğ ÀÔ´Ï´Ù' ¶Ç´Â 'Áßº¹µÈ ¾ÆÀÌµğ ÀÔ´Ï´Ù' ¸Ş¼¼Áö »ı¼º
-		//ÅØ½ºÆ®ÇÊµå¿¡ Æ÷Ä¿½º ¸ÂÃâ±î..?
+		//ë°ì´í„°ë² ì´ìŠ¤ ì—°ê²°í•´ì„œ ë¹„êµ or  UNIQUE ì‚¬ìš©?
+		//ì•„ì´ë”” ì²´í¬ í›„ 'ì‚¬ìš©ê°€ëŠ¥í•œ ì•„ì´ë”” ì…ë‹ˆë‹¤' ë˜ëŠ” 'ì¤‘ë³µëœ ì•„ì´ë”” ì…ë‹ˆë‹¤' ë©”ì„¸ì§€ ìƒì„±
+		//í…ìŠ¤íŠ¸í•„ë“œì— í¬ì»¤ìŠ¤ ë§ì¶œê¹Œ..?
 		
 		
 	}

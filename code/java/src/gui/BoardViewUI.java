@@ -35,7 +35,7 @@ public class BoardViewUI implements WindowListener {
 	// Method
 	private void initialize() {
 		frame = new JFrame();
-		frame.setTitle("Ä¿¹Â´ÏÆ¼");
+		frame.setTitle("ì»¤ë®¤ë‹ˆí‹°");
 
 		frame.add(createNorthPanel(), BorderLayout.NORTH);
 		frame.add(createCenterPanel(), BorderLayout.CENTER);
@@ -53,19 +53,19 @@ public class BoardViewUI implements WindowListener {
 		JPanel panel_author = new JPanel(new FlowLayout(FlowLayout.LEFT));
 		JPanel panel_view = new JPanel(new FlowLayout(FlowLayout.RIGHT));
 
-		JLabel label_title = new JLabel("Á¦¸ñ: " + article.getTitle());
+		JLabel label_title = new JLabel("ì œëª©: " + article.getTitle());
 		label_title.setFont(Commons.getFont());
 		panel_title.add(label_title);
 
-		JLabel label_date = new JLabel("ÀÛ¼ºÀÏ: " + article.getDate());
+		JLabel label_date = new JLabel("ì‘ì„±ì¼: " + article.getDate());
 		label_date.setFont(Commons.getFont());
 		panel_date.add(label_date);
 
-		JLabel label_author = new JLabel("±Û¾´ÀÌ: " + article.getAuthor());
+		JLabel label_author = new JLabel("ê¸€ì“´ì´: " + article.getAuthor());
 		label_author.setFont(Commons.getFont());
 		panel_author.add(label_author);
 
-		JLabel label_view = new JLabel("Á¶È¸¼ö: " + String.valueOf(article.getView()));
+		JLabel label_view = new JLabel("ì¡°íšŒìˆ˜: " + String.valueOf(article.getView()));
 		label_view.setFont(Commons.getFont());
 		panel_view.add(label_view);
 
@@ -90,18 +90,18 @@ public class BoardViewUI implements WindowListener {
 		JPanel panel = new JPanel(new BorderLayout());
 
 		JPanel panel_viewComment = new JPanel(new BorderLayout());
-		String[] colNames = { "ÀÛ¼ºÀÚ", "³»¿ë" };
+		String[] colNames = { "ì‘ì„±ì", "ë‚´ìš©" };
 		DefaultTableModel model = new DefaultTableModel(colNames, 0);
 		JTable table = new JTable(model);
-		table.getColumn("ÀÛ¼ºÀÚ").setPreferredWidth(100);
-		table.getColumn("³»¿ë").setPreferredWidth(600);
+		table.getColumn("ì‘ì„±ì").setPreferredWidth(100);
+		table.getColumn("ë‚´ìš©").setPreferredWidth(600);
 		JScrollPane sp_table = new JScrollPane(table);
 		sp_table.setPreferredSize(new Dimension(500, 50));
 		panel_viewComment.add(sp_table);
 
 		JPanel panel_writeComment = new JPanel(new BorderLayout());
 		tf_write = new JTextField();
-		btn_write = new JButton("´ñ±Û ÀÛ¼º");
+		btn_write = new JButton("ëŒ“ê¸€ ì‘ì„±");
 		btn_write.setFont(Commons.getFont());
 		panel_writeComment.add(tf_write);
 		panel_writeComment.add(btn_write, "East");
@@ -158,11 +158,11 @@ public class BoardViewUI implements WindowListener {
 
 	public static void main(String[] args) {
 		BoardVO article = new BoardVO();
-		article.setTitle("Á¦¸ñ");
-		article.setDate("¿À´Ã");
-		article.setAuthor("ÀÌÃ¢¹Î");
+		article.setTitle("ì œëª©");
+		article.setDate("ì˜¤ëŠ˜");
+		article.setAuthor("ì´ì°½ë¯¼");
 		article.setView(303);
-		article.setContent("³»¿ëÀÔ´Ï´Ù");
+		article.setContent("ë‚´ìš©ì…ë‹ˆë‹¤");
 		new BoardViewUI(article);
 	}
 }
