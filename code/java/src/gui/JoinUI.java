@@ -3,8 +3,6 @@ package gui;
 import java.awt.BorderLayout;
 import java.awt.FlowLayout;
 import java.awt.GridLayout;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
 
@@ -14,12 +12,14 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
 
-public class JoinUI implements ActionListener{
+public class JoinUI {
+	JoinUIEvent joinEvent = new JoinUIEvent(this);
 	JFrame f;
 	JPanel west_panel, center_panel, south_panel,
 		  label_panel, tf_panel, btn_panel, id_check_panel;
-	String[] joinlist = {"ID","PW","PW확인","닉네임"};
+	String[] joinlist = {"ID","PW","PW확인"};
 	JButton join_btn, id_check_btn, cancel_btn;
+	JTextField join_tf;
 	
 	public JoinUI() {
 		init();
@@ -56,7 +56,7 @@ public class JoinUI implements ActionListener{
 				l_panel.add(join_label);
 				label_panel.add(l_panel);
 				
-				JTextField join_tf = new JTextField(15);
+				join_tf = new JTextField(15);
 				id_check_btn = new JButton("중복확인");
 				id_check_btn.setFont(Commons.getFont());
 				id_check_panel.add(join_tf);
@@ -64,7 +64,7 @@ public class JoinUI implements ActionListener{
 				tf_panel.add(id_check_panel);
 				
 			}else {
-				JTextField join_tf = new JTextField(23);
+				join_tf = new JTextField(23);
 				l_panel.add(join_label);
 				t_panel.add(join_tf);
 				label_panel.add(l_panel);
@@ -72,9 +72,9 @@ public class JoinUI implements ActionListener{
 			}
 		}
 		
-		join_btn.addActionListener(this);
-		id_check_btn.addActionListener(this);
-		cancel_btn.addActionListener(this);
+		join_btn.addActionListener(joinEvent);
+		id_check_btn.addActionListener(joinEvent);
+		cancel_btn.addActionListener(joinEvent);
 		
 		west_panel.add(label_panel);
 		center_panel.add(tf_panel);
@@ -92,36 +92,13 @@ public class JoinUI implements ActionListener{
 		});
 		
 		f.setResizable(false);	//창크기 변경 막아놓음
-		f.setSize(400, 300);
+		f.setSize(400, 200);
 		f.setVisible(true);
 	}
-
-	@Override
-	public void actionPerformed(ActionEvent e) {
-		Object obj = e.getSource();
-		if(obj == id_check_btn) {
-			id_check();
-		}else if(obj == join_btn) {
-			//회원가입 입력정보 저장
-			//가입성공시 '회원가입을 완료했습니다' 메세지 생성
-			
-		}else if(obj == cancel_btn) {
-			//회원가입창 종료
-			f.dispose();
-		}
-	}
 	
-	//ID 중복 체크
-	public void id_check() {
-		//데이터베이스 연결해서 비교 or  UNIQUE 사용?
-		//아이디 체크 후 '사용가능한 아이디 입니다' 또는 '중복된 아이디 입니다' 메세지 생성
-		//텍스트필드에 포커스 맞출까..?
-		
-		
-	}
-		
 	public static void main(String[] args) {
 		new JoinUI();
 	}
+	
 	
 }

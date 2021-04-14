@@ -11,13 +11,11 @@ import javax.swing.JButton;
 import javax.swing.JTextField;
 
 public class CreateRoomUI {
-	Frame f = new Frame("방생성");
-	Panel p_north = new Panel();
+	Frame f = new Frame("방 생성");
 	Panel p_center = new Panel();
 	Panel p_south = new Panel();
 	Panel p_roomName = new Panel();
-	Label l_roomCreate = new Label("방생성");
-	Label l_roomName = new Label("방이름");
+	Label l_roomName = new Label("방 이름");
 	JTextField tf_roomName = new JTextField(15);
 	JButton create = new JButton("생성");
 	JButton cancel = new JButton("취소");
@@ -27,9 +25,6 @@ public class CreateRoomUI {
 	}
 	
 	public void createRoom() {
-		l_roomCreate.setFont(Commons.getFont());
-		p_north.add(l_roomCreate);
-		
 		l_roomName.setFont(Commons.getFont());
 		p_roomName.add(l_roomName);
 		p_roomName.add(tf_roomName);
@@ -40,7 +35,6 @@ public class CreateRoomUI {
 		p_south.add(create);
 		p_south.add(cancel);
 		
-		f.add(BorderLayout.NORTH,p_north);
 		f.add(BorderLayout.CENTER,p_center);
 		f.add(BorderLayout.SOUTH,p_south);
 		
@@ -51,7 +45,7 @@ public class CreateRoomUI {
 		});
 		
 		f.setResizable(false);
-		f.setSize(300, 150);
+		f.setSize(300, 100);
 		f.setVisible(true);
 		
 	}

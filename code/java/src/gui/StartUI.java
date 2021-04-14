@@ -59,7 +59,6 @@ public class StartUI{
 		btn_panel.add(join_btn);
 		
 		//이미지 삽입 & 크기조절
-		//ImageIcon icon = new ImageIcon("images/쥐뢰찾기(선있음).png");
 		ImageIcon icon = new ImageIcon("images/쥐뢰찾기(선없음).png");
 		Image img = icon.getImage();
 		Image changeImg = img.getScaledInstance(700, 650, Image.SCALE_SMOOTH);
@@ -70,7 +69,7 @@ public class StartUI{
 		center_panel.add(BorderLayout.SOUTH,login_panel);
 		south_panel.add(btn_panel);
 		
-		//로그인, 회원가입 버튼 액션이벤트
+		//StartUIEvent 연결
 		login_btn.addActionListener(loginEvent);
 		join_btn.addActionListener(loginEvent);
 		
@@ -90,7 +89,6 @@ public class StartUI{
 		
 	}
 
-	
 	public static void main(String[] args) {
 		new StartUI();
 	}
