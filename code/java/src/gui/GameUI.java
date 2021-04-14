@@ -61,6 +61,7 @@ public class GameUI {
 		mainframe.setBounds(100,100,1280,720);
 		mainframe.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		mainframe.getContentPane().setLayout(new BorderLayout(0, 0));
+		mainframe.setTitle("Áã·ÚÃ£±â");
 		
 		JPanel westpanel = new JPanel();
 		westpanel.setSize(300,500);
