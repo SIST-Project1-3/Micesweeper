@@ -25,7 +25,7 @@ public class StartUI implements ActionListener{
 	}
 	
 	public void init() {
-		f = new JFrame("Áã·ÚÃ£±â");
+		f = new JFrame("ì¥ë¢°ì°¾ê¸°");
 		center_panel = new JPanel(new BorderLayout());
 		south_panel = new JPanel();
 		login_panel = new JPanel();
@@ -33,7 +33,7 @@ public class StartUI implements ActionListener{
 		JPanel label_panel = new JPanel(new GridLayout(2,1));
 		JPanel tf_panel = new JPanel(new GridLayout(2,1));
 		
-		//ID, PW ÀÔ·ÂÃ¢ »ı¼º
+		//ID, PW ì…ë ¥ì°½ ìƒì„±
 		JLabel id_label = new JLabel("ID");
 		JLabel pw_label = new JLabel("PW");
 		JTextField id_tf = new JTextField(15);
@@ -47,17 +47,17 @@ public class StartUI implements ActionListener{
 		login_panel.add(label_panel);
 		login_panel.add(tf_panel);
 		
-		//ÇÏ´ÜÀÇ ·Î±×ÀÎ È¸¿ø°¡ÀÔ ¹öÆ° »ı¼º
-		login_btn = new JButton("·Î±×ÀÎ");
-		join_btn = new JButton("È¸¿ø°¡ÀÔ");
+		//í•˜ë‹¨ì˜ ë¡œê·¸ì¸ íšŒì›ê°€ì… ë²„íŠ¼ ìƒì„±
+		login_btn = new JButton("ë¡œê·¸ì¸");
+		join_btn = new JButton("íšŒì›ê°€ì…");
 		login_btn.setFont(Commons.getFont());
 		join_btn.setFont(Commons.getFont());
 		btn_panel.add(login_btn);
 		btn_panel.add(join_btn);
 		
-		//ÀÌ¹ÌÁö »ğÀÔ & Å©±âÁ¶Àı
-		//ImageIcon icon = new ImageIcon("images/Áã·ÚÃ£±â(¼±ÀÖÀ½).png");
-		ImageIcon icon = new ImageIcon("images/Áã·ÚÃ£±â(¼±¾øÀ½).png");
+		//ì´ë¯¸ì§€ ì‚½ì… & í¬ê¸°ì¡°ì ˆ
+		//ImageIcon icon = new ImageIcon("images/ì¥ë¢°ì°¾ê¸°(ì„ ìˆìŒ).png");
+		ImageIcon icon = new ImageIcon("images/ì¥ë¢°ì°¾ê¸°(ì„ ì—†ìŒ).png");
 		Image img = icon.getImage();
 		Image changeImg = img.getScaledInstance(700, 650, Image.SCALE_SMOOTH);
 		ImageIcon changeIcon = new ImageIcon(changeImg);
@@ -67,18 +67,18 @@ public class StartUI implements ActionListener{
 		center_panel.add(BorderLayout.SOUTH,login_panel);
 		south_panel.add(btn_panel);
 		
-		//·Î±×ÀÎ, È¸¿ø°¡ÀÔ ¹öÆ° ¾×¼ÇÀÌº¥Æ®
+		//ë¡œê·¸ì¸, íšŒì›ê°€ì… ë²„íŠ¼ ì•¡ì…˜ì´ë²¤íŠ¸
 		login_btn.addActionListener(this);
 		join_btn.addActionListener(this);
 		
 		f.add(BorderLayout.CENTER,center_panel);
 		f.add(BorderLayout.SOUTH,south_panel);
 		
-		f.setResizable(false);	//Ã¢Å©±â º¯°æ ¸·¾Æ³õÀ½
+		f.setResizable(false);	//ì°½í¬ê¸° ë³€ê²½ ë§‰ì•„ë†“ìŒ
 		f.setSize(700, 700);
 		f.setVisible(true);
 		
-		//À©µµ¿ì Á¾·á ÀÌº¥Æ®	
+		//ìœˆë„ìš° ì¢…ë£Œ ì´ë²¤íŠ¸	
 		f.addWindowListener(new WindowAdapter() {
 			public void windowClosing(WindowEvent e) {
 			System.exit(0);
@@ -97,10 +97,10 @@ public class StartUI implements ActionListener{
 		}
 	}
 	
-	//·Î±×ÀÎ À¯È¿¼º °Ë»ç
+	//ë¡œê·¸ì¸ ìœ íš¨ì„± ê²€ì‚¬
 	public void login_check() {
-		//µ¥ÀÌÅÍº£ÀÌ½º ¿¬°áÇØ¼­ ºñ±³
-		//¾ÆÀÌµğ,ÆĞ½º¿öµå Æ²·ÈÀ» ½Ã '¾ÆÀÌµğ/ÆĞ½º¿öµå°¡ Æ²·È½À´Ï´Ù.'¸Ş¼¼Áö ¶ç¿ì±â
+		//ë°ì´í„°ë² ì´ìŠ¤ ì—°ê²°í•´ì„œ ë¹„êµ
+		//ì•„ì´ë””,íŒ¨ìŠ¤ì›Œë“œ í‹€ë ¸ì„ ì‹œ 'ì•„ì´ë””/íŒ¨ìŠ¤ì›Œë“œê°€ í‹€ë ¸ìŠµë‹ˆë‹¤.'ë©”ì„¸ì§€ ë„ìš°ê¸°
 		
 		
 	}
