@@ -103,7 +103,6 @@ public class StartUI implements ActionListener{
 		//아이디,패스워드 틀렸을 시 '아이디/패스워드가 틀렸습니다.'메세지 띄우기
 		
 		
-		
 	}
 	
 	public static void main(String[] args) {
