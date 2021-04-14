@@ -1,6 +1,6 @@
 package vo;
 
-// ¼­¹ö¿Í Å¬¶óÀÌ¾ğÆ®°¡ Åë½ÅÇÒ ¶§ »ç¿ëÇÏ´Â VO
+// ì„œë²„ì™€ í´ë¼ì´ì–¸íŠ¸ê°€ í†µì‹ í•  ë•Œ ì‚¬ìš©í•˜ëŠ” VO
 public class MessegeVO {
 	int status;
 	String content;

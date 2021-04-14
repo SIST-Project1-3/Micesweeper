@@ -1,6 +1,6 @@
 package vo;
 
-// °ÔÀÓ ³» Á¤º¸µéÀ» ´ã±âÀ§ÇÑ VO
+// ê²Œì„ ë‚´ ì •ë³´ë“¤ì„ ë‹´ê¸°ìœ„í•œ VO
 public class GameVO {
 	int[] mice = new int[81];
 }

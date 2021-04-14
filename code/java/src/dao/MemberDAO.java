@@ -2,7 +2,7 @@ package dao;
 
 public class MemberDAO extends DAO {
 
-	// È¸¿ø°¡ÀÔ
+	// íšŒì›ê°€ì…
 
-	// ·Î±×ÀÎ
+	// ë¡œê·¸ì¸
 }

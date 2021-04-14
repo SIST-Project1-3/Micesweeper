@@ -17,16 +17,16 @@ public abstract class DAO {
 	public DAO() {
 		try {
 			Class.forName("oracle.jdbc.driver.OracleDriver");
-			System.out.println("1´Ü°è: µå¶óÀÌ¹ö ·Îµå");
+			System.out.println("1ë‹¨ê³„: ë“œë¼ì´ë²„ ë¡œë“œ");
 
 			conn = DriverManager.getConnection(url, user, pass);
-			System.out.println("2´Ü°è: DB¿¡ Æ¯Á¤ °èÁ¤À¸·Î Á¢¼Ó");
+			System.out.println("2ë‹¨ê³„: DBì— íŠ¹ì • ê³„ì •ìœ¼ë¡œ ì ‘ì†");
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
 	}
 
-	/** PreparedStatement »ı¼º **/
+	/** PreparedStatement ìƒì„± **/
 	public void getPreparedStatement(String sql) {
 		try {
 			pstmt = conn.prepareStatement(sql);
@@ -35,7 +35,7 @@ public abstract class DAO {
 		}
 	}
 
-	/** Á¾·á **/
+	/** ì¢…ë£Œ **/
 	public void close() {
 		try {
 			if (rs != null) {
@@ -47,7 +47,7 @@ public abstract class DAO {
 			if (conn != null) {
 				conn.close();
 			}
-			System.out.println("6´Ü°è: µ¥ÀÌÅÍ º£ÀÌ½º ¿¬°á Á¾·á");
+			System.out.println("6ë‹¨ê³„: ë°ì´í„° ë² ì´ìŠ¤ ì—°ê²° ì¢…ë£Œ");
 		} catch (Exception e) {
 			e.printStackTrace();
 		}

@@ -2,9 +2,9 @@ package dao;
 
 public class BoardDAO extends DAO {
 
-	// ±Û¾²±â
+	// ê¸€ì“°ê¸°
 	
-	// ±ÛÀĞ±â
+	// ê¸€ì½ê¸°
 	
-	// ±Û¸ñ·Ï 
+	// ê¸€ëª©ë¡ 
 }

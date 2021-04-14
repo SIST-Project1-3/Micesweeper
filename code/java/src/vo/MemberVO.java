@@ -1,6 +1,6 @@
 package vo;
 
-// DAO¸¦ ÅëÇØ DB¿¡ Á¢±ÙÇÏ±âÀ§ÇÑ VO
+// DAOë¥¼ í†µí•´ DBì— ì ‘ê·¼í•˜ê¸°ìœ„í•œ VO
 public class MemberVO {
 	String id, pw, name;
 	int win, lose;
