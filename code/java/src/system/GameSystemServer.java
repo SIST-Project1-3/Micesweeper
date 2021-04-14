@@ -19,11 +19,11 @@ public class GameSystemServer {
 	
 	public void  init() {
 		gameflag = false;
-		//�غ� + �����ϴ� ����
+		//준비 + 시작하는 과정
 		if (gameflag = true) {
-			CreateMice();//����, ����ĭ ����
-			//�� Ŭ���̾�Ʈ�� ���� ����ĭ ���� �ֱ�
-			//������ �����ٴ� ��ȣ�� ������ ���� ������ ����ȭ������(?)
+			CreateMice();//지뢰, 숫자칸 생성
+			//각 클라이언트에 지뢰 숫자칸 정보 주기
+			//게임이 끝났다는 신호를 받으면 전적 갱신후 메인화면으로(?)
 		}else {
 			init();
 		}
@@ -103,9 +103,8 @@ public class GameSystemServer {
 					}
 				}
 			}
-		}//for 끝
+		}//for
 		
 		
 	}
 }
-	
