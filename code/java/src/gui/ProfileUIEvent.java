@@ -26,8 +26,8 @@ public class ProfileUIEvent implements ActionListener{
 		Object obj = e.getSource();
 		if(obj == pui.file_change_btn) {
 			file_form();
-		}else if(obj == pui.nick_update_btn) {
-			nick_form();
+//		}else if() {
+//			
 		}else if(obj == pui.exit_btn) {
 			//프로필 창 종료
 			pui.f.dispose();
@@ -37,7 +37,7 @@ public class ProfileUIEvent implements ActionListener{
 	public void file_form() {
 		//프로필 이미지 파일 수정 창 생성
 		//Toolkit.getDefaultToolkit().getImage("/Users/ohdavi/Downloads/쥐뢰찾기이미지/고양이.png");
-		//FileChooser
+		//FileChooser??
 		f = new JFrame("프로필 수정");
 		JPanel find_panel= new JPanel();
 		JPanel south_panel = new JPanel();
