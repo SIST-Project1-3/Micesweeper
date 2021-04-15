@@ -83,12 +83,12 @@ public class MainUI {
 		JPanel panel_center = new JPanel(new BorderLayout());
 
 		JPanel panel_label = new JPanel(new GridLayout(1, 2));
-		JLabel label_name = new JLabel("방 제목", SwingConstants.LEFT);
+		JLabel label_name = new JLabel("방 제목 - 인원 수", SwingConstants.LEFT);
 		label_name.setFont(Commons.getFont());
-		JLabel label_capacity = new JLabel("인원 수", SwingConstants.RIGHT);
-		label_capacity.setFont(Commons.getFont());
 		panel_label.add(label_name);
-		panel_label.add(label_capacity);
+//		JLabel label_capacity = new JLabel("인원 수", SwingConstants.RIGHT);
+//		label_capacity.setFont(Commons.getFont());
+//		panel_label.add(label_capacity);
 		listmodel_room = new DefaultListModel<String>();
 		// 테스트용 방 목록 생성
 		for (String str : rooms) {
