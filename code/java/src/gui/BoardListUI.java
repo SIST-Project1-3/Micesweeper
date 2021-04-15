@@ -48,8 +48,11 @@ public class BoardListUI implements WindowListener {
 		JPanel panel = new JPanel();
 		String[] searchTarget = { "제목", "글쓴이" };
 		cb_search = new JComboBox<String>(searchTarget);
+		cb_search.setFont(Commons.getFont());
 		tf_search = new JTextField(10);
+		tf_search.setFont(Commons.getFont());
 		btn_search = new JButton("검색");
+		btn_search.setFont(Commons.getFont());
 		panel.add(cb_search);
 		panel.add(tf_search);
 		panel.add(btn_search);
@@ -61,6 +64,7 @@ public class BoardListUI implements WindowListener {
 		String[] colNames = { "글번호", "제목", "글쓴이", "조회수" };
 		DefaultTableModel model = new DefaultTableModel(colNames, 0);
 		JTable table = new JTable(model);
+		table.setFont(Commons.getFont());
 
 		table.setRowHeight(25);
 		JScrollPane sp_table = new JScrollPane(table);
@@ -72,6 +76,7 @@ public class BoardListUI implements WindowListener {
 	public JPanel createSouthPanel() {
 		JPanel panel = new JPanel(new FlowLayout(FlowLayout.RIGHT));
 		btn_write = new JButton("글쓰기");
+		btn_write.setFont(Commons.getFont());
 		panel.add(btn_write);
 		return panel;
 	}
