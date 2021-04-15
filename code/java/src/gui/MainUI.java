@@ -141,7 +141,7 @@ public class MainUI {
 		panel_center.add(panel_tf, "South");
 
 		JPanel panel_btn = new JPanel(new GridLayout(4, 1));
-		String[] str_btn = { "방 생성", "내 기록", "커뮤니티", "게임종료" };
+		String[] str_btn = { "방 생성", "내 프로필", "커뮤니티", "게임종료" };
 		for (String str : str_btn) {
 			JButton btn = new JButton(str);
 			btn.setFont(Commons.getFont());
