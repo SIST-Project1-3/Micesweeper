@@ -1,32 +1,31 @@
 package gui;
 
-import java.awt.EventQueue;
-
-import javax.swing.JFrame;
 import java.awt.BorderLayout;
 import java.awt.Dimension;
-
-import javax.swing.JPanel;
+import java.awt.EventQueue;
+import java.awt.FlowLayout;
+import java.awt.Font;
 import java.awt.GridLayout;
 import java.awt.Image;
+import java.util.ArrayList;
 
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
-import java.awt.FlowLayout;
-import java.awt.Font;
+import javax.swing.JFrame;
 import javax.swing.JLabel;
+import javax.swing.JPanel;
 import javax.swing.JTextArea;
 import javax.swing.JTextField;
-import javax.swing.JTextPane;
 import javax.swing.SwingConstants;
-import java.awt.event.ActionListener;
-import java.awt.event.ActionEvent;
-import java.util.ArrayList;
 
 public class GameUI {
 
-	private JFrame mainframe;
-	private JTextField textField;
+	public JFrame mainframe;
+	public JTextField textField;
+	public JTextArea textArea;
+	public ArrayList<JButton> mice = new ArrayList<JButton>();
+	public JButton watchprofilebtn, readybutton, exitbutton, send, watchprofilebtn_2;
+	GameUIEvent event = new GameUIEvent(this);
 
 	/**
 	 * Launch the application
@@ -35,8 +34,7 @@ public class GameUI {
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
 				try {
-					GameUI window = new GameUI();
-					window.mainframe.setVisible(true);
+					new GameUI();
 				} catch (Exception e) {
 					e.printStackTrace();
 				}
@@ -56,12 +54,13 @@ public class GameUI {
 	 */
 	private void initialize() {
 		
-		ArrayList<JButton> mice = new ArrayList<JButton>();
+		
 		mainframe = new JFrame();
 		mainframe.setBounds(100,100,1280,720);
 		mainframe.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		mainframe.getContentPane().setLayout(new BorderLayout(0, 0));
 		mainframe.setTitle("쥐뢰찾기");
+		mainframe.setVisible(true);
 		
 		JPanel westpanel = new JPanel();
 		westpanel.setSize(300,500);
@@ -84,6 +83,7 @@ public class GameUI {
 		westpanel.add(bangjangimagepanel);
 		
 		JPanel bangjangprofilepanel = new JPanel();
+		bangjangprofilepanel.setVisible(true);
 		westpanel.add(bangjangprofilepanel);
 		bangjangprofilepanel.setLayout(new GridLayout(2, 1, 0, 20));
 		
@@ -95,8 +95,9 @@ public class GameUI {
 		JPanel panel_1 = new JPanel();
 		bangjangprofilepanel.add(panel_1);
 		
-		JButton watchprofilebtn = new JButton("프로필 보기");
+		watchprofilebtn = new JButton("프로필 보기");
 		watchprofilebtn.setFont(new Font("맑은 고딕", Font.BOLD, 12));
+		watchprofilebtn.addActionListener(event);
 		panel_1.add(watchprofilebtn);
 		JPanel centerpanel = new JPanel();
 		mainframe.getContentPane().add(centerpanel, BorderLayout.CENTER);
@@ -113,12 +114,14 @@ public class GameUI {
 		
 		
 		
-		for (int a =1; a<10; a++) {
-			for (int b=1; b<10; b++) {
+		for (int a =0; a<9; a++) {
+			for (int b=0; b<9; b++) {
 				JButton btn = new JButton(a + "_" + b);
 				btn.setFont(Commons.getFont());
 				btn.setPreferredSize(new Dimension(52, 52));
+				btn.setName(Integer.toString(a)+Integer.toString(b));
 				gamepanel.add(btn);
+				btn.addActionListener(event);
 				mice.add(btn);
 			}
 		}
@@ -133,27 +136,21 @@ public class GameUI {
 		southpanel.add(readypanel, BorderLayout.EAST);
 		readypanel.setLayout(new GridLayout(2, 0, 0, 20));
 		
-		JButton readybutton = new JButton("준비");
+		readybutton = new JButton("준비");
 		readybutton.setFont(Commons.getFont());
-		readybutton.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-			}
-		});
+		readybutton.addActionListener(event);
 		readypanel.add(readybutton);
 		
-		JButton exitbutton = new JButton("나가기");
+		exitbutton = new JButton("나가기");
 		exitbutton.setFont(Commons.getFont());
-		exitbutton.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-			}
-		});
+		exitbutton.addActionListener(event);
 		readypanel.add(exitbutton);
 		
 		JPanel chatpanel = new JPanel();
 		southpanel.add(chatpanel, BorderLayout.CENTER);
 		chatpanel.setLayout(new BorderLayout(0, 0));
 		
-		JTextArea textArea = new JTextArea();
+		textArea = new JTextArea();
 		textArea.setRows(10);
 		chatpanel.add(textArea, BorderLayout.CENTER);
 		
@@ -163,9 +160,11 @@ public class GameUI {
 		
 		textField = new JTextField();
 		textField.setColumns(1);
+		textField.addActionListener(event);
 		chatpanel_send.add(textField);
 		
-		JButton send = new JButton("send");
+		send = new JButton("send");
+		send.addActionListener(event);
 		chatpanel_send.add(send, BorderLayout.EAST);
 		
 		JPanel eastpanel = new JPanel();
@@ -196,9 +195,12 @@ public class GameUI {
 		JPanel panel_1_1 = new JPanel();
 		profilepanel.add(panel_1_1);
 		
-		JButton watchprofilebtn_2 = new JButton("프로필 보기");
+		watchprofilebtn_2 = new JButton("프로필 보기");
 		watchprofilebtn_2.setFont(new Font("맑은 고딕", Font.BOLD, 12));
+		watchprofilebtn_2.addActionListener(event);
 		panel_1_1.add(watchprofilebtn_2);
 	}
-
+	public void exit() {
+		mainframe.dispose();
+	}
 }
