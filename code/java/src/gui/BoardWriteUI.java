@@ -22,13 +22,9 @@ public class BoardWriteUI {
 
 	// Method
 	private void initialize() {
-		frame = new JFrame();
+		frame = new JFrame("커뮤니티");
 
-		JPanel panel_north = new JPanel();
-		JLabel label_north = new JLabel("커뮤니티");
-		label_north.setFont(Commons.getFont());
-panel_north.add(label_north);
-		
+
 		JPanel panel_center = new JPanel(new BorderLayout());
 		JPanel panel_title = new JPanel(new BorderLayout());
 		JLabel label_title = new JLabel("제목");
@@ -43,7 +39,7 @@ panel_north.add(label_north);
 		JTextArea tf_content = new JTextArea();
 		panel_content.add(label_content, "West");
 		panel_content.add(tf_content, "Center");
-		
+
 		panel_center.add(panel_title, "North");
 		panel_center.add(panel_content, "Center");
 
@@ -51,8 +47,7 @@ panel_north.add(label_north);
 		btn_write = new JButton("작성");
 		btn_write.setFont(Commons.getFont());
 		panel_btn.add(btn_write, "East");
-		
-		frame.add(panel_north, "North");
+
 		frame.add(panel_center, "Center");
 		frame.add(panel_btn, "South");
 		frame.setSize(500, 500);
