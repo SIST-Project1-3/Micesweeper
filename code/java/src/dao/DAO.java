@@ -17,10 +17,10 @@ public abstract class DAO {
 	public DAO() {
 		try {
 			Class.forName("oracle.jdbc.driver.OracleDriver");
-			System.out.println("1단계: 드라이버 로드");
+			System.out.println("1: driver load");
 
 			conn = DriverManager.getConnection(url, user, pass);
-			System.out.println("2단계: DB에 특정 계정으로 접속");
+			System.out.println("2: OracleDB has been connected with scott");
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
@@ -47,7 +47,7 @@ public abstract class DAO {
 			if (conn != null) {
 				conn.close();
 			}
-			System.out.println("6단계: 데이터 베이스 연결 종료");
+			System.out.println("6: Terminate OracleDB connection ");
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
