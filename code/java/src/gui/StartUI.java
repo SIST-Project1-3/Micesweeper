@@ -3,8 +3,6 @@ package gui;
 import java.awt.BorderLayout;
 import java.awt.GridLayout;
 import java.awt.Image;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
 
@@ -13,6 +11,7 @@ import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
+import javax.swing.JPasswordField;
 import javax.swing.JTextField;
 
 import system.client.ClientSystem;
@@ -23,7 +22,7 @@ public class StartUI {
 	JPanel center_panel, south_panel, login_panel, btn_panel;
 	JButton login_btn, join_btn;
 	JTextField id_tf;
-	JTextField pw_tf;
+	JPasswordField pw_tf;
 	StartUIEvent loginEvent = new StartUIEvent(this);
 	ClientSystem client;
 
@@ -47,7 +46,7 @@ public class StartUI {
 		JLabel id_label = new JLabel("ID");
 		JLabel pw_label = new JLabel("PW");
 		id_tf = new JTextField(15);
-		pw_tf = new JTextField(15);
+		pw_tf = new JPasswordField(15);
 		id_label.setFont(Commons.getFont());
 		pw_label.setFont(Commons.getFont());
 		label_panel.add(id_label);

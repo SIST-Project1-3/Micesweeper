@@ -5,7 +5,7 @@ import vo.MemberVO;
 public class MemberDAO extends DAO {
 
 	// 회원가입
-	public boolean JoinResult(MemberVO member) {
+	public boolean getJoinResult(MemberVO member) {
 		boolean result = false;
 		
 		try {
@@ -25,7 +25,7 @@ public class MemberDAO extends DAO {
 	}
 	
 	// 아이디 중복확인
-	public boolean IdCheckResult(String id) {
+	public boolean getIdCheckResult(String id) {
 		boolean result = false;
 		
 		try {
@@ -44,7 +44,7 @@ public class MemberDAO extends DAO {
 	}
 	
 	// 로그인
-	public boolean LoginResult(String id, String pw) {
+	public boolean getLoginResult(String id, String pw) {
 		boolean result = false;
 		
 		try {

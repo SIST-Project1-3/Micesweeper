@@ -4,21 +4,20 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
 import javax.swing.JOptionPane;
-import javax.swing.JTextField;
 
-import dao.MemberDAO;
+import system.server.ServerSystem;
 
 public class StartUIEvent implements ActionListener{
 	StartUI sui;
-	MemberDAO mdao;
+	ServerSystem system;
 	
 	public StartUIEvent(StartUI sui) {
 		this.sui = sui;
 	}
 	
-	public StartUIEvent(StartUI sui, MemberDAO mdao) {
+	public StartUIEvent(StartUI sui, ServerSystem system) {
 		this.sui = sui;
-		this.mdao = mdao;
+		this.system = system;
 	}
 	
 	@Override
@@ -41,7 +40,7 @@ public class StartUIEvent implements ActionListener{
 			sui.pw_tf.requestFocus();
 		}else {
 			//로그인 체크
-			boolean result = mdao.LoginResult(sui.id_tf.getText(), sui.pw_tf.getText()); 
+			boolean result = system.loginCheck(sui.id_tf.getText(), sui.pw_tf.getText()); 
 			if(result) {
 				JOptionPane.showMessageDialog(null, Commons.getMsg("로그인 되었습니다."));
 				new MainUI(sui.client);

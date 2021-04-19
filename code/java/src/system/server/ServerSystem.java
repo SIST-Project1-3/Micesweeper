@@ -7,7 +7,9 @@ import java.net.Socket;
 import java.util.ArrayList;
 
 import dao.BoardDAO;
+import dao.MemberDAO;
 import vo.BoardVO;
+import vo.MemberVO;
 import vo.MessageVO;
 
 public class ServerSystem {
@@ -16,6 +18,7 @@ public class ServerSystem {
 	Socket client;
 	ArrayList<ServerThread> stList = new ArrayList<ServerThread>();
 	BoardDAO bdao = new BoardDAO();
+	MemberDAO mdao = new MemberDAO();
 
 	// Constructor
 	public ServerSystem() {
@@ -43,7 +46,22 @@ public class ServerSystem {
 		}
 
 	}
-
+	
+	//회원가입
+	public boolean joinCheck(MemberVO member){
+		return mdao.getJoinResult(member);
+	}
+	
+	//아이디 중복체크
+	public boolean idCheck(String id) {
+		return mdao.getIdCheckResult(id);
+	}
+	
+	//로그인
+	public boolean loginCheck(String id, String pw) {
+		return mdao.getLoginResult(id, pw);
+	}
+	
 	// 메세지 전체 에코
 	public void broadcastMsg(MessageVO msg) {
 		try {
