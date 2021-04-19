@@ -2,6 +2,11 @@ package gui;
 
 import java.awt.BorderLayout;
 import java.awt.FlowLayout;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.awt.event.MouseEvent;
+import java.awt.event.MouseListener;
+import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
 import java.awt.event.WindowListener;
 
@@ -13,18 +18,30 @@ import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
 import javax.swing.JTextField;
+import javax.swing.ListSelectionModel;
 import javax.swing.table.DefaultTableModel;
+import javax.swing.table.TableColumnModel;
 
-public class BoardListUI implements WindowListener {
+import dao.BoardDAO;
+import system.client.ClientSystem;
+import vo.BoardVO;
+import vo.MessageVO;
+
+public class BoardListUI implements ActionListener, MouseListener {
 
 	// Field
 	private JFrame frame;
 	JButton btn_write, btn_search;
 	JTextField tf_search;
 	JComboBox<String> cb_search;
+	ClientSystem client;
+	DefaultTableModel model;
+	Object[] row = new Object[6];
+	JTable table;
 
 	// Constructor
-	public BoardListUI() {
+	public BoardListUI(ClientSystem client) {
+		this.client = client;
 		initialize();
 
 	}
@@ -41,7 +58,12 @@ public class BoardListUI implements WindowListener {
 		frame.setSize(500, 500);
 		frame.setVisible(true);
 
-		frame.addWindowListener(this);
+		frame.addWindowListener(new WindowAdapter() {
+			@Override
+			public void windowClosing(WindowEvent e) {
+				exit();
+			}
+		});
 	}
 
 	public JPanel createNorthPanel() {
@@ -53,6 +75,7 @@ public class BoardListUI implements WindowListener {
 		tf_search.setFont(Commons.getFont());
 		btn_search = new JButton("검색");
 		btn_search.setFont(Commons.getFont());
+		btn_search.addActionListener(this);
 		panel.add(cb_search);
 		panel.add(tf_search);
 		panel.add(btn_search);
@@ -62,11 +85,33 @@ public class BoardListUI implements WindowListener {
 	public JPanel createCenterPanel() {
 		JPanel panel = new JPanel(new BorderLayout());
 		String[] colNames = { "글번호", "제목", "글쓴이", "조회수" };
-		DefaultTableModel model = new DefaultTableModel(colNames, 0);
-		JTable table = new JTable(model);
-		table.setFont(Commons.getFont());
+//		model = new DefaultTableModel(colNames, 10);
+		model = new DefaultTableModel(colNames, 10) {
+			// 행 수정 여부 메소드
+			@Override
+			public boolean isCellEditable(int row, int column) {
+				return false;
+			}
+		};
 
-		table.setRowHeight(25);
+		// table에 전체 데이터 추가
+		createJtableData();
+		model.setColumnIdentifiers(colNames);
+
+		table = new JTable(model);
+		table.setFillsViewportHeight(true);
+//		table.setSelectionMode(ListSelectionModel.MULTIPLE_INTERVAL_SELECTION);
+		table.setColumnSelectionAllowed(false);
+		table.setRowSelectionAllowed(true);
+//		table.setAutoCreateRowSorter(false);
+
+//		TableColumnModel tcm = table.getColumnModel();
+		table.getColumn("글번호").setPreferredWidth(100);
+		table.getColumn("제목").setPreferredWidth(700);
+		table.getColumn("글쓴이").setPreferredWidth(200);
+		table.getColumn("조회수").setPreferredWidth(100);
+		table.setFont(Commons.getFont());
+		table.addMouseListener(this);
 		JScrollPane sp_table = new JScrollPane(table);
 
 		panel.add(sp_table);
@@ -77,8 +122,24 @@ public class BoardListUI implements WindowListener {
 		JPanel panel = new JPanel(new FlowLayout(FlowLayout.RIGHT));
 		btn_write = new JButton("글쓰기");
 		btn_write.setFont(Commons.getFont());
+		btn_write.addActionListener(this);
 		panel.add(btn_write);
 		return panel;
+	}
+
+	public void createJtableData() {
+		model.setNumRows(0);
+		for (BoardVO post : new BoardDAO().getSelectResult()) {
+			System.out.println(1);
+			row[0] = post.getNo();
+			row[1] = post.getTitle();
+			row[2] = post.getContent();
+			row[3] = post.getWriter();
+			row[4] = post.getViewcount();
+			row[5] = post.getWdate();
+			model.addRow(row);
+		}
+		model.fireTableDataChanged();
 	}
 
 	public void exit() {
@@ -86,48 +147,50 @@ public class BoardListUI implements WindowListener {
 	}
 
 	@Override
-	public void windowOpened(WindowEvent e) {
+	public void actionPerformed(ActionEvent e) {
+		Object obj = e.getSource();
+		if (obj == btn_search) { // 검색
+		} else if (obj == btn_write) { // 글쓰기
+			new BoardWriteUI(client);
+		}
+	}
+
+	@Override
+	public void mouseClicked(MouseEvent e) {
+		int r = table.getSelectedRow();
+//		System.out.println(r);
+		if (e.getClickCount() == 2) {
+			MessageVO msg = new MessageVO();
+			BoardVO article = client.readArticle();
+			new BoardViewUI(article);
+		}
+	}
+
+	@Override
+	public void mousePressed(MouseEvent e) {
 		// TODO Auto-generated method stub
 
 	}
 
 	@Override
-	public void windowClosing(WindowEvent e) {
-		exit();
-	}
-
-	@Override
-	public void windowClosed(WindowEvent e) {
+	public void mouseReleased(MouseEvent e) {
 		// TODO Auto-generated method stub
 
 	}
 
 	@Override
-	public void windowIconified(WindowEvent e) {
+	public void mouseEntered(MouseEvent e) {
 		// TODO Auto-generated method stub
 
 	}
 
 	@Override
-	public void windowDeiconified(WindowEvent e) {
-		// TODO Auto-generated method stub
-
-	}
-
-	@Override
-	public void windowActivated(WindowEvent e) {
-		// TODO Auto-generated method stub
-
-	}
-
-	@Override
-	public void windowDeactivated(WindowEvent e) {
+	public void mouseExited(MouseEvent e) {
 		// TODO Auto-generated method stub
 
 	}
 
 	public static void main(String[] args) {
-		new BoardListUI();
+		new BoardListUI(new ClientSystem());
 	}
-
 }

@@ -4,17 +4,24 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.ArrayList;
 
-import javax.swing.JComponent;
 import javax.swing.JOptionPane;
 import javax.swing.JTextField;
 
+import dao.MemberDAO;
+import system.server.ServerSystem;
 import vo.MemberVO;
 
 public class JoinUIEvent implements ActionListener{
 	JoinUI jui;
+	ServerSystem system;
 	
 	public JoinUIEvent(JoinUI jui) {
 		this.jui = jui;
+	}
+	
+	public JoinUIEvent(JoinUI jui, ServerSystem system) {
+		this.jui = jui;
+		this.system = system;
 	}
 	
 	@Override
@@ -42,11 +49,7 @@ public class JoinUIEvent implements ActionListener{
 					member.setId(jlist.get(0).getText());
 					member.setPw(jlist.get(1).getText());
 					
-//					boolean result = 시스템주소?(member);
-//					ex)boolean result = main.system.join(member);
-					boolean result2 = true;
-					
-					//가입 성공시 '회원가입을 완료했습니다' 메세지 생성 
+					boolean result2 = system.joinCheck(member);
 					if(result2) {
 						JOptionPane.showMessageDialog(null, Commons.getMsg("회원가입을 완료했습니다."));
 						for(Object obj2 : jui.list) {
@@ -61,12 +64,11 @@ public class JoinUIEvent implements ActionListener{
 				}else {
 					for(Object obj2 : jui.list) {
 						JTextField tf = (JTextField)obj2;
-						tf.requestFocus();
 					}
 				}//if문(join_check)
 				
 			}else {
-				JOptionPane.showMessageDialog(null, Commons.getMsg("아이디 중복확인을 해주세요."));
+				JOptionPane.showMessageDialog(null, Commons.getMsg("아이디 중복여부를 확인해주세요."));
 				jui.id_tf.requestFocus();
 			}//if문(id_check)
 			
@@ -80,8 +82,7 @@ public class JoinUIEvent implements ActionListener{
 	public boolean id_check() {
 		boolean result = false;	//중복확인 반환
 		//데이터베이스 연결해서 비교 or  UNIQUE 사용?
-		//boolean result = main.system.loginCheck(id_tf.getText());
-		boolean result2 = true;	//아이디 확인 반환받음
+		boolean result2 = system.idCheck(jui.id_tf.getText());
 				
 		if(result2) {
 			JOptionPane.showMessageDialog(null, Commons.getMsg("사용가능한 아이디입니다"));

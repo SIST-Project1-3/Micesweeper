@@ -1,5 +1,8 @@
 package dao;
 
+import java.util.ArrayList;
+
+import vo.BoardVO;
 import vo.MessageVO;
 
 public class BoardDAO extends DAO {
@@ -26,7 +29,29 @@ public class BoardDAO extends DAO {
 		}
 		return result;
 	}
-	// 글읽기
 
+	// 글읽기
+	public ArrayList<BoardVO> getSelectResult() {
+		ArrayList<BoardVO> list = new ArrayList<BoardVO>();
+		try {
+			String sql = "select * from board";
+			getPreparedStatement(sql);
+
+			rs = pstmt.executeQuery();
+			while (rs.next()) {
+				BoardVO board = new BoardVO();
+				board.setNo(rs.getInt(1));
+				board.setTitle(rs.getString(2));
+				board.setContent(rs.getString(3));
+				board.setWriter(rs.getString(4));
+				board.setViewcount(rs.getInt(5));
+				board.setWdate(rs.getString(6));
+				list.add(board);
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return list;
+	}
 	// 글목록
 }

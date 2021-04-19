@@ -11,6 +11,7 @@ import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
+import javax.swing.JPasswordField;
 import javax.swing.JTextField;
 
 public class JoinUI {
@@ -19,7 +20,8 @@ public class JoinUI {
 	JPanel west_panel, center_panel, south_panel,
 		  label_panel, tf_panel, btn_panel, id_check_panel;
 	JButton join_btn, id_check_btn, cancel_btn;
-	JTextField id_tf, pw_tf, pw_check_tf;
+	JTextField id_tf;
+	JPasswordField pw_tf, pw_check_tf;
 	String[] joinlist = {"ID","PW","PW확인"};
 	ArrayList<Object> list = new ArrayList<Object>();
 	
@@ -66,14 +68,14 @@ public class JoinUI {
 				tf_panel.add(id_check_panel);
 				list.add(id_tf);
 			}else if(join.equals("PW")){
-				pw_tf = new JTextField(23);
+				pw_tf = new JPasswordField(23);
 				l_panel.add(join_label);
 				t_panel.add(pw_tf);
 				label_panel.add(l_panel);
 				tf_panel.add(t_panel);
 				list.add(pw_tf);
 			}else if(join.equals("PW확인")) {
-				pw_check_tf = new JTextField(23);
+				pw_check_tf = new JPasswordField(23);
 				l_panel.add(join_label);
 				t_panel.add(pw_check_tf);
 				label_panel.add(l_panel);

@@ -24,10 +24,13 @@ import javax.swing.JTextArea;
 import javax.swing.JTextField;
 import javax.swing.SwingConstants;
 
+import system.client.ClientSystem;
+
 public class MainUI {
 
 	// Field
 	JFrame frame;
+	ClientSystem client;
 	ArrayList<JButton> list_btn = new ArrayList<JButton>();
 	JButton btn_send;
 	JTextField tf_chat;
@@ -41,7 +44,8 @@ public class MainUI {
 			"오다빈", "박건희", "이창민", "박준성", "오다빈", "박건희" };
 
 	// Constructor
-	public MainUI() {
+	public MainUI(ClientSystem client) {
+		this.client = client;
 		initialize();
 	}
 
@@ -165,7 +169,7 @@ public class MainUI {
 	}
 
 	public static void main(String[] args) {
-		new MainUI();
+		new MainUI(new ClientSystem());
 	}
 
 }
