@@ -19,7 +19,7 @@ public class JoinUI {
 	JPanel west_panel, center_panel, south_panel,
 		  label_panel, tf_panel, btn_panel, id_check_panel;
 	JButton join_btn, id_check_btn, cancel_btn;
-	JTextField join_tf;
+	JTextField id_tf, pw_tf, pw_check_tf;
 	String[] joinlist = {"ID","PW","PW확인"};
 	ArrayList<Object> list = new ArrayList<Object>();
 	
@@ -58,20 +58,27 @@ public class JoinUI {
 				l_panel.add(join_label);
 				label_panel.add(l_panel);
 				
-				join_tf = new JTextField(15);
+				id_tf = new JTextField(15);
 				id_check_btn = new JButton("중복확인");
 				id_check_btn.setFont(Commons.getFont());
-				id_check_panel.add(join_tf);
+				id_check_panel.add(id_tf);
 				id_check_panel.add(id_check_btn);
 				tf_panel.add(id_check_panel);
-				list.add(join_tf);
-			}else {
-				join_tf = new JTextField(23);
+				list.add(id_tf);
+			}else if(join.equals("PW")){
+				pw_tf = new JTextField(23);
 				l_panel.add(join_label);
-				t_panel.add(join_tf);
+				t_panel.add(pw_tf);
 				label_panel.add(l_panel);
 				tf_panel.add(t_panel);
-				list.add(join_tf);
+				list.add(pw_tf);
+			}else if(join.equals("PW확인")) {
+				pw_check_tf = new JTextField(23);
+				l_panel.add(join_label);
+				t_panel.add(pw_check_tf);
+				label_panel.add(l_panel);
+				tf_panel.add(t_panel);
+				list.add(pw_check_tf);
 			}
 		}
 		

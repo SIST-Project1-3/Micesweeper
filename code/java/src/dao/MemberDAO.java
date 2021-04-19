@@ -10,6 +10,7 @@ public class MemberDAO extends DAO {
 		
 		try {
 			String sql = "insert into member values(?,?)";
+			getPreparedStatement(sql);
 			
 			pstmt.setString(1, member.getId());
 			pstmt.setString(2, member.getPw());
