@@ -23,12 +23,11 @@ public class StartUI {
 	JButton login_btn, join_btn;
 	JTextField id_tf;
 	JPasswordField pw_tf;
-	StartUIEvent loginEvent = new StartUIEvent(this);
-	ClientSystem client;
+	ClientSystem client= new ClientSystem();
+	StartUIEvent loginEvent = new StartUIEvent(this, client);
 
 	// Constructor
 	public StartUI() {
-		client = new ClientSystem();
 		init();
 	}
 
@@ -46,7 +45,9 @@ public class StartUI {
 		JLabel id_label = new JLabel("ID");
 		JLabel pw_label = new JLabel("PW");
 		id_tf = new JTextField(15);
+		id_tf.addActionListener(loginEvent);
 		pw_tf = new JPasswordField(15);
+		pw_tf.addActionListener(loginEvent);
 		id_label.setFont(Commons.getFont());
 		pw_label.setFont(Commons.getFont());
 		label_panel.add(id_label);
