@@ -8,6 +8,7 @@ import java.awt.Font;
 import java.awt.GridLayout;
 import java.awt.Image;
 import java.util.ArrayList;
+import java.util.Iterator;
 
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
@@ -23,7 +24,8 @@ public class GameUI {
 	public JFrame mainframe;
 	public JTextField textField;
 	public JTextArea textArea;
-	public ArrayList<JButton> mice = new ArrayList<JButton>();
+	public static ArrayList<JButton> micebtn = new ArrayList<JButton>();
+	public static Iterator<JButton> mbi = micebtn.iterator();
 	public JButton watchprofilebtn, readybutton, exitbutton, send, watchprofilebtn_2;
 	GameUIEvent event = new GameUIEvent(this);
 
@@ -122,7 +124,7 @@ public class GameUI {
 				btn.setName(Integer.toString(a)+Integer.toString(b));
 				gamepanel.add(btn);
 				btn.addActionListener(event);
-				mice.add(btn);
+				micebtn.add(btn);
 			}
 		}
 		
