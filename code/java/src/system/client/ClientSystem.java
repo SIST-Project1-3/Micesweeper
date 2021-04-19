@@ -6,19 +6,23 @@ import java.net.Socket;
 import java.util.ArrayList;
 
 import dao.BoardDAO;
+import dao.MemberDAO;
 import vo.BoardVO;
+import vo.MemberVO;
 import vo.MessageVO;
 
 public class ClientSystem {
 	// Field
 	Socket client;
-	String id = "test";
+	String id;
 	BoardDAO bdao = new BoardDAO();
+	MemberDAO mdao = new MemberDAO();
 	ObjectOutputStream oos;
 	ObjectInputStream ois;
 
 	// Constructor
 	public ClientSystem() {
+		System.out.println("client created");
 		initialize();
 	}
 
@@ -75,5 +79,20 @@ public class ClientSystem {
 	public BoardVO readArticle() {
 		BoardVO article = new BoardVO();
 		return article;
+	}
+
+	// 회원가입
+	public boolean joinCheck(MemberVO member) {
+		return mdao.getJoinResult(member);
+	}
+
+	// 아이디 중복체크
+	public boolean idCheck(String id) {
+		return mdao.getIdCheckResult(id);
+	}
+
+	// 로그인
+	public boolean loginCheck(String id, String pw) {
+		return mdao.getLoginResult(id, pw);
 	}
 }
