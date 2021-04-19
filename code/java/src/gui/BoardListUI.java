@@ -36,7 +36,7 @@ public class BoardListUI implements ActionListener, MouseListener {
 	JComboBox<String> cb_search;
 	ClientSystem client;
 	DefaultTableModel model;
-	Object[] row = new Object[6];
+	Object[] row = new Object[4];
 	JTable table;
 
 	// Constructor
@@ -133,10 +133,8 @@ public class BoardListUI implements ActionListener, MouseListener {
 			System.out.println(1);
 			row[0] = post.getNo();
 			row[1] = post.getTitle();
-			row[2] = post.getContent();
-			row[3] = post.getWriter();
-			row[4] = post.getViewcount();
-			row[5] = post.getWdate();
+			row[2] = post.getWriter();
+			row[3] = post.getViewcount();
 			model.addRow(row);
 		}
 		model.fireTableDataChanged();
