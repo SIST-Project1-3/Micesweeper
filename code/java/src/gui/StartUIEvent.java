@@ -44,7 +44,7 @@ public class StartUIEvent implements ActionListener{
 			boolean result = mdao.LoginResult(sui.id_tf.getText(), sui.pw_tf.getText()); 
 			if(result) {
 				JOptionPane.showMessageDialog(null, Commons.getMsg("로그인 되었습니다."));
-				new MainUI();
+				new MainUI(sui.client);
 				sui.f.setVisible(false);
 			}else {
 				JOptionPane.showMessageDialog(null, Commons.getMsg("아이디 또는 패스워드가 틀렸습니다."));
