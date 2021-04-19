@@ -61,7 +61,7 @@ public class JoinUIEvent implements ActionListener{
 				}else {
 					for(Object obj2 : jui.list) {
 						JTextField tf = (JTextField)obj2;
-						tf.requestFocus();
+//						tf.requestFocus();
 					}
 				}//if문(join_check)
 				

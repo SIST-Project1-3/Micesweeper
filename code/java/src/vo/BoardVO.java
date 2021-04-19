@@ -1,7 +1,7 @@
 package vo;
 
 public class BoardVO {
-	String title, content, author, wdate;
+	String title, content, writer, wdate;
 	int no, viewcount;
 
 	public String getTitle() {
@@ -20,14 +20,6 @@ public class BoardVO {
 		this.content = content;
 	}
 
-	public String getAuthor() {
-		return author;
-	}
-
-	public void setAuthor(String author) {
-		this.author = author;
-	}
-
 	public String getDate() {
 		return wdate;
 	}
@@ -36,11 +28,35 @@ public class BoardVO {
 		this.wdate = date;
 	}
 
-	public int getView() {
+	public String getWdate() {
+		return wdate;
+	}
+
+	public void setWdate(String wdate) {
+		this.wdate = wdate;
+	}
+
+	public int getNo() {
+		return no;
+	}
+
+	public void setNo(int no) {
+		this.no = no;
+	}
+
+	public int getViewcount() {
 		return viewcount;
 	}
 
-	public void setView(int view) {
-		this.viewcount = view;
+	public void setViewcount(int viewcount) {
+		this.viewcount = viewcount;
+	}
+
+	public String getWriter() {
+		return writer;
+	}
+
+	public void setWriter(String writer) {
+		this.writer = writer;
 	}
 }

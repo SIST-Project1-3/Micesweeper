@@ -26,7 +26,7 @@ public class MainUIEvent implements ActionListener, WindowListener, MouseListene
 		} else if (obj == ui.list_btn.get(1)) { // 내 기록
 			new ProfileUI();
 		} else if (obj == ui.list_btn.get(2)) { // 커뮤니티
-			new BoardListUI();
+			new BoardListUI(ui.client);
 		} else if (obj == ui.list_btn.get(3)) { // 게임종료
 			ui.exit();
 		} else if(obj== ui.btn_send || obj == ui.tf_chat) {
