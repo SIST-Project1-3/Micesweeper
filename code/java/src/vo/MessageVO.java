@@ -1,13 +1,16 @@
 package vo;
 
 import java.io.Serializable;
+import java.util.ArrayList;
 
 // 서버와 클라이언트가 통신할 때 사용하는 VO
-public class MessageVO implements Serializable{
+public class MessageVO implements Serializable {
 	public static int WRITE = 1;
+	public static int READ = 1;
 	int status;
 	String title, content, id;
 	boolean result;
+	ArrayList<BoardVO> boardList;
 
 	public int getStatus() {
 		return status;
@@ -47,6 +50,14 @@ public class MessageVO implements Serializable{
 
 	public void setResult(boolean result) {
 		this.result = result;
+	}
+
+	public ArrayList<BoardVO> getBoardList() {
+		return boardList;
+	}
+
+	public void setBoardList(ArrayList<BoardVO> boardList) {
+		this.boardList = boardList;
 	}
 
 }
