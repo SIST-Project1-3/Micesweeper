@@ -4,6 +4,7 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.ArrayList;
 
+import javax.swing.JComponent;
 import javax.swing.JOptionPane;
 import javax.swing.JTextField;
 
@@ -20,32 +21,33 @@ public class JoinUIEvent implements ActionListener{
 	public void actionPerformed(ActionEvent e) {
 		Object obj = e.getSource();
 		if(obj == jui.id_check_btn) {
-			if(jui.join_tf.getText().equals("")) {
+			if(jui.id_tf.getText().equals("")) {
 				JOptionPane.showMessageDialog(null, Commons.getMsg("아이디를 입력해주세요."));
-				jui.join_tf.requestFocus();
-			}else {
+				jui.id_tf.requestFocus();
+			}else if(!jui.list.get(0).equals("")){
 				id_check();
 			}  
 		}else if(obj == jui.join_btn) {
 			//아이디 중복확인 안한 경우 가입 못하게 하기 + '아이디 중복여부를 확인해주세요'
-			if(id_check()) {
+			boolean result = id_check();
+			
+			if(result) {
 				if(join_check()) {
 					ArrayList<JTextField> jlist = new ArrayList<JTextField>();
 					for(Object tf : jui.list) {
 						JTextField jtf = (JTextField)tf;
 						jlist.add(jtf);
 					}
-					
 					MemberVO member = new MemberVO();
 					member.setId(jlist.get(0).getText());
 					member.setPw(jlist.get(1).getText());
 					
 //					boolean result = 시스템주소?(member);
 //					ex)boolean result = main.system.join(member);
-					boolean result = true;
+					boolean result2 = true;
 					
 					//가입 성공시 '회원가입을 완료했습니다' 메세지 생성 
-					if(result) {
+					if(result2) {
 						JOptionPane.showMessageDialog(null, Commons.getMsg("회원가입을 완료했습니다."));
 						for(Object obj2 : jui.list) {
 							JTextField tf = (JTextField)obj2;
@@ -59,12 +61,15 @@ public class JoinUIEvent implements ActionListener{
 				}else {
 					for(Object obj2 : jui.list) {
 						JTextField tf = (JTextField)obj2;
-						tf.setText("");
+						tf.requestFocus();
 					}
 				}//if문(join_check)
+				
 			}else {
 				JOptionPane.showMessageDialog(null, Commons.getMsg("아이디 중복확인을 해주세요."));
+				jui.id_tf.requestFocus();
 			}//if문(id_check)
+			
 		}else if(obj == jui.cancel_btn) {
 			//회원가입창 종료
 			jui.f.dispose();
@@ -80,11 +85,11 @@ public class JoinUIEvent implements ActionListener{
 				
 		if(result2) {
 			JOptionPane.showMessageDialog(null, Commons.getMsg("사용가능한 아이디입니다"));
-			jui.join_tf.requestFocus();
+			jui.pw_tf.requestFocus();
 			result = true;
 		}else {
 			JOptionPane.showMessageDialog(null, Commons.getMsg("이미 사용중인 아이디입니다"));
-			jui.join_tf.requestFocus();
+			jui.id_tf.requestFocus();
 		}
 		return result;
 	}//id_check
