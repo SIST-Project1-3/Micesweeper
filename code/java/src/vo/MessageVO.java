@@ -1,7 +1,10 @@
 package vo;
 
+import java.io.Serializable;
+
 // 서버와 클라이언트가 통신할 때 사용하는 VO
-public class MessageVO {
+public class MessageVO implements Serializable{
+	public static int WRITE = 1;
 	int status;
 	String title, content, id;
 	boolean result;
@@ -38,11 +41,12 @@ public class MessageVO {
 		this.id = id;
 	}
 
-	public boolean isResult() {
+	public boolean getResult() {
 		return result;
 	}
 
 	public void setResult(boolean result) {
 		this.result = result;
 	}
+
 }

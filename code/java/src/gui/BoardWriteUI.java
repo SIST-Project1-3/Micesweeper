@@ -74,6 +74,7 @@ public class BoardWriteUI implements ActionListener {
 				JOptionPane.showMessageDialog(null, Commons.getMsg("내용을 입력해주세요"));
 			} else { // 글 작성
 				MessageVO msg = new MessageVO();
+				msg.setStatus(MessageVO.WRITE);
 				msg.setId(client.getId());
 				msg.setTitle(tf_title.getText());
 				msg.setContent(tf_content.getText());
