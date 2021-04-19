@@ -34,6 +34,7 @@ public class BoardWriteUI implements ActionListener {
 
 	// Method
 	private void initialize() {
+		// UI 생성 부분 시작
 		frame = new JFrame("커뮤니티");
 
 		JPanel panel_center = new JPanel(new BorderLayout());
@@ -71,8 +72,11 @@ public class BoardWriteUI implements ActionListener {
 				exit();
 			}
 		});
+		
+		// UI 생성 끝
 	}
 
+	// 프레임의 X 버튼을 누르거나 프로그램 종료시 실행될 메소드
 	public void exit() {
 		frame.dispose();
 	}
@@ -86,15 +90,17 @@ public class BoardWriteUI implements ActionListener {
 			} else if (tf_content.getText().isEmpty()) { // 내용 입력 확인
 				JOptionPane.showMessageDialog(null, Commons.getMsg("내용을 입력해주세요"));
 			} else { // 글 작성
+				// 작성한 글을 msg에 담아서 clientsystem을 통해 서버에 전송
 				MessageVO msg = new MessageVO();
 				msg.setStatus(MessageVO.WRITE);
 				msg.setId(client.getId());
 				msg.setTitle(tf_title.getText());
 				msg.setContent(tf_content.getText());
-				if (client.writeBoard(msg)) {
+				// clientsystem을 이용해 서버에 전송
+				if (client.writeBoard(msg)) { // 전송 성공
 					JOptionPane.showMessageDialog(null, Commons.getMsg("글 작성 성공"));
-					frame.dispose();
-				} else {
+					exit(); // 창 종료
+				} else { // 전송 실패
 					JOptionPane.showMessageDialog(null, Commons.getMsg("글 작성 실패"));
 				}
 			}

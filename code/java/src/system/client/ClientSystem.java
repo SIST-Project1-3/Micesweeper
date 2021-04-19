@@ -42,11 +42,12 @@ public class ClientSystem {
 		}
 	}
 
-	// 글 작성
+	// 글 작성 - MessageVO를 인자로 받아서 메소드 실행
 	public boolean writeBoard(MessageVO msg) {
 		boolean result = false;
 
 		try {
+			// 소켓통신을 이용해 msg에 담아서 서버에 전송
 			oos.writeObject(msg);
 			MessageVO recieveMsg = (MessageVO) ois.readObject();
 			result = recieveMsg.getResult();
