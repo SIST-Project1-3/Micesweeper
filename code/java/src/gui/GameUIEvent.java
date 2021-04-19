@@ -7,6 +7,7 @@ import java.awt.event.MouseListener;
 import java.awt.event.WindowEvent;
 import java.awt.event.WindowListener;
 
+import javax.swing.JButton;
 import javax.swing.JList;
 import javax.swing.JOptionPane;
 
@@ -21,6 +22,7 @@ public class GameUIEvent implements ActionListener, WindowListener, MouseListene
 	@Override
 	public void actionPerformed(ActionEvent e) {
 		Object obj = e.getSource();
+		try {
 		if (obj == ui.watchprofilebtn) {// 방장 프로필
 			new ProfileUI();
 		} else if (obj == ui.readybutton) { // 레디
@@ -30,6 +32,15 @@ public class GameUIEvent implements ActionListener, WindowListener, MouseListene
 			ui.exit();
 		} else if(obj== ui.watchprofilebtn_2) {
 			new ProfileUI();// 채팅 전송
+		} else if(GameUI.mbi.hasNext()) {
+			JButton value = GameUI.mbi.next();
+			if (obj == value) {
+				System.out.println(value.getName());
+			}
+			
+		}
+		}catch(Exception e1) {
+			e1.printStackTrace();
 		}
 	}
 
