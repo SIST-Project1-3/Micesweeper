@@ -5,6 +5,7 @@ import java.awt.FlowLayout;
 import java.awt.GridLayout;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
+import java.util.ArrayList;
 
 import javax.swing.JButton;
 import javax.swing.JFrame;
@@ -17,9 +18,10 @@ public class JoinUI {
 	JFrame f;
 	JPanel west_panel, center_panel, south_panel,
 		  label_panel, tf_panel, btn_panel, id_check_panel;
-	String[] joinlist = {"ID","PW","PW확인"};
 	JButton join_btn, id_check_btn, cancel_btn;
 	JTextField join_tf;
+	String[] joinlist = {"ID","PW","PW확인"};
+	ArrayList<Object> list = new ArrayList<Object>();
 	
 	public JoinUI() {
 		init();
@@ -62,13 +64,14 @@ public class JoinUI {
 				id_check_panel.add(join_tf);
 				id_check_panel.add(id_check_btn);
 				tf_panel.add(id_check_panel);
-				
+				list.add(join_tf);
 			}else {
 				join_tf = new JTextField(23);
 				l_panel.add(join_label);
 				t_panel.add(join_tf);
 				label_panel.add(l_panel);
 				tf_panel.add(t_panel);
+				list.add(join_tf);
 			}
 		}
 		
