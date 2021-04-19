@@ -6,10 +6,10 @@ import java.util.Iterator;
 public class GameSystemServer {
 	boolean gameflag, readyflag;
 	int k;
-	ArrayList<Integer> mice;
-	ArrayList<Integer> number;
-	Iterator<Integer> mcit = mice.iterator();
-	Iterator<Integer> nuit = number.iterator();
+	static ArrayList<Integer> mice;
+	static ArrayList<Integer> number;
+	static Iterator<Integer> mcit = mice.iterator();
+	static Iterator<Integer> nuit = number.iterator();
 	
 	
 	
