@@ -6,7 +6,12 @@ import vo.BoardVO;
 import vo.MessageVO;
 
 public class BoardDAO extends DAO {
+	// Constructor
+	public BoardDAO() {
+		System.out.println("3: BoardDAO load");
+	}
 
+	// Method
 	// 글쓰기
 	public boolean getInsertResult(MessageVO msg) {
 		boolean result = false;
