@@ -46,22 +46,7 @@ public class ServerSystem {
 		}
 
 	}
-	
-	//회원가입
-	public boolean joinCheck(MemberVO member){
-		return mdao.getJoinResult(member);
-	}
-	
-	//아이디 중복체크
-	public boolean idCheck(String id) {
-		return mdao.getIdCheckResult(id);
-	}
-	
-	//로그인
-	public boolean loginCheck(String id, String pw) {
-		return mdao.getLoginResult(id, pw);
-	}
-	
+
 	// 메세지 전체 에코
 	public void broadcastMsg(MessageVO msg) {
 		try {
