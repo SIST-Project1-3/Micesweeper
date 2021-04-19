@@ -4,17 +4,23 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.ArrayList;
 
-import javax.swing.JComponent;
 import javax.swing.JOptionPane;
 import javax.swing.JTextField;
 
+import dao.MemberDAO;
 import vo.MemberVO;
 
 public class JoinUIEvent implements ActionListener{
 	JoinUI jui;
+	MemberDAO mdao;
 	
 	public JoinUIEvent(JoinUI jui) {
 		this.jui = jui;
+	}
+	
+	public JoinUIEvent(JoinUI jui, MemberDAO mdao) {
+		this.jui = jui;
+		this.mdao = mdao;
 	}
 	
 	@Override
@@ -42,9 +48,7 @@ public class JoinUIEvent implements ActionListener{
 					member.setId(jlist.get(0).getText());
 					member.setPw(jlist.get(1).getText());
 					
-//					boolean result = 시스템주소?(member);
-//					ex)boolean result = main.system.join(member);
-					boolean result2 = true;
+					boolean result2 = mdao.JoinResult(member);
 					
 					//가입 성공시 '회원가입을 완료했습니다' 메세지 생성 
 					if(result2) {
@@ -61,7 +65,6 @@ public class JoinUIEvent implements ActionListener{
 				}else {
 					for(Object obj2 : jui.list) {
 						JTextField tf = (JTextField)obj2;
-						tf.requestFocus();
 					}
 				}//if문(join_check)
 				
@@ -80,8 +83,7 @@ public class JoinUIEvent implements ActionListener{
 	public boolean id_check() {
 		boolean result = false;	//중복확인 반환
 		//데이터베이스 연결해서 비교 or  UNIQUE 사용?
-		//boolean result = main.system.loginCheck(id_tf.getText());
-		boolean result2 = true;	//아이디 확인 반환받음
+		boolean result2 = mdao.IdCheckResult(jui.id_tf.getText());
 				
 		if(result2) {
 			JOptionPane.showMessageDialog(null, Commons.getMsg("사용가능한 아이디입니다"));
