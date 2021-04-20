@@ -6,7 +6,8 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 
 public abstract class DAO {
-	String url = "jdbc:oracle:thin:@127.0.0.1:1521";
+//	String url = "jdbc:oracle:thin:@127.0.0.1:1521"; //윈도우
+	String url = "jdbc:oracle:thin:@localhost:1521/xe"; //맥북
 	String user = "scott";
 	String pass = "tiger";
 	Connection conn;
