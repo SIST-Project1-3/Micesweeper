@@ -11,8 +11,11 @@ import javax.swing.JButton;
 import javax.swing.JList;
 import javax.swing.JOptionPane;
 
+import system.client.ClientSystem;
+
 public class GameUIEvent implements ActionListener, WindowListener, MouseListener {
 	GameUI ui;
+	ClientSystem client;
 
 	public GameUIEvent(GameUI ui) {
 		this.ui = ui;
@@ -22,28 +25,31 @@ public class GameUIEvent implements ActionListener, WindowListener, MouseListene
 	@Override
 	public void actionPerformed(ActionEvent e) {
 		Object obj = e.getSource();
-		System.out.print(((JButton)obj).getName());
 
 		if (obj == ui.watchprofilebtn) {// 방장 프로필
 			new ProfileUI();
+		} else if(obj == ui.send || obj == ui.textField) {
+			System.out.println("텍스트");//채팅
 		} else if (obj == ui.readybutton) { // 레디
 			new ProfileUI();
 		} else if (obj == ui.exitbutton) { //나가기
-			new MainUI();
+			new MainUI(client);
 			ui.exit();
 		} else if(obj== ui.watchprofilebtn_2) {
-			new ProfileUI();// 채팅 전송
-		} else if(GameUI.mbi.hasNext()) {
-			JButton value = GameUI.mbi.next();
-			if (obj == value) {
-				System.out.print(((JButton)obj).getName());
-
-			}
-			
+			new ProfileUI();// 도전자 프로필
+		} else{
+			int a;
+			a=(Integer.parseInt(((JButton)obj).getName()))/10*9+(Integer.parseInt(((JButton)obj).getName()))%10;
+			GameUI.clickmice.add(a);
 		}
-		
-		
+				
+
 	}
+			
+		
+		
+		
+	
 
 	@Override
 	public void windowOpened(WindowEvent e) {
