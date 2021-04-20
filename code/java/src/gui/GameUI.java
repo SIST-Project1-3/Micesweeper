@@ -25,7 +25,7 @@ public class GameUI {
 	public JTextField textField;
 	public JTextArea textArea;
 	public static ArrayList<JButton> micebtn = new ArrayList<JButton>();
-	public static Iterator<JButton> mbi = micebtn.iterator();
+	public static ArrayList<Integer> clickmice = new ArrayList<Integer>();
 	public JButton watchprofilebtn, readybutton, exitbutton, send, watchprofilebtn_2;
 	GameUIEvent event = new GameUIEvent(this);
 
