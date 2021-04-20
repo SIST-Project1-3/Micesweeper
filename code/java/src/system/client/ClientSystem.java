@@ -1,5 +1,6 @@
 package system.client;
 
+import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.net.Socket;
@@ -40,6 +41,8 @@ public class ClientSystem {
 			client = new Socket("127.0.0.1", 9000);
 			oos = new ObjectOutputStream(client.getOutputStream());
 			ois = new ObjectInputStream(client.getInputStream());
+			System.out.println("커뮤니티 통신 소켓 연결");
+
 
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -77,10 +80,19 @@ public class ClientSystem {
 
 	// 글 읽기
 	public BoardVO readArticle(int no) {
+		BoardVO article = null;
 		MessageVO msg = new MessageVO();
 		msg.setStatus(MessageVO.BOARD_READ_ARTICLE);
 		msg.setNo(no);
 		return bdao.getReadResult(msg);
+		try {
+			oos.writeObject(msg);
+			article = ((MessageVO) ois.readObject()).getArticle();
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return article;
+	}
 	}
 
 	// 회원가입
@@ -96,5 +108,13 @@ public class ClientSystem {
 	// 로그인
 	public boolean loginCheck(String id, String pw) {
 		return mdao.getLoginResult(id, pw);
+	}
+
+	public void exit() {
+		try {
+			client.close();
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
 	}
 }
