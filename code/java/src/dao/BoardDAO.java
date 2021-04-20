@@ -35,11 +35,11 @@ public class BoardDAO extends DAO {
 		return result;
 	}
 
-	// 글읽기
+	// 글 목록 불러오기
 	public ArrayList<BoardVO> getSelectResult() {
 		ArrayList<BoardVO> list = new ArrayList<BoardVO>();
 		try {
-			String sql = "select * from board";
+			String sql = "SELECT * FROM BOARD ORDER BY NO DESC";
 			getPreparedStatement(sql);
 
 			rs = pstmt.executeQuery();
@@ -58,5 +58,27 @@ public class BoardDAO extends DAO {
 		}
 		return list;
 	}
-	// 글목록
+
+	// 글 읽기
+	public BoardVO getReadResult(MessageVO msg) {
+		BoardVO article = new BoardVO();
+		try {
+			String sql = "SELECT * FROM BOARD WHERE NO=?";
+			getPreparedStatement(sql);
+			pstmt.setInt(1, msg.getNo());
+			
+			rs = pstmt.executeQuery();
+			while(rs.next()) {
+				article.setNo(rs.getInt(1));
+				article.setTitle(rs.getString(2));
+				article.setContent(rs.getString(3));
+				article.setWriter(rs.getString(4));
+				article.setViewcount(rs.getInt(5));
+				article.setWdate(rs.getString(6));
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return article;
+	}
 }
