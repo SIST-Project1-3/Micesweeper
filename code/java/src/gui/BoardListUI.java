@@ -158,8 +158,9 @@ public class BoardListUI implements ActionListener, MouseListener {
 		int r = table.getSelectedRow();
 //		System.out.println(r);
 		if (e.getClickCount() == 2) {
+			System.out.println("Selected Index: " + r+", article no: "+table.getValueAt(r, 0));
 			MessageVO msg = new MessageVO();
-			BoardVO article = client.readArticle();
+			BoardVO article = client.readArticle((int)table.getValueAt(r, 0));
 			new BoardViewUI(article);
 		}
 	}
