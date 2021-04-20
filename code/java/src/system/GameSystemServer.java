@@ -8,8 +8,8 @@ public class GameSystemServer {
 	int k;
 	static ArrayList<Integer> mice;
 	static ArrayList<Integer> number;
-	static Iterator<Integer> mcit = mice.iterator();
-	static Iterator<Integer> nuit = number.iterator();
+	static Iterator<Integer> mcit;// mcit = mice.iterator();
+	static Iterator<Integer> nuit;// nuit = number.iterator();
 	
 	
 	
@@ -30,10 +30,14 @@ public class GameSystemServer {
 	}
 	
 	public void CreateMice() {
+		mice = new ArrayList<Integer>();
+		number = new ArrayList<Integer>();
 		boolean mflag = false;
 		k = 11 + (((int)Math.random())*10000)%6;
 		for (int i=1; i<k; i++) {
 			int l=((int)Math.random()*10000)%81;
+			mcit = mice.iterator();
+			nuit = number.iterator();
 			while(mcit.hasNext()){
 			    int value = mcit.next();
 			    if(value == l){
@@ -106,5 +110,8 @@ public class GameSystemServer {
 		}//for
 		
 		
+	}
+	public static void main(String[] args) {
+		new GameSystemServer();
 	}
 }
