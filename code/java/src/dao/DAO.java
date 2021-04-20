@@ -6,8 +6,7 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 
 public abstract class DAO {
-//	String url = "jdbc:oracle:thin:@127.0.0.1:1521"; //윈도우
-	String url = "jdbc:oracle:thin:@localhost:1521/xe"; //맥북
+	String url;
 	String user = "scott";
 	String pass = "tiger";
 	Connection conn;
@@ -20,6 +19,15 @@ public abstract class DAO {
 			Class.forName("oracle.jdbc.driver.OracleDriver");
 			System.out.println("1: driver load");
 
+
+			// 운영체제 확인
+			String osName = System.getProperty("os.name").toLowerCase();
+			if(osName.indexOf("win")>=0) { // 윈도우
+				url = "jdbc:oracle:thin:@127.0.0.1:1521";
+			}else if(osName.indexOf("mac")>=0) { // 맥북
+				url = "jdbc:oracle:thin:@localhost:1521/xe";
+			}
+			
 			conn = DriverManager.getConnection(url, user, pass);
 			System.out.println("2: OracleDB has been connected with scott");
 		} catch (Exception e) {
