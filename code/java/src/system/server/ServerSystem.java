@@ -82,12 +82,12 @@ public class ServerSystem {
 				while (true) {
 					MessageVO msg = (MessageVO) ois.readObject();
 					MessageVO returnMsg = new MessageVO();
-					if (msg.getStatus() == MessageVO.WRITE) {
+					if (msg.getStatus() == MessageVO.BOARD_WRITE) {
 						// 서버에서 처리 후 모두에게 전송하지 않고, 해당 클라이언트에게만 전송해야 하는 경우 if문으로 처리
-						returnMsg.setStatus(MessageVO.WRITE);
+						returnMsg.setStatus(MessageVO.BOARD_WRITE);
 						returnMsg.setResult(bdao.getInsertResult(msg));
 						oos.writeObject(returnMsg);
-					} else if (msg.getStatus() == MessageVO.READ) {
+					} else if (msg.getStatus() == MessageVO.BOARD_READ_LIST) {
 						ArrayList<BoardVO> boardlist = bdao.getSelectResult();
 						returnMsg.setBoardList(boardlist);
 						oos.writeObject(returnMsg);
