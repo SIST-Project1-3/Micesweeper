@@ -58,7 +58,8 @@ public class GameSystemClient {
 		open();
 	}
 	public void open() {
-		int btnnum = GameUI.clickmice.get(count);
+		int btnnum = 28;
+				//GameUI.clickmice.get(count);
 		if(btnnum == GameSystemServer.mice.get(0)) {
 			winflag = true;
 			System.out.println("현재 턴 플레이어 승리(고양이)");
@@ -74,7 +75,7 @@ public class GameSystemClient {
 					if(value2 == btnnum) {
 						int count3 = 1;
 						
-						}
+						}//아직 수정중
 						}
 					}
 				}
