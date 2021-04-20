@@ -118,7 +118,7 @@ public class BoardViewUI {
 	}
 
 	public void exit() {
-		System.exit(0);
+		frame.dispose();
 	}
 
 	public static void main(String[] args) {
