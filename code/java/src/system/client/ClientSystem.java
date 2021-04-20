@@ -92,7 +92,7 @@ public class ClientSystem {
 		}
 		return article;
 	}
-	}
+	
 
 	// 회원가입
 	public boolean joinCheck(MemberVO member) {

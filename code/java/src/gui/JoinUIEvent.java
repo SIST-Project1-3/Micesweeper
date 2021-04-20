@@ -32,43 +32,52 @@ public class JoinUIEvent implements ActionListener {
 				id_check();
 			}
 		} else if (obj == jui.join_btn) {
-			// 아이디 중복확인 안한 경우 가입 못하게 하기 + '아이디 중복여부를 확인해주세요'
-			boolean result = id_check();
-
-			if (result) {
-				if (join_check()) {
-					ArrayList<JTextField> jlist = new ArrayList<JTextField>();
-					for (Object tf : jui.list) {
-						JTextField jtf = (JTextField) tf;
-						jlist.add(jtf);
-					}
-					MemberVO member = new MemberVO();
-					member.setId(jlist.get(0).getText());
-					member.setPw(jlist.get(1).getText());
-
-					boolean result2 = client.joinCheck(member);
-					if (result2) {
-						JOptionPane.showMessageDialog(null, Commons.getMsg("회원가입을 완료했습니다."));
+			// 아이디 중복확인 안한 경우 가입 못하게 하기
+			//boolean result = id_check();
+			boolean result = client.idCheck(jui.id_tf.getText());
+			
+			if (!result) {
+				//PW와 PW확인이 같은지 확인
+				if(jui.pw_tf.getText().equals(jui.pw_check_tf.getText())) {
+					//회원가입 정보 저장 및 회원가입 가능 확인
+					if (join_check()) {
+						ArrayList<JTextField> jlist = new ArrayList<JTextField>();
+						for (Object tf : jui.list) {
+							JTextField jtf = (JTextField) tf;
+							jlist.add(jtf);
+						}
+						MemberVO member = new MemberVO();
+						member.setId(jlist.get(0).getText());
+						member.setPw(jlist.get(1).getText());
+						
+						boolean result2 = client.joinCheck(member);
+						if (result2) {
+							JOptionPane.showMessageDialog(null, Commons.getMsg("회원가입을 완료했습니다."));
+							for (Object obj2 : jui.list) {
+								JTextField tf = (JTextField) obj2;
+								tf.setText("");
+							}
+							jui.f.setVisible(false);
+							
+						} else {
+							JOptionPane.showMessageDialog(null, Commons.getMsg("회원가입에 실패했습니다."));
+						}
+					} else {
 						for (Object obj2 : jui.list) {
 							JTextField tf = (JTextField) obj2;
-							tf.setText("");
 						}
-						jui.f.setVisible(false);
-
-					} else {
-						JOptionPane.showMessageDialog(null, Commons.getMsg("회원가입에 실패했습니다."));
-					}
-				} else {
-					for (Object obj2 : jui.list) {
-						JTextField tf = (JTextField) obj2;
-					}
-				}// if문(join_check)
-
+					}// if문(join_check)
+				} else if(jui.pw_check_tf.getText().equals("")){
+					JOptionPane.showMessageDialog(null, Commons.getMsg("PW확인을 입력해주세요."));
+					jui.pw_check_tf.requestFocus();
+				}else {
+					JOptionPane.showMessageDialog(null, Commons.getMsg("비밀번호가 다릅니다."));
+					jui.pw_tf.requestFocus();
+				}
 			} else {
 				JOptionPane.showMessageDialog(null, Commons.getMsg("아이디 중복여부를 확인해주세요."));
 				jui.id_tf.requestFocus();
 			}// if문(id_check)
-
 		} else if (obj == jui.cancel_btn) {
 			// 회원가입창 종료
 			jui.f.dispose();
@@ -77,20 +86,19 @@ public class JoinUIEvent implements ActionListener {
 
 	// ID 중복 체크
 	public boolean id_check() {
-		boolean result = false;	// 중복확인 반환
-		// 데이터베이스 연결해서 비교 or UNIQUE 사용?
-		// idCheck의 결과값이 true면 중복된 아이디가 있다는 의미
+		//boolean result = false;
+		// result2가 true면 중복된 아이디가 있다는 의미
 		boolean result2 = client.idCheck(jui.id_tf.getText());
-
-		if (!result2) {
-			JOptionPane.showMessageDialog(null, Commons.getMsg("사용가능한 아이디입니다"));
-			jui.pw_tf.requestFocus();
-			result = true;
-		} else {
+		
+		if (result2) {
 			JOptionPane.showMessageDialog(null, Commons.getMsg("이미 사용중인 아이디입니다"));
 			jui.id_tf.requestFocus();
+		} else {
+			JOptionPane.showMessageDialog(null, Commons.getMsg("사용가능한 아이디입니다"));
+			jui.pw_tf.requestFocus();
+			result2 = true; 
 		}
-		return result;
+		return result2;
 	}// id_check
 
 	// 회원가입 빈칸 체크
@@ -111,6 +119,8 @@ public class JoinUIEvent implements ActionListener {
 			}
 		}
 		return result;
+		
+		
 	}// join_check
 
 }
