@@ -5,9 +5,10 @@ import java.util.ArrayList;
 
 // 서버와 클라이언트가 통신할 때 사용하는 VO
 public class MessageVO implements Serializable {
-	public static int WRITE = 1;
-	public static int READ = 1;
-	int status;
+	public static int BOARD_WRITE = 1;
+	public static int BOARD_READ_LIST = 2;
+	public static int BOARD_READ_ARTICLE = 3;
+	int status, no;
 	String title, content, id;
 	boolean result;
 	ArrayList<BoardVO> boardList;
@@ -58,6 +59,14 @@ public class MessageVO implements Serializable {
 
 	public void setBoardList(ArrayList<BoardVO> boardList) {
 		this.boardList = boardList;
+	}
+
+	public int getNo() {
+		return no;
+	}
+
+	public void setNo(int no) {
+		this.no = no;
 	}
 
 }
