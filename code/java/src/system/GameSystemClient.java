@@ -1,10 +1,15 @@
 package system;
 
+import java.util.HashMap;
+
 import gui.GameUI;
+import gui.JoinUI;
+import system.client.ClientSystem;
 
 public class GameSystemClient {
 //field
-	boolean turnflag, winflag, loseflag;
+	boolean turnflag, winflag=false, loseflag=false;
+	int count = 0;
 //constructor
 	public GameSystemClient() {
 		init();
@@ -18,21 +23,29 @@ public class GameSystemClient {
 			gameplay();
 			if(winflag == true) {
 			//승리 - 서버 전송
+				count = 0;
 			}else if(loseflag == true){
 				//패배 - 서버 전송
+				count = 0;
 			}else {
 				turnflag = false;
+				count++;
 				init();
+				
 			}
 		}else {
 			gamewait();
 			if(winflag == true) {
 				//패배 - 서버 전송
+				count = 0;
 				}else if(loseflag == true){
 					//승리 - 서버 전송
+					count = 0;
 				}else {
 					turnflag = true;
+					count++;
 					init();
+					
 				}
 		}
 	}
@@ -45,16 +58,31 @@ public class GameSystemClient {
 		open();
 	}
 	public void open() {
-		int btnnum = GameUI.micebtn;
+		int btnnum = GameUI.clickmice.get(count);
 		if(btnnum == GameSystemServer.mice.get(0)) {
 			winflag = true;
+			System.out.println("현재 턴 플레이어 승리(고양이)");
 		}else {
 		while(GameSystemServer.mcit.hasNext()) {
 			int value = GameSystemServer.mcit.next();
 			if (value == btnnum) {
 				loseflag = true;
+				System.out.println("현재 턴 플레이어 패배(쥐)");
+			}else {
+				while(GameSystemServer.nuit.hasNext()) {
+					int value2 = GameSystemServer.nuit.next();
+					if(value2 == btnnum) {
+						int count3 = 1;
+						
+						}
+						}
+					}
+				}
 			}
 		}
-		}
+	public static void main(String[] args) {
+		new GameSystemClient();
 	}
-}
+		
+	}
+
