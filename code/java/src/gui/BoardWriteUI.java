@@ -92,7 +92,7 @@ public class BoardWriteUI implements ActionListener {
 			} else { // 글 작성
 				// 작성한 글을 msg에 담아서 clientsystem을 통해 서버에 전송
 				MessageVO msg = new MessageVO();
-				msg.setStatus(MessageVO.WRITE);
+				msg.setStatus(MessageVO.BOARD_WRITE);
 				msg.setId(client.getId());
 				msg.setTitle(tf_title.getText());
 				msg.setContent(tf_content.getText());
