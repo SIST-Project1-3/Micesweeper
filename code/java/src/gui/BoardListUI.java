@@ -127,6 +127,7 @@ public class BoardListUI implements ActionListener, MouseListener {
 		return panel;
 	}
 
+	// 테이블에 데이터 입력 및 테이블 새로고침 기능
 	public void createJtableData() {
 		model.setNumRows(0);
 		for (BoardVO post : client.readBoard()) {
@@ -162,6 +163,7 @@ public class BoardListUI implements ActionListener, MouseListener {
 			MessageVO msg = new MessageVO();
 			BoardVO article = client.readArticle((int) table.getValueAt(r, 0));
 			new BoardViewUI(article);
+			createJtableData();
 		}
 	}
 
