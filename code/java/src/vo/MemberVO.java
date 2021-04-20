@@ -2,8 +2,8 @@ package vo;
 
 // DAO를 통해 DB에 접근하기위한 VO
 public class MemberVO {
-	String id, pw, name, rdate;
-	int win, lose;
+	String id, pw, name, rdate; // ID, PW, 이름, 등록일자
+	int win, lose; // 승리횟수, 패배횟수
 	
 	public String getId() {
 		return id;
