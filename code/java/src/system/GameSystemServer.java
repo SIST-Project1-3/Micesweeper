@@ -14,11 +14,12 @@ public class GameSystemServer {
 	
 	
 	public GameSystemServer() {
-		init();
+		CreateMice();
+		//init();
 	}
 	
 	public void  init() {
-		gameflag = false;
+		gameflag = false; // 나중에 false로 바꾸고, 시작하면 true 되는 로직 생성해야함
 		//준비 + 시작하는 과정
 		if (gameflag = true) {
 			CreateMice();//지뢰, 숫자칸 생성
@@ -31,23 +32,33 @@ public class GameSystemServer {
 	
 	public void CreateMice() {
 		mice = new ArrayList<Integer>();
-		number = new ArrayList<Integer>();
-		boolean mflag = false;
-		k = 11 + (((int)Math.random())*10000)%6;
+		number = new ArrayList<Integer>();//지뢰, 숫자 어레이리스트 생성
+		boolean mflag = true; // 중복값 판단하는 flag
+		k = 11 + (int)((Math.random())*10000)%6; // 지뢰갯수 설정
+		System.out.println("k="+k); // 지뢰갯수 출력
+		
 		for (int i=1; i<k; i++) {
-			int l=((int)Math.random()*10000)%81;
+			System.out.println(i);
 			mcit = mice.iterator();
 			nuit = number.iterator();
+			int l=(int)(Math.random()*10000)%81;
+			System.out.println("지뢰="+l);
+			System.out.println(mice.size());
 			while(mcit.hasNext()){
 			    int value = mcit.next();
 			    if(value == l){
-			       mflag = true;
+			       mflag = false;
+			    }else {
+			    	mflag = true;
 			    }
 			}
-			if(mflag=true) {
+			System.out.println(mflag);
+			if(mflag==false) {
 			i--;
-			}else {
+			System.out.println("중복!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!");
+			}else if(mflag==true){
 				mice.add(l);
+				System.out.println("입력완료");
 				int a=l/9;
 				int b=l%9;
 				if(a==0) {
@@ -106,7 +117,7 @@ public class GameSystemServer {
 						number.add((a+1)*9+(b+1));
 					}
 				}
-			}
+			}//else
 		}//for
 		
 		
