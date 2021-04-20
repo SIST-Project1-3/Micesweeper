@@ -15,6 +15,7 @@ import vo.MemberVO;
 public class JoinUIEvent implements ActionListener {
 	JoinUI jui;
 	ClientSystem client;
+	boolean idChkResult = true;
 
 	public JoinUIEvent(JoinUI jui, ClientSystem client) {
 		this.jui = jui;
@@ -25,6 +26,7 @@ public class JoinUIEvent implements ActionListener {
 	public void actionPerformed(ActionEvent e) {
 		Object obj = e.getSource();
 		// 아이디 중복확인 버튼
+
 		if (obj == jui.id_check_btn) {
 			// 아이디 입력창 빈칸 검사
 			if (jui.id_tf.getText().equals("")) {
@@ -32,15 +34,14 @@ public class JoinUIEvent implements ActionListener {
 				jui.id_tf.requestFocus();
 			} else if (!jui.list.get(0).equals("")) {
 				// 아이디 입력창 빈칸 아닐 때 중복검사
-				id_check();
+				idChkResult = id_check();
 			}
 			// 가입 버튼
 		} else if (obj == jui.join_btn) {
 			// 아이디 중복확인 안한 경우(result=false) 가입 안되게 하기
 //			boolean result = client.idCheck(jui.id_tf.getText());
-			boolean result = id_check();
 
-			if (!result) {
+			if (!idChkResult) {
 				// PW == PW확인 이 맞는지 체크
 				if (jui.pw_tf.getText().equals(jui.pw_check_tf.getText())) {
 					if (join_check()) {
@@ -70,7 +71,7 @@ public class JoinUIEvent implements ActionListener {
 							JTextField tf = (JTextField) obj2;
 						}
 					} // if문(join_check)
-					// PW확인이 비어있을 때
+						 // PW확인이 비어있을 때
 				} else if (jui.pw_check_tf.getText().isEmpty()) {
 					JOptionPane.showMessageDialog(null, Commons.getMsg("PW확인을 입력해주세요."));
 					jui.pw_check_tf.requestFocus();
