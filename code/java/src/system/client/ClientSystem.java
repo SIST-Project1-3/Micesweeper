@@ -84,7 +84,6 @@ public class ClientSystem {
 		MessageVO msg = new MessageVO();
 		msg.setStatus(MessageVO.BOARD_READ_ARTICLE);
 		msg.setNo(no);
-		return bdao.getReadResult(msg);
 		try {
 			oos.writeObject(msg);
 			article = ((MessageVO) ois.readObject()).getArticle();
