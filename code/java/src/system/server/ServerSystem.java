@@ -34,12 +34,13 @@ public class ServerSystem {
 			while (true) {
 				// 클라이언트 접속 대기
 				client = server.accept();
+				System.out.println("커뮤니티 소켓 연결");
 
 				// 클라이언트 접속시 해당 클라이언트와 연결된 서버 스레드 실행
 				ServerThread st = new ServerThread(client);
 				st.start();
-
 				stList.add(st);
+
 			}
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -47,7 +48,7 @@ public class ServerSystem {
 
 	}
 
-	// 메세지 전체 에코
+	// 서버 채팅 전체 에코
 	public void broadcastMsg(MessageVO msg) {
 		try {
 			for (ServerThread st : stList) {
@@ -82,23 +83,21 @@ public class ServerSystem {
 				while (true) {
 					MessageVO msg = (MessageVO) ois.readObject();
 					MessageVO returnMsg = new MessageVO();
-					if (msg.getStatus() == MessageVO.BOARD_WRITE) {
-						// 서버에서 처리 후 모두에게 전송하지 않고, 해당 클라이언트에게만 전송해야 하는 경우 if문으로 처리
+					if (msg.getStatus() == MessageVO.BOARD_WRITE) { // 게시글 작성
 						returnMsg.setStatus(MessageVO.BOARD_WRITE);
 						returnMsg.setResult(bdao.getInsertResult(msg));
 						oos.writeObject(returnMsg);
-					} else if (msg.getStatus() == MessageVO.BOARD_READ_LIST) {
+					} else if (msg.getStatus() == MessageVO.BOARD_READ_LIST) { // 게시글 목록 불러오기
 						ArrayList<BoardVO> boardlist = bdao.getSelectResult();
 						returnMsg.setBoardList(boardlist);
 						oos.writeObject(returnMsg);
-					} else {
-						// 전체 에코 메세지
-						broadcastMsg(msg);
+					} else if (msg.getStatus() == MessageVO.BOARD_READ_ARTICLE) { // 특정 게시글 읽기
+						BoardVO article = bdao.getReadResult(msg);
+						returnMsg.setArticle(article);
+						oos.writeObject(returnMsg);
 					}
 				}
-			} catch (
-
-			Exception e) {
+			} catch (Exception e) {
 				e.printStackTrace();
 			}
 		}

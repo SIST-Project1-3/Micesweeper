@@ -121,13 +121,4 @@ public class BoardViewUI {
 		frame.dispose();
 	}
 
-	public static void main(String[] args) {
-		BoardVO article = new BoardVO();
-		article.setTitle("제목");
-		article.setDate("오늘");
-		article.setWriter("이창민");
-		article.setViewcount(303);
-		article.setContent("내용입니다");
-		new BoardViewUI(article);
-	}
 }

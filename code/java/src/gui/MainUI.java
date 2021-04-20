@@ -3,12 +3,6 @@ package gui;
 import java.awt.BorderLayout;
 import java.awt.GridLayout;
 import java.awt.Image;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
-import java.awt.event.MouseEvent;
-import java.awt.event.MouseListener;
-import java.awt.event.WindowEvent;
-import java.awt.event.WindowListener;
 import java.util.ArrayList;
 
 import javax.swing.DefaultListModel;
@@ -25,6 +19,7 @@ import javax.swing.JTextField;
 import javax.swing.SwingConstants;
 
 import system.client.ClientSystem;
+import vo.MessageVO;
 
 public class MainUI {
 
@@ -164,12 +159,9 @@ public class MainUI {
 	public void exit() {
 		int answer = JOptionPane.showConfirmDialog(null, Commons.getMsg("정말로 종료하시겠습니까?"));
 		if (answer == 0) {
+			client.exit();
 			System.exit(0);
 		}
-	}
-
-	public static void main(String[] args) {
-		new MainUI(new ClientSystem());
 	}
 
 }
