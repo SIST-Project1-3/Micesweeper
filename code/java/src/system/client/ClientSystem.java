@@ -14,7 +14,7 @@ import vo.MessageVO;
 public class ClientSystem {
 	// Field
 	Socket client;
-	String id;
+	String id; // 접속한 유저의 ID정보를 담고 있는 속성
 	BoardDAO bdao = new BoardDAO();
 	MemberDAO mdao = new MemberDAO();
 	ObjectOutputStream oos;
@@ -65,7 +65,7 @@ public class ClientSystem {
 	public ArrayList<BoardVO> readBoard() {
 		ArrayList<BoardVO> list = new ArrayList<BoardVO>();
 		MessageVO msg = new MessageVO();
-		msg.setStatus(MessageVO.READ);
+		msg.setStatus(MessageVO.BOARD_READ_LIST);
 		try {
 			oos.writeObject(msg);
 			list = ((MessageVO) ois.readObject()).getBoardList();
@@ -76,9 +76,11 @@ public class ClientSystem {
 	}
 
 	// 글 읽기
-	public BoardVO readArticle() {
-		BoardVO article = new BoardVO();
-		return article;
+	public BoardVO readArticle(int no) {
+		MessageVO msg = new MessageVO();
+		msg.setStatus(MessageVO.BOARD_READ_ARTICLE);
+		msg.setNo(no);
+		return bdao.getReadResult(msg);
 	}
 
 	// 회원가입
