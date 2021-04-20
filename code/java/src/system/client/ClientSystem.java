@@ -15,11 +15,14 @@ import vo.MessageVO;
 public class ClientSystem {
 	// Field
 	Socket client;
+	Socket client_chat;
 	String id; // 접속한 유저의 ID정보를 담고 있는 속성
 	BoardDAO bdao = new BoardDAO();
 	MemberDAO mdao = new MemberDAO();
 	ObjectOutputStream oos;
 	ObjectInputStream ois;
+	ObjectOutputStream oos_chat;
+	ObjectInputStream ois_chat;
 
 	// Constructor
 	public ClientSystem() {
@@ -43,6 +46,10 @@ public class ClientSystem {
 			ois = new ObjectInputStream(client.getInputStream());
 			System.out.println("커뮤니티 통신 소켓 연결");
 
+			client_chat = new Socket("127.0.0.1", 9001);
+			oos_chat = new ObjectOutputStream(client_chat.getOutputStream());
+			ois_chat = new ObjectInputStream(client_chat.getInputStream());
+			System.out.println("채팅 통신 소켓 연결");
 
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -92,7 +99,15 @@ public class ClientSystem {
 		}
 		return article;
 	}
-	
+
+	// 멀티채팅
+	public void sendMultiChat(MessageVO msg) {
+		try {
+			oos_chat.writeObject(msg);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+	}
 
 	// 회원가입
 	public boolean joinCheck(MemberVO member) {
@@ -114,6 +129,27 @@ public class ClientSystem {
 			client.close();
 		} catch (IOException e) {
 			e.printStackTrace();
+		}
+	}
+
+	class ClientThread extends Thread {
+		// Field
+
+		// Constructor
+
+		// Method
+		@Override
+		public void run() {
+			try {
+				while (true) {
+					MessageVO msg = (MessageVO) ois_chat.readObject();
+					if (msg.getStatus() == MessageVO.SERVERCHAT) { // 멀티채팅
+						System.out.println(msg.getId() + ": " + msg.getContent());
+					}
+				}
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
 		}
 	}
 }

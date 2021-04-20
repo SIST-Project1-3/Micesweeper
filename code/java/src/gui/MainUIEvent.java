@@ -10,6 +10,8 @@ import java.awt.event.WindowListener;
 import javax.swing.JList;
 import javax.swing.JOptionPane;
 
+import vo.MessageVO;
+
 public class MainUIEvent implements ActionListener, WindowListener, MouseListener {
 	MainUI ui;
 
@@ -29,8 +31,14 @@ public class MainUIEvent implements ActionListener, WindowListener, MouseListene
 			new BoardListUI(ui.client);
 		} else if (obj == ui.list_btn.get(3)) { // 게임종료
 			ui.exit();
-		} else if(obj== ui.btn_send || obj == ui.tf_chat) {
-			// 채팅 전송
+		} else if (obj == ui.btn_send || obj == ui.tf_chat) {
+			if (!ui.tf_chat.getText().isEmpty()) { // 입력한 내용이 있는 경우 실행
+				MessageVO msg = new MessageVO();
+				msg.setStatus(MessageVO.SERVERCHAT);
+				msg.setId(ui.client.getId());
+				msg.setContent(ui.tf_chat.getText());
+				ui.client.sendMultiChat(msg);
+			}
 		}
 	}
 
