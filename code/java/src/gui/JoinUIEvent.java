@@ -25,25 +25,24 @@ public class JoinUIEvent implements ActionListener {
 	@Override
 	public void actionPerformed(ActionEvent e) {
 		Object obj = e.getSource();
-		// 아이디 중복확인 버튼
-
+		
+		//아이디 중복확인 버튼
 		if (obj == jui.id_check_btn) {
-			// 아이디 입력창 빈칸 검사
 			if (jui.id_tf.getText().equals("")) {
+				// 아이디 입력창 빈칸 검사
 				JOptionPane.showMessageDialog(null, Commons.getMsg("아이디를 입력해주세요."));
 				jui.id_tf.requestFocus();
+				
 			} else if (!jui.list.get(0).equals("")) {
-				// 아이디 입력창 빈칸 아닐 때 중복검사
+				// 아이디 입력창 빈칸 아닐 때 아이디 중복체크
 				idChkResult = id_check();
 			}
-			// 가입 버튼
+		// 가입 버튼
 		} else if (obj == jui.join_btn) {
-			// 아이디 중복확인 안한 경우(result=false) 가입 안되게 하기
-//			boolean result = client.idCheck(jui.id_tf.getText());
-
 			if (!idChkResult) {
-				// PW == PW확인 이 맞는지 체크
+				// 아이디 중복확인 한 경우(idChkResult=false) 가입 가능
 				if (jui.pw_tf.getText().equals(jui.pw_check_tf.getText())) {
+					// PW == PW확인 이 맞는지 체크
 					if (join_check()) {
 						// 회원가입 정보 저장 및 회원가입 성공여부 확인
 						ArrayList<JTextField> jlist = new ArrayList<JTextField>();
@@ -71,31 +70,32 @@ public class JoinUIEvent implements ActionListener {
 							JTextField tf = (JTextField) obj2;
 						}
 					} // if문(join_check)
-						 // PW확인이 비어있을 때
 				} else if (jui.pw_check_tf.getText().isEmpty()) {
+					// PW확인이 비어있을 때
 					JOptionPane.showMessageDialog(null, Commons.getMsg("PW확인을 입력해주세요."));
 					jui.pw_check_tf.requestFocus();
-					// PW != PW확인
 				} else {
+					// PW != PW확인
 					JOptionPane.showMessageDialog(null, Commons.getMsg("비밀번호가 다릅니다."));
 					jui.pw_tf.requestFocus();
 				}
 			} else {
+				//아이디 중복확인 안한 경우(idChkResult=false) 가입 불가능
 				JOptionPane.showMessageDialog(null, Commons.getMsg("아이디 중복여부를 확인해주세요."));
 				jui.id_tf.requestFocus();
 			}
-			// 취소 버튼
+		// 취소 버튼
 		} else if (obj == jui.cancel_btn) {
 			// 회원가입창 종료
 			jui.f.dispose();
 		}
-	}// 액션이벤트
+	}
 
 	// ID 중복 체크
 	public boolean id_check() {
 		boolean result = true;
 		// result가 true면 중복된 아이디가 있다는 의미
-
+		
 		if (result == client.idCheck(jui.id_tf.getText())) {
 			JOptionPane.showMessageDialog(null, Commons.getMsg("이미 사용중인 아이디입니다"));
 			jui.id_tf.requestFocus();
