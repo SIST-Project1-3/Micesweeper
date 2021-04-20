@@ -129,7 +129,7 @@ public class BoardListUI implements ActionListener, MouseListener {
 
 	public void createJtableData() {
 		model.setNumRows(0);
-		for (BoardVO post : new BoardDAO().getSelectResult()) {
+		for (BoardVO post : client.readBoard()) {
 			System.out.println(1);
 			row[0] = post.getNo();
 			row[1] = post.getTitle();
@@ -149,7 +149,7 @@ public class BoardListUI implements ActionListener, MouseListener {
 		Object obj = e.getSource();
 		if (obj == btn_search) { // 검색
 		} else if (obj == btn_write) { // 글쓰기
-			new BoardWriteUI(client);
+			new BoardWriteUI(this);
 		}
 	}
 
@@ -158,9 +158,9 @@ public class BoardListUI implements ActionListener, MouseListener {
 		int r = table.getSelectedRow();
 //		System.out.println(r);
 		if (e.getClickCount() == 2) {
-			System.out.println("Selected Index: " + r+", article no: "+table.getValueAt(r, 0));
+			System.out.println("Selected Index: " + r + ", article no: " + table.getValueAt(r, 0));
 			MessageVO msg = new MessageVO();
-			BoardVO article = client.readArticle((int)table.getValueAt(r, 0));
+			BoardVO article = client.readArticle((int) table.getValueAt(r, 0));
 			new BoardViewUI(article);
 		}
 	}
@@ -189,7 +189,4 @@ public class BoardListUI implements ActionListener, MouseListener {
 
 	}
 
-	public static void main(String[] args) {
-		new BoardListUI(new ClientSystem());
-	}
 }
