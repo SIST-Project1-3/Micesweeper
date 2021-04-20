@@ -1,8 +1,10 @@
 package vo;
 
-public class BoardVO {
-	String title, content, writer, wdate;
-	int no, viewcount;
+import java.io.Serializable;
+
+public class BoardVO implements Serializable{
+	String title, content, writer, wdate; // 제목, 내용, 작성자, 작성일자
+	int no, viewcount; // 글번호, 조회수
 
 	public String getTitle() {
 		return title;
