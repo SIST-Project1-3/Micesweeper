@@ -16,6 +16,7 @@ public class ServerSystem {
 	// Field
 	ServerSocket server;
 	Socket client;
+	ServerSystem_Chat chatServer;
 	ArrayList<ServerThread> stList = new ArrayList<ServerThread>();
 	BoardDAO bdao = new BoardDAO();
 	MemberDAO mdao = new MemberDAO();
@@ -28,6 +29,8 @@ public class ServerSystem {
 	// Method
 	public void initialize() {
 		try {
+
+//			new ServerSystem_Chat().start();
 			server = new ServerSocket(9000);
 			System.out.println("Server start");
 
@@ -51,8 +54,8 @@ public class ServerSystem {
 	// 서버 채팅 전체 에코
 	public void broadcastMsg(MessageVO msg) {
 		try {
-			for (ServerThread st : stList) {
-				st.oos.writeObject(msg);
+			for (ServerThread st_chat : stList) {
+				st_chat.oos.writeObject(msg);
 			}
 		} catch (Exception e) {
 			e.printStackTrace();
