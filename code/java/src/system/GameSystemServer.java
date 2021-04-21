@@ -8,8 +8,6 @@ public class GameSystemServer {
 	int k;
 	static ArrayList<Integer> mice;
 	static ArrayList<Integer> number;
-	static Iterator<Integer> mcit;// mcit = mice.iterator();
-	static Iterator<Integer> nuit;// nuit = number.iterator();
 	
 	
 	
@@ -34,28 +32,25 @@ public class GameSystemServer {
 		mice = new ArrayList<Integer>();
 		number = new ArrayList<Integer>();//지뢰, 숫자 어레이리스트 생성
 		boolean mflag = true; // 중복값 판단하는 flag
-		k = 11 + (int)((Math.random())*10000)%6; // 지뢰갯수 설정
+		k = 10 + (int)((Math.random())*10000)%6; // 지뢰갯수 설정
 		System.out.println("k="+k); // 지뢰갯수 출력
 		
-		for (int i=1; i<k; i++) {
+		for (int i=0; i<k; i++) {
 			System.out.println(i);
-			mcit = mice.iterator();
-			nuit = number.iterator();
 			int l=(int)(Math.random()*10000)%81;
 			System.out.println("지뢰="+l);
 			System.out.println(mice.size());
-			while(mcit.hasNext()){
-			    int value = mcit.next();
+			for(int m=0; m<mice.size(); m++) {
+			    int value = mice.get(m);
 			    if(value == l){
 			       mflag = false;
-			    }else {
-			    	mflag = true;
 			    }
 			}
 			System.out.println(mflag);
 			if(mflag==false) {
 			i--;
 			System.out.println("중복!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!");
+			mflag = true;
 			}else if(mflag==true){
 				mice.add(l);
 				System.out.println("입력완료");

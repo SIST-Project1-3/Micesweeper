@@ -41,6 +41,7 @@ public class GameUIEvent implements ActionListener, WindowListener, MouseListene
 			int a;
 			a=(Integer.parseInt(((JButton)obj).getName()))/10*9+(Integer.parseInt(((JButton)obj).getName()))%10;
 			GameUI.clickmice.add(a);
+			System.out.println(a);//이따삭제
 		}
 				
 
