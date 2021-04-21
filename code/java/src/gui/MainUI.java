@@ -129,7 +129,6 @@ public class MainUI {
 
 		JPanel panel_center = new JPanel(new BorderLayout());
 		ta_chat = new JTextArea();
-		ta_chat.setEditable(false);
 		ta_chat.setFont(Commons.getFont());
 		JPanel panel_tf = new JPanel(new BorderLayout());
 		btn_send = new JButton("전송");
