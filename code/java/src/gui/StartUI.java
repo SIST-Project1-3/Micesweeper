@@ -23,11 +23,16 @@ public class StartUI {
 	JButton login_btn, join_btn;
 	JTextField id_tf;
 	JPasswordField pw_tf;
-	ClientSystem client= new ClientSystem();
-	StartUIEvent loginEvent = new StartUIEvent(this, client);
+	ClientSystem client;
+	StartUIEvent loginEvent;
 
 	// Constructor
 	public StartUI() {
+		System.out.println("StartUI 실행");
+		client= new ClientSystem();
+		System.out.println("UI와 클라이언트 연결");
+		loginEvent = new StartUIEvent(this, client);
+		System.out.println("StartUI 이벤트 연결");
 		init();
 	}
 
