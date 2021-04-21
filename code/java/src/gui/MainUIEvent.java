@@ -38,6 +38,7 @@ public class MainUIEvent implements ActionListener, WindowListener, MouseListene
 				msg.setId(ui.client.getId());
 				msg.setContent(ui.tf_chat.getText());
 				ui.client.sendMultiChat(msg);
+				ui.tf_chat.setText("");
 			}
 		}
 	}
