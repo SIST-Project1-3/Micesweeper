@@ -59,6 +59,37 @@ public class BoardDAO extends DAO {
 		return list;
 	}
 
+	// 글 검색
+	public ArrayList<BoardVO> getSearchResult(MessageVO msg) {
+		ArrayList<BoardVO> list = new ArrayList<BoardVO>();
+		try {
+			String sql=null;
+			if(msg.getStatus()== MessageVO.BOARD_SEARCH_TITLE) {
+				sql = "SELECT * FROM BOARD WHERE TITLE LIKE '%'||?||'%'";				
+			}else if(msg.getStatus()==MessageVO.BOARD_SEARCH_WRITER) {
+				sql = "SELECT * FROM BOARD WHERE ID LIKE '%'||?||'%'";								
+			}
+			getPreparedStatement(sql);
+			String target = msg.getArticle().getContent();
+			pstmt.setString(1, target);
+			
+			rs = pstmt.executeQuery();
+			while (rs.next()) {
+				BoardVO board = new BoardVO();
+				board.setNo(rs.getInt(1));
+				board.setTitle(rs.getString(2));
+				board.setContent(rs.getString(3));
+				board.setWriter(rs.getString(4));
+				board.setViewcount(rs.getInt(5));
+				board.setWdate(rs.getString(6));
+				list.add(board);
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return list;
+	}
+
 	// 글 읽기
 	public BoardVO getReadResult(MessageVO msg) {
 		BoardVO article = new BoardVO();

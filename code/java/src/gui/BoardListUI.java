@@ -9,6 +9,7 @@ import java.awt.event.MouseListener;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
 import java.awt.event.WindowListener;
+import java.util.ArrayList;
 
 import javax.swing.JButton;
 import javax.swing.JComboBox;
@@ -140,6 +141,19 @@ public class BoardListUI implements ActionListener, MouseListener {
 		model.fireTableDataChanged();
 	}
 
+	// 검색 결과 테이블에 출력
+	public void createJtableData(ArrayList<BoardVO> list) {
+		model.setNumRows(0);
+		for (BoardVO post : list) {
+			row[0] = post.getNo();
+			row[1] = post.getTitle();
+			row[2] = post.getWriter();
+			row[3] = post.getViewcount();
+			model.addRow(row);
+		}
+		model.fireTableDataChanged();
+	}
+
 	public void exit() {
 		frame.dispose();
 	}
@@ -148,6 +162,13 @@ public class BoardListUI implements ActionListener, MouseListener {
 	public void actionPerformed(ActionEvent e) {
 		Object obj = e.getSource();
 		if (obj == btn_search) { // 검색
+			String category = cb_search.getSelectedItem().toString();
+			if (category.equals("제목")) {
+				createJtableData(client.searchBoard(MessageVO.BOARD_SEARCH_TITLE, tf_search.getText()));
+			}else if(category.contentEquals("글쓴이")){
+				createJtableData(client.searchBoard(MessageVO.BOARD_SEARCH_WRITER, tf_search.getText()));
+			}
+
 		} else if (obj == btn_write) { // 글쓰기
 			new BoardWriteUI(this);
 		}
