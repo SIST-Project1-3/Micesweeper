@@ -1,7 +1,9 @@
 package vo;
 
+import java.io.Serializable;
+
 // DAO를 통해 DB에 접근하기위한 VO
-public class MemberVO {
+public class MemberVO implements Serializable{
 	String id, pw, name, rdate; // ID, PW, 이름, 등록일자
 	int win, lose; // 승리횟수, 패배횟수
 	
