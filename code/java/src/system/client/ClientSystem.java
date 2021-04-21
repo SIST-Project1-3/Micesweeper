@@ -8,6 +8,7 @@ import java.util.ArrayList;
 
 import dao.BoardDAO;
 import dao.MemberDAO;
+import gui.MainUI;
 import vo.BoardVO;
 import vo.MemberVO;
 import vo.MessageVO;
@@ -23,6 +24,7 @@ public class ClientSystem {
 	ObjectInputStream ois;
 	ObjectOutputStream oos_chat;
 	ObjectInputStream ois_chat;
+	public MainUI mainui;
 
 	// Constructor
 	public ClientSystem() {
@@ -41,16 +43,13 @@ public class ClientSystem {
 
 	public void initialize() {
 		try {
+
 			client = new Socket("127.0.0.1", 9000);
 			oos = new ObjectOutputStream(client.getOutputStream());
 			ois = new ObjectInputStream(client.getInputStream());
 			System.out.println("커뮤니티 통신 소켓 연결");
 
-			client_chat = new Socket("127.0.0.1", 9001);
-			oos_chat = new ObjectOutputStream(client_chat.getOutputStream());
-			ois_chat = new ObjectInputStream(client_chat.getInputStream());
-			System.out.println("채팅 통신 소켓 연결");
-
+			new ClientThread().start();
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
@@ -141,10 +140,17 @@ public class ClientSystem {
 		@Override
 		public void run() {
 			try {
+
+				client_chat = new Socket("127.0.0.1", 10000);
+				System.out.println("채팅 통신 소켓 연결");
+				ois_chat = new ObjectInputStream(client_chat.getInputStream());
+				System.out.println("채팅 소켓 ois 생성");
+				oos_chat = new ObjectOutputStream(client_chat.getOutputStream());
+				System.out.println("채팅 소켓 oos 생성");
 				while (true) {
 					MessageVO msg = (MessageVO) ois_chat.readObject();
 					if (msg.getStatus() == MessageVO.SERVERCHAT) { // 멀티채팅
-						System.out.println(msg.getId() + ": " + msg.getContent());
+						mainui.ta_chat.append(msg.getId() + ": " + msg.getContent() + "\n");
 					}
 				}
 			} catch (Exception e) {

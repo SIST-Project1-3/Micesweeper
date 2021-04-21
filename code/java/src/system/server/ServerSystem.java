@@ -30,9 +30,9 @@ public class ServerSystem {
 	public void initialize() {
 		try {
 
-//			new ServerSystem_Chat().start();
 			server = new ServerSocket(9000);
 			System.out.println("Server start");
+			new ServerSystem_Chat().start();
 
 			while (true) {
 				// 클라이언트 접속 대기
@@ -49,17 +49,6 @@ public class ServerSystem {
 			e.printStackTrace();
 		}
 
-	}
-
-	// 서버 채팅 전체 에코
-	public void broadcastMsg(MessageVO msg) {
-		try {
-			for (ServerThread st_chat : stList) {
-				st_chat.oos.writeObject(msg);
-			}
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
 	}
 
 	public class ServerThread extends Thread {
