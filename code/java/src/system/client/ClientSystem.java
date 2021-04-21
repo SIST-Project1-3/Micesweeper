@@ -118,20 +118,48 @@ public class ClientSystem {
 	}
 
 	// 회원가입
-	public boolean joinCheck(MemberVO member) {
-		return mdao.getJoinResult(member);
+	public boolean join(MessageVO msg) {
+		boolean result = false;
+		
+		try {
+			oos.writeObject(msg);
+			MessageVO recieveMsg = (MessageVO)ois.readObject();
+			result = recieveMsg.getResult();
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return result;
 	}
-
+	
 	// 아이디 중복체크
-	public boolean idCheck(String id) {
-		return mdao.getIdCheckResult(id);
+	public boolean idCheck(MessageVO msg) {
+		boolean result = false;
+		
+		try {
+			oos.writeObject(msg);
+			MessageVO recieveMsg = (MessageVO)ois.readObject();
+			result = recieveMsg.getResult();
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return result;
 	}
 
 	// 로그인
-	public boolean loginCheck(String id, String pw) {
-		return mdao.getLoginResult(id, pw);
+	public boolean login(MessageVO msg) {
+		boolean result = false;
+		
+		try {
+			oos.writeObject(msg);
+			MessageVO recieveMsg = (MessageVO)ois.readObject();
+			result = recieveMsg.getResult();
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return result;
 	}
 
+	// 종료
 	public void exit() {
 		try {
 			client.close();
