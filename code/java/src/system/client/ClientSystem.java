@@ -84,6 +84,15 @@ public class ClientSystem {
 		return list;
 	}
 
+	// 글 검색
+	public ArrayList<BoardVO> searchBoard(int type, String target) {
+		MessageVO msg = new MessageVO();
+		msg.setStatus(type);
+		msg.setArticle(new BoardVO());
+		msg.getArticle().setContent(target);
+		return bdao.getSearchResult(msg);
+	}
+
 	// 글 읽기
 	public BoardVO readArticle(int no) {
 		BoardVO article = null;
