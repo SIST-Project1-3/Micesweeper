@@ -35,7 +35,7 @@ public class GameSystemServer {
 		k = 11 + (int)((Math.random())*10000)%6; // 지뢰갯수 설정
 		System.out.println("k="+k); // 지뢰갯수 출력
 		
-		for (int i=1; i<k; i++) {
+		for (int i=0; i<k; i++) {
 			System.out.println(i);
 			int l=(int)(Math.random()*10000)%81;
 			System.out.println("지뢰="+l);
