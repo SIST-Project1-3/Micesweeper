@@ -94,8 +94,17 @@ public class BoardDAO extends DAO {
 	public BoardVO getReadResult(MessageVO msg) {
 		BoardVO article = new BoardVO();
 		try {
+			// 조회수 증가
+			String sql = "UPDATE BOARD SET VIEWCOUNT = VIEWCOUNT+1 WHERE NO=?";
+			getPreparedStatement(sql);
+			pstmt.setInt(1, msg.getNo());
+			int val = pstmt.executeUpdate();
+			if (val == 1) {
+				System.out.println(msg.getNo() + "번 게시글 조회수 증가");
+			}
+
 			// 특정 게시글 조회
-			String sql = "SELECT * FROM BOARD WHERE NO=?";
+			sql = "SELECT * FROM BOARD WHERE NO=?";
 			getPreparedStatement(sql);
 			pstmt.setInt(1, msg.getNo());
 
@@ -109,14 +118,6 @@ public class BoardDAO extends DAO {
 				article.setWdate(rs.getString(6));
 			}
 
-			// 조회수 증가
-			sql = "UPDATE BOARD SET VIEWCOUNT = VIEWCOUNT+1 WHERE NO=?";
-			getPreparedStatement(sql);
-			pstmt.setInt(1, msg.getNo());
-			int val = pstmt.executeUpdate();
-			if (val == 1) {
-				System.out.println(msg.getNo() + "번 게시글 조회수 증가");
-			}
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
