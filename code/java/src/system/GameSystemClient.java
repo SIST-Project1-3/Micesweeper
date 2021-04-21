@@ -70,17 +70,17 @@ public class GameSystemClient {
 	public void open(int btnnum) {
 		int numcount = 0;
 		if(btnnum == GameSystemServer.mice.get(0)) {//첫번째 지뢰(고양이) 누를시
-			GameUI.micebtn.get(count).setBackground(Color.BLUE); // 색 설정
-			GameUI.micebtn.get(count).setIcon();//고양이 아이콘 삽입
-			GameUI.micebtn.get(count).setEnabled(false); // 버튼 비활성화
+			GameUI.micebtn.get(btnnum).setBackground(Color.BLUE); // 색 설정
+			GameUI.micebtn.get(btnnum).setIcon();//고양이 아이콘 삽입
+			GameUI.micebtn.get(btnnum).setEnabled(false); // 버튼 비활성화
 			winflag = true;
 			System.out.println("현재 턴 플레이어 승리(고양이)");
 		}else {
 			for(int k=1; k<GameSystemServer.mice.size(); k++) {//나머지 지뢰(쥐) 누를시
 				if(btnnum == GameSystemServer.mice.get(k)) {
-					GameUI.micebtn.get(count).setBackground(Color.RED);
-					GameUI.micebtn.get(count).setIcon();//쥐 아이콘 삽입
-					GameUI.micebtn.get(count).setEnabled(false); // 버튼 비활성화
+					GameUI.micebtn.get(btnnum).setBackground(Color.RED);
+					GameUI.micebtn.get(btnnum).setIcon();//쥐 아이콘 삽입
+					GameUI.micebtn.get(btnnum).setEnabled(false); // 버튼 비활성화
 					loseflag = true;
 					System.out.println("현재 턴 플레이어 패배(쥐)");
 				}
@@ -93,12 +93,12 @@ public class GameSystemClient {
 						}
 					}//누른 버튼이 지뢰가 아니므로 근처 지뢰가 몇개인지 검색 for
 						if (numcount != 0) {//지뢰 칸이 숫자일때(주변에 지뢰가 1개 이상)
-							GameUI.micebtn.get(count).setText(Integer.toString(numcount)); // 주변 지뢰 숫자 표시
-							GameUI.micebtn.get(count).setBackground(Color.GRAY);
-							GameUI.micebtn.get(count).setEnabled(false); // 버튼 비활성화
+							GameUI.micebtn.get(btnnum).setText(Integer.toString(numcount)); // 주변 지뢰 숫자 표시
+							GameUI.micebtn.get(btnnum).setBackground(Color.GRAY);
+							GameUI.micebtn.get(btnnum).setEnabled(false); // 버튼 비활성화
 						}else {//지뢰 칸이 공백일때(주변에 지뢰 없음)
-							GameUI.micebtn.get(count).setBackground(Color.LIGHT_GRAY);
-							GameUI.micebtn.get(count).setEnabled(false); // 버튼 비활성화
+							GameUI.micebtn.get(btnnum).setBackground(Color.LIGHT_GRAY);
+							GameUI.micebtn.get(btnnum).setEnabled(false); // 버튼 비활성화
 							int a=btnnum/9;
 							int b=btnnum%9;//아래는 주변 8칸을 여는 작업
 							if(a==0) {
