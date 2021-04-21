@@ -7,10 +7,9 @@ import java.util.ArrayList;
 import javax.swing.JOptionPane;
 import javax.swing.JTextField;
 
-import dao.MemberDAO;
 import system.client.ClientSystem;
-import system.server.ServerSystem;
 import vo.MemberVO;
+import vo.MessageVO;
 
 public class JoinUIEvent implements ActionListener {
 	JoinUI jui;
@@ -50,12 +49,17 @@ public class JoinUIEvent implements ActionListener {
 							JTextField jtf = (JTextField) tf;
 							jlist.add(jtf);
 						}
-						MemberVO member = new MemberVO();
-						member.setId(jlist.get(0).getText());
-						member.setPw(jlist.get(1).getText());
-
-						boolean result2 = client.joinCheck(member);
-						if (result2) {
+//						MemberVO member = new MemberVO();
+//						member.setId(jlist.get(0).getText());
+//						member.setPw(jlist.get(1).getText());
+						
+						MessageVO msg = new MessageVO();
+						msg.setStatus(MessageVO.JOIN);
+						msg.setId(jlist.get(0).getText());
+						msg.setPw(jlist.get(1).getText());
+						
+//						boolean result2 = client.joinCheck(member);
+						if (client.join(msg)) {
 							JOptionPane.showMessageDialog(null, Commons.getMsg("회원가입을 완료했습니다."));
 							for (Object obj2 : jui.list) {
 								JTextField tf = (JTextField) obj2;
@@ -95,8 +99,12 @@ public class JoinUIEvent implements ActionListener {
 	public boolean id_check() {
 		boolean result = true;
 		// result가 true면 중복된 아이디가 있다는 의미
+//		if (result == client.idCheck(jui.id_tf.getText())) {
+		MessageVO msg = new MessageVO();
+		msg.setStatus(MessageVO.IDCHECK);
+		msg.setId(jui.id_tf.getText());
 		
-		if (result == client.idCheck(jui.id_tf.getText())) {
+		if (result == client.idCheck(msg)) {
 			JOptionPane.showMessageDialog(null, Commons.getMsg("이미 사용중인 아이디입니다"));
 			jui.id_tf.requestFocus();
 		} else {

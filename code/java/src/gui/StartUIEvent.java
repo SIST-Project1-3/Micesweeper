@@ -6,6 +6,7 @@ import java.awt.event.ActionListener;
 import javax.swing.JOptionPane;
 
 import system.client.ClientSystem;
+import vo.MessageVO;
 
 public class StartUIEvent implements ActionListener {
 	StartUI sui;
@@ -39,7 +40,12 @@ public class StartUIEvent implements ActionListener {
 			sui.pw_tf.requestFocus();
 		} else {
 			// 로그인 정보 체크
-			boolean result = client.loginCheck(sui.id_tf.getText(), sui.pw_tf.getText());
+//			boolean result = client.login(sui.id_tf.getText(), sui.pw_tf.getText());
+			MessageVO msg = new MessageVO();
+			msg.setStatus(MessageVO.LOGIN);
+			msg.setId(sui.id_tf.getText());
+			msg.setPw(sui.pw_tf.getText());
+			boolean result = client.login(msg);
 			
 			if (result) {
 				JOptionPane.showMessageDialog(null, Commons.getMsg("로그인 되었습니다."));

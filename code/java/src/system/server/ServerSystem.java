@@ -50,7 +50,7 @@ public class ServerSystem {
 		}
 
 	}
-	
+
 	public class ServerThread extends Thread {
 		// Field
 		Socket client;
@@ -87,16 +87,14 @@ public class ServerSystem {
 						BoardVO article = bdao.getReadResult(msg);
 						returnMsg.setArticle(article);
 						oos.writeObject(returnMsg);
-					}else if(msg.getStatus() == MessageVO.JOIN){ // 회원가입
+					} else if (msg.getStatus() == MessageVO.JOIN) { // 회원가입
 						returnMsg.setStatus(MessageVO.JOIN);
 						returnMsg.setResult(mdao.getJoinResult(msg));
 						oos.writeObject(returnMsg);
-					}else if(msg.getStatus() == MessageVO.IDCHECK){ // 아이디 중복체크
-						returnMsg.setStatus(MessageVO.IDCHECK);
+					} else if (msg.getStatus() == MessageVO.IDCHECK) { // 아이디 중복체크
 						returnMsg.setResult(mdao.getIdCheckResult(msg));
 						oos.writeObject(returnMsg);
-					}else if(msg.getStatus() == MessageVO.LOGIN){ // 로그인
-						returnMsg.setStatus(MessageVO.LOGIN);
+					} else if (msg.getStatus() == MessageVO.LOGIN) { // 로그인
 						returnMsg.setResult(mdao.getLoginResult(msg));
 						oos.writeObject(returnMsg);
 					}
