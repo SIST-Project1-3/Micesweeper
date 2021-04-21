@@ -131,7 +131,6 @@ public class BoardListUI implements ActionListener, MouseListener {
 	public void createJtableData() {
 		model.setNumRows(0);
 		for (BoardVO post : client.readBoard()) {
-			System.out.println(1);
 			row[0] = post.getNo();
 			row[1] = post.getTitle();
 			row[2] = post.getWriter();
