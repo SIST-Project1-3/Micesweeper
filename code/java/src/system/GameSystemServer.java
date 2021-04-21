@@ -32,7 +32,7 @@ public class GameSystemServer {
 		mice = new ArrayList<Integer>();
 		number = new ArrayList<Integer>();//지뢰, 숫자 어레이리스트 생성
 		boolean mflag = true; // 중복값 판단하는 flag
-		k = 11 + (int)((Math.random())*10000)%6; // 지뢰갯수 설정
+		k = 10 + (int)((Math.random())*10000)%6; // 지뢰갯수 설정
 		System.out.println("k="+k); // 지뢰갯수 출력
 		
 		for (int i=0; i<k; i++) {
