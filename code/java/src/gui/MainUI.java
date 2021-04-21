@@ -29,6 +29,7 @@ public class MainUI {
 	ArrayList<JButton> list_btn = new ArrayList<JButton>();
 	JButton btn_send;
 	JTextField tf_chat;
+	public JTextArea ta_chat;
 	DefaultListModel<String> listmodel_room;
 	JList<String> jlist_room;
 	MainUIEvent event = new MainUIEvent(this);
@@ -41,6 +42,7 @@ public class MainUI {
 	// Constructor
 	public MainUI(ClientSystem client) {
 		this.client = client;
+		client.mainui = this;
 		initialize();
 	}
 
@@ -126,7 +128,8 @@ public class MainUI {
 		JPanel panel = new JPanel(new BorderLayout(10, 10));
 
 		JPanel panel_center = new JPanel(new BorderLayout());
-		JTextArea ta = new JTextArea();
+		ta_chat = new JTextArea();
+		ta_chat.setFont(Commons.getFont());
 		JPanel panel_tf = new JPanel(new BorderLayout());
 		btn_send = new JButton("전송");
 		btn_send.setFont(Commons.getFont());
@@ -136,7 +139,7 @@ public class MainUI {
 		btn_send.addActionListener(event);
 		panel_tf.add(tf_chat, "Center");
 		panel_tf.add(btn_send, "East");
-		panel_center.add(ta, "Center");
+		panel_center.add(ta_chat, "Center");
 		panel_center.add(panel_tf, "South");
 
 		JPanel panel_btn = new JPanel(new GridLayout(4, 1));
