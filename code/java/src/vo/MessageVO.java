@@ -13,9 +13,10 @@ public class MessageVO implements Serializable {
 	public static int LOGIN = 4; // 로그인
 	public static int LOGOUT = 5; // 게임종료 및 로그아웃
 	public static int JOIN = 6; // 회원가입
+	public static int IDCHECK = 10; // 아이디 중복확인
 	public static int SERVERCHAT = 7;
 	int status, no; // MsgVO의 상태, 게시글 No
-	String title, content, id; // 게시글 제목, (내용, 채팅메시지), 작성자
+	String title, content, id, pw; // 게시글 제목, (내용, 채팅메시지), 작성ID, 패스워드
 	boolean result; // DAO 결과값
 	ArrayList<BoardVO> boardList; // 게시글 목록 불러오기
 	BoardVO article; // 게시글 읽기
@@ -52,6 +53,14 @@ public class MessageVO implements Serializable {
 		this.id = id;
 	}
 
+	public String getPw() {
+		return pw;
+	}
+	
+	public void setPw(String pw) {
+		this.pw = pw;
+	}
+	
 	public boolean getResult() {
 		return result;
 	}
