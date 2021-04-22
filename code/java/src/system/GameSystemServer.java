@@ -2,12 +2,13 @@ package system;
 
 import java.util.ArrayList;
 import java.util.Iterator;
+import vo.GameVO;
 
 public class GameSystemServer {
 	boolean gameflag, readyflag;
 	int k;
-	static ArrayList<Integer> mice;
-	static ArrayList<Integer> number;
+	public ArrayList<Integer> mice;
+	public ArrayList<Integer> number;
 	
 	
 	
@@ -29,8 +30,9 @@ public class GameSystemServer {
 	}
 	
 	public void CreateMice() {
-		mice = new ArrayList<Integer>();
-		number = new ArrayList<Integer>();//지뢰, 숫자 어레이리스트 생성
+		GameVO gvo = new GameVO();
+		mice=gvo.getMice();
+		number = gvo.getNumber();//지뢰, 숫자 어레이리스트 생성
 		boolean mflag = true; // 중복값 판단하는 flag
 		k = 10 + (int)((Math.random())*10000)%6; // 지뢰갯수 설정
 		System.out.println("k="+k); // 지뢰갯수 출력
@@ -53,6 +55,7 @@ public class GameSystemServer {
 			mflag = true;
 			}else if(mflag==true){
 				mice.add(l);
+				gvo.setMice(mice);
 				System.out.println("입력완료");
 				int a=l/9;
 				int b=l%9;
@@ -112,6 +115,7 @@ public class GameSystemServer {
 						number.add((a+1)*9+(b+1));
 					}
 				}
+				gvo.setNumber(number);
 			}//else
 		}//for
 		
