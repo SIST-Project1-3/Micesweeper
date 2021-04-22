@@ -1,6 +1,7 @@
 package gui;
 
 import java.awt.BorderLayout;
+import java.awt.Component;
 import java.awt.FlowLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -11,16 +12,20 @@ import java.awt.event.WindowEvent;
 import java.awt.event.WindowListener;
 import java.util.ArrayList;
 
+import javax.swing.AbstractCellEditor;
 import javax.swing.JButton;
 import javax.swing.JComboBox;
 import javax.swing.JFrame;
 import javax.swing.JList;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
 import javax.swing.JTextField;
 import javax.swing.ListSelectionModel;
 import javax.swing.table.DefaultTableModel;
+import javax.swing.table.TableCellEditor;
+import javax.swing.table.TableCellRenderer;
 import javax.swing.table.TableColumnModel;
 
 import dao.BoardDAO;
@@ -37,7 +42,8 @@ public class BoardListUI implements ActionListener, MouseListener {
 	JComboBox<String> cb_search;
 	ClientSystem client;
 	DefaultTableModel model;
-	Object[] row = new Object[4];
+	String[] colNames = { "글번호", "제목", "글쓴이", "조회수", "수정", "삭제" };
+	Object[] row = new Object[colNames.length];
 	JTable table;
 
 	// Constructor
@@ -56,7 +62,7 @@ public class BoardListUI implements ActionListener, MouseListener {
 		frame.add(createCenterPanel(), "Center");
 		frame.add(createSouthPanel(), "South");
 
-		frame.setSize(500, 500);
+		frame.setSize(1000, 500);
 		frame.setVisible(true);
 
 		frame.addWindowListener(new WindowAdapter() {
@@ -88,12 +94,14 @@ public class BoardListUI implements ActionListener, MouseListener {
 
 	public JPanel createCenterPanel() {
 		JPanel panel = new JPanel(new BorderLayout());
-		String[] colNames = { "글번호", "제목", "글쓴이", "조회수" };
 //		model = new DefaultTableModel(colNames, 10);
 		model = new DefaultTableModel(colNames, 10) {
 			// 행 수정 여부 메소드
 			@Override
 			public boolean isCellEditable(int row, int column) {
+				if (column == 4 || column == 5) {
+					return true;
+				}
 				return false;
 			}
 		};
@@ -109,11 +117,29 @@ public class BoardListUI implements ActionListener, MouseListener {
 		table.setRowSelectionAllowed(true);
 //		table.setAutoCreateRowSorter(false);
 
+		table.getColumn("수정").setCellRenderer(new TableUpdateCell("수정", this, client.bdao, 1));
+		table.getColumn("수정").setCellEditor(new TableUpdateCell("수정", this, client.bdao, 1));
+		table.getColumn("삭제").setCellRenderer(new TableUpdateCell("삭제", this, client.bdao, 1));
+		table.getColumn("삭제").setCellEditor(new TableUpdateCell("삭제", this, client.bdao, 1));
+
 //		TableColumnModel tcm = table.getColumnModel();
+		table.getColumn("글번호").setResizable(false);
 		table.getColumn("글번호").setPreferredWidth(100);
+		table.getColumn("제목").setResizable(false);
+		;
 		table.getColumn("제목").setPreferredWidth(700);
+		table.getColumn("글쓴이").setResizable(false);
+		;
 		table.getColumn("글쓴이").setPreferredWidth(200);
+		table.getColumn("조회수").setResizable(false);
+		;
 		table.getColumn("조회수").setPreferredWidth(100);
+		table.getColumn("수정").setResizable(false);
+		;
+		table.getColumn("수정").setPreferredWidth(100);
+		table.getColumn("삭제").setResizable(false);
+		;
+		table.getColumn("삭제").setPreferredWidth(100);
 		table.setFont(Commons.getFont());
 		table.addMouseListener(this);
 		JScrollPane sp_table = new JScrollPane(table);
@@ -215,3 +241,58 @@ public class BoardListUI implements ActionListener, MouseListener {
 	}
 
 }
+
+//JTable 수정, 삭제 버튼 생성 및 추가 클래스
+class TableUpdateCell extends AbstractCellEditor implements TableCellEditor, TableCellRenderer {
+	JButton jb;
+	BoardDAO dao;
+
+	public TableUpdateCell(String name, BoardListUI blist, BoardDAO dao, int option) {
+		this.dao = dao;
+		jb = new JButton(name);
+		jb.setFont(Commons.getFont());
+
+		jb.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				String name = e.getActionCommand();
+				int r = blist.table.getSelectedRow();
+				int result = 0;
+
+				if (name.equals("수정")) {
+					System.out.println(blist.table.getValueAt(r, 0) + "번 게시물 수정");
+//          		new BoardUpdate(blist, option);
+				} else if (name.equals("삭제")) {
+					System.out.println(blist.table.getValueAt(r, 0) + "번 게시물 삭제");
+//					int confirm = JOptionPane.showConfirmDialog(null, Commons.getMsg("정말로 삭제하시겠습니까?"));
+//					if (confirm == 0) {
+//						if (option == BoardList.LIST) {
+//							result = dao.delete(blist.list.get(blist.table.getSelectedRow()).getBid());
+//						} else {
+//							result = dao.delete(blist.slist.get(blist.table.getSelectedRow()).getBid());
+//						}
+//
+//						if (result != 0)
+//							blist.init();
+//					}
+				}
+
+			}
+		});
+	}
+
+	@Override
+	public Object getCellEditorValue() {
+		return null;
+	}
+
+	@Override
+	public Component getTableCellRendererComponent(JTable table, Object value, boolean isSelected, boolean hasFocus,
+			int row, int column) {
+		return jb;
+	}
+
+	@Override
+	public Component getTableCellEditorComponent(JTable table, Object value, boolean isSelected, int row, int column) {
+		return jb;
+	}
+}// TableUpdateCell class

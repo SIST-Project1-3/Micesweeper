@@ -18,7 +18,7 @@ public class ClientSystem {
 	Socket client;
 	Socket client_chat;
 	String id; // 접속한 유저의 ID정보를 담고 있는 속성
-	BoardDAO bdao = new BoardDAO();
+	public BoardDAO bdao = new BoardDAO();
 	MemberDAO mdao = new MemberDAO();
 	ObjectOutputStream oos;
 	ObjectInputStream ois;
