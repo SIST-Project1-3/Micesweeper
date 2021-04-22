@@ -86,11 +86,18 @@ public class ClientSystem {
 
 	// 글 검색
 	public ArrayList<BoardVO> searchBoard(int type, String target) {
+		ArrayList<BoardVO> list = new ArrayList<BoardVO>();
 		MessageVO msg = new MessageVO();
 		msg.setStatus(type);
 		msg.setArticle(new BoardVO());
 		msg.getArticle().setContent(target);
-		return bdao.getSearchResult(msg);
+		try {
+			oos.writeObject(msg);
+			list = ((MessageVO) ois.readObject()).getBoardList();
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return list;
 	}
 
 	// 글 읽기

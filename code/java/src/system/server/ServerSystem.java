@@ -75,8 +75,8 @@ public class ServerSystem {
 				while (true) {
 					MessageVO msg = (MessageVO) ois.readObject();
 					MessageVO returnMsg = new MessageVO();
+					returnMsg.setStatus(msg.getStatus());
 					if (msg.getStatus() == MessageVO.BOARD_WRITE) { // 게시글 작성
-						returnMsg.setStatus(MessageVO.BOARD_WRITE);
 						returnMsg.setResult(bdao.getInsertResult(msg));
 						oos.writeObject(returnMsg);
 					} else if (msg.getStatus() == MessageVO.BOARD_READ_LIST) { // 게시글 목록 불러오기
@@ -88,7 +88,6 @@ public class ServerSystem {
 						returnMsg.setArticle(article);
 						oos.writeObject(returnMsg);
 					} else if (msg.getStatus() == MessageVO.JOIN) { // 회원가입
-						returnMsg.setStatus(MessageVO.JOIN);
 						returnMsg.setResult(mdao.getJoinResult(msg));
 						oos.writeObject(returnMsg);
 					} else if (msg.getStatus() == MessageVO.IDCHECK) { // 아이디 중복체크
@@ -96,6 +95,9 @@ public class ServerSystem {
 						oos.writeObject(returnMsg);
 					} else if (msg.getStatus() == MessageVO.LOGIN) { // 로그인
 						returnMsg.setResult(mdao.getLoginResult(msg));
+						oos.writeObject(returnMsg);
+					} else if (msg.getStatus()==MessageVO.BOARD_SEARCH_TITLE || msg.getStatus() ==MessageVO.BOARD_SEARCH_WRITER) { // 검색
+						returnMsg.setBoardList(bdao.getSearchResult(msg));
 						oos.writeObject(returnMsg);
 					}
 				}
