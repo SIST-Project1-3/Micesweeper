@@ -18,14 +18,14 @@ import javax.swing.JPanel;
 import javax.swing.JTextArea;
 import javax.swing.JTextField;
 import javax.swing.SwingConstants;
+import vo.GameVO;
 
 public class GameUI {
 
 	public JFrame mainframe;
 	public JTextField textField;
 	public JTextArea textArea;
-	public static ArrayList<JButton> micebtn = new ArrayList<JButton>();
-	public static ArrayList<Integer> clickmice = new ArrayList<Integer>();
+	public ArrayList<JButton> micebtn;
 	public JButton watchprofilebtn, readybutton, exitbutton, send, watchprofilebtn_2;
 	GameUIEvent event = new GameUIEvent(this);
 
@@ -55,6 +55,7 @@ public class GameUI {
 	 * Initialize the contents of the frame
 	 */
 	private void initialize() {
+		GameVO gvo = new GameVO();
 		
 		
 		mainframe = new JFrame();
@@ -118,6 +119,7 @@ public class GameUI {
 		
 		for (int a =0; a<9; a++) {
 			for (int b=0; b<9; b++) {
+				micebtn = gvo.getMicebtn();
 				JButton btn = new JButton(a + "_" + b);
 				btn.setFont(Commons.getFont());
 				btn.setPreferredSize(new Dimension(52, 52));
@@ -125,6 +127,7 @@ public class GameUI {
 				gamepanel.add(btn);
 				btn.addActionListener(event);
 				micebtn.add(btn);
+				gvo.setMicebtn(micebtn);
 			}
 		}
 		
