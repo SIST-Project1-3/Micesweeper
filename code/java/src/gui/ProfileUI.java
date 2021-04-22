@@ -17,6 +17,8 @@ public class ProfileUI {
 	JPanel center_panel, content_panel, south_in_panel, south_out_panel,
 		  in_panel, file_panel, name_panel, data_panel, nd_panel, exit_panel;
 	JButton file_change_btn, exit_btn;
+	ImageIcon changeIcon;
+	JLabel img_label;
 	ProfileUIEvent profileEvent = new ProfileUIEvent(this);
 	
 	public ProfileUI() {
@@ -67,8 +69,8 @@ public class ProfileUI {
 		ImageIcon icon = new ImageIcon("images/고양이.png"); 
 		Image img = icon.getImage();
 		Image changeImg = img.getScaledInstance(200, 200, Image.SCALE_SMOOTH);
-		ImageIcon changeIcon = new ImageIcon(changeImg);
-		JLabel img_label = new JLabel(changeIcon);
+		changeIcon = new ImageIcon(changeImg);
+		img_label = new JLabel(changeIcon);
 		
 		content_panel.add(img_label);
 		content_panel.add(BorderLayout.SOUTH,file_panel);
