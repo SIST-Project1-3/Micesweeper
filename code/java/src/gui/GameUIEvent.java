@@ -6,14 +6,18 @@ import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 import java.awt.event.WindowEvent;
 import java.awt.event.WindowListener;
+import java.util.ArrayList;
 
 import javax.swing.JButton;
 import javax.swing.JList;
 import javax.swing.JOptionPane;
+import vo.GameVO;
 
 import system.client.ClientSystem;
 
 public class GameUIEvent implements ActionListener, WindowListener, MouseListener {
+
+	ArrayList<Integer> clickmice;
 	GameUI ui;
 	ClientSystem client;
 
@@ -24,6 +28,8 @@ public class GameUIEvent implements ActionListener, WindowListener, MouseListene
 
 	@Override
 	public void actionPerformed(ActionEvent e) {
+		GameVO gvo = new GameVO();
+		clickmice = gvo.getClickmice();
 		Object obj = e.getSource();
 
 		if (obj == ui.watchprofilebtn) {// 방장 프로필
@@ -38,9 +44,11 @@ public class GameUIEvent implements ActionListener, WindowListener, MouseListene
 		} else if(obj== ui.watchprofilebtn_2) {
 			new ProfileUI();// 도전자 프로필
 		} else{
+
 			int a;
 			a=(Integer.parseInt(((JButton)obj).getName()))/10*9+(Integer.parseInt(((JButton)obj).getName()))%10;
-			GameUI.clickmice.add(a);
+			clickmice.add(a);
+			gvo.setClickmice(clickmice);
 			System.out.println(a);//이따삭제
 		}
 				
