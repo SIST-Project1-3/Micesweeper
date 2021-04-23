@@ -27,7 +27,6 @@ public class GameSystemClient {
 		//서버로부터 GameVO 받아옴
 		//턴 플래그 - 방 생성시 방장은 true, 도전자는 false
 		
-		
 		if(turnflag == true) {
 			gameplay();
 			if(winflag == true) {
@@ -65,12 +64,12 @@ public class GameSystemClient {
 	public void gameplay() {
 		//UI에서 누른 버튼의 정보를 받아옴
 		
-		int btnnum = gvo.getClickmice().get(count);
+		int btnnum = gvo.getClickmice().get(count); // 
 		open(btnnum);
 	}
 	public void gamewait() {
 		//Server에서 눌려진 버튼의 정보를 받아옴
-		
+		System.out.println(gvo.getClickmice());
 		int btnnum = gvo.getClickmice().get(count);
 		open(btnnum);
 	}
