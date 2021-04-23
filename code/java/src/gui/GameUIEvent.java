@@ -20,7 +20,8 @@ public class GameUIEvent implements ActionListener, WindowListener, MouseListene
 	ArrayList<Integer> clickmice;
 	GameUI ui;
 	ClientSystem client;
-
+	GameVO gvo = new GameVO();
+	
 	public GameUIEvent(GameUI ui) {
 		this.ui = ui;
 
@@ -28,7 +29,7 @@ public class GameUIEvent implements ActionListener, WindowListener, MouseListene
 
 	@Override
 	public void actionPerformed(ActionEvent e) {
-		GameVO gvo = new GameVO();
+		//GameVO gvo = new GameVO();
 		clickmice = gvo.getClickmice();
 		Object obj = e.getSource();
 
@@ -48,8 +49,9 @@ public class GameUIEvent implements ActionListener, WindowListener, MouseListene
 			int a;
 			a=(Integer.parseInt(((JButton)obj).getName()))/10*9+(Integer.parseInt(((JButton)obj).getName()))%10;
 			clickmice.add(a);
+			System.out.println(clickmice);
 			gvo.setClickmice(clickmice);
-			System.out.println(a);//이따삭제
+			System.out.println(gvo.getClickmice());//이따삭제
 		}
 				
 
