@@ -9,11 +9,12 @@ public class GameSystemServer {
 	int k;
 	public ArrayList<Integer> mice;
 	public ArrayList<Integer> number;
-	GameVO gvo = new GameVO();
+	GameVO gvo;
 	
 	
 	
 	public GameSystemServer() {
+		gvo= new GameVO();
 		CreateMice();
 		//init();
 	}
@@ -31,7 +32,6 @@ public class GameSystemServer {
 	}
 	
 	public void CreateMice() {
-		//GameVO gvo = new GameVO();
 		mice=gvo.getMice();
 		number = gvo.getNumber();//지뢰, 숫자 어레이리스트 생성
 		boolean mflag = true; // 중복값 판단하는 flag

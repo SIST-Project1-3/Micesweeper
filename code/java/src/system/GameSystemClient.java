@@ -16,16 +16,17 @@ public class GameSystemClient {
 //field
 	boolean turnflag, winflag=false, loseflag=false;
 	int count=0;
-	GameVO gvo = new GameVO();
+	GameVO gvo;
 //constructor
 	public GameSystemClient() {
+		gvo = new GameVO();
 		init();
 	}
 //method
 	public void init() {
 		//서버로부터 GameVO 받아옴
 		//턴 플래그 - 방 생성시 방장은 true, 도전자는 false
-		//gvo = new GameVO();
+		
 		
 		if(turnflag == true) {
 			gameplay();

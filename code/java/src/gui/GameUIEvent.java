@@ -20,16 +20,16 @@ public class GameUIEvent implements ActionListener, WindowListener, MouseListene
 	ArrayList<Integer> clickmice;
 	GameUI ui;
 	ClientSystem client;
-	GameVO gvo = new GameVO();
+	GameVO gvo;
 	
 	public GameUIEvent(GameUI ui) {
+		gvo = new GameVO();
 		this.ui = ui;
 
 	}
 
 	@Override
 	public void actionPerformed(ActionEvent e) {
-		//GameVO gvo = new GameVO();
 		clickmice = gvo.getClickmice();
 		Object obj = e.getSource();
 
