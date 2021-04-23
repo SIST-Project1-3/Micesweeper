@@ -9,6 +9,7 @@ public class GameSystemServer {
 	int k;
 	public ArrayList<Integer> mice;
 	public ArrayList<Integer> number;
+	GameVO gvo = new GameVO();
 	
 	
 	
@@ -30,13 +31,12 @@ public class GameSystemServer {
 	}
 	
 	public void CreateMice() {
-		GameVO gvo = new GameVO();
+		//GameVO gvo = new GameVO();
 		mice=gvo.getMice();
 		number = gvo.getNumber();//지뢰, 숫자 어레이리스트 생성
 		boolean mflag = true; // 중복값 판단하는 flag
 		k = 10 + (int)((Math.random())*10000)%6; // 지뢰갯수 설정
 		System.out.println("k="+k); // 지뢰갯수 출력
-		
 		for (int i=0; i<k; i++) {
 			System.out.println(i);
 			int l=(int)(Math.random()*10000)%81;
@@ -56,7 +56,7 @@ public class GameSystemServer {
 			}else if(mflag==true){
 				mice.add(l);
 				gvo.setMice(mice);
-				System.out.println("입력완료");
+				System.out.println(gvo.getMice());
 				int a=l/9;
 				int b=l%9;
 				if(a==0) {
@@ -116,6 +116,7 @@ public class GameSystemServer {
 					}
 				}
 				gvo.setNumber(number);
+				System.out.println(gvo.getNumber());
 			}//else
 		}//for
 		
