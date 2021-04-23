@@ -15,8 +15,8 @@ import vo.GameVO;
 public class GameSystemClient {
 //field
 	boolean turnflag, winflag=false, loseflag=false;
-	int count = 0;
-	GameVO gvo;
+	int count=0;
+	GameVO gvo = new GameVO();
 //constructor
 	public GameSystemClient() {
 		init();
@@ -25,7 +25,7 @@ public class GameSystemClient {
 	public void init() {
 		//서버로부터 GameVO 받아옴
 		//턴 플래그 - 방 생성시 방장은 true, 도전자는 false
-		gvo = new GameVO();
+		//gvo = new GameVO();
 		
 		if(turnflag == true) {
 			gameplay();
