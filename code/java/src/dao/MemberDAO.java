@@ -1,5 +1,8 @@
 package dao;
 
+import java.util.ArrayList;
+
+import vo.BoardVO;
 import vo.MemberVO;
 import vo.MessageVO;
 
@@ -52,6 +55,7 @@ public class MemberDAO extends DAO {
 		return result;
 	}
 
+
 	// 로그인
 	public boolean getLoginResult(MessageVO msg) {
 		boolean result = false;
@@ -74,5 +78,49 @@ public class MemberDAO extends DAO {
 		}
 		return result;
 	}
+
+	// 내 프로필 요청 & 정보 받기
+	public MemberVO getProfileResult(MemberVO m_id) {
+		MemberVO member = new MemberVO();
+		try {
+			String sql = "select * from member where id=? and win=? and lose=? and img=:";
+			getPreparedStatement(sql);
+			
+			pstmt.setString(1, m_id.getId());
+			
+			rs = pstmt.executeQuery();
+			while (rs.next()) {
+				member.setId(rs.getString(1));
+				member.setWin(rs.getInt(2));
+				member.setLose(rs.getInt(3));
+				member.setImg(rs.getString(4));
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return member;
+	}
+	
+	// 프로필 이미지 가져오기
+	public ArrayList<MemberVO> geImagResult() {
+		ArrayList<MemberVO> img_list = new ArrayList<MemberVO>();
+		try {
+			String sql = "select * from member";
+			getPreparedStatement(sql);
+			
+			rs = pstmt.executeQuery();
+			while (rs.next()) {
+				MemberVO member = new MemberVO();
+				member.setImg(rs.getString(1));
+				img_list.add(member);
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return img_list;
+	}
+
+	// 프로필 이미지 수정
+	
 
 }
