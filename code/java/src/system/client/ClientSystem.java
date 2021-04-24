@@ -165,6 +165,28 @@ public class ClientSystem {
 		}
 		return result;
 	}
+	
+	// 내 프로필 요청
+	public void requestProfile(MemberVO member) {
+		try {
+			oos.writeObject(member);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+	}
+	
+	// 내 프로필 정보 받기
+		public MemberVO profile() {
+			MemberVO profile = new MemberVO();
+			
+			try {
+				MemberVO recieveMember = (MemberVO)ois.readObject();
+				profile = recieveMember.getProfile();
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
+			return profile;
+		}
 
 	// 종료
 	public void exit() {
