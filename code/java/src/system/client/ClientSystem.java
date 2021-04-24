@@ -166,28 +166,18 @@ public class ClientSystem {
 		return result;
 	}
 	
-	// 내 프로필 요청
-	public void requestProfile(MemberVO member) {
+	// 내 프로필 요청 & 정보 받기
+	public MemberVO requestProfile(MessageVO msg) {
+		MemberVO profile = null;
 		try {
-			oos.writeObject(member);
+			oos.writeObject(msg);
+			profile = ((MessageVO)ois.readObject()).getProfile();
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
+		return profile;
 	}
 	
-	// 내 프로필 정보 받기
-		public MemberVO profile() {
-			MemberVO profile = new MemberVO();
-			
-			try {
-				MemberVO recieveMember = (MemberVO)ois.readObject();
-				profile = recieveMember.getProfile();
-			} catch (Exception e) {
-				e.printStackTrace();
-			}
-			return profile;
-		}
-
 	// 종료
 	public void exit() {
 		try {
