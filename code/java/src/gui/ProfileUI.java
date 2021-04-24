@@ -12,6 +12,7 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 
 import system.client.ClientSystem;
+import vo.MemberVO;
 
 public class ProfileUI {
 	JFrame f;
@@ -22,11 +23,18 @@ public class ProfileUI {
 	JLabel img_label;
 	ProfileUIEvent profileEvent = new ProfileUIEvent(this);
 	ClientSystem client = new ClientSystem();
+	MemberVO profile;
 	
-	public ProfileUI() {
+	// 메인화면 -> 내 프로필
+	public ProfileUI(MemberVO profile) {
+		this.profile = profile;
 		main_myProfile();
+	}
+	
+	// 게임화면 -> 프로필 보기
+	public ProfileUI() {
 		// game_Profile();
-
+		
 	}
 
 	// 메인화면의 내 프로필 (프로필 수정 가능)
@@ -45,9 +53,9 @@ public class ProfileUI {
 
 		JLabel id_lable = new JLabel("ID");
 		JLabel score_lable = new JLabel("전적");
-		JLabel idData_lable = new JLabel(""+ client.getId() +"");
-		int win_score = client.profile().getWin();
-		int lose_score = client.profile().getLose();
+		JLabel idData_lable = new JLabel(""+ profile.getId() +"");
+		int win_score = profile.getWin();
+		int lose_score = profile.getLose();
 		int total_score = win_score + lose_score;
 		JLabel scoreData_lable = new JLabel(win_score + "승  " + total_score + "전  " + lose_score + "패");
 		id_lable.setFont(Commons.getFont());
@@ -71,7 +79,7 @@ public class ProfileUI {
 
 		// 프로필 이미지 & 크기조절
 		// 사용자가 프로필 수정 창에서 선택한 이미지가 삽입될 수 있게 만들어야 함
-		ImageIcon icon = new ImageIcon("images/고양이.png");
+		ImageIcon icon = new ImageIcon(""+profile.getImg()+"");
 		Image img = icon.getImage();
 		Image changeImg = img.getScaledInstance(200, 200, Image.SCALE_SMOOTH);
 		changeIcon = new ImageIcon(changeImg);
@@ -111,7 +119,7 @@ public class ProfileUI {
 		JLabel id_lable = new JLabel("ID");
 		JLabel score_lable = new JLabel("전적");
 		JLabel myId_lable = new JLabel("내 아이디 경로");
-		JLabel anatherId_lable = new JLabel("상대방 아이디 경로");
+		JLabel anotherId_lable = new JLabel("상대방 아이디 경로");
 		JLabel scoreData_lable = new JLabel("전 승 패");
 		id_lable.setFont(Commons.getFont());
 		score_lable.setFont(Commons.getFont());
