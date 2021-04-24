@@ -10,6 +10,7 @@ import java.awt.event.WindowListener;
 import javax.swing.JList;
 import javax.swing.JOptionPane;
 
+import vo.BoardVO;
 import vo.MemberVO;
 import vo.MessageVO;
 
@@ -27,11 +28,11 @@ public class MainUIEvent implements ActionListener, WindowListener, MouseListene
 		if (obj == ui.list_btn.get(0)) {// 방 생성
 			new CreateRoomUI();
 		} else if (obj == ui.list_btn.get(1)) { // 내 프로필
-			MemberVO member = new MemberVO();
-			member.setStatus(MemberVO.REQUEST_PROFILE);
-			member.setId(ui.client.getId());
-			ui.client.requestProfile(member);
-			new ProfileUI();
+			MessageVO msg = new MessageVO();
+			msg.setStatus(MessageVO.REQUEST_PROFILE);
+			msg.setId(ui.client.getId());
+			MemberVO profile = ui.client.requestProfile(msg);
+			new ProfileUI(profile);
 		} else if (obj == ui.list_btn.get(2)) { // 커뮤니티
 			new BoardListUI(ui.client);
 		} else if (obj == ui.list_btn.get(3)) { // 게임종료
