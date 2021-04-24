@@ -10,6 +10,7 @@ import java.awt.event.WindowListener;
 import javax.swing.JList;
 import javax.swing.JOptionPane;
 
+import vo.MemberVO;
 import vo.MessageVO;
 
 public class MainUIEvent implements ActionListener, WindowListener, MouseListener {
@@ -25,7 +26,11 @@ public class MainUIEvent implements ActionListener, WindowListener, MouseListene
 		Object obj = e.getSource();
 		if (obj == ui.list_btn.get(0)) {// 방 생성
 			new CreateRoomUI();
-		} else if (obj == ui.list_btn.get(1)) { // 내 기록
+		} else if (obj == ui.list_btn.get(1)) { // 내 프로필
+			MemberVO member = new MemberVO();
+			member.setStatus(MemberVO.REQUEST_PROFILE);
+			member.setId(ui.client.getId());
+			ui.client.requestProfile(member);
 			new ProfileUI();
 		} else if (obj == ui.list_btn.get(2)) { // 커뮤니티
 			new BoardListUI(ui.client);
