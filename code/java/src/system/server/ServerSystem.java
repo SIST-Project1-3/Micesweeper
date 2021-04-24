@@ -76,9 +76,6 @@ public class ServerSystem {
 					MessageVO msg = (MessageVO) ois.readObject();
 					MessageVO returnMsg = new MessageVO();
 					returnMsg.setStatus(msg.getStatus());
-					MemberVO member = (MemberVO) ois.readObject();
-					MemberVO returnMember = new MemberVO();
-					returnMember.setStatus(member.getStatus());
 					if (msg.getStatus() == MessageVO.BOARD_WRITE) { // 게시글 작성
 						returnMsg.setResult(bdao.getInsertResult(msg));
 						oos.writeObject(returnMsg);
@@ -103,9 +100,10 @@ public class ServerSystem {
 							|| msg.getStatus() == MessageVO.BOARD_SEARCH_WRITER) { // 검색
 						returnMsg.setBoardList(bdao.getSearchResult(msg));
 						oos.writeObject(returnMsg);
-					} else if (member.getStatus() == MemberVO.REQUEST_PROFILE) { // 내 프로필 정보 요청
-						returnMember.setProfile(mdao.getProfileResult(member));
-						oos.writeObject(returnMember);
+					} else if (msg.getStatus() == MessageVO.REQUEST_PROFILE) { // 내 프로필 정보 요청
+						MemberVO profile = mdao.getProfileResult(msg);
+						returnMsg.setProfile(profile);
+						oos.writeObject(returnMsg);
 //					} else if (member.getStatus() == MemberVO.) { // 프로필 이미지 요청
 //						
 //					} else if (member.getStatus() == MemberVO.IMG_UPDATE) { // 프로필 이미지 수정
