@@ -80,25 +80,25 @@ public class MemberDAO extends DAO {
 	}
 
 	// 내 프로필 요청 & 정보 받기
-	public MemberVO getProfileResult(MemberVO m_id) {
-		MemberVO member = new MemberVO();
+	public MemberVO getProfileResult(MessageVO msg) {
+		MemberVO profile = new MemberVO();
 		try {
-			String sql = "select * from member where id=? and win=? and lose=? and img=:";
+			String sql = "select * from member where id=?";
 			getPreparedStatement(sql);
 			
-			pstmt.setString(1, m_id.getId());
+			pstmt.setString(1, msg.getId());
 			
 			rs = pstmt.executeQuery();
 			while (rs.next()) {
-				member.setId(rs.getString(1));
-				member.setWin(rs.getInt(2));
-				member.setLose(rs.getInt(3));
-				member.setImg(rs.getString(4));
+				profile.setId(rs.getString(1));
+				profile.setWin(rs.getInt(3));
+				profile.setLose(rs.getInt(4));
+				profile.setImg(rs.getString(6));
 			}
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
-		return member;
+		return profile;
 	}
 	
 	// 프로필 이미지 가져오기
