@@ -193,6 +193,7 @@ public class ClientSystem {
 	// 선택한 이미지 정보 저장
 	public boolean updateImg(MessageVO msg) {
 		boolean result = false;
+		System.out.println("client - updateImg");
 		try {
 			oos.writeObject(msg);
 			MessageVO recieveMsg = (MessageVO)ois.readObject();
