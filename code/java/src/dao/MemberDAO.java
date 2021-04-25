@@ -124,6 +124,25 @@ public class MemberDAO extends DAO {
 	}
 
 	// 프로필 이미지 수정
-	
+	 public boolean getUpdateResult(MessageVO msg) {
+			boolean result = false;
+			
+			System.out.println("dao - getUpdateResult");
+			
+			try {
+				String sql = "update member set img=? where id=?";
+				getPreparedStatement(sql);
+				
+				pstmt.setString(1, msg.getImg());
+				pstmt.setString(2, msg.getId());
+				
+				int val = pstmt.executeUpdate();
+				if (val == 1)
+					result = true;
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
+			return result;
+		}
 
 }
