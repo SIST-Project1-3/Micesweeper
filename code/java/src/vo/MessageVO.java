@@ -24,6 +24,7 @@ public class MessageVO implements Serializable {
 	ArrayList<BoardVO> boardList; // 게시글 목록 불러오기
 	BoardVO article; // 게시글 읽기
 	MemberVO profile; // 프로필 정보
+	String[] imgList;	// 프로필 이미지
 	
 	public int getStatus() {
 		return status;
@@ -111,6 +112,14 @@ public class MessageVO implements Serializable {
 
 	public void setProfile(MemberVO profile) {
 		this.profile = profile;
+	}
+
+	public String[] getImgList() {
+		return imgList;
+	}
+
+	public void setImgList(String[] imgList) {
+		this.imgList = imgList;
 	}
 
 	
