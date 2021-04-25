@@ -104,8 +104,10 @@ public class ServerSystem {
 						MemberVO profile = mdao.getProfileResult(msg);
 						returnMsg.setProfile(profile);
 						oos.writeObject(returnMsg);
-//					} else if (member.getStatus() == MemberVO.) { // 프로필 이미지 요청
-//						
+					} else if (msg.getStatus() == MessageVO.IMG_REQUEST) { // 프로필 이미지 요청
+						String[] img_list = mdao.getImgResult(msg);
+						returnMsg.setImgList(img_list);
+						oos.writeObject(returnMsg);
 //					} else if (member.getStatus() == MemberVO.IMG_UPDATE) { // 프로필 이미지 수정
 
 					}
