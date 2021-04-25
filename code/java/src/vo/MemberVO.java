@@ -35,8 +35,8 @@ public class MemberVO implements Serializable{
 	public String getImg() {
 		return img;
 	}
-	public void setImg(String img) {
-		this.img = img;
+	public String setImg(String img) {
+		return this.img = img;
 	}
 	public int getWin() {
 		return win;
