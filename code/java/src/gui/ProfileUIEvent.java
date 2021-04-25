@@ -51,6 +51,7 @@ public class ProfileUIEvent implements ActionListener, MouseListener {
 			
 			imgUpdate_from();
 			
+			
 		} else if (obj == btn_cancel) { // 취소
 			// 이미지 다시 선택할 수 있게 만들기
 			btn_img1.setEnabled(true);
@@ -157,20 +158,25 @@ public class ProfileUIEvent implements ActionListener, MouseListener {
 		msg.setStatus(MessageVO.IMG_UPDATE);
 		msg.setId(pui.profile.getId());
 		
-//		if() {
-//			msg.setImg(img_list[0]);
-//		}else if() {
-//			msg.setImg(img_list[1]);
-//		}else if() {
-//			msg.setImg(img_list[2]);
-//		}else if() {
-//			msg.setImg(img_list[3]);
-//		}
-		
+		if(pui.img_label.getIcon().equals(changeIcon1)) {
+			msg.setImg(img_list[0]);
+		}else if(pui.img_label.getIcon().equals(changeIcon2)) {
+			msg.setImg(img_list[1]);
+		}else if(pui.img_label.getIcon().equals(changeIcon3)) {
+			msg.setImg(img_list[2]);
+		}else if(pui.img_label.getIcon().equals(changeIcon4)) {
+			msg.setImg(img_list[3]);
+		};
+
 		boolean result = pui.client.updateImg(msg);
-		if (result) {
+		System.out.println("222222");
+		
+		if (result == true) {
 			JOptionPane.showMessageDialog(null, Commons.getMsg("프로필 이미지가 변경되었습니다."));
-			f.setVisible(false);
+			f.dispose();
+			System.out.println("변경 성공");
+		}else {
+			System.out.println("변경 실패");
 		}
 	}
 
