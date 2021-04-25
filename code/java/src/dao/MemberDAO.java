@@ -102,22 +102,25 @@ public class MemberDAO extends DAO {
 	}
 	
 	// 프로필 이미지 가져오기
-	public ArrayList<MemberVO> geImagResult() {
-		ArrayList<MemberVO> img_list = new ArrayList<MemberVO>();
+	 public String[] getImgResult(MessageVO msg) {
+		 String[] img = new String[6];
+		
 		try {
-			String sql = "select * from member";
+			String sql = "select * from img";
 			getPreparedStatement(sql);
+			int i =0;
 			
 			rs = pstmt.executeQuery();
 			while (rs.next()) {
 				MemberVO member = new MemberVO();
 				member.setImg(rs.getString(1));
-				img_list.add(member);
+				img[i] = member.getImg();
+				i++;
 			}
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
-		return img_list;
+		return img;
 	}
 
 	// 프로필 이미지 수정
