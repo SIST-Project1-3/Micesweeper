@@ -108,8 +108,10 @@ public class ServerSystem {
 						String[] img_list = mdao.getImgResult(msg);
 						returnMsg.setImgList(img_list);
 						oos.writeObject(returnMsg);
-//					} else if (member.getStatus() == MemberVO.IMG_UPDATE) { // 프로필 이미지 수정
-
+					} else if (msg.getStatus() == MessageVO.IMG_UPDATE) { // 프로필 이미지 수정
+						System.out.println("server - IMG_UPDATE");
+						returnMsg.setResult(mdao.getUpdateResult(msg));
+						oos.writeObject(returnMsg);
 					}
 				}
 			} catch (Exception e) {
