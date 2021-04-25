@@ -178,6 +178,31 @@ public class ClientSystem {
 		return profile;
 	}
 	
+	// 프로필 이미지 요청
+	public String[] requestImg(MessageVO msg) {
+		String[] img_list = new String[6];
+		try {
+			oos.writeObject(msg);
+			img_list = ((MessageVO)ois.readObject()).getImgList();
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return img_list;
+	}
+	
+	// 선택한 이미지 정보 저장
+	public boolean updateImg(MessageVO msg) {
+		boolean result = false;
+		try {
+			oos.writeObject(msg);
+			MessageVO recieveMsg = (MessageVO)ois.readObject();
+			result = recieveMsg.getResult();
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return result;
+	}
+	
 	// 종료
 	public void exit() {
 		try {
