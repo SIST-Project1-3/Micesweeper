@@ -52,7 +52,6 @@ public class JoinUI {
 		btn_panel.add(cancel_btn);
 
 		// 회원가입 정보 입력창 생성을 위한 for문
-		// 텍스트필드에 포커스 맞출까..?
 		for (String join : joinlist) {
 			JLabel join_label = new JLabel(join);
 			join_label.setFont(Commons.getFont());
@@ -107,7 +106,7 @@ public class JoinUI {
 			}
 		});
 
-		f.setResizable(false);	// 창크기 변경 막아놓음
+		f.setResizable(false); // 창크기 변경 막아놓음
 		f.setSize(400, 200);
 		f.setVisible(true);
 	}

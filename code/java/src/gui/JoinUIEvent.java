@@ -49,16 +49,11 @@ public class JoinUIEvent implements ActionListener {
 							JTextField jtf = (JTextField) tf;
 							jlist.add(jtf);
 						}
-//						MemberVO member = new MemberVO();
-//						member.setId(jlist.get(0).getText());
-//						member.setPw(jlist.get(1).getText());
-						
 						MessageVO msg = new MessageVO();
 						msg.setStatus(MessageVO.JOIN);
 						msg.setId(jlist.get(0).getText());
 						msg.setPw(jlist.get(1).getText());
 						
-//						boolean result2 = client.joinCheck(member);
 						if (client.join(msg)) {
 							JOptionPane.showMessageDialog(null, Commons.getMsg("회원가입을 완료했습니다."));
 							for (Object obj2 : jui.list) {
@@ -98,8 +93,6 @@ public class JoinUIEvent implements ActionListener {
 	// ID 중복 체크
 	public boolean id_check() {
 		boolean result = true;
-		// result가 true면 중복된 아이디가 있다는 의미
-//		if (result == client.idCheck(jui.id_tf.getText())) {
 		MessageVO msg = new MessageVO();
 		msg.setStatus(MessageVO.IDCHECK);
 		msg.setId(jui.id_tf.getText());

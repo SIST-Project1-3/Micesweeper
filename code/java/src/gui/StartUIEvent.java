@@ -40,7 +40,6 @@ public class StartUIEvent implements ActionListener {
 			sui.pw_tf.requestFocus();
 		} else {
 			// 로그인 정보 체크
-//			boolean result = client.login(sui.id_tf.getText(), sui.pw_tf.getText());
 			MessageVO msg = new MessageVO();
 			msg.setStatus(MessageVO.LOGIN);
 			msg.setId(sui.id_tf.getText());
