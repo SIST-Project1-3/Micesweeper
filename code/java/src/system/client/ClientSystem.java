@@ -204,15 +204,15 @@ public class ClientSystem {
 	}
 
 	// 내 프로필 요청 & 정보 받기
-	public MemberVO requestProfile(MessageVO msg) {
-		MemberVO profile = null;
+	public MemberVO myProfile(MessageVO msg) {
+		MemberVO myProfile = null;
 		try {
 			oos.writeObject(msg);
-			profile = ((MessageVO) ois.readObject()).getProfile();
+			myProfile = ((MessageVO) ois.readObject()).getMyProfile();
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
-		return profile;
+		return myProfile;
 	}
 
 	// 프로필 이미지 요청
@@ -239,6 +239,18 @@ public class ClientSystem {
 			e.printStackTrace();
 		}
 		return result;
+	}
+	
+	// 상대 프로필 정보 요청
+	public MemberVO AnotherProfile(MessageVO msg) {
+		MemberVO anotherProfile = null;
+		try {
+			oos.writeObject(msg);
+			anotherProfile = ((MessageVO) ois.readObject()).getAnotherProfile();
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return anotherProfile;
 	}
 
 	// 종료

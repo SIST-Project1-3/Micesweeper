@@ -29,9 +29,9 @@ public class MainUIEvent implements ActionListener, WindowListener, MouseListene
 			new CreateRoomUI();
 		} else if (obj == ui.list_btn.get(1)) { // 내 프로필
 			MessageVO msg = new MessageVO();
-			msg.setStatus(MessageVO.REQUEST_PROFILE);
+			msg.setStatus(MessageVO.MY_PROFILE);
 			msg.setId(ui.client.getId());
-			MemberVO profile = ui.client.requestProfile(msg);
+			MemberVO profile = ui.client.myProfile(msg);
 			new ProfileUI(profile);
 		} else if (obj == ui.list_btn.get(2)) { // 커뮤니티
 			new BoardListUI(ui.client);
@@ -97,9 +97,16 @@ public class MainUIEvent implements ActionListener, WindowListener, MouseListene
 		if (e.getClickCount() == 2) { // 더블클릭
 			int index = list.locationToIndex(e.getPoint());
 			int answer = JOptionPane.showConfirmDialog(null, Commons.getMsg(ui.rooms[index] + "에 입장하시겠습니까?"));
+			
+			MessageVO msg = new MessageVO();
+			msg.setStatus(MessageVO.MY_PROFILE);
+			msg.setId(ui.client.getId());
+			msg.setId2(id2);
+			MemberVO img = ui.client.myProfile(msg);
+			
 			if (answer == 0) {
 				JOptionPane.showMessageDialog(null, Commons.getMsg("방 입장"));
-				new GameUI();
+				new GameUI(img);
 			}
 		}
 	}

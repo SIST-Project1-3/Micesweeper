@@ -28,7 +28,7 @@ public class GameUI {
 	public ArrayList<JButton> micebtn;
 	public JButton watchprofilebtn, readybutton, exitbutton, send, watchprofilebtn_2;
 	GameUIEvent event = new GameUIEvent(this);
-
+	
 	/**
 	 * Launch the application
 	 */

@@ -20,20 +20,22 @@ public class ProfileUI {
 			nd_panel, exit_panel;
 	JButton file_change_btn, exit_btn;
 	ImageIcon changeIcon;
-	JLabel img_label;
+	JLabel idData_lable, img_label, myId_lable, anotherId_lable, img_label2;
 	ProfileUIEvent profileEvent = new ProfileUIEvent(this);
 	ClientSystem client = new ClientSystem();
-	MemberVO profile;
+	GameUI game;
+	MemberVO myProfile;
 	
 	// 메인화면 -> 내 프로필
-	public ProfileUI(MemberVO profile) {
-		this.profile = profile;
+	public ProfileUI(MemberVO myProfile) {
+		this.myProfile = myProfile;
 		main_myProfile();
 	}
 	
 	// 게임화면 -> 프로필 보기
 	public ProfileUI() {
-		// game_Profile();
+		game_Profile();
+		//프로필 받아오긴 해야하는데 ㅜ 파라미터 다르게 줘야되는거 아님?
 		
 	}
 
@@ -53,9 +55,9 @@ public class ProfileUI {
 
 		JLabel id_lable = new JLabel("ID");
 		JLabel score_lable = new JLabel("전적");
-		JLabel idData_lable = new JLabel(""+ profile.getId() +"");
-		int win_score = profile.getWin();
-		int lose_score = profile.getLose();
+		idData_lable = new JLabel(""+ myProfile.getId() +"");
+		int win_score = myProfile.getWin();
+		int lose_score = myProfile.getLose();
 		int total_score = win_score + lose_score;
 		JLabel scoreData_lable = new JLabel(win_score + "승  " + total_score + "전  " + lose_score + "패");
 		id_lable.setFont(Commons.getFont());
@@ -79,7 +81,7 @@ public class ProfileUI {
 
 		// 프로필 이미지 & 크기조절
 		// 사용자가 프로필 수정 창에서 선택한 이미지가 삽입될 수 있게 만들어야 함
-		ImageIcon icon = new ImageIcon(""+profile.getImg()+"");
+		ImageIcon icon = new ImageIcon(""+myProfile.getImg()+"");
 		Image img = icon.getImage();
 		Image changeImg = img.getScaledInstance(200, 200, Image.SCALE_SMOOTH);
 		changeIcon = new ImageIcon(changeImg);
@@ -97,7 +99,7 @@ public class ProfileUI {
 		f.add(BorderLayout.CENTER, center_panel);
 		f.add(BorderLayout.SOUTH, south_out_panel);
 
-		f.setResizable(false); // 창크기 변경 막아놓음
+		//f.setResizable(false); // 창크기 변경 막아놓음
 		f.setSize(500, 500);
 		f.setVisible(true);
 	}
@@ -118,8 +120,8 @@ public class ProfileUI {
 		
 		JLabel id_lable = new JLabel("ID");
 		JLabel score_lable = new JLabel("전적");
-		JLabel myId_lable = new JLabel("내 아이디 경로");
-		JLabel anotherId_lable = new JLabel("상대방 아이디 경로");
+		myId_lable = new JLabel("내 아이디 경로");
+		anotherId_lable = new JLabel("상대방 아이디 경로");
 		JLabel scoreData_lable = new JLabel("전 승 패");
 		id_lable.setFont(Commons.getFont());
 		score_lable.setFont(Commons.getFont());
@@ -141,9 +143,9 @@ public class ProfileUI {
 		Image img = icon.getImage();
 		Image changeImg = img.getScaledInstance(200, 200, Image.SCALE_SMOOTH);
 		ImageIcon changeIcon = new ImageIcon(changeImg);
-		JLabel img_label = new JLabel(changeIcon);
+		img_label2 = new JLabel(changeIcon);
 
-		content_panel.add(img_label);
+		content_panel.add(img_label2);
 		content_panel.add(BorderLayout.SOUTH, nd_panel);
 		in_panel.add(BorderLayout.CENTER, content_panel);
 		in_panel.add(BorderLayout.SOUTH, south_in_panel);

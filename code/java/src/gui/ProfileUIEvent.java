@@ -152,7 +152,7 @@ public class ProfileUIEvent implements ActionListener, MouseListener {
 	public void imgUpdate_from() {
 		MessageVO msg = new MessageVO();
 		msg.setStatus(MessageVO.IMG_UPDATE);
-		msg.setId(pui.profile.getId());
+		msg.setId(pui.myProfile.getId());
 
 		// 선택된 이미지 값 넘기기
 		if (pui.img_label.getIcon().equals(changeIcon1)) {

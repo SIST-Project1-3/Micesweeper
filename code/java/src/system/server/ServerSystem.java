@@ -122,9 +122,9 @@ public class ServerSystem {
 							|| msg.getStatus() == MessageVO.BOARD_SEARCH_WRITER) { // 검색
 						returnMsg.setBoardList(bdao.getSearchResult(msg));
 						oos.writeObject(returnMsg);
-					} else if (msg.getStatus() == MessageVO.REQUEST_PROFILE) { // 내 프로필 정보 요청
-						MemberVO profile = mdao.getProfileResult(msg);
-						returnMsg.setProfile(profile);
+					} else if (msg.getStatus() == MessageVO.MY_PROFILE) { // 내 프로필 정보 요청
+						MemberVO myProfile = mdao.getMyProfileResult(msg);
+						returnMsg.setMyProfile(myProfile);
 						oos.writeObject(returnMsg);
 					} else if (msg.getStatus() == MessageVO.IMG_REQUEST) { // 프로필 이미지 요청
 						String[] img_list = mdao.getImgResult(msg);
@@ -133,6 +133,10 @@ public class ServerSystem {
 					} else if (msg.getStatus() == MessageVO.IMG_UPDATE) { // 프로필 이미지 수정
 						System.out.println("server - IMG_UPDATE");
 						returnMsg.setResult(mdao.getUpdateResult(msg));
+						oos.writeObject(returnMsg);
+					} else if (msg.getStatus() == MessageVO.ANOTHER_PROFILE) { // 상대 프로필 정보 요청
+						MemberVO anotherProfile = mdao.getAnotherProfileResult(msg);
+						returnMsg.setMyProfile(anotherProfile);
 						oos.writeObject(returnMsg);
 					}
 				}
