@@ -48,10 +48,14 @@ public class ProfileUIEvent implements ActionListener, MouseListener {
 			btn_img2.setEnabled(true);
 			btn_img3.setEnabled(true);
 			btn_img4.setEnabled(true);
+			btn_img6.setEnabled(true);
+			btn_img6.setEnabled(true);
 			btn_img1.setBorder(null);
 			btn_img2.setBorder(null);
 			btn_img3.setBorder(null);
 			btn_img4.setBorder(null);
+			btn_img5.setBorder(null);
+			btn_img6.setBorder(null);
 		} else if (obj == pui.exit_btn) { // 프로필 창 종료
 			pui.f.dispose();
 		}
