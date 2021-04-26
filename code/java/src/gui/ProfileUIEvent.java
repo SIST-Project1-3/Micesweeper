@@ -8,7 +8,6 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
-import java.awt.event.MouseMotionListener;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
 
@@ -18,19 +17,15 @@ import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
-import javax.swing.JTextField;
 
 import vo.MessageVO;
 
 public class ProfileUIEvent implements ActionListener, MouseListener {
 	ProfileUI pui;
 	JFrame f;
-	JButton btn_update, btn_cancel, btn_img1, btn_img2, btn_img3, btn_img4;
-	ImageIcon changeIcon1, changeIcon2, changeIcon3, changeIcon4;
+	JButton btn_update, btn_cancel, btn_img1, btn_img2, btn_img3, btn_img4, btn_img5, btn_img6;
+	ImageIcon changeIcon1, changeIcon2, changeIcon3, changeIcon4, changeIcon5, changeIcon6;
 	String[] img_list;
-//	String[] img_list = { "images/프로필고양이1.jpg", "images/프로필고양이2.jpg", "images/프로필쥐1.jpg", "images/프로필쥐2.png",
-//			"images/고양이.png", "images/쥐.png" };
-//	ArrayList<JButton> btn_list = new ArrayList<JButton>();
 
 	public ProfileUIEvent(ProfileUI pui) {
 		this.pui = pui;
@@ -46,12 +41,7 @@ public class ProfileUIEvent implements ActionListener, MouseListener {
 			img_list = pui.client.requestImg(msg);
 			file_form();
 		} else if (obj == btn_update) { // 선택한 이미지 저장
-//			System.out.println(btn_img1.getMouseMotionListeners()); //[Ljava.awt.event.MouseMotionListener;@3a1d497c
-//			System.out.println(btn_img1.getIcon()); //javax.swing.ImageIcon@494e706b
-			
 			imgUpdate_from();
-			
-			
 		} else if (obj == btn_cancel) { // 취소
 			// 이미지 다시 선택할 수 있게 만들기
 			btn_img1.setEnabled(true);
@@ -70,59 +60,60 @@ public class ProfileUIEvent implements ActionListener, MouseListener {
 	public void file_form() {
 		// 프로필 수정 창 생성
 		f = new JFrame("프로필 수정");
-		JPanel center_panel = new JPanel(new GridLayout(2, 2));
+		JPanel center_panel = new JPanel(new GridLayout(3, 2));
 		JPanel south_panel = new JPanel();
 		JPanel img1_panel = new JPanel();
 		JPanel img2_panel = new JPanel();
 		JPanel img3_panel = new JPanel();
 		JPanel img4_panel = new JPanel();
+		JPanel img5_panel = new JPanel();
+		JPanel img6_panel = new JPanel();
 
-//		for (String str : img_list) {
-//			ImageIcon icon = new ImageIcon("" + str + "");
-//			Image img = icon.getImage();
-//			Image changeImg = img.getScaledInstance(200, 200, Image.SCALE_SMOOTH);
-//			changeIcon = new ImageIcon(changeImg);
-//			btn_img = new JButton(changeIcon);
-//			img_panel.add(btn_img);
-//			center_panel.add(img_panel);
-//			btn_list.add(btn_img);
-//		}
-		
-		// 프로필 이미지 4개
-//		ImageIcon icon1 = new ImageIcon("images/프로필고양이1.jpg");
-		ImageIcon icon1 = new ImageIcon(""+ img_list[0] +"");
+		// 프로필 이미지 6개
+		ImageIcon icon1 = new ImageIcon("" + img_list[0] + "");
 		Image img1 = icon1.getImage();
 		Image changeImg1 = img1.getScaledInstance(200, 200, Image.SCALE_SMOOTH);
 		changeIcon1 = new ImageIcon(changeImg1);
 		btn_img1 = new JButton(changeIcon1);
-//		ImageIcon icon2 = new ImageIcon("images/프로필고양이2.jpg");
-		ImageIcon icon2 = new ImageIcon(""+ img_list[1] +"");
+		ImageIcon icon2 = new ImageIcon("" + img_list[1] + "");
 		Image img2 = icon2.getImage();
 		Image changeImg2 = img2.getScaledInstance(200, 200, Image.SCALE_SMOOTH);
 		changeIcon2 = new ImageIcon(changeImg2);
 		btn_img2 = new JButton(changeIcon2);
-//		ImageIcon icon3 = new ImageIcon("images/프로필쥐1.jpg");
-		ImageIcon icon3 = new ImageIcon(""+ img_list[2] +"");
+		ImageIcon icon3 = new ImageIcon("" + img_list[2] + "");
 		Image img3 = icon3.getImage();
 		Image changeImg3 = img3.getScaledInstance(200, 200, Image.SCALE_SMOOTH);
 		changeIcon3 = new ImageIcon(changeImg3);
 		btn_img3 = new JButton(changeIcon3);
-//		ImageIcon icon4 = new ImageIcon("images/프로필쥐2.png");
-		ImageIcon icon4 = new ImageIcon(""+ img_list[3] +"");
+		ImageIcon icon4 = new ImageIcon("" + img_list[3] + "");
 		Image img4 = icon4.getImage();
 		Image changeImg4 = img4.getScaledInstance(200, 200, Image.SCALE_SMOOTH);
 		changeIcon4 = new ImageIcon(changeImg4);
 		btn_img4 = new JButton(changeIcon4);
-		
+		ImageIcon icon5 = new ImageIcon("" + img_list[4] + "");
+		Image img5 = icon5.getImage();
+		Image changeImg5 = img5.getScaledInstance(200, 200, Image.SCALE_SMOOTH);
+		changeIcon5 = new ImageIcon(changeImg5);
+		btn_img5 = new JButton(changeIcon5);
+		ImageIcon icon6 = new ImageIcon("" + img_list[5] + "");
+		Image img6 = icon6.getImage();
+		Image changeImg6 = img6.getScaledInstance(200, 200, Image.SCALE_SMOOTH);
+		changeIcon6 = new ImageIcon(changeImg6);
+		btn_img6 = new JButton(changeIcon6);
+
 		img1_panel.add(btn_img1);
 		img2_panel.add(btn_img2);
 		img3_panel.add(btn_img3);
 		img4_panel.add(btn_img4);
+		img5_panel.add(btn_img5);
+		img6_panel.add(btn_img6);
 		center_panel.add(img1_panel);
 		center_panel.add(img2_panel);
 		center_panel.add(img3_panel);
 		center_panel.add(img4_panel);
-		
+		center_panel.add(img5_panel);
+		center_panel.add(img6_panel);
+
 		btn_update = new JButton("확인");
 		btn_cancel = new JButton("취소");
 		btn_update.setFont(Commons.getFont());
@@ -135,6 +126,8 @@ public class ProfileUIEvent implements ActionListener, MouseListener {
 		btn_img2.addMouseListener(this);
 		btn_img3.addMouseListener(this);
 		btn_img4.addMouseListener(this);
+		btn_img5.addMouseListener(this);
+		btn_img6.addMouseListener(this);
 		btn_update.addActionListener(this);
 		btn_cancel.addActionListener(this);
 
@@ -148,34 +141,38 @@ public class ProfileUIEvent implements ActionListener, MouseListener {
 		});
 
 		f.setResizable(false);
-		f.setSize(500, 500);
+		f.setSize(500, 750);
 		f.setVisible(true);
 	}
 
 	public void imgUpdate_from() {
-		// 선택된 이미지 값 넘기기
 		MessageVO msg = new MessageVO();
 		msg.setStatus(MessageVO.IMG_UPDATE);
 		msg.setId(pui.profile.getId());
-		
-		if(pui.img_label.getIcon().equals(changeIcon1)) {
+
+		// 선택된 이미지 값 넘기기
+		if (pui.img_label.getIcon().equals(changeIcon1)) {
 			msg.setImg(img_list[0]);
-		}else if(pui.img_label.getIcon().equals(changeIcon2)) {
+		} else if (pui.img_label.getIcon().equals(changeIcon2)) {
 			msg.setImg(img_list[1]);
-		}else if(pui.img_label.getIcon().equals(changeIcon3)) {
+		} else if (pui.img_label.getIcon().equals(changeIcon3)) {
 			msg.setImg(img_list[2]);
-		}else if(pui.img_label.getIcon().equals(changeIcon4)) {
+		} else if (pui.img_label.getIcon().equals(changeIcon4)) {
 			msg.setImg(img_list[3]);
-		};
+		} else if (pui.img_label.getIcon().equals(changeIcon5)) {
+			msg.setImg(img_list[4]);
+		} else if (pui.img_label.getIcon().equals(changeIcon6)) {
+			msg.setImg(img_list[5]);
+		}
 
 		boolean result = pui.client.updateImg(msg);
 		System.out.println("222222");
-		
+
 		if (result == true) {
 			JOptionPane.showMessageDialog(null, Commons.getMsg("프로필 이미지가 변경되었습니다."));
 			f.dispose();
 			System.out.println("변경 성공");
-		}else {
+		} else {
 			System.out.println("변경 실패");
 		}
 	}
@@ -186,36 +183,59 @@ public class ProfileUIEvent implements ActionListener, MouseListener {
 
 		// 프로필 수정의 이미지중 하나를 눌렀을 때 선택된 이미지 버튼의 바깥쪽에 빨간색 선이 생기게 하고
 		// 선택되지 않은 나머지 이미지 버튼은 비활성화
-		// 선택함과 동시에 내 프로필 창의 픠로필 이미지 변경
+		// 선택함과 동시에 내 프로필 창의 이미지 변경
 		if (e.getClickCount() == 2) {
 			if (obj == btn_img1) {
 				btn_img1.setBorder(BorderFactory.createLineBorder(Color.RED));
 				btn_img2.setEnabled(false);
 				btn_img3.setEnabled(false);
 				btn_img4.setEnabled(false);
+				btn_img5.setEnabled(false);
+				btn_img6.setEnabled(false);
 				pui.img_label.setIcon(changeIcon1);
 			} else if (obj == btn_img2) {
 				btn_img2.setBorder(BorderFactory.createLineBorder(Color.RED));
 				btn_img1.setEnabled(false);
 				btn_img3.setEnabled(false);
 				btn_img4.setEnabled(false);
+				btn_img5.setEnabled(false);
+				btn_img6.setEnabled(false);
 				pui.img_label.setIcon(changeIcon2);
 			} else if (obj == btn_img3) {
 				btn_img3.setBorder(BorderFactory.createLineBorder(Color.RED));
 				btn_img1.setEnabled(false);
 				btn_img2.setEnabled(false);
 				btn_img4.setEnabled(false);
+				btn_img5.setEnabled(false);
+				btn_img6.setEnabled(false);
 				pui.img_label.setIcon(changeIcon3);
 			} else if (obj == btn_img4) {
 				btn_img4.setBorder(BorderFactory.createLineBorder(Color.RED));
 				btn_img1.setEnabled(false);
 				btn_img2.setEnabled(false);
 				btn_img3.setEnabled(false);
+				btn_img5.setEnabled(false);
+				btn_img6.setEnabled(false);
 				pui.img_label.setIcon(changeIcon4);
+			} else if (obj == btn_img5) {
+				btn_img5.setBorder(BorderFactory.createLineBorder(Color.RED));
+				btn_img1.setEnabled(false);
+				btn_img2.setEnabled(false);
+				btn_img3.setEnabled(false);
+				btn_img4.setEnabled(false);
+				btn_img6.setEnabled(false);
+				pui.img_label.setIcon(changeIcon5);
+			} else if (obj == btn_img6) {
+				btn_img6.setBorder(BorderFactory.createLineBorder(Color.RED));
+				btn_img1.setEnabled(false);
+				btn_img2.setEnabled(false);
+				btn_img3.setEnabled(false);
+				btn_img4.setEnabled(false);
+				btn_img5.setEnabled(false);
+				pui.img_label.setIcon(changeIcon6);
 			}
 		}
-		
-	
+
 	}
 
 	@Override
