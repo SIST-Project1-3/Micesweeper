@@ -131,6 +131,7 @@ public class MainUI {
 		ta_chat = new JTextArea();
 		ta_chat.setEditable(false);
 		ta_chat.setFont(Commons.getFont());
+		JScrollPane sp_chat = new JScrollPane(ta_chat);
 		JPanel panel_tf = new JPanel(new BorderLayout());
 		btn_send = new JButton("전송");
 		btn_send.setFont(Commons.getFont());
@@ -140,7 +141,7 @@ public class MainUI {
 		btn_send.addActionListener(event);
 		panel_tf.add(tf_chat, "Center");
 		panel_tf.add(btn_send, "East");
-		panel_center.add(ta_chat, "Center");
+		panel_center.add(sp_chat, "Center");
 		panel_center.add(panel_tf, "South");
 
 		JPanel panel_btn = new JPanel(new GridLayout(4, 1));

@@ -233,6 +233,7 @@ public class ClientSystem {
 					MessageVO msg = (MessageVO) ois_chat.readObject();
 					if (msg.getStatus() == MessageVO.SERVERCHAT) { // 멀티채팅
 						mainui.ta_chat.append(msg.getId() + ": " + msg.getContent() + "\n");
+						mainui.ta_chat.setCaretPosition(mainui.ta_chat.getDocument().getLength());
 					}
 				}
 			} catch (Exception e) {

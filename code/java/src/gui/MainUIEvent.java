@@ -37,7 +37,7 @@ public class MainUIEvent implements ActionListener, WindowListener, MouseListene
 			new BoardListUI(ui.client);
 		} else if (obj == ui.list_btn.get(3)) { // 게임종료
 			ui.exit();
-		} else if (obj == ui.btn_send || obj == ui.tf_chat) {
+		} else if (obj == ui.btn_send || obj == ui.tf_chat) { // 채팅
 			if (!ui.tf_chat.getText().isEmpty()) { // 입력한 내용이 있는 경우 실행
 				MessageVO msg = new MessageVO();
 				msg.setStatus(MessageVO.SERVERCHAT);
