@@ -146,4 +146,25 @@ public class BoardDAO extends DAO {
 		}
 		return result;
 	}
+	
+	// 글 삭제
+	public boolean getDeleteResult(MessageVO msg) {
+		boolean result = false;
+
+		try {
+			String sql = "DELETE FROM BOARD WHERE NO = ?";
+			getPreparedStatement(sql);
+			
+			pstmt.setInt(1, msg.getNo());
+
+			int val = pstmt.executeUpdate();
+
+			if (val != 0) {
+				result = true;
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return result;
+	}
 }

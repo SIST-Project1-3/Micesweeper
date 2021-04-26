@@ -125,7 +125,7 @@ public class BoardWriteUI implements ActionListener {
 				// clientsystem을 이용해 서버에 전송
 				if (client.writeBoard(msg)) { // 전송 성공
 					JOptionPane.showMessageDialog(null, Commons.getMsg("글 작성 성공"));
-					boardListUI.createJtableData();;
+					boardListUI.createJtableData();
 					exit(); // 창 종료
 				} else { // 전송 실패
 					JOptionPane.showMessageDialog(null, Commons.getMsg("글 작성 실패"));
@@ -137,7 +137,7 @@ public class BoardWriteUI implements ActionListener {
 				article.setContent(tf_content.getText());
 				if(client.updateBoard(article)) { // 전송 성공
 					JOptionPane.showMessageDialog(null, Commons.getMsg("글 수정 성공"));
-					boardListUI.createJtableData();;
+					boardListUI.createJtableData();
 					exit(); // 창 종료
 				} else { // 전송 실패
 					JOptionPane.showMessageDialog(null, Commons.getMsg("글 수정 실패"));

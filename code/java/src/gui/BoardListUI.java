@@ -223,7 +223,12 @@ public class BoardListUI implements ActionListener, MouseListener {
 			if (userId.equals(writer)) {
 				int result = JOptionPane.showConfirmDialog(null, Commons.getMsg("정말로 삭제하시겠습니까?"));
 				if(result == 0) { // 확인버튼 클릭
-					client.deleteBoard((int)table.getValueAt(r, 0));
+					if(client.deleteBoard((int)table.getValueAt(r, 0))) {					
+						createJtableData();
+						JOptionPane.showMessageDialog(null, Commons.getMsg("삭제 완료"));
+					}else {
+						JOptionPane.showMessageDialog(null, Commons.getMsg("삭제 실패"));
+					}
 				}
 			} else {
 				JOptionPane.showMessageDialog(null, Commons.getMsg("작성자만 삭제가 가능합니다."));

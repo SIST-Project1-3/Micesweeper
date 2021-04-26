@@ -91,9 +91,8 @@ public class ServerSystem {
 						returnMsg.setResult(bdao.getUpdateResult(msg));
 						oos.writeObject(returnMsg);
 					} else if (msg.getStatus() == MessageVO.BOARD_DELETE_ARTICLE) { // 특정 게시글 삭제
-//						BoardVO article = bdao.getReadResult(msg);
-//						returnMsg.setArticle(article);
-//						oos.writeObject(returnMsg);
+						returnMsg.setResult(bdao.getDeleteResult(msg));
+						oos.writeObject(returnMsg);
 					} else if (msg.getStatus() == MessageVO.JOIN) { // 회원가입
 						returnMsg.setResult(mdao.getJoinResult(msg));
 						oos.writeObject(returnMsg);
