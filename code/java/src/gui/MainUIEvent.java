@@ -101,12 +101,12 @@ public class MainUIEvent implements ActionListener, WindowListener, MouseListene
 			MessageVO msg = new MessageVO();
 			msg.setStatus(MessageVO.MY_PROFILE);
 			msg.setId(ui.client.getId());
-			msg.setId2(id2);
-			MemberVO img = ui.client.myProfile(msg);
+//			msg.setId2();
+//			MemberVO gProfile = ui.client.
 			
 			if (answer == 0) {
 				JOptionPane.showMessageDialog(null, Commons.getMsg("방 입장"));
-				new GameUI(img);
+				new GameUI();
 			}
 		}
 	}
