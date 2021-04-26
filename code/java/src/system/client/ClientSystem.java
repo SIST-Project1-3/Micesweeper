@@ -274,7 +274,6 @@ public class ClientSystem {
 					MessageVO msg = (MessageVO) ois_chat.readObject();
 					if (msg.getStatus() == MessageVO.SERVERCHAT) { // 멀티채팅
 						mainui.ta_chat.append(msg.getId() + ": " + msg.getContent() + "\n");
-						mainui.ta_chat.setCaretPosition(mainui.ta_chat.getDocument().getLength());
 					} else if (msg.getStatus() == MessageVO.LOGIN) { // 사용자 접속
 						userList = msg.getUserList();
 						if (mainui != null) { // 로그인하기 전에 코드를 실행하면 에러가 나므로 if 문으로 검증
