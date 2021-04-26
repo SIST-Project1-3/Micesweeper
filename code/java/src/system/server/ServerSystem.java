@@ -5,6 +5,7 @@ import java.io.ObjectOutputStream;
 import java.net.ServerSocket;
 import java.net.Socket;
 import java.util.ArrayList;
+import java.util.Vector;
 
 import dao.BoardDAO;
 import dao.MemberDAO;
@@ -18,6 +19,7 @@ public class ServerSystem {
 	Socket client;
 	ServerSystem_Chat chatServer;
 	ArrayList<ServerThread> stList = new ArrayList<ServerThread>();
+	Vector<String> userList = new Vector<String>(); // 접속중인 유저 목록
 	BoardDAO bdao = new BoardDAO();
 	MemberDAO mdao = new MemberDAO();
 
@@ -32,7 +34,8 @@ public class ServerSystem {
 
 			server = new ServerSocket(9000);
 			System.out.println("Server start");
-			new ServerSystem_Chat().start();
+			chatServer = new ServerSystem_Chat();
+			chatServer.start();
 
 			while (true) {
 				// 클라이언트 접속 대기
@@ -100,8 +103,21 @@ public class ServerSystem {
 						returnMsg.setResult(mdao.getIdCheckResult(msg));
 						oos.writeObject(returnMsg);
 					} else if (msg.getStatus() == MessageVO.LOGIN) { // 로그인
-						returnMsg.setResult(mdao.getLoginResult(msg));
-						oos.writeObject(returnMsg);
+						boolean result = mdao.getLoginResult(msg);
+						if (result) { // 로그인 성공 시 접속중인 유저 목록 전송
+							System.out.println(msg.getId() + ": 로그인");
+							userList.add(msg.getId());
+							// oos의 특징때문에 clone()으로 전송. flush(), reset()을 이용하는 방법도 있을 것으로 생각됨
+							returnMsg.setUserList((Vector<String>) userList.clone());
+						}
+						returnMsg.setResult(result);
+						oos.writeObject(returnMsg); // 로그인 대상에게 응답 전송
+						chatServer.broadcastMsg(returnMsg);// 접속중인 클라이언트 모두에게 리스트 갱신 전송
+					} else if (msg.getStatus() == MessageVO.EXIT) { // 게임종료
+						userList.remove(msg.getId());
+						// oos의 특징때문에 clone()으로 전송. flush(), reset()을 이용하는 방법도 있을 것으로 생각됨
+						returnMsg.setUserList((Vector<String>) userList.clone());
+						chatServer.broadcastMsg(returnMsg);
 					} else if (msg.getStatus() == MessageVO.BOARD_SEARCH_TITLE
 							|| msg.getStatus() == MessageVO.BOARD_SEARCH_WRITER) { // 검색
 						returnMsg.setBoardList(bdao.getSearchResult(msg));

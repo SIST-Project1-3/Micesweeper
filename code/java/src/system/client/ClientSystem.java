@@ -5,6 +5,7 @@ import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.net.Socket;
 import java.util.ArrayList;
+import java.util.Vector;
 
 import dao.BoardDAO;
 import dao.MemberDAO;
@@ -25,6 +26,7 @@ public class ClientSystem {
 	ObjectOutputStream oos_chat;
 	ObjectInputStream ois_chat;
 	public MainUI mainui;
+	public Vector<String> userList = new Vector<String>(); // 접속중인 유저 목록
 
 	// Constructor
 	public ClientSystem() {
@@ -120,7 +122,7 @@ public class ClientSystem {
 		boolean result = false;
 		MessageVO msg = new MessageVO();
 		msg.setStatus(MessageVO.BOARD_UPDATE_ARTICLE);
-		msg.setArticle(article);;
+		msg.setArticle(article);
 		try {
 			oos.writeObject(msg);
 			MessageVO recieveMsg = (MessageVO) ois.readObject();
@@ -192,6 +194,9 @@ public class ClientSystem {
 			oos.writeObject(msg);
 			MessageVO recieveMsg = (MessageVO) ois.readObject();
 			result = recieveMsg.getResult();
+			if (result) { // 로그인 성공 시 접속중인 유저 목록을 수신
+				userList = recieveMsg.getUserList();
+			}
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
@@ -239,6 +244,10 @@ public class ClientSystem {
 	// 종료
 	public void exit() {
 		try {
+			MessageVO msg = new MessageVO();
+			msg.setStatus(MessageVO.EXIT);
+			msg.setId(id);
+			oos.writeObject(msg);
 			client.close();
 		} catch (IOException e) {
 			e.printStackTrace();
@@ -266,6 +275,16 @@ public class ClientSystem {
 					if (msg.getStatus() == MessageVO.SERVERCHAT) { // 멀티채팅
 						mainui.ta_chat.append(msg.getId() + ": " + msg.getContent() + "\n");
 						mainui.ta_chat.setCaretPosition(mainui.ta_chat.getDocument().getLength());
+					} else if (msg.getStatus() == MessageVO.LOGIN) { // 사용자 접속
+						userList = msg.getUserList();
+						if (mainui != null) { // 로그인하기 전에 코드를 실행하면 에러가 나므로 if 문으로 검증
+							mainui.jlist_user.setListData(userList); // MainUI 접속자 명단 갱신
+						}
+					} else if (msg.getStatus() == MessageVO.EXIT) { // 사용자 퇴장
+						userList = msg.getUserList();
+						if (mainui != null) { // 로그인하기 전에 코드를 실행하면 에러가 나므로 if 문으로 검증
+							mainui.jlist_user.setListData(userList); // MainUI 접속자 명단 갱신
+						}
 					}
 				}
 			} catch (Exception e) {

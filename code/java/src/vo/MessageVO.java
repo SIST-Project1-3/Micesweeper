@@ -2,32 +2,45 @@ package vo;
 
 import java.io.Serializable;
 import java.util.ArrayList;
+import java.util.Vector;
 
 // 서버와 클라이언트가 통신할 때 사용하는 VO
 public class MessageVO implements Serializable {
-	public static int BOARD_WRITE = 1; // 게시글 작성
-	public static int BOARD_READ_LIST = 2; // 게시글 목록 불러오기
-	public static int BOARD_READ_ARTICLE = 3; // 특정 게시글 읽기
-	public static int BOARD_UPDATE_ARTICLE = 14; // 특정 게시글 수정
-	public static int BOARD_DELETE_ARTICLE = 15; // 특정 게시글 삭제
-	public static int BOARD_SEARCH_TITLE = 8; // 게시글 제목 검색 
-	public static int BOARD_SEARCH_WRITER = 9; // 게시글 작성자 검색 
-	public static int LOGIN = 4; // 로그인
-	public static int LOGOUT = 5; // 게임종료 및 로그아웃
-	public static int JOIN = 6; // 회원가입
-	public static int IDCHECK = 10; // 아이디 중복확인
-	public static int SERVERCHAT = 7;
-	public static int REQUEST_PROFILE = 11; 	// 프로필 정보 요청
-	public static int IMG_REQUEST = 12;	// 프로필 이미지 요청
-	public static int IMG_UPDATE = 13;	// 수정할 이미지 경로 가져오기
+	public static final int BOARD_WRITE = 1; // 게시글 작성
+	public static final int BOARD_READ_LIST = 2; // 게시글 목록 불러오기
+	public static final int BOARD_READ_ARTICLE = 3; // 특정 게시글 읽기
+	public static final int BOARD_UPDATE_ARTICLE = 14; // 특정 게시글 수정
+	public static final int BOARD_DELETE_ARTICLE = 15; // 특정 게시글 삭제
+	public static final int BOARD_SEARCH_TITLE = 8; // 게시글 제목 검색
+	public static final int BOARD_SEARCH_WRITER = 9; // 게시글 작성자 검색
+	public static final int LOGIN = 4; // 로그인
+	public static final int CONNECT= 16; // 게임종료 및 로그아웃
+	public static final int EXIT = 5; // 게임종료 및 로그아웃
+	public static final int JOIN = 6; // 회원가입
+	public static final int IDCHECK = 10; // 아이디 중복확인
+	public static final int SERVERCHAT = 7; // 멀티 채팅
+	public static final int REQUEST_PROFILE = 11; // 프로필 정보 요청
+	public static final int IMG_REQUEST = 12; // 프로필 이미지 요청
+	public static final int IMG_UPDATE = 13; // 수정할 이미지 경로 가져오기
+
 	int status, no; // MsgVO의 상태, 게시글 No
 	String title, content, id, pw, img; // 게시글 제목, (내용, 채팅메시지), 작성ID, 패스워드, 프로필이미지
 	boolean result; // DAO 결과값
 	ArrayList<BoardVO> boardList; // 게시글 목록 불러오기
 	BoardVO article; // 게시글 읽기
 	MemberVO profile; // 프로필 정보
-	String[] imgList;	// 프로필 이미지
-	
+	String[] imgList; // 프로필 이미지
+	Vector<String> userList;
+
+
+	public Vector<String> getUserList() {
+		return userList;
+	}
+
+	public void setUserList(Vector<String> userList) {
+		this.userList = userList;
+	}
+
 	public int getStatus() {
 		return status;
 	}
@@ -63,11 +76,11 @@ public class MessageVO implements Serializable {
 	public String getPw() {
 		return pw;
 	}
-	
+
 	public void setPw(String pw) {
 		this.pw = pw;
 	}
-	
+
 	public boolean getResult() {
 		return result;
 	}
@@ -124,5 +137,4 @@ public class MessageVO implements Serializable {
 		this.imgList = imgList;
 	}
 
-	
 }

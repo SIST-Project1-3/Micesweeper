@@ -4,6 +4,7 @@ import java.awt.BorderLayout;
 import java.awt.GridLayout;
 import java.awt.Image;
 import java.util.ArrayList;
+import java.util.Vector;
 
 import javax.swing.DefaultListModel;
 import javax.swing.ImageIcon;
@@ -24,14 +25,16 @@ import vo.MessageVO;
 public class MainUI {
 
 	// Field
-	JFrame frame;
+	public JFrame frame;
 	ClientSystem client;
 	ArrayList<JButton> list_btn = new ArrayList<JButton>();
 	JButton btn_send;
 	JTextField tf_chat;
 	public JTextArea ta_chat;
 	DefaultListModel<String> listmodel_room;
+	DefaultListModel<String> listmodel_user;
 	JList<String> jlist_room;
+	public JList<String> jlist_user;
 	MainUIEvent event = new MainUIEvent(this);
 
 	String[] rooms = { "첫번째 방입니다.", "두번째 방이거든요", "세번째 방이더라구요", "네번째 방인 것 같아요", "다섯번째인가봐요", "육번째", "칠", "네이밍", "귀찮아",
@@ -50,7 +53,7 @@ public class MainUI {
 	private void initialize() {
 		frame = new JFrame();
 		frame.setLayout(new BorderLayout(10, 10));
-		frame.setTitle("쥐뢰찾기");
+		frame.setTitle("쥐뢰찾기 - " + client.getId());
 
 		frame.getContentPane().add(createNorthPanel(), "North");
 		frame.getContentPane().add(createCenterPanel(), "Center");
@@ -107,12 +110,9 @@ public class MainUI {
 		JPanel panel_east = new JPanel(new BorderLayout());
 		JLabel label_users = new JLabel("접속중인 사람");
 		label_users.setFont(Commons.getFont());
-		DefaultListModel<String> listmodel_user = new DefaultListModel<String>();
-		// 1. test용 유저 추가
-		for (String str : users) {
-			listmodel_user.addElement(str);
-		}
-		JList<String> jlist_user = new JList<String>(listmodel_user);
+		listmodel_user = new DefaultListModel<String>();
+		createListModel_User(client.userList);
+		jlist_user = new JList<String>(listmodel_user);
 		jlist_user.setFont(Commons.getFont());
 		JScrollPane sp_user = new JScrollPane(jlist_user);
 		panel_east.add(label_users, "North");
@@ -122,6 +122,14 @@ public class MainUI {
 		panel.add(panel_east, "East");
 
 		return panel;
+	}
+
+	// 접속자 명단 갱신 메소드
+	public void createListModel_User(Vector<String> list) {
+		listmodel_user.clear();
+		for (String user : list) {
+			listmodel_user.addElement(user);
+		}
 	}
 
 	public JPanel createSouthPanel() {
