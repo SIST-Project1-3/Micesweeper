@@ -65,9 +65,9 @@ public class BoardDAO extends DAO {
 		try {
 			String sql=null;
 			if(msg.getStatus()== MessageVO.BOARD_SEARCH_TITLE) {
-				sql = "SELECT * FROM BOARD WHERE TITLE LIKE '%'||?||'%'";				
+				sql = "SELECT * FROM BOARD WHERE TITLE LIKE '%'||?||'%' ORDER BY NO DESC";				
 			}else if(msg.getStatus()==MessageVO.BOARD_SEARCH_WRITER) {
-				sql = "SELECT * FROM BOARD WHERE ID LIKE '%'||?||'%'";								
+				sql = "SELECT * FROM BOARD WHERE ID LIKE '%'||?||'%' ORDER BY NO DESC";								
 			}
 			getPreparedStatement(sql);
 			String target = msg.getArticle().getContent();
