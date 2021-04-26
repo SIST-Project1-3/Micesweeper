@@ -115,6 +115,38 @@ public class ClientSystem {
 		return article;
 	}
 
+	// 글 수정
+	public boolean updateBoard(BoardVO article) {
+		boolean result = false;
+		MessageVO msg = new MessageVO();
+		msg.setStatus(MessageVO.BOARD_UPDATE_ARTICLE);
+		msg.setArticle(article);;
+		try {
+			oos.writeObject(msg);
+			MessageVO recieveMsg = (MessageVO) ois.readObject();
+			result = recieveMsg.getResult();
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return result;
+	}
+
+	// 글 삭제
+	public boolean deleteBoard(int no) {
+		boolean result = false;
+		MessageVO msg = new MessageVO();
+		msg.setStatus(MessageVO.BOARD_DELETE_ARTICLE);
+		msg.setNo(no);
+		try {
+			oos.writeObject(msg);
+			MessageVO recieveMsg = (MessageVO) ois.readObject();
+			result = recieveMsg.getResult();
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return result;
+	}
+
 	// 멀티채팅
 	public void sendMultiChat(MessageVO msg) {
 		try {
@@ -127,24 +159,24 @@ public class ClientSystem {
 	// 회원가입
 	public boolean join(MessageVO msg) {
 		boolean result = false;
-		
+
 		try {
 			oos.writeObject(msg);
-			MessageVO recieveMsg = (MessageVO)ois.readObject();
+			MessageVO recieveMsg = (MessageVO) ois.readObject();
 			result = recieveMsg.getResult();
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
 		return result;
 	}
-	
+
 	// 아이디 중복체크
 	public boolean idCheck(MessageVO msg) {
 		boolean result = false;
-		
+
 		try {
 			oos.writeObject(msg);
-			MessageVO recieveMsg = (MessageVO)ois.readObject();
+			MessageVO recieveMsg = (MessageVO) ois.readObject();
 			result = recieveMsg.getResult();
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -155,55 +187,55 @@ public class ClientSystem {
 	// 로그인
 	public boolean login(MessageVO msg) {
 		boolean result = false;
-		
+
 		try {
 			oos.writeObject(msg);
-			MessageVO recieveMsg = (MessageVO)ois.readObject();
+			MessageVO recieveMsg = (MessageVO) ois.readObject();
 			result = recieveMsg.getResult();
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
 		return result;
 	}
-	
+
 	// 내 프로필 요청 & 정보 받기
 	public MemberVO requestProfile(MessageVO msg) {
 		MemberVO profile = null;
 		try {
 			oos.writeObject(msg);
-			profile = ((MessageVO)ois.readObject()).getProfile();
+			profile = ((MessageVO) ois.readObject()).getProfile();
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
 		return profile;
 	}
-	
+
 	// 프로필 이미지 요청
 	public String[] requestImg(MessageVO msg) {
 		String[] img_list = new String[6];
 		try {
 			oos.writeObject(msg);
-			img_list = ((MessageVO)ois.readObject()).getImgList();
+			img_list = ((MessageVO) ois.readObject()).getImgList();
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
 		return img_list;
 	}
-	
+
 	// 선택한 이미지 정보 저장
 	public boolean updateImg(MessageVO msg) {
 		boolean result = false;
 		System.out.println("client - updateImg");
 		try {
 			oos.writeObject(msg);
-			MessageVO recieveMsg = (MessageVO)ois.readObject();
+			MessageVO recieveMsg = (MessageVO) ois.readObject();
 			result = recieveMsg.getResult();
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
 		return result;
 	}
-	
+
 	// 종료
 	public void exit() {
 		try {

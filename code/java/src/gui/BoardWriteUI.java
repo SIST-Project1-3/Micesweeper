@@ -16,22 +16,38 @@ import javax.swing.JTextArea;
 import javax.swing.JTextField;
 
 import system.client.ClientSystem;
+import vo.BoardVO;
 import vo.MessageVO;
 
 public class BoardWriteUI implements ActionListener {
 	// Field
+	int status;
 	JFrame frame;
 	JButton btn_write;
 	JTextField tf_title;
 	JTextArea tf_content;
 	ClientSystem client;
 	BoardListUI boardListUI;
+	BoardVO article; 
 
+	public static final int WRITE = 0;
+	public static final int UPDATE = 1;
+	
 	// Constructor
 	public BoardWriteUI(BoardListUI boardListUI) {
+		this.status = WRITE;
 		this.boardListUI = boardListUI;
 		this.client = boardListUI.client;
 		initialize();
+	}
+	
+	public BoardWriteUI(BoardListUI boardListUI, BoardVO article) {
+		this(boardListUI);
+		this.status = UPDATE;
+		this.article = article;
+		this.tf_title.setText(article.getTitle());
+		this.tf_content.setText(article.getContent());
+		this.btn_write.setText("수정");
 	}
 
 	// Method
@@ -83,15 +99,23 @@ public class BoardWriteUI implements ActionListener {
 		frame.dispose();
 	}
 
+	public boolean inputChk() {
+		boolean result = false;
+		if (tf_title.getText().isEmpty()) { // 제목 입력 확인
+			JOptionPane.showMessageDialog(null, Commons.getMsg("제목을 입력해주세요"));
+		} else if (tf_content.getText().isEmpty()) { // 내용 입력 확인
+			JOptionPane.showMessageDialog(null, Commons.getMsg("내용을 입력해주세요"));
+		}else {
+			result = true;
+		}
+		return result;
+	}
+	
 	@Override
 	public void actionPerformed(ActionEvent e) {
 		Object obj = e.getSource();
-		if (obj == btn_write) { // 작성버튼 클릭
-			if (tf_title.getText().isEmpty()) { // 제목 입력 확인
-				JOptionPane.showMessageDialog(null, Commons.getMsg("제목을 입력해주세요"));
-			} else if (tf_content.getText().isEmpty()) { // 내용 입력 확인
-				JOptionPane.showMessageDialog(null, Commons.getMsg("내용을 입력해주세요"));
-			} else { // 글 작성
+		if (status == WRITE && obj == btn_write) { // 새로운 글 작성
+			if (inputChk()){ // 글 작성
 				// 작성한 글을 msg에 담아서 clientsystem을 통해 서버에 전송
 				MessageVO msg = new MessageVO();
 				msg.setStatus(MessageVO.BOARD_WRITE);
@@ -107,7 +131,20 @@ public class BoardWriteUI implements ActionListener {
 					JOptionPane.showMessageDialog(null, Commons.getMsg("글 작성 실패"));
 				}
 			}
+		} else if (status == UPDATE && obj == btn_write) { // 기존 글 수정
+			if(inputChk()) {
+				article.setTitle(tf_title.getText());
+				article.setContent(tf_content.getText());
+				if(client.updateBoard(article)) { // 전송 성공
+					JOptionPane.showMessageDialog(null, Commons.getMsg("글 수정 성공"));
+					boardListUI.createJtableData();;
+					exit(); // 창 종료
+				} else { // 전송 실패
+					JOptionPane.showMessageDialog(null, Commons.getMsg("글 수정 실패"));
+				}
+			}
 		}
+		
 	}
 
 }

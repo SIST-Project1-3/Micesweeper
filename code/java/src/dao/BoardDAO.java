@@ -123,4 +123,27 @@ public class BoardDAO extends DAO {
 		}
 		return article;
 	}
+	
+	// 글 수정
+	public boolean getUpdateResult(MessageVO msg) {
+		boolean result = false;
+
+		try {
+			String sql = "UPDATE BOARD SET TITLE = ?, CONTENT = ? WHERE NO = ?";
+			getPreparedStatement(sql);
+
+			pstmt.setString(1, msg.getArticle().getTitle());
+			pstmt.setString(2, msg.getArticle().getContent());
+			pstmt.setInt(3, msg.getArticle().getNo());
+
+			int val = pstmt.executeUpdate();
+
+			if (val != 0) {
+				result = true;
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return result;
+	}
 }

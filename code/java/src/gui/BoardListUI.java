@@ -190,6 +190,12 @@ public class BoardListUI implements ActionListener, MouseListener {
 	@Override
 	public void actionPerformed(ActionEvent e) {
 		Object obj = e.getSource();
+
+		String name = e.getActionCommand(); // 수정, 삭제 버튼 분류에 사용
+		int r = table.getSelectedRow(); // 선택된 행이 몇번째 행인지
+		String userId = client.getId();
+		String writer;
+
 		if (obj == btn_search || obj == tf_search) { // 검색
 			String category = cb_search.getSelectedItem().toString();
 			if (category.equals("제목")) {
@@ -197,9 +203,31 @@ public class BoardListUI implements ActionListener, MouseListener {
 			} else if (category.contentEquals("글쓴이")) {
 				createJtableData(client.searchBoard(MessageVO.BOARD_SEARCH_WRITER, tf_search.getText()));
 			}
-
+			
 		} else if (obj == btn_write) { // 글쓰기
 			new BoardWriteUI(this);
+			
+		} else if (name.equals("수정")) {
+			writer = (String) table.getValueAt(r, 2); // 해당 글 작성자
+			System.out.printf("접속자: %s, %d번 게시글의 작성자: %s\n", client.getId(), table.getValueAt(r, 0), writer);
+			if (userId.equals(writer)) {
+				System.out.println(table.getValueAt(r, 0) + "번 게시물 수정");
+				BoardVO article = client.readArticle((int) table.getValueAt(r, 0));
+				new BoardWriteUI(this, article);
+			} else {
+				JOptionPane.showMessageDialog(null, Commons.getMsg("작성자만 수정이 가능합니다."));
+			}
+			
+		} else if (name.equals("삭제")) {
+			writer = (String) table.getValueAt(r, 2); // 해당 글 작성자
+			if (userId.equals(writer)) {
+				int result = JOptionPane.showConfirmDialog(null, Commons.getMsg("정말로 삭제하시겠습니까?"));
+				if(result == 0) { // 확인버튼 클릭
+					client.deleteBoard((int)table.getValueAt(r, 0));
+				}
+			} else {
+				JOptionPane.showMessageDialog(null, Commons.getMsg("작성자만 삭제가 가능합니다."));
+			}
 		}
 	}
 
@@ -209,7 +237,6 @@ public class BoardListUI implements ActionListener, MouseListener {
 //		System.out.println(r);
 		if (e.getClickCount() == 2) {
 			System.out.println("Selected Index: " + r + ", article no: " + table.getValueAt(r, 0));
-			MessageVO msg = new MessageVO();
 			BoardVO article = client.readArticle((int) table.getValueAt(r, 0));
 			new BoardViewUI(article);
 			createJtableData();
@@ -240,59 +267,34 @@ public class BoardListUI implements ActionListener, MouseListener {
 
 	}
 
+	// JTable 수정, 삭제 버튼 생성 및 추가 클래스
+	class TableUpdateCell extends AbstractCellEditor implements TableCellEditor, TableCellRenderer {
+		JButton jb;
+		BoardDAO dao;
+
+		public TableUpdateCell(String name, BoardListUI blist, BoardDAO dao, int option) {
+			this.dao = dao;
+			jb = new JButton(name);
+			jb.setFont(Commons.getFont());
+
+			jb.addActionListener(blist);
+		}
+
+		@Override
+		public Object getCellEditorValue() {
+			return null;
+		}
+
+		@Override
+		public Component getTableCellRendererComponent(JTable table, Object value, boolean isSelected, boolean hasFocus,
+				int row, int column) {
+			return jb;
+		}
+
+		@Override
+		public Component getTableCellEditorComponent(JTable table, Object value, boolean isSelected, int row,
+				int column) {
+			return jb;
+		}
+	}// TableUpdateCell class
 }
-
-//JTable 수정, 삭제 버튼 생성 및 추가 클래스
-class TableUpdateCell extends AbstractCellEditor implements TableCellEditor, TableCellRenderer {
-	JButton jb;
-	BoardDAO dao;
-
-	public TableUpdateCell(String name, BoardListUI blist, BoardDAO dao, int option) {
-		this.dao = dao;
-		jb = new JButton(name);
-		jb.setFont(Commons.getFont());
-
-		jb.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				String name = e.getActionCommand();
-				int r = blist.table.getSelectedRow();
-				int result = 0;
-
-				if (name.equals("수정")) {
-					System.out.println(blist.table.getValueAt(r, 0) + "번 게시물 수정");
-//          		new BoardUpdate(blist, option);
-				} else if (name.equals("삭제")) {
-					System.out.println(blist.table.getValueAt(r, 0) + "번 게시물 삭제");
-//					int confirm = JOptionPane.showConfirmDialog(null, Commons.getMsg("정말로 삭제하시겠습니까?"));
-//					if (confirm == 0) {
-//						if (option == BoardList.LIST) {
-//							result = dao.delete(blist.list.get(blist.table.getSelectedRow()).getBid());
-//						} else {
-//							result = dao.delete(blist.slist.get(blist.table.getSelectedRow()).getBid());
-//						}
-//
-//						if (result != 0)
-//							blist.init();
-//					}
-				}
-
-			}
-		});
-	}
-
-	@Override
-	public Object getCellEditorValue() {
-		return null;
-	}
-
-	@Override
-	public Component getTableCellRendererComponent(JTable table, Object value, boolean isSelected, boolean hasFocus,
-			int row, int column) {
-		return jb;
-	}
-
-	@Override
-	public Component getTableCellEditorComponent(JTable table, Object value, boolean isSelected, int row, int column) {
-		return jb;
-	}
-}// TableUpdateCell class

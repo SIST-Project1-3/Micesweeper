@@ -8,6 +8,8 @@ public class MessageVO implements Serializable {
 	public static int BOARD_WRITE = 1; // 게시글 작성
 	public static int BOARD_READ_LIST = 2; // 게시글 목록 불러오기
 	public static int BOARD_READ_ARTICLE = 3; // 특정 게시글 읽기
+	public static int BOARD_UPDATE_ARTICLE = 14; // 특정 게시글 수정
+	public static int BOARD_DELETE_ARTICLE = 15; // 특정 게시글 삭제
 	public static int BOARD_SEARCH_TITLE = 8; // 게시글 제목 검색 
 	public static int BOARD_SEARCH_WRITER = 9; // 게시글 작성자 검색 
 	public static int LOGIN = 4; // 로그인
