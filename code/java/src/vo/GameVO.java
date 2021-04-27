@@ -14,7 +14,7 @@ public class GameVO implements Serializable {
 	public ArrayList<Integer> number = new ArrayList<Integer>(); // 숫자 위치
 	boolean turnflag, winflag = false, loseflag = false; // 턴, 승리, 종료 플래그
 	int count = 0; // 몇번째 턴인지 표시
-	
+
 	public void setMicebtn(ArrayList<JButton> micebtn) {
 		this.micebtn = micebtn;
 	}
