@@ -25,7 +25,7 @@ import vo.GameVO;
 
 public class GameUI {
 
-	public JFrame mainframe;
+	public JFrame frame;
 	public JTextField textField;
 	public JTextArea textArea;
 	public ArrayList<JButton> micebtn;
@@ -41,6 +41,15 @@ public class GameUI {
 	 * Launch the application
 	 */
 	public static void main(String[] args) {
+//		EventQueue.invokeLater(new Runnable() {
+//			public void run() {
+//				try {
+//					new GameUI();
+//				} catch (Exception e) {
+//					e.printStackTrace();
+//				}
+//			}
+//		});
 		new GameUI();
 	}
 
@@ -60,16 +69,10 @@ public class GameUI {
 		gsc = new GameSystemClient(this);
 		event = new GameUIEvent(this);
 
-		mainframe = new JFrame();
-		mainframe.setBounds(100, 100, 1280, 720);
-		mainframe.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		mainframe.getContentPane().setLayout(new BorderLayout(0, 0));
-		mainframe.setTitle("쥐뢰찾기");
-		mainframe.setVisible(true);
+		frame = new JFrame("쥐뢰찾기");
 
 		JPanel westpanel = new JPanel();
 		westpanel.setSize(300, 500);
-		mainframe.getContentPane().add(westpanel, BorderLayout.WEST);
 		westpanel.setLayout(new GridLayout(3, 1, 0, 50));
 
 		JPanel bangjangpanel = new JPanel();
@@ -105,7 +108,6 @@ public class GameUI {
 		watchprofilebtn.addActionListener(event);
 		panel_1.add(watchprofilebtn);
 		JPanel centerpanel = new JPanel();
-		mainframe.getContentPane().add(centerpanel, BorderLayout.CENTER);
 		centerpanel.setLayout(new GridLayout(0, 1, 0, 0));
 
 		// 지뢰 버튼 생성
@@ -132,7 +134,6 @@ public class GameUI {
 		}
 
 		JPanel southpanel = new JPanel();
-		mainframe.getContentPane().add(southpanel, BorderLayout.SOUTH);
 		southpanel.setLayout(new BorderLayout(0, 0));
 
 		JPanel readypanel = new JPanel();
@@ -172,7 +173,7 @@ public class GameUI {
 		chatpanel_send.add(send, BorderLayout.EAST);
 
 		JPanel eastpanel = new JPanel();
-		mainframe.getContentPane().add(eastpanel, BorderLayout.EAST);
+		frame.getContentPane().add(eastpanel, BorderLayout.EAST);
 		eastpanel.setLayout(new GridLayout(3, 1, 0, 50));
 
 		JPanel imsipanel = new JPanel();
@@ -203,9 +204,17 @@ public class GameUI {
 		watchprofilebtn_2.setFont(new Font("맑은 고딕", Font.BOLD, 12));
 		watchprofilebtn_2.addActionListener(event);
 		panel_1_1.add(watchprofilebtn_2);
+
+		frame.add(westpanel, BorderLayout.WEST);
+		frame.add(centerpanel, BorderLayout.CENTER);
+		frame.add(southpanel, BorderLayout.SOUTH);
+		
+		frame.setSize(810, 700);
+		frame.setResizable(false);
+		frame.setVisible(true);
 	}
 
 	public void exit() {
-		mainframe.dispose();
+		frame.dispose();
 	}
 }
