@@ -8,9 +8,9 @@ import vo.GameVO;
 public class GameSystemServer {
 	// Field
 	boolean gameflag, readyflag;
-	int k;
-	public ArrayList<Integer> mice;
-	public ArrayList<Integer> number;
+	int miceCount; // 지뢰 개수
+	public ArrayList<Integer> mice; // 지뢰칸 위치
+	public ArrayList<Integer> number; // 지뢰 주변 숫자칸 위치
 	public GameVO gvo;
 	public String title; // 방 이름
 	public int no, userCount; // 누른 버튼의 좌표, 방 번호, 인원 수
@@ -21,7 +21,6 @@ public class GameSystemServer {
 	public GameSystemServer() {
 		gvo = new GameVO();
 		createMice();
-		// init();
 	}
 
 	// Method
@@ -29,6 +28,7 @@ public class GameSystemServer {
 		return title + " - " + userCount + "/2";
 	}
 
+	// 
 	public void init() {
 		gameflag = false; // 나중에 false로 바꾸고, 시작하면 true 되는 로직 생성해야함
 		// 준비 + 시작하는 과정
@@ -45,9 +45,9 @@ public class GameSystemServer {
 		mice = gvo.getMice();
 		number = gvo.getNumber();// 지뢰, 숫자 어레이리스트 생성
 		boolean mflag = true; // 중복값 판단하는 flag
-		k = 10 + (int) ((Math.random()) * 10000) % 6; // 지뢰갯수 설정
-		System.out.println("k=" + k); // 지뢰갯수 출력
-		for (int i = 0; i < k; i++) {
+		miceCount = 10 + (int) ((Math.random()) * 10000) % 6; // 지뢰갯수 설정
+		System.out.println("k=" + miceCount); // 지뢰갯수 출력
+		for (int i = 0; i < miceCount; i++) {
 			System.out.println(i);
 			int l = (int) (Math.random() * 10000) % 81;
 			System.out.println("지뢰=" + l);

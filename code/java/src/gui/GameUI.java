@@ -41,15 +41,7 @@ public class GameUI {
 	 * Launch the application
 	 */
 	public static void main(String[] args) {
-		EventQueue.invokeLater(new Runnable() {
-			public void run() {
-				try {
-					new GameUI();
-				} catch (Exception e) {
-					e.printStackTrace();
-				}
-			}
-		});
+		new GameUI();
 	}
 
 	/**
@@ -66,8 +58,8 @@ public class GameUI {
 		gss = new GameSystemServer();
 		gvo = gss.gvo;
 		gsc = new GameSystemClient(this);
-		event= new GameUIEvent(this);
-		
+		event = new GameUIEvent(this);
+
 		mainframe = new JFrame();
 		mainframe.setBounds(100, 100, 1280, 720);
 		mainframe.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -162,6 +154,7 @@ public class GameUI {
 		chatpanel.setLayout(new BorderLayout(0, 0));
 
 		textArea = new JTextArea();
+		textArea.setEditable(false);
 		textArea.setRows(10);
 		chatpanel.add(textArea, BorderLayout.CENTER);
 
