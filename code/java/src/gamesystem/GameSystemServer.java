@@ -126,8 +126,13 @@ public class GameSystemServer {
 	public void simpan() {
 		if (gvo.isLoseflag() == true || gvo.isWinflag() == true) {
 			int winner = gvo.getCount()%2;
+			if(winner == 0) {
+				//방장승리
+			}else {
+				//도전자승리
+			}
 			//승리자 패배자 db입력
-			//종료
+			gameflag = false;//종료
 		}else {
 			simpan();
 		}
