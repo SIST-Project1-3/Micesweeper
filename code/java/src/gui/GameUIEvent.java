@@ -46,10 +46,9 @@ public class GameUIEvent implements ActionListener, WindowListener, MouseListene
 			System.out.println("텍스트");
 		} else if (obj == ui.readybutton) { // 레디
 			win();
-			//lose();
+			// lose();
 		} else if (obj == ui.exitbutton) { // 나가기
-			//new MainUI();
-			ui.exit();
+			exit();
 		} else if (obj == ui.watchprofilebtn_2) { // 도전자 프로필
 			MessageVO msg = new MessageVO();
 			msg.setStatus(MessageVO.GAME_PROFILE);
@@ -58,7 +57,6 @@ public class GameUIEvent implements ActionListener, WindowListener, MouseListene
 			ProfileUI pui = new ProfileUI();
 			pui.game_Profile(gameProfile);
 		} else { // 지뢰 버튼 클릭 처리
-
 			int a;
 			a = (Integer.parseInt(((JButton) obj).getName())) / 10 * 9
 					+ (Integer.parseInt(((JButton) obj).getName())) % 10;
@@ -69,6 +67,11 @@ public class GameUIEvent implements ActionListener, WindowListener, MouseListene
 			System.out.println(gvo.getClickmice());// 이따삭제
 		}
 
+	}
+
+	public void exit() {
+		new MainUI(ui.client);
+		ui.exit();
 	}
 
 	public void win() {
@@ -84,7 +87,7 @@ public class GameUIEvent implements ActionListener, WindowListener, MouseListene
 		msg.setId(ui.bangjangidlabel.getText());
 		gdao.getLoseResult(msg);
 	}
-	
+
 	@Override
 	public void windowOpened(WindowEvent e) {
 		// TODO Auto-generated method stub
@@ -93,7 +96,7 @@ public class GameUIEvent implements ActionListener, WindowListener, MouseListene
 
 	@Override
 	public void windowClosing(WindowEvent e) {
-
+		exit();
 	}
 
 	@Override

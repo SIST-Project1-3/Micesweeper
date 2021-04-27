@@ -92,7 +92,7 @@ public class MainUI {
 //			String str_room = str + " - 1/2";
 //			listmodel_room.addElement(str_room);
 //		}
-		createListModel_Room(client.roomList);
+		createListModel_Room(client.getRoomInfoList());
 		jlist_room = new JList<String>(listmodel_room);
 		jlist_room.setFont(Commons.getFont());
 		jlist_room.addMouseListener(event);

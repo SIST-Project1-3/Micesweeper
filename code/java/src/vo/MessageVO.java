@@ -39,6 +39,15 @@ public class MessageVO implements Serializable {
 	MemberVO gameProfile; // 게임화면 프로필 정보 (나 ,상대)
 	Vector<String> userList; // 접속중인 유저 목록
 	ArrayList<RoomVO> roomList; // 방 목록
+	RoomVO room; // 방 정보
+
+	public RoomVO getRoom() {
+		return room;
+	}
+
+	public void setRoom(RoomVO room) {
+		this.room = room;
+	}
 
 	public ArrayList<RoomVO> getRoomList() {
 		return roomList;
@@ -46,14 +55,6 @@ public class MessageVO implements Serializable {
 
 	public void setRoomList(ArrayList<RoomVO> roomList) {
 		this.roomList = roomList;
-	}
-
-	public Vector<String> getRoomInfoList() {
-		Vector<String> list = new Vector<String>();
-		for (RoomVO room : roomList) {
-			list.add(room.getInfo());
-		}
-		return list;
 	}
 
 	public Vector<String> getUserList() {

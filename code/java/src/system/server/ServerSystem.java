@@ -65,29 +65,29 @@ public class ServerSystem {
 	public ArrayList<RoomVO> getRoomList() {
 		ArrayList<RoomVO> list = new ArrayList<RoomVO>();
 		for (GameSystemServer gss : gssList) {
-			list.add(gss.room);
+			list.add((RoomVO)gss.room.clone());
 		}
 		return list;
 	}
 
 	// 게임 방 생성 메소드
-	public boolean createRoom(MessageVO msg, Socket client) {
+	public RoomVO createRoom(MessageVO msg, Socket client) {
 		System.out.println("createRoom 메소드 실행");
-		boolean result = false;
-//		GameVO room = new GameVO();
+		RoomVO result = null;
 		GameSystemServer gss = new GameSystemServer();
+		gss.socketList.add(client); // 생성한 유저의 소켓 추가
 		gss.room.userList.add(msg.getId()); // 해당 유저의 아이디 추가
 		gss.room.title = msg.getTitle(); // 해당 방의 이름 설정
-		gss.socketList.add(client); // 생성한 유저의 소켓 추가
 		gss.room.userCount = 1; // 방의 인원수 설정
 		gss.room.no = roomNo++; // 방 번호 입력 후 해당 시퀀스 1 추가
 		if (gssList.add(gss)) { // 생성 성공 시 true 반환
 			System.out.println("방 생성 성공");
 			MessageVO returnMsg = new MessageVO(); // 모든 클라이언트에게 방이 생성되었음을 알림
 			returnMsg.setStatus(MessageVO.ROOM_CREATE);
+//			returnMsg.setRoomList((ArrayList<RoomVO>) getRoomList().clone()); // 방 목록을 메시지에 추가
 			returnMsg.setRoomList(getRoomList()); // 방 목록을 메시지에 추가
 			chatServer.broadcastMsg(returnMsg);
-			result = true;
+			result = gss.room;
 		} else {
 			System.out.println("방 생성 실패");
 		}
@@ -95,20 +95,21 @@ public class ServerSystem {
 	}
 
 	// 방 참가 메소드
-	public boolean joinRoom(MessageVO msg, Socket client) {
-		boolean result = false;
+	public RoomVO joinRoom(MessageVO msg, Socket client) {
+		RoomVO result = null;
 		for (GameSystemServer gss : gssList) {
 			if (gss.room.no == msg.getNo()) { // 참가하려는 방의 번호를 찾아내면 실행
-				gss.room.userList.add(msg.getId());
 				gss.socketList.add(client);
+				gss.room.userList.add(msg.getId());
 				gss.room.userCount++;
 				System.out.println(
 						msg.getNo() + "번 방 참가자: " + gss.room.userList.get(0) + ", " + gss.room.userList.get(1));
 				MessageVO returnMsg = new MessageVO();
 				returnMsg.setStatus(MessageVO.ROOM_JOIN);
+				returnMsg.setRoomList(getRoomList());
 				chatServer.broadcastMsg(returnMsg);
-				result = true;
-
+				result = gss.room;
+				break;
 			}
 		}
 		return result;
@@ -201,10 +202,10 @@ public class ServerSystem {
 //						returnMsg.setMyProfile(gameProfile);
 //						oos.writeObject(returnMsg);
 					} else if (msg.getStatus() == MessageVO.ROOM_CREATE) { // 방 생성 요청, 성공 여부 반환
-						returnMsg.setResult(createRoom(msg, this.client)); // 자신의 소켓 정보까지 넘김
+						returnMsg.setRoom(createRoom(msg, this.client)); // 자신의 소켓 정보까지 넘김
 						oos.writeObject(returnMsg);
 					} else if (msg.getStatus() == MessageVO.ROOM_JOIN) { // 방 참가 요청, 성공 여부 반환
-						returnMsg.setResult(joinRoom(msg, this.client));
+						returnMsg.setRoom(joinRoom(msg, this.client));
 						oos.writeObject(returnMsg);
 					}
 				}

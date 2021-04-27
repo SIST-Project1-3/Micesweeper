@@ -9,11 +9,12 @@ import java.util.Vector;
 
 import dao.BoardDAO;
 import dao.MemberDAO;
+import gui.GameUI;
 import gui.MainUI;
 import vo.BoardVO;
-import vo.GameVO;
 import vo.MemberVO;
 import vo.MessageVO;
+import vo.RoomVO;
 
 public class ClientSystem {
 	// Field
@@ -27,8 +28,9 @@ public class ClientSystem {
 	ObjectOutputStream oos_chat;
 	ObjectInputStream ois_chat;
 	public MainUI mainui;
+	public GameUI gameui;
 	public Vector<String> userList = new Vector<String>(); // 접속중인 유저 목록
-	public Vector<String> roomList = new Vector<String>(); // 생성된 방 목록
+	public ArrayList<RoomVO> roomList = new ArrayList<RoomVO>(); // 생성된 방 목록
 	MemberVO gameProfile;
 
 	// Constructor
@@ -38,14 +40,8 @@ public class ClientSystem {
 	}
 
 	// Method
-	public String getId() {
-		return id;
-	}
 
-	public void setId(String id) {
-		this.id = id;
-	}
-
+	// 초기화
 	public void initialize() {
 		try {
 
@@ -199,7 +195,7 @@ public class ClientSystem {
 			result = recieveMsg.getResult();
 			if (result) { // 로그인 성공 시 접속중인 유저 목록과 방 목록을 수신
 				userList = recieveMsg.getUserList();
-				roomList = recieveMsg.getRoomInfoList();
+				roomList = recieveMsg.getRoomList();
 			}
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -258,8 +254,8 @@ public class ClientSystem {
 //	}
 
 	// 방 생성 요청
-	public boolean createRoom(String title) {
-		boolean result = false;
+	public RoomVO createRoom(String title) {
+		RoomVO result = null;
 		try {
 			MessageVO msg = new MessageVO();
 			msg.setStatus(MessageVO.ROOM_CREATE);
@@ -268,7 +264,7 @@ public class ClientSystem {
 			oos.writeObject(msg);
 			System.out.println("방 생성 요청 성공");
 			MessageVO recieveMsg = (MessageVO) ois.readObject();
-			result = recieveMsg.getResult();
+			result = recieveMsg.getRoom();
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
@@ -276,8 +272,8 @@ public class ClientSystem {
 	}
 
 	// 방 참가 요청
-	public boolean joinRoom(int roomNo) {
-		boolean result = false;
+	public RoomVO joinRoom(int roomNo) {
+		RoomVO result = null;
 		try {
 			MessageVO msg = new MessageVO();
 			msg.setStatus(MessageVO.ROOM_JOIN);
@@ -285,7 +281,7 @@ public class ClientSystem {
 			msg.setNo(roomNo);
 			oos.writeObject(msg);
 			MessageVO recieveMsg = (MessageVO) ois.readObject();
-			result = recieveMsg.getResult();
+			result = recieveMsg.getRoom();
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
@@ -303,6 +299,23 @@ public class ClientSystem {
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
+	}
+
+	public String getId() {
+		return id;
+	}
+
+	public void setId(String id) {
+		this.id = id;
+	}
+
+	// 방 정보 목록을 Vector형태로 반환
+	public Vector<String> getRoomInfoList() {
+		Vector<String> list = new Vector<String>();
+		for (RoomVO room : roomList) {
+			list.add(room.getInfo());
+		}
+		return list;
 	}
 
 	class ClientThread extends Thread {
@@ -336,9 +349,14 @@ public class ClientSystem {
 							mainui.jlist_user.setListData(userList); // MainUI 접속자 명단 갱신
 						}
 					} else if (msg.getStatus() == MessageVO.ROOM_CREATE) { // 방 생성
-						roomList = msg.getRoomInfoList();
+						roomList = msg.getRoomList();
 						if (mainui != null) {
-							mainui.jlist_room.setListData(msg.getRoomInfoList());
+							mainui.jlist_room.setListData(getRoomInfoList());
+						}
+					} else if (msg.getStatus() == MessageVO.ROOM_JOIN) { // 방 참가
+						roomList = msg.getRoomList();
+						if (mainui != null) {
+							mainui.jlist_room.setListData(getRoomInfoList());
 						}
 					}
 				}

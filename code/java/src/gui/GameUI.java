@@ -22,6 +22,7 @@ import gamesystem.GameSystemClient;
 import gamesystem.GameSystemServer;
 import system.client.ClientSystem;
 import vo.GameVO;
+import vo.RoomVO;
 
 public class GameUI {
 
@@ -38,14 +39,18 @@ public class GameUI {
 	GameSystemClient gsc;
 	GameSystemServer gss;
 	ClientSystem client;
+	RoomVO room; // 방 정보
 
 	// Constructor
 	public GameUI() {
+		room = new RoomVO();
+		room.title = "test";
 		initialize();
 	}
 
-	public GameUI(ClientSystem client) {
+	public GameUI(ClientSystem client, RoomVO room) {
 		this.client = client;
+		this.room = room;
 		initialize();
 	}
 
@@ -57,7 +62,7 @@ public class GameUI {
 		gsc = new GameSystemClient(this);
 		event = new GameUIEvent(this);
 
-		frame = new JFrame("쥐뢰찾기");
+		frame = new JFrame("쥐뢰찾기 - " + room.title);
 
 		JPanel westpanel = new JPanel();
 		westpanel.setSize(300, 500);
@@ -205,6 +210,8 @@ public class GameUI {
 		frame.setSize(810, 730);
 		frame.setResizable(false);
 		frame.setVisible(true);
+
+		frame.addWindowListener(event);
 	}
 
 	public void exit() {
