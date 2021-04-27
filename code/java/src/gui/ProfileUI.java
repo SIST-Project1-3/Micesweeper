@@ -57,6 +57,7 @@ public class ProfileUI {
 		file_panel = new JPanel();
 		exit_panel = new JPanel();
 
+		// ID, 승패기록 생성
 		JLabel id_lable = new JLabel("ID");
 		JLabel score_lable = new JLabel("전적");
 		idData_lable = new JLabel(""+ myProfile.getId() +"");
@@ -73,6 +74,7 @@ public class ProfileUI {
 		nd_panel.add(name_panel);
 		nd_panel.add(data_panel);
 
+		// 프로필 바꾸기, 나가기 버튼 생성
 		file_change_btn = new JButton("프로필 바꾸기");
 		exit_btn = new JButton("나가기");
 		file_change_btn.setFont(Commons.getFont());
@@ -84,7 +86,7 @@ public class ProfileUI {
 		exit_btn.addActionListener(profileEvent);
 
 		// 프로필 이미지 & 크기조절
-		// 사용자가 프로필 수정 창에서 선택한 이미지가 삽입될 수 있게 만들어야 함
+		// 사용자가 프로필 수정 창에서 선택한 이미지가 삽입될 수 있게 만들기
 		ImageIcon icon = new ImageIcon(""+myProfile.getImg()+"");
 		Image img = icon.getImage();
 		Image changeImg = img.getScaledInstance(200, 200, Image.SCALE_SMOOTH);
@@ -103,7 +105,7 @@ public class ProfileUI {
 		f.add(BorderLayout.CENTER, center_panel);
 		f.add(BorderLayout.SOUTH, south_out_panel);
 
-		//f.setResizable(false); // 창크기 변경 막아놓음
+		f.setResizable(false); // 창크기 변경 막아놓음
 		f.setSize(500, 500);
 		f.setVisible(true);
 	}
@@ -123,6 +125,7 @@ public class ProfileUI {
 		nd_panel = new JPanel();
 		exit_panel = new JPanel();
 		
+		// ID, 승패기록 생성
 		JLabel id_lable = new JLabel("ID");
 		JLabel score_lable = new JLabel("전적");
 		gid_lable = new JLabel(""+ gameProfile.getId());
@@ -139,12 +142,13 @@ public class ProfileUI {
 		nd_panel.add(name_panel);
 		nd_panel.add(data_panel);
 
+		// 나가기 버튼 생성
 		exit_btn = new JButton("나가기");
 		exit_btn.setFont(Commons.getFont());
 		exit_panel.add(exit_btn);
 		exit_btn.addActionListener(profileEvent);
 
-		// 프로필 이미지
+		// 프로필 이미지 & 크기조절
 		ImageIcon icon = new ImageIcon(""+ gameProfile.getImg());
 		Image img = icon.getImage();
 		Image changeImg = img.getScaledInstance(200, 200, Image.SCALE_SMOOTH);

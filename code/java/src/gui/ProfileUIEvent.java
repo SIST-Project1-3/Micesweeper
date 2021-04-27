@@ -35,12 +35,12 @@ public class ProfileUIEvent implements ActionListener, MouseListener {
 	public void actionPerformed(ActionEvent e) {
 		Object obj = e.getSource();
 
-		if (obj == pui.file_change_btn) { // 프로필 수정 창 생성
+		if (obj == pui.file_change_btn) { // 프로필 바꾸기
 			MessageVO msg = new MessageVO();
 			msg.setStatus(MessageVO.IMG_REQUEST);
 			img_list = pui.client.requestImg(msg);
 			file_form();
-		} else if (obj == btn_update) { // 선택한 이미지 저장
+		} else if (obj == btn_update) { // 확인 (선택한 이미지 저장)
 			imgUpdate_from();
 		} else if (obj == btn_cancel) { // 취소
 			// 이미지 다시 선택할 수 있게 만들기
@@ -56,13 +56,13 @@ public class ProfileUIEvent implements ActionListener, MouseListener {
 			btn_img4.setBorder(null);
 			btn_img5.setBorder(null);
 			btn_img6.setBorder(null);
-		} else if (obj == pui.exit_btn) { // 프로필 창 종료
+		} else if (obj == pui.exit_btn) { // 나가기 (프로필 창 종료) 
 			pui.f.dispose();
 		}
 	}
 
 	public void file_form() {
-		// 프로필 수정 창 생성
+		// 프로필 바꾸기 창 생성
 		f = new JFrame("프로필 수정");
 		JPanel center_panel = new JPanel(new GridLayout(3, 2));
 		JPanel south_panel = new JPanel();
@@ -73,7 +73,7 @@ public class ProfileUIEvent implements ActionListener, MouseListener {
 		JPanel img5_panel = new JPanel();
 		JPanel img6_panel = new JPanel();
 
-		// 프로필 이미지 6개
+		// 프로필 이미지 6개 생성 & 크기조절
 		ImageIcon icon1 = new ImageIcon("" + img_list[0] + "");
 		Image img1 = icon1.getImage();
 		Image changeImg1 = img1.getScaledInstance(200, 200, Image.SCALE_SMOOTH);
@@ -118,6 +118,7 @@ public class ProfileUIEvent implements ActionListener, MouseListener {
 		center_panel.add(img5_panel);
 		center_panel.add(img6_panel);
 
+		// 확인, 취소 버튼 생성
 		btn_update = new JButton("확인");
 		btn_cancel = new JButton("취소");
 		btn_update.setFont(Commons.getFont());
@@ -126,6 +127,7 @@ public class ProfileUIEvent implements ActionListener, MouseListener {
 		south_panel.add(btn_update);
 		south_panel.add(btn_cancel);
 
+		// 버튼 이벤트 연결
 		btn_img1.addMouseListener(this);
 		btn_img2.addMouseListener(this);
 		btn_img3.addMouseListener(this);
@@ -138,23 +140,25 @@ public class ProfileUIEvent implements ActionListener, MouseListener {
 		f.add(BorderLayout.CENTER, center_panel);
 		f.add(BorderLayout.SOUTH, south_panel);
 
+		// 윈도우 종료 이벤트 (프로필 창)
 		f.addWindowListener(new WindowAdapter() {
 			public void windowClosing(WindowEvent e) {
 				f.dispose();
 			}
 		});
 
-		f.setResizable(false);
+		f.setResizable(false); // 창크기 변경 막아놓음
 		f.setSize(500, 750);
 		f.setVisible(true);
 	}
 
 	public void imgUpdate_from() {
+		// 선택한 이미지 msgVO 이용해서 client에 전달
 		MessageVO msg = new MessageVO();
 		msg.setStatus(MessageVO.IMG_UPDATE);
 		msg.setId(pui.myProfile.getId());
 
-		// 선택된 이미지 값 넘기기
+		// 선택된 이미지 msgVO에 담기 위한 if문
 		if (pui.img_label.getIcon().equals(changeIcon1)) {
 			msg.setImg(img_list[0]);
 		} else if (pui.img_label.getIcon().equals(changeIcon2)) {
@@ -170,14 +174,16 @@ public class ProfileUIEvent implements ActionListener, MouseListener {
 		}
 
 		boolean result = pui.client.updateImg(msg);
-		System.out.println("222222");
 
-		if (result == true) {
-			JOptionPane.showMessageDialog(null, Commons.getMsg("프로필 이미지가 변경되었습니다."));
+		if (result == false) {
+			// 프로필 변경 성공 + 프로필 바꾸기 창 종료
+			JOptionPane.showMessageDialog(null, Commons.getMsg("프로필 이미지가 변경되었습니다"));
 			f.dispose();
-			System.out.println("변경 성공");
 		} else {
-			System.out.println("변경 실패");
+			// 프로필 변경 실패 + 프로필 바꾸기 창, 프로필 창 종료
+			JOptionPane.showMessageDialog(null, Commons.getMsg("변경 실패"));
+			f.dispose();
+			pui.f.dispose();
 		}
 	}
 
@@ -185,10 +191,10 @@ public class ProfileUIEvent implements ActionListener, MouseListener {
 	public void mouseClicked(MouseEvent e) {
 		Object obj = e.getSource();
 
-		// 프로필 수정의 이미지중 하나를 눌렀을 때 선택된 이미지 버튼의 바깥쪽에 빨간색 선이 생기게 하고
+		// 프로필 바꾸기의 이미지 중 하나를 눌렀을 때 선택된 이미지 버튼의 바깥쪽에 빨간색 선이 생기게 하고
 		// 선택되지 않은 나머지 이미지 버튼은 비활성화
-		// 선택함과 동시에 내 프로필 창의 이미지 변경
-		if (e.getClickCount() == 2) {
+		// 선택함과 동시에 내 프로필 창의 이미지 변경 (저장되지는 않음, 미리보기 같은 느낌)
+		if (e.getClickCount() == 2) { // 더블클릭해야 버튼이 눌러짐
 			if (obj == btn_img1) {
 				btn_img1.setBorder(BorderFactory.createLineBorder(Color.RED));
 				btn_img2.setEnabled(false);
@@ -239,7 +245,6 @@ public class ProfileUIEvent implements ActionListener, MouseListener {
 				pui.img_label.setIcon(changeIcon6);
 			}
 		}
-
 	}
 
 	@Override

@@ -43,7 +43,7 @@ public class JoinUI {
 		btn_panel = new JPanel(new FlowLayout());
 		id_check_panel = new JPanel(new FlowLayout());
 
-		// 하단의 가입, 취소 버튼 생성
+		// 가입, 취소 버튼 생성
 		join_btn = new JButton("가입");
 		cancel_btn = new JButton("취소");
 		join_btn.setFont(Commons.getFont());
@@ -87,6 +87,7 @@ public class JoinUI {
 			}
 		}
 
+		// 이벤트 연결
 		join_btn.addActionListener(joinEvent);
 		id_check_btn.addActionListener(joinEvent);
 		cancel_btn.addActionListener(joinEvent);
@@ -102,7 +103,7 @@ public class JoinUI {
 		f.add(BorderLayout.CENTER, center_panel);
 		f.add(BorderLayout.SOUTH, south_panel);
 
-		// 회원가입창 종료
+		// 윈도우 이벤트 종료 (회원가입 창)
 		f.addWindowListener(new WindowAdapter() {
 			public void windowClosing(WindowEvent e) {
 				f.dispose();

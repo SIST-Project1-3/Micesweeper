@@ -20,11 +20,10 @@ public class StartUIEvent implements ActionListener {
 	@Override
 	public void actionPerformed(ActionEvent e) {
 		Object obj = e.getSource();
-		// 로그인 버튼, ID,PW 입력창에서 Enter키를 눌렀을 때 로그인 시도 가능하게 함
+		// 로그인 버튼 & ID, PW 입력창에서 Enter키를 눌렀을 때 로그인 시도 가능하게 함
 		if (obj == sui.login_btn || obj == sui.id_tf || obj == sui.pw_tf) {
 			login_check();
-			// 회원가입 버튼
-		} else if (obj == sui.join_btn) {
+		} else if (obj == sui.join_btn) {	// 회원가입 버튼
 			new JoinUI(client);
 		}
 	}
@@ -47,13 +46,14 @@ public class StartUIEvent implements ActionListener {
 			boolean result = client.login(msg);
 
 			if (result) {
-				JOptionPane.showMessageDialog(null, Commons.getMsg("로그인 되었습니다."));
+				// 로그인 성공
+				JOptionPane.showMessageDialog(null, Commons.getMsg("로그인 되었습니다"));
 				client.setId(sui.id_tf.getText());
 				new MainUI(client);
 				sui.f.dispose();
 			} else {
 				// 로그인 실패시 입력했던 정보 리셋
-				JOptionPane.showMessageDialog(null, Commons.getMsg("아이디 또는 패스워드가 틀렸습니다."));
+				JOptionPane.showMessageDialog(null, Commons.getMsg("아이디 또는 패스워드가 틀렸습니다"));
 				sui.id_tf.setText("");
 				sui.pw_tf.setText("");
 				sui.id_tf.requestFocus();
