@@ -19,6 +19,18 @@ public class GameVO implements Serializable {
 		this.micebtn = micebtn;
 	}
 
+	public boolean isTurnflag() {
+		return turnflag;
+	}
+
+	public void setTurnflag(boolean turnflag) {
+		this.turnflag = turnflag;
+	}
+
+	public ArrayList<JButton> getMicebtn() {
+		return micebtn;
+	}
+
 	public ArrayList<Integer> getClickmice() {
 		return clickmice;
 	}
