@@ -10,8 +10,8 @@ public class GameVO {
 	public ArrayList<Integer> clickmice = new ArrayList<Integer>();
 	public ArrayList<Integer> mice = new ArrayList<Integer>();
 	public ArrayList<Integer> number = new ArrayList<Integer>();
-	boolean turnflag, winflag, loseflag;
-	int count;
+	boolean winflag=false, loseflag=false;
+	int count=0;
 
 	public ArrayList<JButton> getMicebtn() {
 		return micebtn;
@@ -43,14 +43,6 @@ public class GameVO {
 
 	public void setNumber(ArrayList<Integer> number) {
 		this.number = number;
-	}
-
-	public boolean isTurnflag() {
-		return turnflag;
-	}
-
-	public void setTurnflag(boolean turnflag) {
-		this.turnflag = turnflag;
 	}
 
 	public boolean isWinflag() {

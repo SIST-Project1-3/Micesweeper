@@ -23,22 +23,26 @@ public class GameSystemClient {
 	public GameSystemClient(GameUI ui) {
 		this.ui = ui;
 		gvo = ui.gvo;
+		// 턴 플래그 - 방 생성시 방장은 true, 도전자는 false
 		init();
 	}
 
 	// method
 	public void init() {
-		// 서버로부터 GameVO 받아옴
-		// 턴 플래그 - 방 생성시 방장은 true, 도전자는 false
+		
 
 		if (turnflag == true) {
 			gameplay();
 			if (winflag == true) {
-				// 승리 - 서버 전송
+				gvo.setWinflag(true);
+				gvo.setCount(count);
+				//승리 팝업창
 				count = 0;
 				// 종료
 			} else if (loseflag == true) {
-				// 패배 - 서버 전송
+				gvo.setLoseflag(true);
+				gvo.setCount(count);
+				//패배 팝업창
 				count = 0;
 				// 종료
 			} else {
@@ -50,11 +54,11 @@ public class GameSystemClient {
 		} else {
 			gamewait();
 			if (winflag == true) {
-				// 패배 - 서버 전송
+				//패배 팝업창
 				count = 0;
 				// 종료
 			} else if (loseflag == true) {
-				// 승리 - 서버 전송
+				// 승리 팝업창
 				count = 0;
 				// 종료
 			} else {

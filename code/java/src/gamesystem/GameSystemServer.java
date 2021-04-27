@@ -15,7 +15,7 @@ public class GameSystemServer {
 	
 	public GameSystemServer() {
 		gvo= new GameVO();
-		CreateMice();
+		createMice();
 		//init();
 	}
 	
@@ -23,15 +23,15 @@ public class GameSystemServer {
 		gameflag = false; // 나중에 false로 바꾸고, 시작하면 true 되는 로직 생성해야함
 		//준비 + 시작하는 과정
 		if (gameflag = true) {
-			CreateMice();//지뢰, 숫자칸 생성
-			//각 클라이언트에 지뢰 숫자칸 정보 주기
+			createMice();//지뢰, 숫자칸 생성+각 클라이언트에 지뢰 숫자칸 정보 주기
+			simpan();
 			//게임이 끝났다는 신호를 받으면 전적 갱신후 메인화면으로(?)
 		}else {
 			init();
 		}
 	}
 	
-	public void CreateMice() {
+	public void createMice() {
 		mice=gvo.getMice();
 		number = gvo.getNumber();//지뢰, 숫자 어레이리스트 생성
 		boolean mflag = true; // 중복값 판단하는 flag
@@ -121,6 +121,16 @@ public class GameSystemServer {
 		}//for
 		
 		
+	}
+	
+	public void simpan() {
+		if (gvo.isLoseflag() == true || gvo.isWinflag() == true) {
+			int winner = gvo.getCount()%2;
+			//승리자 패배자 db입력
+			//종료
+		}else {
+			simpan();
+		}
 	}
 	public static void main(String[] args) {
 		new GameSystemServer();
