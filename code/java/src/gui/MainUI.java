@@ -20,6 +20,7 @@ import javax.swing.JTextField;
 import javax.swing.SwingConstants;
 
 import system.client.ClientSystem;
+import vo.GameVO;
 import vo.MessageVO;
 
 public class MainUI {
@@ -33,14 +34,10 @@ public class MainUI {
 	public JTextArea ta_chat;
 	DefaultListModel<String> listmodel_room;
 	DefaultListModel<String> listmodel_user;
-	JList<String> jlist_room;
+	public JList<String> jlist_room;
 	public JList<String> jlist_user;
 	MainUIEvent event = new MainUIEvent(this);
 
-	String[] rooms = { "첫번째 방입니다.", "두번째 방이거든요", "세번째 방이더라구요", "네번째 방인 것 같아요", "다섯번째인가봐요", "육번째", "칠", "네이밍", "귀찮아",
-			"칸을", "넘기자", "영", "차", "영", "차", "영", "차" };
-	String[] users = { "이창민", "박준성", "오다빈", "박건희", "이창민", "박준성", "오다빈", "박건희", "이창민", "박준성", "오다빈", "박건희", "이창민", "박준성",
-			"오다빈", "박건희", "이창민", "박준성", "오다빈", "박건희" };
 
 	// Constructor
 	public MainUI(ClientSystem client) {
@@ -90,16 +87,13 @@ public class MainUI {
 		JLabel label_name = new JLabel("방 제목 - 인원 수", SwingConstants.LEFT);
 		label_name.setFont(Commons.getFont());
 		panel_label.add(label_name);
-//		JLabel label_capacity = new JLabel("인원 수", SwingConstants.RIGHT);
-//		label_capacity.setFont(Commons.getFont());
-//		panel_label.add(label_capacity);
 		listmodel_room = new DefaultListModel<String>();
 		// 테스트용 방 목록 생성
-		for (String str : rooms) {
-			String str_room = str + " - 1/2";
-			listmodel_room.addElement(str_room);
-		}
-		//
+//		for (String str : rooms) {
+//			String str_room = str + " - 1/2";
+//			listmodel_room.addElement(str_room);
+//		}
+		createListModel_Room(client.roomList);
 		jlist_room = new JList<String>(listmodel_room);
 		jlist_room.setFont(Commons.getFont());
 		jlist_room.addMouseListener(event);
@@ -122,6 +116,14 @@ public class MainUI {
 		panel.add(panel_east, "East");
 
 		return panel;
+	}
+
+	// 방 목록 갱신 메소드
+	public void createListModel_Room(ArrayList<GameVO> list) {
+		for (GameVO room : list) {
+			String str_room = room.getTitle() + " - 1/2";
+			listmodel_room.addElement(str_room);
+		}
 	}
 
 	// 접속자 명단 갱신 메소드

@@ -24,20 +24,20 @@ public class JoinUIEvent implements ActionListener {
 	@Override
 	public void actionPerformed(ActionEvent e) {
 		Object obj = e.getSource();
-		
-		//아이디 중복확인 버튼
+
+		// 아이디 중복확인 버튼
 		if (obj == jui.id_check_btn) {
 			if (jui.id_tf.getText().equals("")) {
 				// 아이디 입력창 빈칸 검사
 				JOptionPane.showMessageDialog(null, Commons.getMsg("아이디를 입력해주세요."));
 				jui.id_tf.requestFocus();
-				
+
 			} else if (!jui.list.get(0).equals("")) {
 				// 아이디 입력창 빈칸 아닐 때 아이디 중복체크
 				idChkResult = id_check();
 			}
-		// 가입 버튼
-		} else if (obj == jui.join_btn) {
+			// 가입 버튼
+		} else if (obj == jui.join_btn || obj == jui.id_tf || obj == jui.pw_tf || obj == jui.pw_check_tf) {
 			if (!idChkResult) {
 				// 아이디 중복확인 한 경우(idChkResult=false) 가입 가능
 				if (jui.pw_tf.getText().equals(jui.pw_check_tf.getText())) {
@@ -53,7 +53,7 @@ public class JoinUIEvent implements ActionListener {
 						msg.setStatus(MessageVO.JOIN);
 						msg.setId(jlist.get(0).getText());
 						msg.setPw(jlist.get(1).getText());
-						
+
 						if (client.join(msg)) {
 							JOptionPane.showMessageDialog(null, Commons.getMsg("회원가입을 완료했습니다."));
 							for (Object obj2 : jui.list) {
@@ -79,11 +79,11 @@ public class JoinUIEvent implements ActionListener {
 					jui.pw_tf.requestFocus();
 				}
 			} else {
-				//아이디 중복확인 안한 경우(idChkResult=false) 가입 불가능
+				// 아이디 중복확인 안한 경우(idChkResult=false) 가입 불가능
 				JOptionPane.showMessageDialog(null, Commons.getMsg("아이디 중복여부를 확인해주세요."));
 				jui.id_tf.requestFocus();
 			}
-		// 취소 버튼
+			// 취소 버튼
 		} else if (obj == jui.cancel_btn) {
 			// 회원가입창 종료
 			jui.f.dispose();
@@ -96,7 +96,7 @@ public class JoinUIEvent implements ActionListener {
 		MessageVO msg = new MessageVO();
 		msg.setStatus(MessageVO.IDCHECK);
 		msg.setId(jui.id_tf.getText());
-		
+
 		if (result == client.idCheck(msg)) {
 			JOptionPane.showMessageDialog(null, Commons.getMsg("이미 사용중인 아이디입니다"));
 			jui.id_tf.requestFocus();

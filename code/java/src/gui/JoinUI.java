@@ -90,6 +90,9 @@ public class JoinUI {
 		join_btn.addActionListener(joinEvent);
 		id_check_btn.addActionListener(joinEvent);
 		cancel_btn.addActionListener(joinEvent);
+		id_tf.addActionListener(joinEvent);
+		pw_tf.addActionListener(joinEvent);
+		pw_check_tf.addActionListener(joinEvent);
 
 		west_panel.add(label_panel);
 		center_panel.add(tf_panel);
@@ -109,10 +112,6 @@ public class JoinUI {
 		f.setResizable(false); // 창크기 변경 막아놓음
 		f.setSize(400, 200);
 		f.setVisible(true);
-	}
-
-	public static void main(String[] args) {
-		new JoinUI(new ClientSystem());
 	}
 
 }
