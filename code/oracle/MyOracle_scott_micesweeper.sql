@@ -4,7 +4,8 @@ CREATE TABLE MEMBER(
     PW VARCHAR(20) NOT NULL, -- 패스워드는 반드시 입력
     WIN NUMBER(5) DEFAULT 0 NOT NULL, -- 승리횟수는 기본값 0, 반드시 입력
     LOSE NUMBER(5) DEFAULT 0 NOT NULL, -- 패배횟수도 기본값 0, 이하동문
-    RDATE DATE DEFAULT SYSDATE NOT NULL -- 등록일자는 기본값 SYSDATE, 반드시 입력
+    RDATE DATE DEFAULT SYSDATE NOT NULL, -- 등록일자는 기본값 SYSDATE, 반드시 입력
+    IMG VARCHAR2(40) DEFAULT 'images/쥐.png' NOT NULL -- 해당 프로필의 이미지 사진
 );
 
 -- 게시글 번호 시퀀스 생성
@@ -26,6 +27,19 @@ CREATE TABLE BOARD(
  CONSTRAINT FK_BOARD FOREIGN KEY (ID) REFERENCES MEMBER(ID) -- 작성자 외래키 설정
 );
 
+-- 이미지 테이블 생성
+CREATE TABLE IMG(
+  IMG VARCHAR2(40) NOT NULL  
+);
+
+-- 이미지 경로 입력
+INSERT INTO IMG VALUES('images/프로필고양이1.jpg');
+INSERT INTO IMG VALUES('images/프로필고양이2.jpg');
+INSERT INTO IMG VALUES('images/프로필쥐1.jpg');
+INSERT INTO IMG VALUES('images/프로필쥐2.png');
+INSERT INTO IMG VALUES('images/고양이.png');
+INSERT INTO IMG VALUES('images/쥐.png');
+
 
 -- 계정 생성
 INSERT INTO MEMBER VALUES('test', '1234', 0, 0, SYSDATE);
@@ -43,3 +57,7 @@ SELECT * FROM BOARD WHERE TITLE LIKE '%성%' ORDER BY NO DESC;
 UPDATE BOARD SET TITLE = '수정', CONTENT = '수정됨 ㅎ' WHERE NO = 1;
 -- 게시글 삭제
 DELETE FROM BOARD WHERE NO = 25;
+— 이미지 목록
+SELECT * FROM IMG;
+— 선택한 이미지 저장
+UPDATE MEMBER SET IMG='images/고양이' WHERE ID='test';
