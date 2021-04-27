@@ -12,7 +12,8 @@ import javax.swing.JButton;
 import javax.swing.JList;
 import javax.swing.JOptionPane;
 import vo.GameVO;
-
+import vo.MemberVO;
+import vo.MessageVO;
 import system.client.ClientSystem;
 
 public class GameUIEvent implements ActionListener, WindowListener, MouseListener {
@@ -23,9 +24,9 @@ public class GameUIEvent implements ActionListener, WindowListener, MouseListene
 	GameVO gvo;
 	
 	public GameUIEvent(GameUI ui) {
+		client = new ClientSystem();
 		gvo = new GameVO();
 		this.ui = ui;
-
 	}
 
 	@Override
@@ -33,8 +34,13 @@ public class GameUIEvent implements ActionListener, WindowListener, MouseListene
 		clickmice = gvo.getClickmice();
 		Object obj = e.getSource();
 
-		if (obj == ui.watchprofilebtn) {// 방장 프로필
-			new ProfileUI();
+		if (obj == ui.watchprofilebtn) { // 방장 프로필
+			MessageVO msg = new MessageVO();
+			msg.setStatus(MessageVO.GAME_PROFILE);
+			msg.setId(ui.bangjangidlabel.getText());
+			MemberVO gameProfile = client.gameProfile(msg);
+			ProfileUI pui = new ProfileUI();
+			pui.game_Profile(gameProfile);
 		} else if(obj == ui.send || obj == ui.textField) {
 			System.out.println("텍스트");//채팅
 		} else if (obj == ui.readybutton) { // 레디

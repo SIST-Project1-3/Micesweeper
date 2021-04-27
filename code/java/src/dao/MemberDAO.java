@@ -145,8 +145,9 @@ public class MemberDAO extends DAO {
 			return result;
 		}
 
-	 //상대 프로필 정보
-	 public MemberVO getAnotherProfileResult(MessageVO msg) {
+	 //게임화면 프로필 정보
+	 public MemberVO getGameProfileResult(MessageVO msg) {
+		 System.out.println("dao");
 			MemberVO profile = new MemberVO();
 			try {
 				String sql = "select * from member where id=?";

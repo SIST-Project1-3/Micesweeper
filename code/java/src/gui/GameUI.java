@@ -28,6 +28,8 @@ public class GameUI {
 	public ArrayList<JButton> micebtn;
 	public JButton watchprofilebtn, readybutton, exitbutton, send, watchprofilebtn_2;
 	GameUIEvent event = new GameUIEvent(this);
+	ImageIcon icon, icon2;
+	JLabel bangjangidlabel, idlabel;
 	
 	/**
 	 * Launch the application
@@ -77,7 +79,7 @@ public class GameUI {
 		bangjangpanel.add(bangjangpyosilabel);
 		
 		JPanel bangjangimagepanel = new JPanel();
-		ImageIcon icon = new ImageIcon("images/쥐.png");
+		icon = new ImageIcon("images/쥐.png");
 		Image img = icon.getImage();
 		Image changeImg = img.getScaledInstance(150, 150, Image.SCALE_SMOOTH);
 		ImageIcon changeIcon = new ImageIcon(changeImg);
@@ -90,7 +92,7 @@ public class GameUI {
 		westpanel.add(bangjangprofilepanel);
 		bangjangprofilepanel.setLayout(new GridLayout(2, 1, 0, 20));
 		
-		JLabel bangjangidlabel = new JLabel("방장 ID");
+		bangjangidlabel = new JLabel("test");
 		bangjangidlabel.setHorizontalAlignment(SwingConstants.CENTER);
 		bangjangidlabel.setFont(Commons.getFont());
 		bangjangprofilepanel.add(bangjangidlabel);
@@ -180,7 +182,7 @@ public class GameUI {
 		eastpanel.add(imsipanel);
 		
 		JPanel imagepanel = new JPanel();
-		ImageIcon icon2 = new ImageIcon("images/쥐.png");
+		icon2 = new ImageIcon("images/쥐.png");
 		Image img2 = icon2.getImage();
 		Image changeImg2 = img2.getScaledInstance(150, 150, Image.SCALE_SMOOTH);
 		ImageIcon changeIcon2 = new ImageIcon(changeImg2);
@@ -192,7 +194,7 @@ public class GameUI {
 		eastpanel.add(profilepanel);
 		profilepanel.setLayout(new GridLayout(2, 1, 0, 20));
 		
-		JLabel idlabel = new JLabel("ID");
+		idlabel = new JLabel("aaaa");
 		idlabel.setHorizontalAlignment(SwingConstants.CENTER);
 		idlabel.setFont(Commons.getFont());
 		profilepanel.add(idlabel);

@@ -25,6 +25,7 @@ public class ProfileUI {
 	ClientSystem client = new ClientSystem();
 	GameUI game;
 	MemberVO myProfile;
+	MemberVO gameProfile;
 	
 	// 메인화면 -> 내 프로필
 	public ProfileUI(MemberVO myProfile) {
@@ -33,9 +34,12 @@ public class ProfileUI {
 	}
 	
 	// 게임화면 -> 프로필 보기
+//	public ProfileUI(MemberVO gameProfile) {
+//		this.gameProfile = gameProfile;
+//		game_Profile();
+//	}
+	
 	public ProfileUI() {
-		game_Profile();
-		//프로필 받아오긴 해야하는데 ㅜ 파라미터 다르게 줘야되는거 아님?
 		
 	}
 
@@ -104,7 +108,9 @@ public class ProfileUI {
 		f.setVisible(true);
 	}
 
-	public void game_Profile() {
+	public void game_Profile(MemberVO gameProfile) {
+		this.gameProfile = gameProfile;
+		
 		// 게임화면의 프로필 보기 (프로필 수정 불가능)
 		f = new JFrame("내 프로필");
 //		f = new JFrame("상대 프로필");

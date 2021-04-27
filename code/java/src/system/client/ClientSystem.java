@@ -241,16 +241,17 @@ public class ClientSystem {
 		return result;
 	}
 	
-	// 상대 프로필 정보 요청
-	public MemberVO AnotherProfile(MessageVO msg) {
-		MemberVO anotherProfile = null;
+	// 게임화면 프로필 정보 요청
+	public MemberVO gameProfile(MessageVO msg) {
+		System.out.println("client");
+		MemberVO gameProfile = null;
 		try {
 			oos.writeObject(msg);
-			anotherProfile = ((MessageVO) ois.readObject()).getAnotherProfile();
+			gameProfile = ((MessageVO) ois.readObject()).getGameProfile();
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
-		return anotherProfile;
+		return gameProfile;
 	}
 
 	// 종료

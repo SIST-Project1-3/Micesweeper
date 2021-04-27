@@ -134,9 +134,10 @@ public class ServerSystem {
 						System.out.println("server - IMG_UPDATE");
 						returnMsg.setResult(mdao.getUpdateResult(msg));
 						oos.writeObject(returnMsg);
-					} else if (msg.getStatus() == MessageVO.ANOTHER_PROFILE) { // 상대 프로필 정보 요청
-						MemberVO anotherProfile = mdao.getAnotherProfileResult(msg);
-						returnMsg.setMyProfile(anotherProfile);
+					} else if (msg.getStatus() == MessageVO.GAME_PROFILE) { // 상대 프로필 정보 요청
+						System.out.println("server");
+						MemberVO gameProfile = mdao.getGameProfileResult(msg);
+						returnMsg.setMyProfile(gameProfile);
 						oos.writeObject(returnMsg);
 					}
 				}
