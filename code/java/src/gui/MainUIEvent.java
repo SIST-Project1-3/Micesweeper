@@ -97,7 +97,9 @@ public class MainUIEvent implements ActionListener, WindowListener, MouseListene
 		if (e.getClickCount() == 2) { // 더블클릭
 			int index = list.locationToIndex(e.getPoint());
 			int answer = JOptionPane.showConfirmDialog(null,
-					Commons.getMsg(ui.client.roomList.get(index).getTitle() + "에 입장하시겠습니까?"));
+					Commons.getMsg(
+							ui.client.roomList.get(index).substring(0, ui.client.roomList.get(index).length() - 6)
+									+ "에 입장하시겠습니까?"));
 
 //			MessageVO msg = new MessageVO();
 //			msg.setStatus(MessageVO.MY_PROFILE);

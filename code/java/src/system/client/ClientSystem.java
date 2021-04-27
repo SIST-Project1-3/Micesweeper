@@ -28,7 +28,7 @@ public class ClientSystem {
 	ObjectInputStream ois_chat;
 	public MainUI mainui;
 	public Vector<String> userList = new Vector<String>(); // 접속중인 유저 목록
-	public ArrayList<GameVO> roomList = new ArrayList<GameVO>();
+	public Vector<String> roomList = new Vector<String>(); // 생성된 방 목록
 	MemberVO gameProfile;
 
 	// Constructor
@@ -322,7 +322,7 @@ public class ClientSystem {
 					} else if (msg.getStatus() == MessageVO.ROOM_CREATE) { // 방 생성
 						roomList = msg.getRoomList();
 						if (mainui != null) {
-							mainui.jlist_room.setListData(msg.getRoomListInfo());
+							mainui.jlist_room.setListData(msg.getRoomList());
 						}
 					}
 				}

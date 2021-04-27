@@ -38,7 +38,6 @@ public class MainUI {
 	public JList<String> jlist_user;
 	MainUIEvent event = new MainUIEvent(this);
 
-
 	// Constructor
 	public MainUI(ClientSystem client) {
 		this.client = client;
@@ -119,10 +118,9 @@ public class MainUI {
 	}
 
 	// 방 목록 갱신 메소드
-	public void createListModel_Room(ArrayList<GameVO> list) {
-		for (GameVO room : list) {
-			String str_room = room.getTitle() + " - 1/2";
-			listmodel_room.addElement(str_room);
+	public void createListModel_Room(Vector<String> list) {
+		for (String roomInfo : list) {
+			listmodel_room.addElement(roomInfo);
 		}
 	}
 
