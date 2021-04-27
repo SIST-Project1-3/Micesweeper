@@ -29,7 +29,7 @@ public class StartUI {
 	// Constructor
 	public StartUI() {
 		System.out.println("StartUI 실행");
-		client= new ClientSystem();
+		client = new ClientSystem();
 		System.out.println("UI와 클라이언트 연결");
 		loginEvent = new StartUIEvent(this, client);
 		System.out.println("StartUI 이벤트 연결");
@@ -88,7 +88,7 @@ public class StartUI {
 		f.add(BorderLayout.CENTER, center_panel);
 		f.add(BorderLayout.SOUTH, south_panel);
 
-		f.setResizable(false);	// 창크기 변경 막아놓음
+		f.setResizable(false); // 창크기 변경 막아놓음
 		f.setSize(700, 700);
 		f.setVisible(true);
 
