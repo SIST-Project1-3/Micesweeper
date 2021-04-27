@@ -57,7 +57,12 @@ SELECT * FROM BOARD WHERE TITLE LIKE '%성%' ORDER BY NO DESC;
 UPDATE BOARD SET TITLE = '수정', CONTENT = '수정됨 ㅎ' WHERE NO = 1;
 -- 게시글 삭제
 DELETE FROM BOARD WHERE NO = 25;
-— 이미지 목록
+-- 이미지 목록
 SELECT * FROM IMG;
-— 선택한 이미지 저장
+-- 프로필 이미지 업데이트
+update member set img=? where id=?
 UPDATE MEMBER SET IMG='images/고양이' WHERE ID='test';
+-- 승리 횟수 증가 
+UPDATE MEMBER SET WIN = WIN+1 WHERE ID='test';
+-- 패배 횟수 증가
+UPDATE MEMBER SET LOSE = LOSE+1 WHERE ID='test';
