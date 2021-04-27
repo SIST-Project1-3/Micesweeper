@@ -19,6 +19,7 @@ import javax.swing.JTextField;
 import javax.swing.SwingConstants;
 
 import gamesystem.GameSystemClient;
+import gamesystem.GameSystemServer;
 import system.client.ClientSystem;
 import vo.GameVO;
 
@@ -34,6 +35,7 @@ public class GameUI {
 	JLabel bangjangidlabel, idlabel;
 	public GameVO gvo;
 	GameSystemClient gsc;
+	GameSystemServer gss;
 
 	/**
 	 * Launch the application
@@ -61,10 +63,11 @@ public class GameUI {
 	 * Initialize the contents of the frame
 	 */
 	private void initialize() {
-		gvo = new GameVO();
+		gss = new GameSystemServer();
+		gvo = gss.gvo;
+		gsc = new GameSystemClient(this);
 		event= new GameUIEvent(this);
-//		gsc = new GameSystemClient(this);
-
+		
 		mainframe = new JFrame();
 		mainframe.setBounds(100, 100, 1280, 720);
 		mainframe.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);

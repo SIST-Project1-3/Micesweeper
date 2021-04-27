@@ -9,7 +9,7 @@ public class GameSystemServer {
 	int k;
 	public ArrayList<Integer> mice;
 	public ArrayList<Integer> number;
-	GameVO gvo;
+	public GameVO gvo;
 	
 	
 	
@@ -137,7 +137,5 @@ public class GameSystemServer {
 			simpan();
 		}
 	}
-	public static void main(String[] args) {
-		new GameSystemServer();
-	}
+	
 }
