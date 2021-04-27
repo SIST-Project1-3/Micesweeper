@@ -48,8 +48,8 @@ public class ServerSystem_Chat extends Thread {
 				try {
 					ct.oos.writeObject(msg);
 				} catch (Exception e) {
-					System.err.println("소켓 연결 해제");
 					System.err.println("소켓 에러");
+//					System.err.println("소켓 연결 해제");
 //					iter.remove();
 				}
 			}

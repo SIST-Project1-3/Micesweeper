@@ -25,6 +25,7 @@ import vo.GameVO;
 
 public class GameUI {
 
+	// Field
 	public JFrame frame;
 	public JTextField textField;
 	public JTextArea textArea;
@@ -36,33 +37,20 @@ public class GameUI {
 	public GameVO gvo;
 	GameSystemClient gsc;
 	GameSystemServer gss;
+	ClientSystem client;
 
-	/**
-	 * Launch the application
-	 */
-	public static void main(String[] args) {
-//		EventQueue.invokeLater(new Runnable() {
-//			public void run() {
-//				try {
-//					new GameUI();
-//				} catch (Exception e) {
-//					e.printStackTrace();
-//				}
-//			}
-//		});
-		new GameUI();
-	}
-
-	/**
-	 * Create the application
-	 */
+	// Constructor
 	public GameUI() {
 		initialize();
 	}
 
-	/**
-	 * Initialize the contents of the frame
-	 */
+	public GameUI(ClientSystem client) {
+		this.client = client;
+		initialize();
+	}
+
+	// Method
+
 	private void initialize() {
 		gss = new GameSystemServer();
 		gvo = gss.gvo;
@@ -163,6 +151,11 @@ public class GameUI {
 		chatpanel.add(chatpanel_send, BorderLayout.SOUTH);
 		chatpanel_send.setLayout(new BorderLayout(0, 0));
 
+		// 채팅 입력창 왼쪽 유저 ID 표시
+//		JLabel label_chatID = new JLabel(client.getId());
+//		label_chatID.setFont(Commons.getFont());
+//		chatpanel_send.add(label_chatID, BorderLayout.WEST);
+
 		textField = new JTextField();
 		textField.setColumns(1);
 		textField.addActionListener(event);
@@ -208,13 +201,17 @@ public class GameUI {
 		frame.add(westpanel, BorderLayout.WEST);
 		frame.add(centerpanel, BorderLayout.CENTER);
 		frame.add(southpanel, BorderLayout.SOUTH);
-		
-		frame.setSize(810, 700);
+
+		frame.setSize(810, 730);
 		frame.setResizable(false);
 		frame.setVisible(true);
 	}
 
 	public void exit() {
 		frame.dispose();
+	}
+
+	public static void main(String[] args) {
+		new GameUI();
 	}
 }

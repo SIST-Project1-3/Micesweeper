@@ -272,7 +272,23 @@ public class ClientSystem {
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
+		return result;
+	}
 
+	// 방 참가 요청
+	public boolean joinRoom(int roomNo) {
+		boolean result = false;
+		try {
+			MessageVO msg = new MessageVO();
+			msg.setStatus(MessageVO.ROOM_JOIN);
+			msg.setId(id);
+			msg.setNo(roomNo);
+			oos.writeObject(msg);
+			MessageVO recieveMsg = (MessageVO) ois.readObject();
+			result = recieveMsg.getResult();
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
 		return result;
 	}
 

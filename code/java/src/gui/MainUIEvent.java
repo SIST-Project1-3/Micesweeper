@@ -96,20 +96,18 @@ public class MainUIEvent implements ActionListener, WindowListener, MouseListene
 		JList<String> list = (JList<String>) e.getSource();
 		if (e.getClickCount() == 2) { // 더블클릭
 			int index = list.locationToIndex(e.getPoint());
-			int answer = JOptionPane.showConfirmDialog(null,
-					Commons.getMsg(
-							ui.client.roomList.get(index).substring(0, ui.client.roomList.get(index).length() - 6)
-									+ "에 입장하시겠습니까?"));
-
-//			MessageVO msg = new MessageVO();
-//			msg.setStatus(MessageVO.MY_PROFILE);
-//			msg.setId(ui.client.getId());
-//			msg.setId2();
-//			MemberVO gProfile = ui.client.
-
-			if (answer == 0) {
-				JOptionPane.showMessageDialog(null, Commons.getMsg("방 입장"));
-				new GameUI();
+			// 방 번호
+			int roomNo = Integer.valueOf(ui.client.roomList.get(index).substring(0, 1));
+			// 방 제목
+			String roomName = ui.client.roomList.get(index).substring(3, ui.client.roomList.get(index).length() - 6);
+			int answer = JOptionPane.showConfirmDialog(null, Commons.getMsg(roomName + "에 입장하시겠습니까?"));
+			if (answer == 0) { // 확인 누르면
+				if (ui.client.joinRoom(roomNo)) { // 방 참가 성공시
+					JOptionPane.showMessageDialog(null, Commons.getMsg("방 입장"));
+					new GameUI(ui.client);
+				} else { // 방 참가 실패시
+					JOptionPane.showMessageDialog(null, Commons.getMsg("방 입장 실패"));
+				}
 			}
 		}
 	}

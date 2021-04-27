@@ -4,6 +4,7 @@ import java.net.Socket;
 import java.util.ArrayList;
 import java.util.Iterator;
 import vo.GameVO;
+import vo.RoomVO;
 
 public class GameSystemServer {
 	// Field
@@ -12,23 +13,28 @@ public class GameSystemServer {
 	public ArrayList<Integer> mice; // 지뢰칸 위치
 	public ArrayList<Integer> number; // 지뢰 주변 숫자칸 위치
 	public GameVO gvo;
-	public String title; // 방 이름
-	public int no, userCount; // 누른 버튼의 좌표, 방 번호, 인원 수
-	public ArrayList<String> userID = new ArrayList<String>(2); // 연결된 유저의 이름
+	public int no; // 누른 버튼의 좌표, 방 번호
+	public RoomVO room;
 	public ArrayList<Socket> socketList = new ArrayList<Socket>(2); // 연결된 소켓 리스트
+//	public String title; // 방 이름
+//	public int userCount; // 인원 수
+//	public ArrayList<String> userIdList = new ArrayList<String>(2); // 연결된 유저의 이름
 
 	// Constructor
 	public GameSystemServer() {
 		gvo = new GameVO();
+		room = new RoomVO();
 		createMice();
 	}
 
 	// Method
+
+	// 방 정보 반환. ex) 1. 어서오세요 - 1/2
 	public String getInfo() {
-		return title + " - " + userCount + "/2";
+		return no + ". " + room.title + " - " + room.userCount + "/2";
 	}
 
-	// 
+	//
 	public void init() {
 		gameflag = false; // 나중에 false로 바꾸고, 시작하면 true 되는 로직 생성해야함
 		// 준비 + 시작하는 과정
@@ -148,7 +154,4 @@ public class GameSystemServer {
 		}
 	}
 
-	public static void main(String[] args) {
-		new GameSystemServer();
-	}
 }

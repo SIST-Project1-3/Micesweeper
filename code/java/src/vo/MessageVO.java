@@ -28,7 +28,8 @@ public class MessageVO implements Serializable {
 	public static final int ROOM_JOIN = 17; // 방 참가
 	public static final int WIN_OR_LOSE = 18; // 승패기록
 
-	int status, no; // MsgVO의 상태, 게시글 No
+	int status;// MsgVO의 상태
+	int no; // 게시글 No, 게임방 No
 	String title, content, id, pw, img; // 게시글 제목, (내용, 채팅메시지), 내ID, 패스워드, 내프로필이미지
 	boolean result; // DAO 결과값
 	ArrayList<BoardVO> boardList; // 게시글 목록 불러오기
