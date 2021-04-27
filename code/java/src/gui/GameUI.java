@@ -84,7 +84,7 @@ public class GameUI {
 		bangjangpanel.add(bangjangpyosilabel);
 
 		JPanel bangjangimagepanel = new JPanel();
-		icon = new ImageIcon("images/쥐.png");
+		icon = new ImageIcon("images/고양이.png");
 		Image img = icon.getImage();
 		Image changeImg = img.getScaledInstance(150, 150, Image.SCALE_SMOOTH);
 		ImageIcon changeIcon = new ImageIcon(changeImg);
@@ -98,8 +98,6 @@ public class GameUI {
 		bangjangprofilepanel.setLayout(new GridLayout(2, 1, 0, 20));
 
 		bangjangidlabel = new JLabel("test");
-
-		JLabel bangjangidlabel = new JLabel("방장 ID");
 		bangjangidlabel.setHorizontalAlignment(SwingConstants.CENTER);
 		bangjangidlabel.setFont(Commons.getFont());
 		bangjangprofilepanel.add(bangjangidlabel);
@@ -198,8 +196,6 @@ public class GameUI {
 		profilepanel.setLayout(new GridLayout(2, 1, 0, 20));
 
 		idlabel = new JLabel("aaaa");
-
-		JLabel idlabel = new JLabel("ID");
 		idlabel.setHorizontalAlignment(SwingConstants.CENTER);
 		idlabel.setFont(Commons.getFont());
 		profilepanel.add(idlabel);

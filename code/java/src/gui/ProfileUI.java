@@ -20,7 +20,7 @@ public class ProfileUI {
 			nd_panel, exit_panel;
 	JButton file_change_btn, exit_btn;
 	ImageIcon changeIcon;
-	JLabel idData_lable, img_label, id_lable;
+	JLabel idData_lable, img_label, gid_lable;
 	ProfileUIEvent profileEvent = new ProfileUIEvent(this);
 	ClientSystem client = new ClientSystem();
 	GameUI game;
@@ -125,16 +125,16 @@ public class ProfileUI {
 		
 		JLabel id_lable = new JLabel("ID");
 		JLabel score_lable = new JLabel("전적");
-		id_lable = new JLabel(""+ gameProfile.getId());
-		int win_score = myProfile.getWin();
-		int lose_score = myProfile.getLose();
+		gid_lable = new JLabel(""+ gameProfile.getId());
+		int win_score = gameProfile.getWin();
+		int lose_score = gameProfile.getLose();
 		int total_score = win_score + lose_score;
 		JLabel scoreData_lable = new JLabel(win_score + "승  " + total_score + "전  " + lose_score + "패");
 		id_lable.setFont(Commons.getFont());
 		score_lable.setFont(Commons.getFont());
 		name_panel.add(id_lable);
 		name_panel.add(score_lable);
-		data_panel.add(id_lable);
+		data_panel.add(gid_lable);
 		data_panel.add(scoreData_lable);
 		nd_panel.add(name_panel);
 		nd_panel.add(data_panel);
