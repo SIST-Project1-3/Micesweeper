@@ -26,7 +26,7 @@ public class MainUIEvent implements ActionListener, WindowListener, MouseListene
 	public void actionPerformed(ActionEvent e) {
 		Object obj = e.getSource();
 		if (obj == ui.list_btn.get(0)) {// 방 생성
-			new CreateRoomUI();
+			new CreateRoomUI(ui.client);
 		} else if (obj == ui.list_btn.get(1)) { // 내 프로필
 			MessageVO msg = new MessageVO();
 			msg.setStatus(MessageVO.MY_PROFILE);

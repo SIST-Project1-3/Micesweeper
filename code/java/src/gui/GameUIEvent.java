@@ -22,11 +22,13 @@ public class GameUIEvent implements ActionListener, WindowListener, MouseListene
 	GameUI ui;
 	ClientSystem client;
 	GameVO gvo;
-	
+
 	public GameUIEvent(GameUI ui) {
 		client = new ClientSystem();
 		gvo = new GameVO();
 		this.ui = ui;
+		this.ui = ui;
+		gvo = ui.gvo;
 	}
 
 	@Override
@@ -43,30 +45,29 @@ public class GameUIEvent implements ActionListener, WindowListener, MouseListene
 			pui.game_Profile(gameProfile);
 		} else if(obj == ui.send || obj == ui.textField) {
 			System.out.println("텍스트");//채팅
+		if (obj == ui.watchprofilebtn) {// 방장 프로필
+			new ProfileUI();
+		} else if (obj == ui.send || obj == ui.textField) { // 채팅
+			System.out.println("텍스트");
 		} else if (obj == ui.readybutton) { // 레디
 			new ProfileUI();
-		} else if (obj == ui.exitbutton) { //나가기
+		} else if (obj == ui.exitbutton) { // 나가기
 			new MainUI(client);
 			ui.exit();
-		} else if(obj== ui.watchprofilebtn_2) {
-			new ProfileUI();// 도전자 프로필
-		} else{
+		} else if (obj == ui.watchprofilebtn_2) { // 도전자 프로필
+			new ProfileUI();
+		} else { // 지뢰 버튼 클릭 처리
 
 			int a;
-			a=(Integer.parseInt(((JButton)obj).getName()))/10*9+(Integer.parseInt(((JButton)obj).getName()))%10;
-			clickmice.add(a);
+			a = (Integer.parseInt(((JButton) obj).getName())) / 10 * 9
+					+ (Integer.parseInt(((JButton) obj).getName())) % 10;
+			clickmice.add(a); // 지뢰 클릭 시 클릭된 지뢰 리스트에 추가
 			System.out.println(clickmice);
-			gvo.setClickmice(clickmice);
-			System.out.println(gvo.getClickmice());//이따삭제
+			gvo.setClickmice(clickmice); // 리스트 갱신
+			System.out.println(gvo.getClickmice());// 이따삭제
 		}
-				
 
 	}
-			
-		
-		
-		
-	
 
 	@Override
 	public void windowOpened(WindowEvent e) {
@@ -76,7 +77,7 @@ public class GameUIEvent implements ActionListener, WindowListener, MouseListene
 
 	@Override
 	public void windowClosing(WindowEvent e) {
-		
+
 	}
 
 	@Override
@@ -111,8 +112,7 @@ public class GameUIEvent implements ActionListener, WindowListener, MouseListene
 
 	@Override
 	public void mouseClicked(MouseEvent e) {
-			
-		
+
 	}
 
 	@Override

@@ -132,21 +132,27 @@ public class MainUI {
 		}
 	}
 
-	public JPanel createSouthPanel() {
+	public JPanel createSouthPanel() { // 채팅 및 버튼 관련 패널 생성
 		JPanel panel = new JPanel(new BorderLayout(10, 10));
 
+		// 센터 패널은 채팅창을 담당. ScrollPane으로 감싸서 패널에 넣음
 		JPanel panel_center = new JPanel(new BorderLayout());
 		ta_chat = new JTextArea();
 		ta_chat.setEditable(false);
 		ta_chat.setFont(Commons.getFont());
 		JScrollPane sp_chat = new JScrollPane(ta_chat);
+
+		// tf 패널은 채팅 입력 부분. 라벨, 입력창, 전송 버튼으로 구성
 		JPanel panel_tf = new JPanel(new BorderLayout());
+		JLabel label_id = new JLabel(client.getId()); // 접속한 아이디로 입력창 왼쪽에 표시
+		label_id.setFont(Commons.getFont());
 		btn_send = new JButton("전송");
 		btn_send.setFont(Commons.getFont());
 		tf_chat = new JTextField();
 		tf_chat.setFont(Commons.getFont());
 		tf_chat.addActionListener(event);
 		btn_send.addActionListener(event);
+		panel_tf.add(label_id, "West");
 		panel_tf.add(tf_chat, "Center");
 		panel_tf.add(btn_send, "East");
 		panel_center.add(sp_chat, "Center");

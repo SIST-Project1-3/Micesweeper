@@ -10,41 +10,46 @@ import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
 
 import javax.swing.JButton;
+import javax.swing.JOptionPane;
 import javax.swing.JTextField;
+
+import system.client.ClientSystem;
 
 public class CreateRoomUI implements ActionListener {
 	Frame f = new Frame("방 생성");
-	Panel p_center = new Panel();
-	Panel p_south = new Panel();
-	Panel p_roomName = new Panel();
-	Label l_roomName = new Label("방 이름");
+	Panel panel_center = new Panel();
+	Panel panel_south = new Panel();
+	Panel panel_roomName = new Panel();
+	Label label_roomName = new Label("방 이름");
 	JTextField tf_roomName = new JTextField(15);
-	JButton create = new JButton("생성");
-	JButton cancel = new JButton("취소");
+	JButton btn_create = new JButton("생성");
+	JButton btn_cancel = new JButton("취소");
+	ClientSystem client;
 
-	public CreateRoomUI() {
+	public CreateRoomUI(ClientSystem client) {
+		this.client = client;
 		createRoom();
 	}
 
 	public void createRoom() {
-		l_roomName.setFont(Commons.getFont());
-		p_roomName.add(l_roomName);
-		p_roomName.add(tf_roomName);
-		p_center.add(p_roomName);
+		label_roomName.setFont(Commons.getFont());
+		panel_roomName.add(label_roomName);
+		panel_roomName.add(tf_roomName);
+		panel_center.add(panel_roomName);
 
-		create.setFont(Commons.getFont());
-		cancel.setFont(Commons.getFont());
-		create.addActionListener(this);
-		cancel.addActionListener(this);
-		p_south.add(create);
-		p_south.add(cancel);
+		btn_create.setFont(Commons.getFont());
+		btn_cancel.setFont(Commons.getFont());
+		btn_create.addActionListener(this);
+		btn_cancel.addActionListener(this);
+		panel_south.add(btn_create);
+		panel_south.add(btn_cancel);
 
-		f.add(BorderLayout.CENTER, p_center);
-		f.add(BorderLayout.SOUTH, p_south);
+		f.add(BorderLayout.CENTER, panel_center);
+		f.add(BorderLayout.SOUTH, panel_south);
 
 		f.addWindowListener(new WindowAdapter() {
 			public void windowClosing(WindowEvent e) {
-				f.dispose();
+				exit();
 			}
 		});
 
@@ -54,15 +59,26 @@ public class CreateRoomUI implements ActionListener {
 
 	}
 
-	public static void main(String[] args) {
-		new CreateRoomUI();
+	public void exit() {
+		f.dispose();
 	}
 
 	@Override
 	public void actionPerformed(ActionEvent e) {
 		Object obj = e.getSource();
-		if (obj == cancel) {
-			f.dispose();
+		if (obj == btn_cancel) { // 취소 버튼
+			exit();
+		} else if (obj == btn_create) { // 생성 버튼
+			if (!tf_roomName.getText().isEmpty()) { // 빈칸이 아니면 생성
+				if (client.createRoom(tf_roomName.getText())) {
+					JOptionPane.showMessageDialog(null, Commons.getMsg("방 생성 성공"));
+					exit();
+				} else {
+					JOptionPane.showMessageDialog(null, Commons.getMsg("방 생성 실패"));
+				}
+			} else { // 빈칸이면 에러 출력
+				JOptionPane.showMessageDialog(null, Commons.getMsg("방 이름을 입력해주세요"));
+			}
 		}
 	}
 

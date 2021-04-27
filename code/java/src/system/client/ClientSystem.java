@@ -245,6 +245,10 @@ public class ClientSystem {
 	public MemberVO gameProfile(MessageVO msg) {
 		System.out.println("client");
 		MemberVO gameProfile = null;
+
+	// 상대 프로필 정보 요청
+	public MemberVO AnotherProfile(MessageVO msg) {
+		MemberVO anotherProfile = null;
 		try {
 			oos.writeObject(msg);
 			gameProfile = ((MessageVO) ois.readObject()).getGameProfile();
@@ -252,6 +256,21 @@ public class ClientSystem {
 			e.printStackTrace();
 		}
 		return gameProfile;
+	}
+
+	// 방 생성 요청
+	public boolean createRoom(String title) {
+		boolean result = false;
+		try {
+			MessageVO msg = new MessageVO();
+			msg.setStatus(MessageVO.ROOM_CREATE);
+			msg.setId(id);
+			oos.writeObject(msg);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+
+		return result;
 	}
 
 	// 종료

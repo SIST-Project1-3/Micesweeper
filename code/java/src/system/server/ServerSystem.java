@@ -18,7 +18,8 @@ public class ServerSystem {
 	ServerSocket server;
 	Socket client;
 	ServerSystem_Chat chatServer;
-	ArrayList<ServerThread> stList = new ArrayList<ServerThread>();
+	ArrayList<ServerThread> stList = new ArrayList<ServerThread>(); // 접속한 클라이언트와 연결된 스레드 리스트
+	ArrayList<String> roomList = new ArrayList<String>(); // 생성된 게임 방 목록
 	Vector<String> userList = new Vector<String>(); // 접속중인 유저 목록
 	BoardDAO bdao = new BoardDAO();
 	MemberDAO mdao = new MemberDAO();
@@ -139,6 +140,9 @@ public class ServerSystem {
 						MemberVO gameProfile = mdao.getGameProfileResult(msg);
 						returnMsg.setMyProfile(gameProfile);
 						oos.writeObject(returnMsg);
+					} else if (msg.getStatus() == MessageVO.ROOM_CREATE) { // 방 생성 요청, 성공 여부 반환
+//						createRoom();
+					} else if (msg.getStatus() == MessageVO.ROOM_JOIN) { // 방 참가 요청, 성공 여부 반환
 					}
 				}
 			} catch (Exception e) {
