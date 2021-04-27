@@ -39,6 +39,7 @@ public class CreateRoomUI implements ActionListener {
 
 		btn_create.setFont(Commons.getFont());
 		btn_cancel.setFont(Commons.getFont());
+		tf_roomName.addActionListener(this);
 		btn_create.addActionListener(this);
 		btn_cancel.addActionListener(this);
 		panel_south.add(btn_create);
@@ -68,7 +69,7 @@ public class CreateRoomUI implements ActionListener {
 		Object obj = e.getSource();
 		if (obj == btn_cancel) { // 취소 버튼
 			exit();
-		} else if (obj == btn_create) { // 생성 버튼
+		} else if (obj == btn_create || obj == tf_roomName) { // 생성 버튼
 			if (!tf_roomName.getText().isEmpty()) { // 빈칸이 아니면 생성
 				if (client.createRoom(tf_roomName.getText())) {
 					JOptionPane.showMessageDialog(null, Commons.getMsg("방 생성 성공"));
