@@ -13,7 +13,7 @@ public class GameSystemServer {
 	public ArrayList<Integer> mice; // 지뢰칸 위치
 	public ArrayList<Integer> number; // 지뢰 주변 숫자칸 위치
 	public GameVO gvo;
-	public int no; // 누른 버튼의 좌표, 방 번호
+	public int loc; // 누른 버튼의 좌표
 	public RoomVO room;
 	public ArrayList<Socket> socketList = new ArrayList<Socket>(2); // 연결된 소켓 리스트
 //	public String title; // 방 이름
@@ -28,11 +28,6 @@ public class GameSystemServer {
 	}
 
 	// Method
-
-	// 방 정보 반환. ex) 1. 어서오세요 - 1/2
-	public String getInfo() {
-		return no + ". " + room.title + " - " + room.userCount + "/2";
-	}
 
 	//
 	public void init() {

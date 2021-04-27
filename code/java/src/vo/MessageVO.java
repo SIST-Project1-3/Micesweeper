@@ -38,14 +38,22 @@ public class MessageVO implements Serializable {
 	String[] imgList; // 프로필 이미지
 	MemberVO gameProfile; // 게임화면 프로필 정보 (나 ,상대)
 	Vector<String> userList; // 접속중인 유저 목록
-	Vector<String> roomList; // 방 목록
+	ArrayList<RoomVO> roomList; // 방 목록
 
-	public Vector<String> getRoomList() {
+	public ArrayList<RoomVO> getRoomList() {
 		return roomList;
 	}
 
-	public void setRoomList(Vector<String> roomList) {
+	public void setRoomList(ArrayList<RoomVO> roomList) {
 		this.roomList = roomList;
+	}
+
+	public Vector<String> getRoomInfoList() {
+		Vector<String> list = new Vector<String>();
+		for (RoomVO room : roomList) {
+			list.add(room.getInfo());
+		}
+		return list;
 	}
 
 	public Vector<String> getUserList() {

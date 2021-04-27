@@ -199,7 +199,7 @@ public class ClientSystem {
 			result = recieveMsg.getResult();
 			if (result) { // 로그인 성공 시 접속중인 유저 목록과 방 목록을 수신
 				userList = recieveMsg.getUserList();
-				roomList = recieveMsg.getRoomList();
+				roomList = recieveMsg.getRoomInfoList();
 			}
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -336,9 +336,9 @@ public class ClientSystem {
 							mainui.jlist_user.setListData(userList); // MainUI 접속자 명단 갱신
 						}
 					} else if (msg.getStatus() == MessageVO.ROOM_CREATE) { // 방 생성
-						roomList = msg.getRoomList();
+						roomList = msg.getRoomInfoList();
 						if (mainui != null) {
-							mainui.jlist_room.setListData(msg.getRoomList());
+							mainui.jlist_room.setListData(msg.getRoomInfoList());
 						}
 					}
 				}

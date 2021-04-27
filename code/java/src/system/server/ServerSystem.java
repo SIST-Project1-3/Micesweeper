@@ -15,6 +15,7 @@ import vo.BoardVO;
 import vo.GameVO;
 import vo.MemberVO;
 import vo.MessageVO;
+import vo.RoomVO;
 
 public class ServerSystem {
 	// Field
@@ -60,11 +61,11 @@ public class ServerSystem {
 
 	}
 
-	// 모든 방의 "방이름 - 인원수" 리스트를 반환
-	public Vector<String> getRoomInfoList() {
-		Vector<String> list = new Vector<String>();
+	// 게임방의 정보 목록을 반환
+	public ArrayList<RoomVO> getRoomList() {
+		ArrayList<RoomVO> list = new ArrayList<RoomVO>();
 		for (GameSystemServer gss : gssList) {
-			list.add(gss.getInfo());
+			list.add(gss.room);
 		}
 		return list;
 	}
@@ -79,12 +80,12 @@ public class ServerSystem {
 		gss.room.title = msg.getTitle(); // 해당 방의 이름 설정
 		gss.socketList.add(client); // 생성한 유저의 소켓 추가
 		gss.room.userCount = 1; // 방의 인원수 설정
-		gss.no = roomNo++; // 방 번호 입력 후 해당 시퀀스 1 추가
+		gss.room.no = roomNo++; // 방 번호 입력 후 해당 시퀀스 1 추가
 		if (gssList.add(gss)) { // 생성 성공 시 true 반환
 			System.out.println("방 생성 성공");
 			MessageVO returnMsg = new MessageVO(); // 모든 클라이언트에게 방이 생성되었음을 알림
 			returnMsg.setStatus(MessageVO.ROOM_CREATE);
-			returnMsg.setRoomList(getRoomInfoList()); // 방 목록을 메시지에 추가
+			returnMsg.setRoomList(getRoomList()); // 방 목록을 메시지에 추가
 			chatServer.broadcastMsg(returnMsg);
 			result = true;
 		} else {
@@ -97,7 +98,7 @@ public class ServerSystem {
 	public boolean joinRoom(MessageVO msg, Socket client) {
 		boolean result = false;
 		for (GameSystemServer gss : gssList) {
-			if (gss.no == msg.getNo()) { // 참가하려는 방의 번호를 찾아내면 실행
+			if (gss.room.no == msg.getNo()) { // 참가하려는 방의 번호를 찾아내면 실행
 				gss.room.userList.add(msg.getId());
 				gss.socketList.add(client);
 				gss.room.userCount++;
@@ -169,7 +170,7 @@ public class ServerSystem {
 							userList.add(msg.getId());
 							// oos의 특징때문에 clone()으로 전송. flush(), reset()을 이용하는 방법도 있을 것으로 생각됨
 							returnMsg.setUserList((Vector<String>) userList.clone());
-							returnMsg.setRoomList(getRoomInfoList()); // 방 목록을 메시지에 추가
+							returnMsg.setRoomList(getRoomList()); // 방 목록을 메시지에 추가
 							chatServer.broadcastMsg(returnMsg);// 접속중인 클라이언트 모두에게 리스트 갱신 전송
 						}
 						oos.writeObject(returnMsg); // 로그인 대상에게 응답 전송
