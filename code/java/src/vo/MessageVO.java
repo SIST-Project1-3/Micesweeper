@@ -32,31 +32,23 @@ public class MessageVO implements Serializable {
 	String title, content, id, pw, img; // 게시글 제목, (내용, 채팅메시지), 내ID, 패스워드, 내프로필이미지
 	boolean result; // DAO 결과값
 	ArrayList<BoardVO> boardList; // 게시글 목록 불러오기
-	ArrayList<GameVO> roomList; // 방 목록
 	BoardVO article; // 게시글 읽기
 	MemberVO myProfile; // 내 프로필 정보 (메인화면)
 	String[] imgList; // 프로필 이미지
 	MemberVO gameProfile; // 게임화면 프로필 정보 (나 ,상대)
 	Vector<String> userList; // 접속중인 유저 목록
+	Vector<String> roomList; // 방 목록
 
-	public Vector<String> getRoomListInfo() {
-		Vector<String> list = new Vector<String>();
-		for (GameVO room : roomList) {
-			list.add(room.getInfo());
-		}
-		return list;
+	public Vector<String> getRoomList() {
+		return roomList;
+	}
+
+	public void setRoomList(Vector<String> roomList) {
+		this.roomList = roomList;
 	}
 
 	public Vector<String> getUserList() {
 		return userList;
-	}
-
-	public ArrayList<GameVO> getRoomList() {
-		return roomList;
-	}
-
-	public void setRoomList(ArrayList<GameVO> roomList) {
-		this.roomList = roomList;
 	}
 
 	public void setUserList(Vector<String> userList) {
