@@ -49,7 +49,8 @@ public class ServerSystem_Chat extends Thread {
 					ct.oos.writeObject(msg);
 				} catch (Exception e) {
 					System.err.println("소켓 연결 해제");
-					iter.remove();
+					System.err.println("소켓 에러");
+//					iter.remove();
 				}
 			}
 		} catch (Exception e) {

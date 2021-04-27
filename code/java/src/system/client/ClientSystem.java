@@ -11,6 +11,7 @@ import dao.BoardDAO;
 import dao.MemberDAO;
 import gui.MainUI;
 import vo.BoardVO;
+import vo.GameVO;
 import vo.MemberVO;
 import vo.MessageVO;
 
@@ -27,8 +28,9 @@ public class ClientSystem {
 	ObjectInputStream ois_chat;
 	public MainUI mainui;
 	public Vector<String> userList = new Vector<String>(); // 접속중인 유저 목록
+	public ArrayList<GameVO> roomList = new ArrayList<GameVO>();
 	MemberVO gameProfile;
-	
+
 	// Constructor
 	public ClientSystem() {
 		System.out.println("client created");
@@ -195,8 +197,9 @@ public class ClientSystem {
 			oos.writeObject(msg);
 			MessageVO recieveMsg = (MessageVO) ois.readObject();
 			result = recieveMsg.getResult();
-			if (result) { // 로그인 성공 시 접속중인 유저 목록을 수신
+			if (result) { // 로그인 성공 시 접속중인 유저 목록과 방 목록을 수신
 				userList = recieveMsg.getUserList();
+				roomList = recieveMsg.getRoomList();
 			}
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -241,7 +244,7 @@ public class ClientSystem {
 		}
 		return result;
 	}
-	
+
 	// 게임화면 프로필 정보 요청
 //	public MemberVO gameProfile(MessageVO msg) {
 //		MemberVO gameProfile = null;
@@ -261,7 +264,11 @@ public class ClientSystem {
 			MessageVO msg = new MessageVO();
 			msg.setStatus(MessageVO.ROOM_CREATE);
 			msg.setId(id);
+			msg.setTitle(title);
 			oos.writeObject(msg);
+			System.out.println("방 생성 요청 성공");
+			MessageVO recieveMsg = (MessageVO) ois.readObject();
+			result = recieveMsg.getResult();
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
@@ -311,6 +318,11 @@ public class ClientSystem {
 						userList = msg.getUserList();
 						if (mainui != null) { // 로그인하기 전에 코드를 실행하면 에러가 나므로 if 문으로 검증
 							mainui.jlist_user.setListData(userList); // MainUI 접속자 명단 갱신
+						}
+					} else if (msg.getStatus() == MessageVO.ROOM_CREATE) { // 방 생성
+						roomList = msg.getRoomList();
+						if (mainui != null) {
+							mainui.jlist_room.setListData(msg.getRoomListInfo());
 						}
 					}
 				}
