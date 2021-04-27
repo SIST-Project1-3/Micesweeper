@@ -26,6 +26,7 @@ public class MessageVO implements Serializable {
 	public static final int ANOTHER_PROFILE = 15; // 상대 프로필 정보 요청
 	public static final int ROOM_CREATE = 16; // 방 생성
 	public static final int ROOM_JOIN = 17; // 방 참가
+	public static final int WIN_OR_LOSE = 18; // 승패기록
 
 	int status, no; // MsgVO의 상태, 게시글 No
 	String title, content, id, pw, img; // 게시글 제목, (내용, 채팅메시지), 내ID, 패스워드, 내프로필이미지

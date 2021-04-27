@@ -44,7 +44,8 @@ public class GameUIEvent implements ActionListener, WindowListener, MouseListene
 		} else if (obj == ui.send || obj == ui.textField) { // 채팅
 			System.out.println("텍스트");
 		} else if (obj == ui.readybutton) { // 레디
-			new ProfileUI();
+			win();
+			//lose();
 		} else if (obj == ui.exitbutton) { // 나가기
 			//new MainUI();
 			ui.exit();
@@ -68,7 +69,20 @@ public class GameUIEvent implements ActionListener, WindowListener, MouseListene
 
 	}
 
+	public void win() {
+		MessageVO msg = new MessageVO();
+		msg.setStatus(MessageVO.WIN_OR_LOSE);
+		msg.setId(ui.bangjangidlabel.getText());
+		gdao.getWinResult(msg);
+	}
 
+	public void lose() {
+		MessageVO msg = new MessageVO();
+		msg.setStatus(MessageVO.WIN_OR_LOSE);
+		msg.setId(ui.bangjangidlabel.getText());
+		gdao.getLoseResult(msg);
+	}
+	
 	@Override
 	public void windowOpened(WindowEvent e) {
 		// TODO Auto-generated method stub
