@@ -8,7 +8,6 @@ import java.awt.Font;
 import java.awt.GridLayout;
 import java.awt.Image;
 import java.util.ArrayList;
-import java.util.Iterator;
 
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
@@ -20,6 +19,7 @@ import javax.swing.JTextField;
 import javax.swing.SwingConstants;
 
 import gamesystem.GameSystemClient;
+import system.client.ClientSystem;
 import vo.GameVO;
 
 public class GameUI {
@@ -32,7 +32,6 @@ public class GameUI {
 	GameUIEvent event = new GameUIEvent(this);
 	ImageIcon icon, icon2;
 	JLabel bangjangidlabel, idlabel;
-
 	public GameVO gvo;
 	GameSystemClient gsc;
 

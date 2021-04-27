@@ -8,6 +8,7 @@ import java.util.ArrayList;
 import java.util.Vector;
 
 import dao.BoardDAO;
+import dao.GameDAO;
 import dao.MemberDAO;
 import vo.BoardVO;
 import vo.MemberVO;
@@ -23,7 +24,8 @@ public class ServerSystem {
 	Vector<String> userList = new Vector<String>(); // 접속중인 유저 목록
 	BoardDAO bdao = new BoardDAO();
 	MemberDAO mdao = new MemberDAO();
-
+	GameDAO gdao = new GameDAO();
+	
 	// Constructor
 	public ServerSystem() {
 		initialize();
@@ -137,7 +139,7 @@ public class ServerSystem {
 						oos.writeObject(returnMsg);
 					} else if (msg.getStatus() == MessageVO.GAME_PROFILE) { // 상대 프로필 정보 요청
 						System.out.println("server");
-						MemberVO gameProfile = mdao.getGameProfileResult(msg);
+						MemberVO gameProfile = gdao.getGameProfileResult(msg);
 						returnMsg.setMyProfile(gameProfile);
 						oos.writeObject(returnMsg);
 					} else if (msg.getStatus() == MessageVO.ROOM_CREATE) { // 방 생성 요청, 성공 여부 반환

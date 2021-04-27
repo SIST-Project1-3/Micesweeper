@@ -20,7 +20,7 @@ public class ProfileUI {
 			nd_panel, exit_panel;
 	JButton file_change_btn, exit_btn;
 	ImageIcon changeIcon;
-	JLabel idData_lable, img_label, myId_lable, anotherId_lable, img_label2;
+	JLabel idData_lable, img_label, id_lable;
 	ProfileUIEvent profileEvent = new ProfileUIEvent(this);
 	ClientSystem client = new ClientSystem();
 	GameUI game;
@@ -112,8 +112,7 @@ public class ProfileUI {
 		this.gameProfile = gameProfile;
 		
 		// 게임화면의 프로필 보기 (프로필 수정 불가능)
-		f = new JFrame("내 프로필");
-//		f = new JFrame("상대 프로필");
+		f = new JFrame("프로필");
 		center_panel = new JPanel(new BorderLayout());
 		content_panel = new JPanel(new BorderLayout());
 		south_in_panel = new JPanel(new FlowLayout(FlowLayout.CENTER, 0, 24));
@@ -126,14 +125,16 @@ public class ProfileUI {
 		
 		JLabel id_lable = new JLabel("ID");
 		JLabel score_lable = new JLabel("전적");
-		myId_lable = new JLabel("내 아이디 경로");
-		anotherId_lable = new JLabel("상대방 아이디 경로");
-		JLabel scoreData_lable = new JLabel("전 승 패");
+		id_lable = new JLabel(""+ gameProfile.getId());
+		int win_score = myProfile.getWin();
+		int lose_score = myProfile.getLose();
+		int total_score = win_score + lose_score;
+		JLabel scoreData_lable = new JLabel(win_score + "승  " + total_score + "전  " + lose_score + "패");
 		id_lable.setFont(Commons.getFont());
 		score_lable.setFont(Commons.getFont());
 		name_panel.add(id_lable);
 		name_panel.add(score_lable);
-		data_panel.add(myId_lable);
+		data_panel.add(id_lable);
 		data_panel.add(scoreData_lable);
 		nd_panel.add(name_panel);
 		nd_panel.add(data_panel);
@@ -144,14 +145,13 @@ public class ProfileUI {
 		exit_btn.addActionListener(profileEvent);
 
 		// 프로필 이미지
-		// 나와 상대방이 각자 설정한 이미지 불러오기
-		ImageIcon icon = new ImageIcon("images/쥐.png");
+		ImageIcon icon = new ImageIcon(""+ gameProfile.getImg());
 		Image img = icon.getImage();
 		Image changeImg = img.getScaledInstance(200, 200, Image.SCALE_SMOOTH);
 		ImageIcon changeIcon = new ImageIcon(changeImg);
-		img_label2 = new JLabel(changeIcon);
+		img_label = new JLabel(changeIcon);
 
-		content_panel.add(img_label2);
+		content_panel.add(img_label);
 		content_panel.add(BorderLayout.SOUTH, nd_panel);
 		in_panel.add(BorderLayout.CENTER, content_panel);
 		in_panel.add(BorderLayout.SOUTH, south_in_panel);

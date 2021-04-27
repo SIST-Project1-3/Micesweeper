@@ -145,27 +145,5 @@ public class MemberDAO extends DAO {
 			return result;
 		}
 
-	 //게임화면 프로필 정보
-	 public MemberVO getGameProfileResult(MessageVO msg) {
-		 System.out.println("dao");
-			MemberVO profile = new MemberVO();
-			try {
-				String sql = "select * from member where id=?";
-				getPreparedStatement(sql);
-				
-				pstmt.setString(1, msg.getId());
-				
-				rs = pstmt.executeQuery();
-				while (rs.next()) {
-					profile.setId(rs.getString(1));
-					profile.setWin(rs.getInt(3));
-					profile.setLose(rs.getInt(4));
-					profile.setImg(rs.getString(6));
-				}
-			} catch (Exception e) {
-				e.printStackTrace();
-			}
-			return profile;
-		}
 	 
 }

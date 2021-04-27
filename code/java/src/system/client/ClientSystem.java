@@ -27,7 +27,8 @@ public class ClientSystem {
 	ObjectInputStream ois_chat;
 	public MainUI mainui;
 	public Vector<String> userList = new Vector<String>(); // 접속중인 유저 목록
-
+	MemberVO gameProfile;
+	
 	// Constructor
 	public ClientSystem() {
 		System.out.println("client created");
@@ -243,12 +244,7 @@ public class ClientSystem {
 	
 	// 게임화면 프로필 정보 요청
 	public MemberVO gameProfile(MessageVO msg) {
-		System.out.println("client");
 		MemberVO gameProfile = null;
-
-	// 상대 프로필 정보 요청
-	public MemberVO AnotherProfile(MessageVO msg) {
-		MemberVO anotherProfile = null;
 		try {
 			oos.writeObject(msg);
 			gameProfile = ((MessageVO) ois.readObject()).getGameProfile();
