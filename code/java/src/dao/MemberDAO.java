@@ -130,7 +130,7 @@ public class MemberDAO extends DAO {
 			System.out.println("dao - getUpdateResult");
 			
 			try {
-				String sql = "update member set img=? where id=?";
+				String sql = "UPDATE MEMBER SET IMG=? WHERE ID=?";
 				getPreparedStatement(sql);
 				
 				pstmt.setString(1, msg.getImg());
