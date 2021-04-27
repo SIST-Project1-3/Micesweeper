@@ -61,8 +61,8 @@ public class GameUI {
 	 * Initialize the contents of the frame
 	 */
 	private void initialize() {
-//		event= new GameUIEvent(this);
 		gvo = new GameVO();
+		event= new GameUIEvent(this);
 //		gsc = new GameSystemClient(this);
 
 		mainframe = new JFrame();
