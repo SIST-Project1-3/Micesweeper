@@ -137,11 +137,11 @@ public class ServerSystem {
 						System.out.println("server - IMG_UPDATE");
 						returnMsg.setResult(mdao.getUpdateResult(msg));
 						oos.writeObject(returnMsg);
-					} else if (msg.getStatus() == MessageVO.GAME_PROFILE) { // 상대 프로필 정보 요청
-						System.out.println("server");
-						MemberVO gameProfile = gdao.getGameProfileResult(msg);
-						returnMsg.setMyProfile(gameProfile);
-						oos.writeObject(returnMsg);
+//					} else if (msg.getStatus() == MessageVO.GAME_PROFILE) { // 상대 프로필 정보 요청
+//						System.out.println("server");
+//						MemberVO gameProfile = gdao.getGameProfileResult(msg);
+//						returnMsg.setMyProfile(gameProfile);
+//						oos.writeObject(returnMsg);
 					} else if (msg.getStatus() == MessageVO.ROOM_CREATE) { // 방 생성 요청, 성공 여부 반환
 //						createRoom();
 					} else if (msg.getStatus() == MessageVO.ROOM_JOIN) { // 방 참가 요청, 성공 여부 반환

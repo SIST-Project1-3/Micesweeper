@@ -243,16 +243,16 @@ public class ClientSystem {
 	}
 	
 	// 게임화면 프로필 정보 요청
-	public MemberVO gameProfile(MessageVO msg) {
-		MemberVO gameProfile = null;
-		try {
-			oos.writeObject(msg);
-			gameProfile = ((MessageVO) ois.readObject()).getGameProfile();
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
-		return gameProfile;
-	}
+//	public MemberVO gameProfile(MessageVO msg) {
+//		MemberVO gameProfile = null;
+//		try {
+//			oos.writeObject(msg);
+//			gameProfile = ((MessageVO) ois.readObject()).getGameProfile();
+//		} catch (Exception e) {
+//			e.printStackTrace();
+//		}
+//		return gameProfile;
+//	}
 
 	// 방 생성 요청
 	public boolean createRoom(String title) {

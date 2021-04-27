@@ -98,9 +98,9 @@ public class MainUIEvent implements ActionListener, WindowListener, MouseListene
 			int index = list.locationToIndex(e.getPoint());
 			int answer = JOptionPane.showConfirmDialog(null, Commons.getMsg(ui.rooms[index] + "에 입장하시겠습니까?"));
 			
-			MessageVO msg = new MessageVO();
-			msg.setStatus(MessageVO.MY_PROFILE);
-			msg.setId(ui.client.getId());
+//			MessageVO msg = new MessageVO();
+//			msg.setStatus(MessageVO.MY_PROFILE);
+//			msg.setId(ui.client.getId());
 //			msg.setId2();
 //			MemberVO gProfile = ui.client.
 			

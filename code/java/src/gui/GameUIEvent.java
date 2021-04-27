@@ -9,22 +9,21 @@ import java.awt.event.WindowListener;
 import java.util.ArrayList;
 
 import javax.swing.JButton;
-import javax.swing.JList;
-import javax.swing.JOptionPane;
+
+import dao.GameDAO;
 import vo.GameVO;
 import vo.MemberVO;
 import vo.MessageVO;
-import system.client.ClientSystem;
 
 public class GameUIEvent implements ActionListener, WindowListener, MouseListener {
 
 	ArrayList<Integer> clickmice;
 	GameUI ui;
-	ClientSystem client;
+	GameDAO gdao;
 	GameVO gvo;
 
 	public GameUIEvent(GameUI ui) {
-		client = new ClientSystem();
+		gdao = new GameDAO();
 		gvo = new GameVO();
 		this.ui = ui;
 		gvo = ui.gvo;
@@ -39,7 +38,7 @@ public class GameUIEvent implements ActionListener, WindowListener, MouseListene
 			MessageVO msg = new MessageVO();
 			msg.setStatus(MessageVO.GAME_PROFILE);
 			msg.setId(ui.bangjangidlabel.getText());
-			MemberVO gameProfile = client.gameProfile(msg);
+			MemberVO gameProfile = gdao.getGameProfileResult(msg);
 			ProfileUI pui = new ProfileUI();
 			pui.game_Profile(gameProfile);
 		} else if (obj == ui.send || obj == ui.textField) { // 채팅
@@ -47,13 +46,13 @@ public class GameUIEvent implements ActionListener, WindowListener, MouseListene
 		} else if (obj == ui.readybutton) { // 레디
 			new ProfileUI();
 		} else if (obj == ui.exitbutton) { // 나가기
-			new MainUI(client);
+			//new MainUI();
 			ui.exit();
 		} else if (obj == ui.watchprofilebtn_2) { // 도전자 프로필
 			MessageVO msg = new MessageVO();
 			msg.setStatus(MessageVO.GAME_PROFILE);
 			msg.setId(ui.idlabel.getText());
-			MemberVO gameProfile = client.gameProfile(msg);
+			MemberVO gameProfile = gdao.getGameProfileResult(msg);
 			ProfileUI pui = new ProfileUI();
 			pui.game_Profile(gameProfile);
 		} else { // 지뢰 버튼 클릭 처리

@@ -29,7 +29,7 @@ public class GameUI {
 	public JTextArea textArea;
 	public ArrayList<JButton> micebtn;
 	public JButton watchprofilebtn, readybutton, exitbutton, send, watchprofilebtn_2;
-	GameUIEvent event = new GameUIEvent(this);
+	GameUIEvent event;
 	ImageIcon icon, icon2;
 	JLabel bangjangidlabel, idlabel;
 	public GameVO gvo;
@@ -61,8 +61,9 @@ public class GameUI {
 	 * Initialize the contents of the frame
 	 */
 	private void initialize() {
+//		event= new GameUIEvent(this);
 		gvo = new GameVO();
-		gsc = new GameSystemClient(this);
+//		gsc = new GameSystemClient(this);
 
 		mainframe = new JFrame();
 		mainframe.setBounds(100, 100, 1280, 720);
