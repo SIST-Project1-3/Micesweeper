@@ -26,7 +26,7 @@ public class GameSystemServer {
 
 	// Method
 	public String getInfo() {
-		return title + " - " + userCount+"/2";
+		return title + " - " + userCount + "/2";
 	}
 
 	public void init() {

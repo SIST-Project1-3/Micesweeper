@@ -11,6 +11,7 @@ import java.util.ArrayList;
 import javax.swing.JButton;
 
 import dao.GameDAO;
+import gamesystem.GameSystemClient;
 import vo.GameVO;
 import vo.MemberVO;
 import vo.MessageVO;
@@ -64,6 +65,7 @@ public class GameUIEvent implements ActionListener, WindowListener, MouseListene
 			clickmice.add(a); // 지뢰 클릭 시 클릭된 지뢰 리스트에 추가
 			System.out.println(clickmice);
 			gvo.setClickmice(clickmice); // 리스트 갱신
+			ui.gsc.init();
 			System.out.println(gvo.getClickmice());// 이따삭제
 		}
 

@@ -14,7 +14,7 @@ import vo.GameVO;
 
 public class GameSystemClient {
 	// field
-	boolean turnflag, winflag = false, loseflag = false;
+	boolean turnflag=true, winflag = false, loseflag = false;
 	int count = 0;
 	GameVO gvo;
 	GameUI ui;
@@ -24,7 +24,7 @@ public class GameSystemClient {
 		this.ui = ui;
 		gvo = ui.gvo;
 		// 턴 플래그 - 방 생성시 방장은 true, 도전자는 false
-		init();
+		
 	}
 
 	// method
@@ -48,7 +48,7 @@ public class GameSystemClient {
 			} else {
 				turnflag = false;
 				count++;
-				init();
+				//init();
 
 			}
 		} else {
@@ -73,6 +73,7 @@ public class GameSystemClient {
 	public void gameplay() {
 		// UI에서 누른 버튼의 정보를 받아옴
 
+		System.out.println(count);
 		int btnnum = gvo.getClickmice().get(count); //
 		open(btnnum);
 	}
@@ -80,6 +81,7 @@ public class GameSystemClient {
 	public void gamewait() {
 		// Server에서 눌려진 버튼의 정보를 받아옴
 		System.out.println(gvo.getClickmice());
+		System.out.println(count);
 		int btnnum = gvo.getClickmice().get(count);
 		open(btnnum);
 	}
@@ -125,7 +127,7 @@ public class GameSystemClient {
 			if (numcount != 0) {// 지뢰 칸이 숫자일때(주변에 지뢰가 1개 이상)
 				JButton btn;
 				btn = gvo.getMicebtn().get(btnnum);
-				btn.setBackground(Color.GRAY); // 색 설정
+				btn.setBackground(Color.LIGHT_GRAY); // 색 설정
 				btn.setText(Integer.toString(numcount));// 주변 지뢰 숫자 표시
 				btn.setEnabled(false); // 버튼 비활성화
 				ArrayList<JButton> arjb;
