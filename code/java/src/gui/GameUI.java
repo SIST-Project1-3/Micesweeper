@@ -32,7 +32,7 @@ public class GameUI {
 	GameUIEvent event = new GameUIEvent(this);
 	ImageIcon icon, icon2;
 	JLabel bangjangidlabel, idlabel;
-	
+
 	public GameVO gvo;
 	GameSystemClient gsc;
 
@@ -96,11 +96,10 @@ public class GameUI {
 		bangjangprofilepanel.setVisible(true);
 		westpanel.add(bangjangprofilepanel);
 		bangjangprofilepanel.setLayout(new GridLayout(2, 1, 0, 20));
-		
+
 		bangjangidlabel = new JLabel("test");
 
 		JLabel bangjangidlabel = new JLabel("방장 ID");
->>>>>>> Stashed changes
 		bangjangidlabel.setHorizontalAlignment(SwingConstants.CENTER);
 		bangjangidlabel.setFont(Commons.getFont());
 		bangjangprofilepanel.add(bangjangidlabel);
@@ -197,7 +196,7 @@ public class GameUI {
 		JPanel profilepanel = new JPanel();
 		eastpanel.add(profilepanel);
 		profilepanel.setLayout(new GridLayout(2, 1, 0, 20));
-		
+
 		idlabel = new JLabel("aaaa");
 
 		JLabel idlabel = new JLabel("ID");
