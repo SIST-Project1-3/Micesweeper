@@ -1,4 +1,4 @@
-package system;
+package gamesystem;
 
 import java.awt.Color;
 import java.util.ArrayList;

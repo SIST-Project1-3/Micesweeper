@@ -19,7 +19,7 @@ import javax.swing.JTextArea;
 import javax.swing.JTextField;
 import javax.swing.SwingConstants;
 
-import system.GameSystemClient;
+import gamesystem.GameSystemClient;
 import vo.GameVO;
 
 public class GameUI {

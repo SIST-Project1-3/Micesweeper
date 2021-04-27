@@ -1,4 +1,4 @@
-package system;
+package gamesystem;
 
 import java.util.ArrayList;
 import java.util.Iterator;
