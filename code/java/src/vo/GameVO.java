@@ -14,7 +14,7 @@ public class GameVO implements Serializable {
 	public ArrayList<Integer> number = new ArrayList<Integer>(); // 숫자 위치
 	public ArrayList<String> userID = new ArrayList<String>(2); // 연결된 유저의 이름
 	public ArrayList<Socket> socketList = new ArrayList<Socket>(2); // 연결된 소켓 리스트
-	boolean turnflag, winflag = false, loseflag = false; // 턴, 승리, 종료 플래그
+	boolean winflag = false, loseflag = false; // 턴, 승리, 종료 플래그
 	int count = 0, no, userCount; // 누른 버튼의 좌표, 방 번호, 인원 수
 	String title; // 방 이름
 

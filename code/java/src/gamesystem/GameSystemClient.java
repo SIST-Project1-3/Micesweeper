@@ -14,7 +14,7 @@ import vo.GameVO;
 
 public class GameSystemClient {
 	// field
-	boolean turnflag=true, winflag = false, loseflag = false;
+	boolean turnflag = true, winflag = false, loseflag = false;
 	int count = 0;
 	GameVO gvo;
 	GameUI ui;
@@ -24,37 +24,36 @@ public class GameSystemClient {
 		this.ui = ui;
 		gvo = ui.gvo;
 		// 턴 플래그 - 방 생성시 방장은 true, 도전자는 false
-		
+
 	}
 
 	// method
 	public void init() {
-		
 
 		if (turnflag == true) {
 			gameplay();
 			if (winflag == true) {
 				gvo.setWinflag(true);
 				gvo.setCount(count);
-				//승리 팝업창
+				// 승리 팝업창
 				count = 0;
 				// 종료
 			} else if (loseflag == true) {
 				gvo.setLoseflag(true);
 				gvo.setCount(count);
-				//패배 팝업창
+				// 패배 팝업창
 				count = 0;
 				// 종료
 			} else {
 				turnflag = false;
 				count++;
-				//init();
+				// init();
 
 			}
 		} else {
 			gamewait();
 			if (winflag == true) {
-				//패배 팝업창
+				// 패배 팝업창
 				count = 0;
 				// 종료
 			} else if (loseflag == true) {
@@ -89,9 +88,10 @@ public class GameSystemClient {
 	public void open(int btnnum) {
 
 		int numcount = 0;
+		JButton btn;
+		btn = gvo.getMicebtn().get(btnnum);
+		if(btn.isEnabled() == true) {
 		if (btnnum == gvo.getMice().get(0)) {// 첫번째 지뢰(고양이) 누를시
-			JButton btn;
-			btn = gvo.getMicebtn().get(btnnum);
 			btn.setBackground(Color.BLUE); // 색 설정
 			// btn.setIcon();//고양이 아이콘 삽입
 			btn.setEnabled(false); // 버튼 비활성화
@@ -104,8 +104,7 @@ public class GameSystemClient {
 		} else {
 			for (int k = 1; k < gvo.getMice().size(); k++) {// 나머지 지뢰(쥐) 누를시
 				if (btnnum == gvo.getMice().get(k)) {
-					JButton btn;
-					btn = gvo.getMicebtn().get(btnnum);
+
 					btn.setBackground(Color.RED); // 색 설정
 					// btn.setIcon();//고양이 아이콘 삽입
 					btn.setEnabled(false); // 버튼 비활성화
@@ -124,9 +123,8 @@ public class GameSystemClient {
 					numcount++;// 근처 지뢰 갯수 추가
 				}
 			} // 누른 버튼이 지뢰가 아니므로 근처 지뢰가 몇개인지 검색 for
+
 			if (numcount != 0) {// 지뢰 칸이 숫자일때(주변에 지뢰가 1개 이상)
-				JButton btn;
-				btn = gvo.getMicebtn().get(btnnum);
 				btn.setBackground(Color.LIGHT_GRAY); // 색 설정
 				btn.setText(Integer.toString(numcount));// 주변 지뢰 숫자 표시
 				btn.setEnabled(false); // 버튼 비활성화
@@ -135,8 +133,6 @@ public class GameSystemClient {
 				arjb.set(btnnum, btn);
 				gvo.setMicebtn(arjb);
 			} else {// 지뢰 칸이 공백일때(주변에 지뢰 없음)
-				JButton btn;
-				btn = gvo.getMicebtn().get(btnnum);
 				btn.setBackground(Color.GRAY); // 색 설정
 				btn.setText(Integer.toString(numcount));// 주변 지뢰 숫자 표시
 				btn.setEnabled(false); // 버튼 비활성화
@@ -205,6 +201,7 @@ public class GameSystemClient {
 			} // 숫자 else
 
 		} // 노지뢰 if
+	}
 	}
 
 }
