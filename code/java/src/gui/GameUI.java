@@ -22,6 +22,8 @@ import gamesystem.GameSystemClient;
 import gamesystem.GameSystemServer;
 import system.client.ClientSystem;
 import vo.GameVO;
+import vo.MemberVO;
+import vo.MessageVO;
 import vo.RoomVO;
 
 public class GameUI {
@@ -47,7 +49,7 @@ public class GameUI {
 		client.id = "Test";
 		room = new RoomVO();
 		room.title = "test";
-		room.no=0;
+		room.no = 0;
 		initialize();
 	}
 
@@ -66,6 +68,11 @@ public class GameUI {
 		gsc = new GameSystemClient(this);
 		event = new GameUIEvent(this);
 
+		MessageVO msg = new MessageVO();
+		msg.setStatus(MessageVO.GAME_IMG);
+		msg.setId(room.userList.get(0));
+		MemberVO gameImg = client.gameImg(msg);
+
 		frame = new JFrame("쥐뢰찾기 - " + room.title);
 
 		JPanel westpanel = new JPanel();
@@ -79,7 +86,7 @@ public class GameUI {
 		bangjangpanel.add(bangjangpyosilabel);
 
 		JPanel bangjangimagepanel = new JPanel();
-		icon = new ImageIcon("images/고양이.png");
+		icon = new ImageIcon("" + gameImg.getImg());
 		Image img = icon.getImage();
 		Image changeImg = img.getScaledInstance(150, 150, Image.SCALE_SMOOTH);
 		ImageIcon changeIcon = new ImageIcon(changeImg);
@@ -92,7 +99,7 @@ public class GameUI {
 		westpanel.add(bangjangprofilepanel);
 		bangjangprofilepanel.setLayout(new GridLayout(2, 1, 0, 20));
 
-		bangjangidlabel = new JLabel("test");
+		bangjangidlabel = new JLabel("" + room.userList.get(0));
 		bangjangidlabel.setHorizontalAlignment(SwingConstants.CENTER);
 		bangjangidlabel.setFont(Commons.getFont());
 		bangjangprofilepanel.add(bangjangidlabel);
@@ -178,11 +185,16 @@ public class GameUI {
 		frame.getContentPane().add(eastpanel, BorderLayout.EAST);
 		eastpanel.setLayout(new GridLayout(3, 1, 0, 50));
 
+		MessageVO msg2 = new MessageVO();
+		msg2.setStatus(MessageVO.GAME_IMG);
+		msg2.setId(room.userList.get(1));
+		MemberVO gameImg2 = client.gameImg(msg2);
+		
 		JPanel imsipanel = new JPanel();
 		eastpanel.add(imsipanel);
 
 		JPanel imagepanel = new JPanel();
-		icon2 = new ImageIcon("images/쥐.png");
+		icon2 = new ImageIcon("" + gameImg2.getImg());
 		Image img2 = icon2.getImage();
 		Image changeImg2 = img2.getScaledInstance(150, 150, Image.SCALE_SMOOTH);
 		ImageIcon changeIcon2 = new ImageIcon(changeImg2);
@@ -194,7 +206,7 @@ public class GameUI {
 		eastpanel.add(profilepanel);
 		profilepanel.setLayout(new GridLayout(2, 1, 0, 20));
 
-		idlabel = new JLabel("aaaa");
+		idlabel = new JLabel("" + room.userList.get(1));
 		idlabel.setHorizontalAlignment(SwingConstants.CENTER);
 		idlabel.setFont(Commons.getFont());
 		profilepanel.add(idlabel);
