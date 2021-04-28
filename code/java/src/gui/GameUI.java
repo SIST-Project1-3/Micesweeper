@@ -71,8 +71,8 @@ public class GameUI {
 		frame = new JFrame("쥐뢰찾기 - " + room.title);
 
 		JPanel center_panel = new JPanel(); // 쥐뢰게임
-		JPanel west_panel = new JPanel(new GridLayout(3, 1, 0, 50)); // 방장 프로필
-		JPanel east_panel = new JPanel(new GridLayout(3, 1, 0, 50)); // 참가자 프로필
+		JPanel west_panel = new JPanel(new GridLayout(3, 1, 0, 10)); // 방장 프로필
+		JPanel east_panel = new JPanel(new GridLayout(3, 1, 0, 10)); // 참가자 프로필
 		JPanel south_panel = new JPanel(new BorderLayout()); // 채팅
 		// center_panel.setLayout(new GridLayout(0, 1, 0, 0));
 		// west_panel.setSize(300, 500);
@@ -239,7 +239,7 @@ public class GameUI {
 		frame.add(center_panel, BorderLayout.CENTER);
 		frame.add(south_panel, BorderLayout.SOUTH);
 
-		frame.setSize(810, 730);
+		frame.setSize(900, 730);
 		frame.setResizable(false);	// 창 크기 변경X
 		frame.setVisible(true);
 
