@@ -8,8 +8,41 @@ public class RoomVO implements Serializable, Cloneable {
 	public String title;
 	public int no, userCount; // , 방 번호, 인원 수
 	public ArrayList<String> userList = new ArrayList<String>(2); // 연결된 유저의 이름
+	public GameVO game;
 
 	// Method
+
+	public String getTitle() {
+		return title;
+	}
+
+	public void setTitle(String title) {
+		this.title = title;
+	}
+
+	public int getNo() {
+		return no;
+	}
+
+	public void setNo(int no) {
+		this.no = no;
+	}
+
+	public ArrayList<String> getUserList() {
+		return userList;
+	}
+
+	public void setUserList(ArrayList<String> userList) {
+		this.userList = userList;
+	}
+
+	public GameVO getGame() {
+		return game;
+	}
+
+	public void setGame(GameVO game) {
+		this.game = game;
+	}
 
 	// 방 정보 반환. ex) 1. 어서오세요 - 1/2
 	public String getInfo() {

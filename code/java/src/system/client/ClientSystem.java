@@ -325,6 +325,25 @@ public class ClientSystem {
 		}
 	}
 
+	// 게임 클릭 전송
+	public void sendGameClick(int btnNO) {
+		try {
+			MessageVO msg = new MessageVO();
+			msg.setStatus(MessageVO.GAME_CLICK);
+			msg.setRoom(new RoomVO());
+			msg.getRoom().no = gameui.room.no; // 방 번호
+			msg.setNo(btnNO); // 누른 버튼
+			oos_chat.writeObject(msg);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+	}
+
+	public MemberVO gameImg(MessageVO msg) {
+		MemberVO member = null;
+		return member;
+	}
+
 	class ClientThread extends Thread {
 		// Field
 
@@ -367,10 +386,16 @@ public class ClientSystem {
 						if (mainui != null) {
 							mainui.jlist_room.setListData(getRoomInfoList());
 						}
-					} else if (msg.getStatus() == MessageVO.GAMECHAT) {
+					} else if (msg.getStatus() == MessageVO.GAMECHAT) { // 게임 채팅
 						if (gameui != null && (msg.getNo() == gameui.room.no)) { // 게임 중이고, 받은 메시지의 방 번호가 나의 방 번호일 때 실행
-							gameui.textArea.append(msg.getId() + ": " + msg.getContent() + "\n");
+							gameui.chat_ta.append(msg.getId() + ": " + msg.getContent() + "\n");
 							System.out.println(msg.getNo() + "번 방 채팅: " + msg.getId() + ": " + msg.getContent() + "\n");
+						}
+					} else if (msg.getStatus() == MessageVO.GAME_CLICK) { // 게임 클릭
+						if (gameui != null) { // 게임 중이면 실행
+							if (msg.getRoom().no == gameui.room.no) { // 방 번호가 맞으면 실행
+								gameui.gsc.calcBtnClick(msg.getNo());
+							}
 						}
 					}
 				}

@@ -38,8 +38,7 @@ public class GameUI {
 	ImageIcon icon, icon2;
 	JLabel master_id_label, user_id_label;
 	public GameVO gvo;
-	GameSystemClient gsc;
-	GameSystemServer gss;
+	public GameSystemClient gsc;
 	ClientSystem client;
 	public RoomVO room; // 방 정보
 
@@ -53,19 +52,18 @@ public class GameUI {
 		initialize();
 	}
 
-	public GameUI(ClientSystem client, RoomVO room) {
+	public GameUI(ClientSystem client, RoomVO room, boolean turnflag) {
 		this.client = client;
 		this.room = room;
 		client.gameui = this; // 클아이언트에 ui 등록
+		gsc = new GameSystemClient(this, turnflag, room);
+		gvo = gsc.gvo;
 		initialize();
 	}
 
 	// Method
 
 	private void initialize() {
-		gss = new GameSystemServer();
-		gvo = gss.gvo;
-		gsc = new GameSystemClient(this);
 		event = new GameUIEvent(this);
 
 		frame = new JFrame("쥐뢰찾기 - " + room.title);

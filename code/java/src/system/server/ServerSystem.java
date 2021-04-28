@@ -88,6 +88,7 @@ public class ServerSystem {
 			returnMsg.setRoomList(getRoomList()); // 방 목록을 메시지에 추가
 			chatServer.broadcastMsg(returnMsg);
 			result = gss.room;
+			result.game = gss.gvo;
 		} else {
 			System.out.println("방 생성 실패");
 		}
@@ -207,7 +208,7 @@ public class ServerSystem {
 					} else if (msg.getStatus() == MessageVO.ROOM_JOIN) { // 방 참가 요청, 성공 여부 반환
 						returnMsg.setRoom(joinRoom(msg, this));
 						oos.writeObject(returnMsg);
-					} 
+					}
 				}
 			} catch (Exception e) {
 				e.printStackTrace();

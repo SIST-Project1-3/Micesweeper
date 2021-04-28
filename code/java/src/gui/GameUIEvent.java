@@ -51,7 +51,7 @@ public class GameUIEvent implements ActionListener, WindowListener, MouseListene
 			ui.chat_tf.setText("");
 			System.out.println("텍스트");
 		} else if (obj == ui.ready_btn) { // 준비
-			gsc.turnflag = true;  // 임시로 해놓은것
+			gsc.turnflag = true; // 임시로 해놓은것
 		} else if (obj == ui.exit_btn) { // 나가기
 			if (gvo.isGameflag() == true) {
 				int answer = JOptionPane.showConfirmDialog(null, Commons.getMsg("게임 중 종료시 패배처리됩니다. 정말로 종료하시겠습니까?"));
@@ -71,16 +71,12 @@ public class GameUIEvent implements ActionListener, WindowListener, MouseListene
 			ProfileUI pui = new ProfileUI();
 			pui.game_Profile(gameProfile);
 		} else if (gsc.turnflag == true) { // 지뢰 버튼 클릭 처리
-
-//			String btnName = ((JButton) obj).getName();
 			int btnName = Integer.parseInt(((JButton) obj).getName());
 			int btnNo = btnName / 10 * 9 + btnName % 10; // 버튼의 순서: 00 ~ 88 까지 매핑된 버튼의 이름을 0 ~ 81
-			clickmice.add(btnNo); // 지뢰 클릭 시 클릭된 지뢰 리스트에 추가
-			System.out.println(clickmice);
-			gvo.setClickmice(clickmice); // 리스트 갱신
-			gvo.setClickflag(true);// 클릭했다는 정보 갱신
-			ui.gsc.calcBtnClick();
-			System.out.println(gvo.getClickmice());// 이따삭제
+			ui.client.sendGameClick(btnNo);
+//			gvo.setClickflag(true);// 클릭했다는 정보 갱신
+//			ui.gsc.calcBtnClick();
+//			System.out.println(gvo.getClickmice());// 이따삭제
 		}
 
 	}

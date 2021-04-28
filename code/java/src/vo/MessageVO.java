@@ -28,10 +28,15 @@ public class MessageVO implements Serializable {
 	public static final int ROOM_CREATE = 20; // 방 생성
 	public static final int ROOM_JOIN = 21; // 방 참가
 	public static final int WIN_OR_LOSE = 22; // 승패기록
-	public static final int GAME_CLICK = 23;
+	public static final int GAME_CLICK = 23; // 게임 클릭
+	public static final int GAME_QUIT = 24; // 게임 탈주
+	public static final int GAME_IMG = 25;
+	public static final int GAME_WIN = 26; // 게임 승리
+	public static final int GAME_LOSE = 27; // 게임 패배
 
 	int status;// MsgVO의 상태
-	int no; // 게시글 No, 게임방 No
+	int no; // 게시글 No, 게임방 No,
+	int clickedBtn; // 누른 버튼
 	String title, content, id, pw, img; // 게시글 제목, (내용, 채팅메시지), 내ID, 패스워드, 내프로필이미지
 	boolean result; // DAO 결과값
 	ArrayList<BoardVO> boardList; // 게시글 목록 불러오기
@@ -42,6 +47,31 @@ public class MessageVO implements Serializable {
 	Vector<String> userList; // 접속중인 유저 목록
 	ArrayList<RoomVO> roomList; // 방 목록
 	RoomVO room; // 방 정보
+	boolean winflag, loseflag;
+
+	public int getClickedBtn() {
+		return clickedBtn;
+	}
+
+	public void setClickedBtn(int clickedBtn) {
+		this.clickedBtn = clickedBtn;
+	}
+
+	public boolean isWinflag() {
+		return winflag;
+	}
+
+	public void setWinflag(boolean winflag) {
+		this.winflag = winflag;
+	}
+
+	public boolean isLoseflag() {
+		return loseflag;
+	}
+
+	public void setLoseflag(boolean loseflag) {
+		this.loseflag = loseflag;
+	}
 
 	public RoomVO getRoom() {
 		return room;

@@ -11,18 +11,20 @@ import gui.GameUI;
 import gui.JoinUI;
 import system.client.ClientSystem;
 import vo.GameVO;
+import vo.RoomVO;
 
 public class GameSystemClient {
 	// field
-	public boolean turnflag = true, winflag = false, loseflag = false;
+	public boolean turnflag, winflag = false, loseflag = false;
 	int count = 0;
-	GameVO gvo;
+	public GameVO gvo;
 	GameUI ui;
 
 	// constructor
-	public GameSystemClient(GameUI ui) {
+	public GameSystemClient(GameUI ui, boolean turnflag, RoomVO room) {
 		this.ui = ui;
-		gvo = ui.gvo;
+		this.turnflag = turnflag;
+		gvo = room.game;
 		// 턴 플래그 - 방 생성시 방장은 true, 도전자는 false
 
 	}
@@ -52,22 +54,53 @@ public class GameSystemClient {
 
 			}
 		} else {
-			while(gvo.isClickflag()==true) {
-			gamewait();
+			while (gvo.isClickflag() == true) {
+				gamewait();
+				if (winflag == true) {
+					// 패배 팝업창
+					count = 0;
+					// 종료
+				} else if (loseflag == true) {
+					// 승리 팝업창
+					count = 0;
+					// 종료
+				} else {
+					turnflag = true;
+					count++;
+
+				}
+			}
+		}
+	}
+
+	// 버튼 클릭 연산
+	public void calcBtnClick(int btnnum) {
+
+		gameplay(btnnum);
+		if (turnflag == true) {
+			if (winflag == true) {
+				gvo.setWinflag(true);
+
+				// 승리 팝업창
+				exit();
+			} else if (loseflag == true) {
+				gvo.setLoseflag(true);
+				// 패배 팝업창
+				exit();
+			} else {
+				turnflag = false;
+			}
+		} else {
 			if (winflag == true) {
 				// 패배 팝업창
-				count = 0;
 				// 종료
 			} else if (loseflag == true) {
 				// 승리 팝업창
-				count = 0;
 				// 종료
 			} else {
 				turnflag = true;
-				count++;
+			}
 
-			}
-			}
 		}
 	}
 
@@ -78,6 +111,10 @@ public class GameSystemClient {
 		int btnnum = gvo.getClickmice().get(count); //
 		open(btnnum);
 		gvo.setClickflag(false);
+	}
+
+	public void gameplay(int btnnum) {
+		open(btnnum);
 	}
 
 	public void gamewait() {
@@ -208,8 +245,9 @@ public class GameSystemClient {
 			} // 노지뢰 if
 		}
 	}
+
 	public void exit() {
-		
+
 	}
 
 }
