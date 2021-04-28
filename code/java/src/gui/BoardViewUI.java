@@ -112,15 +112,16 @@ public class BoardViewUI implements ActionListener {
 	public JPanel createSouthPanel() {
 		JPanel panel = new JPanel(new BorderLayout());
 
+		// 댓글을 보여주는 패널 생성
 		JPanel panel_viewComment = new JPanel(new BorderLayout());
 		model_comments = new DefaultTableModel(colNames, 0) {
 			@Override
-			public boolean isCellEditable(int row, int column) {
+			public boolean isCellEditable(int row, int column) { // 댓글 테이블의 내용 수정 못하도록 설정
 				return false;
 			}
 		};
-		if (article.getComments() != null) {
-			createCommentTable(getCommentList(article.getComments())); // 테이블 내용을 채움
+		if (article.getComments() != null) { // 해당 게시글에 댓글이 있는 경우에만 실행하도록 함.
+			createCommentTable(getCommentList(article.getComments())); // 댓글 테이블의 내용을 채움
 		}
 		table_comments = new JTable(model_comments);
 		table_comments.getColumn("작성자").setPreferredWidth(100);
@@ -129,6 +130,7 @@ public class BoardViewUI implements ActionListener {
 		sp_table.setPreferredSize(new Dimension(500, 100));
 		panel_viewComment.add(sp_table);
 
+		// 댓글 입력 패널 생성
 		JPanel panel_writeComment = new JPanel(new BorderLayout());
 		tf_write = new JTextField();
 		btn_write = new JButton("댓글 작성");
@@ -140,22 +142,20 @@ public class BoardViewUI implements ActionListener {
 
 		panel.add(panel_viewComment, "Center");
 		panel.add(panel_writeComment, "South");
+
 		return panel;
 	}
 
 	// VARCHAR2로 된 댓글 데이터를 받아서 리스트로 반환함
 	public ArrayList<CommentVO> getCommentList(String comments) {
-		System.out.println("댓글 리스트 생성 메소드 실행");
-		System.out.println("댓글 String: " + comments);
 		ArrayList<CommentVO> list = new ArrayList<CommentVO>();
-		String[] commentsArr = comments.split("\\\\n"); // 댓글 하나 하나는 '\n'로 구분
+		// 댓글 하나 하나는 '\n'로 구분, sql에는 '\n' 으로 저장이 되어있으나, JDBC로 불러오면 '\\\\n'으로 나타남
+		String[] commentsArr = comments.split("\\\\n");
 		for (String commentIdContent : commentsArr) {
-			System.out.println("분리된 댓글: " + commentIdContent);
 			CommentVO comment = new CommentVO();
 			String[] commentInfo = commentIdContent.split(":"); // id와 내용은 ';'로 구분
 			comment.setId(commentInfo[0]); // id 추가
 			comment.setComment(commentInfo[1]); // 작성 내용 추가
-			System.out.println("댓글 추가 - 작성자: " + comment.getId() + ", 내용: " + comment.getComment());
 			list.add(comment);
 		}
 		return list;
