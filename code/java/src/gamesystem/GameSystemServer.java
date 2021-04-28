@@ -33,6 +33,7 @@ public class GameSystemServer {
 		gameflag = false; // 나중에 false로 바꾸고, 시작하면 true 되는 로직 생성해야함
 		// 준비 + 시작하는 과정
 		if (gameflag = true) {
+			gvo.setGameflag(gameflag);
 			createMice();// 지뢰, 숫자칸 생성+각 클라이언트에 지뢰 숫자칸 정보 주기
 			simpan();
 			// 게임이 끝났다는 신호를 받으면 전적 갱신후 메인화면으로(?)
@@ -142,6 +143,7 @@ public class GameSystemServer {
 			}
 			// 승리자 패배자 db입력
 			gameflag = false;// 종료
+			gvo.setGameflag(gameflag);
 		} else {
 			simpan();
 		}

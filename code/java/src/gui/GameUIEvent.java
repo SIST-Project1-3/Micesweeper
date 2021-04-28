@@ -50,9 +50,15 @@ public class GameUIEvent implements ActionListener, WindowListener, MouseListene
 			ui.textField.setText("");
 			System.out.println("텍스트");
 		} else if (obj == ui.readybutton) { // 레디
-			gsc.turnflag=true;
+			gsc.turnflag=true;//임시로 해놓은것
 		} else if (obj == ui.exitbutton) { // 나가기
-			exit();
+			if(gvo.isGameflag()==true) {
+				//게임종료시 패배처리됩니다 종료하시겠습니까
+				if(종료버튼) {
+					gvo.setLoseflag(true);
+					exit();
+				}
+			}else {exit();}
 		} else if (obj == ui.watchprofilebtn_2) { // 도전자 프로필
 			MessageVO msg = new MessageVO();
 			msg.setStatus(MessageVO.GAME_PROFILE);
@@ -101,8 +107,13 @@ public class GameUIEvent implements ActionListener, WindowListener, MouseListene
 	}
 
 	@Override
-	public void windowClosing(WindowEvent e) {
-		exit();
+	public void windowClosing(WindowEvent e) {if(gvo.isGameflag()==true) {
+		//게임종료시 패배처리됩니다 종료하시겠습니까
+		if(종료버튼) {
+			gvo.setLoseflag(true);
+			exit();
+		}
+	}else {exit();}
 	}
 
 	@Override
