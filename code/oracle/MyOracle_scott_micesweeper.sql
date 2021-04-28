@@ -59,7 +59,9 @@ UPDATE BOARD SET TITLE = '수정', CONTENT = '수정됨 ㅎ' WHERE NO = 1;
 -- 게시글 삭제
 DELETE FROM BOARD WHERE NO = 25;
 -- 댓글 작성
-UPDATE BOARD SET COMMENTS = COMMENTS || 'test2:댓글입니다\n' WHERE NO = 48;
+UPDATE BOARD SET COMMENTS = COMMENTS || 'test2' || ':' || '댓글입니다' || '\n' WHERE NO = 49;
+-- 자바에서는 아래와 같이 \ -> \\ 로 해야함
+-- UPDATE BOARD SET COMMENTS = COMMENTS || 'test2' || ':' || '댓글입니다' || '\\n' WHERE NO = 49;
 
 -- 이미지 목록
 SELECT * FROM IMG;

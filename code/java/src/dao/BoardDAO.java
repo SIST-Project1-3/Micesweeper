@@ -178,7 +178,7 @@ public class BoardDAO extends DAO {
 	public boolean getWriteCommentResult(MessageVO msg) {
 		boolean result = false;
 		try {
-			String sql = "UPDATE BOARD SET COMMENTS = COMMENTS || ? || ':' || ? || '\n' WHERE NO = ?";
+			String sql = "UPDATE BOARD SET COMMENTS = COMMENTS || ? || ':' || ? || '\\n' WHERE NO = ?";
 			getPreparedStatement(sql);
 
 			pstmt.setString(1, msg.getId()); // 댓글 작성자 ID

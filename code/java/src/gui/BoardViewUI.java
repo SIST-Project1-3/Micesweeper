@@ -62,6 +62,8 @@ public class BoardViewUI implements ActionListener {
 				exit();
 			}
 		});
+
+		tf_write.requestFocus();
 	}
 
 	// 제목, 작성자, 작성일, 조회수를 담는 패널 생성
@@ -117,7 +119,9 @@ public class BoardViewUI implements ActionListener {
 				return false;
 			}
 		};
-		createCommentTable(getCommentList(article.getComments())); // 테이블 내용을 채움
+		if (article.getComments() != null) {
+			createCommentTable(getCommentList(article.getComments())); // 테이블 내용을 채움
+		}
 		table_comments = new JTable(model_comments);
 		table_comments.getColumn("작성자").setPreferredWidth(100);
 		table_comments.getColumn("내용").setPreferredWidth(600);
@@ -179,6 +183,7 @@ public class BoardViewUI implements ActionListener {
 			if (client.writeComment(article.getNo(), client.id, tf_write.getText())) { // 댓글 작성 성공
 				article = client.readArticle(article.getNo());
 				createCommentTable(getCommentList(article.getComments()));
+				tf_write.setText("");
 			} else {
 				JOptionPane.showMessageDialog(null, Commons.getMsg("댓글 작성 실패"));
 			}
