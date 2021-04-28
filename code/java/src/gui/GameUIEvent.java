@@ -55,7 +55,7 @@ public class GameUIEvent implements ActionListener, WindowListener, MouseListene
 				MessageVO msg = new MessageVO();
 				msg.setStatus(MessageVO.GAME_READY);
 				ui.ready_btn.setEnabled(false);
-				ui.gsc.gameflag = true; // 참가자 준비
+//				ui.gsc.gameflag = true; // 참가자 준비
 			}else {
 				MessageVO msg = new MessageVO();
 				msg.setStatus(MessageVO.GAME_READY);
