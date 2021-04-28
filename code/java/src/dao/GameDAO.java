@@ -1,5 +1,7 @@
 package dao;
 
+import java.util.ArrayList;
+
 import vo.MemberVO;
 import vo.MessageVO;
 
@@ -11,19 +13,17 @@ public class GameDAO extends DAO {
 
 	// Method
 	// 게임화면 방장 이미지, 참가자 이미지 가져오기
-	public MemberVO getGameImgResult(MessageVO msg) {
-		MemberVO gameImg = new MemberVO();
+	public ArrayList<String> getGameImgResult(String id) {
+		ArrayList<String> gameImg = null;
 		try {
-			String sql = "select IMG from member where id=? or id=?";
+			String sql = "select id,img from member where id=?";
 			getPreparedStatement(sql);
 
-			pstmt.setString(1, msg.getId());
-			pstmt.setString(2, msg.getId2());
+			pstmt.setString(1, id);
 
 			rs = pstmt.executeQuery();
 			while (rs.next()) {
-				gameImg.setImg(rs.getString(2));
-				gameImg.setImg2(rs.getString(2));
+				rs.getString(1);
 			}
 		} catch (Exception e) {
 			e.printStackTrace();

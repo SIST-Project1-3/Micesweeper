@@ -194,14 +194,16 @@ public class ServerSystem {
 						returnMsg.setImgList(img_list);
 						oos.writeObject(returnMsg);
 					} else if (msg.getStatus() == MessageVO.IMG_UPDATE) { // 프로필 이미지 수정
-						System.out.println("server - IMG_UPDATE");
 						returnMsg.setResult(mdao.getUpdateResult(msg));
 						oos.writeObject(returnMsg);
-//					} else if (msg.getStatus() == MessageVO.GAME_PROFILE) { // 상대 프로필 정보 요청
-//						System.out.println("server");
-//						MemberVO gameProfile = gdao.getGameProfileResult(msg);
-//						returnMsg.setMyProfile(gameProfile);
+//					} else if (msg.getStatus() == MessageVO.GAME_IMG) { // 게임화면 이미지 요청
+//						MemberVO gameImg = gdao.getGameImgResult(msg);
+//						returnMsg.setGameImg(gameImg);
 //						oos.writeObject(returnMsg);
+					} else if (msg.getStatus() == MessageVO.GAME_PROFILE) { //게임 프로필 정보 요청
+						MemberVO gameProfile = gdao.getGameProfileResult(msg);
+						returnMsg.setGameProfile(gameProfile);
+						oos.writeObject(returnMsg);
 					} else if (msg.getStatus() == MessageVO.ROOM_CREATE) { // 방 생성 요청, 성공 여부 반환
 						returnMsg.setRoom(createRoom(msg, this)); // 자신의 소켓 정보까지 넘김
 						oos.writeObject(returnMsg);

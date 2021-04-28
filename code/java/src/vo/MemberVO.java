@@ -4,7 +4,7 @@ import java.io.Serializable;
 
 // DAO를 통해 DB에 접근하기위한 VO
 public class MemberVO implements Serializable {
-	String id, pw, name, rdate, img; // ID, PW, 이름, 등록일자, 이미지 경로
+	String id, pw, name, rdate, img, img2; // ID, PW, 이름, 등록일자, 방장이미지, 참가자이미지
 	int win, lose; // 승리횟수, 패배횟수
 
 	public String getId() {
@@ -45,6 +45,14 @@ public class MemberVO implements Serializable {
 
 	public String setImg(String img) {
 		return this.img = img;
+	}
+
+	public String getImg2() {
+		return img2;
+	}
+
+	public void setImg2(String img2) {
+		this.img2 = img2;
 	}
 
 	public int getWin() {

@@ -221,7 +221,6 @@ public class ClientSystem {
 	// 선택한 이미지 정보 저장
 	public boolean updateImg(MessageVO msg) {
 		boolean result = false;
-		System.out.println("client - updateImg");
 		try {
 			oos.writeObject(msg);
 			MessageVO recieveMsg = (MessageVO) ois.readObject();
@@ -232,17 +231,29 @@ public class ClientSystem {
 		return result;
 	}
 
-	// 게임화면 프로필 정보 요청
-//	public MemberVO gameProfile(MessageVO msg) {
-//		MemberVO gameProfile = null;
-//		try {
-//			oos.writeObject(msg);
-//			gameProfile = ((MessageVO) ois.readObject()).getGameProfile();
-//		} catch (Exception e) {
-//			e.printStackTrace();
+//	// 게임화면 프로필 정보 요청
+//		public MemberVO gameImg(MessageVO msg) {
+//			MemberVO gameImg = null;
+//			try {
+//				oos.writeObject(msg);
+//				gameImg = ((MessageVO) ois.readObject()).getGameImg();
+//			} catch (Exception e) {
+//				e.printStackTrace();
+//			}
+//			return gameImg;
 //		}
-//		return gameProfile;
-//	}
+	
+	// 게임화면 프로필보기 정보 요청
+	public MemberVO gameProfile(MessageVO msg) {
+		MemberVO gameProfile = null;
+		try {
+			oos.writeObject(msg);
+			gameProfile = ((MessageVO) ois.readObject()).getGameProfile();
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return gameProfile;
+	}
 
 	// 방 생성 요청
 	public RoomVO createRoom(String title) {
@@ -337,11 +348,6 @@ public class ClientSystem {
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
-	}
-
-	public MemberVO gameImg(MessageVO msg) {
-		MemberVO member = null;
-		return member;
 	}
 
 	class ClientThread extends Thread {

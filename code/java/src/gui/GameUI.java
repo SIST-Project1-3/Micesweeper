@@ -2,9 +2,7 @@ package gui;
 
 import java.awt.BorderLayout;
 import java.awt.Dimension;
-import java.awt.EventQueue;
 import java.awt.FlowLayout;
-import java.awt.Font;
 import java.awt.GridLayout;
 import java.awt.Image;
 import java.util.ArrayList;
@@ -16,20 +14,18 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JTextArea;
 import javax.swing.JTextField;
-import javax.swing.SwingConstants;
 
+import dao.GameDAO;
 import gamesystem.GameSystemClient;
-import gamesystem.GameSystemServer;
 import system.client.ClientSystem;
 import vo.GameVO;
-import vo.MemberVO;
-import vo.MessageVO;
 import vo.RoomVO;
 
 public class GameUI {
 
 	// Field
 	public JFrame frame;
+	JPanel center_panel, west_panel, east_panel, south_panel;
 	public JTextField chat_tf;
 	public JTextArea chat_ta;
 	public ArrayList<JButton> mice_btn;
@@ -41,6 +37,11 @@ public class GameUI {
 	public GameSystemClient gsc;
 	ClientSystem client;
 	public RoomVO room; // 방 정보
+	public GameDAO gdao;
+	ArrayList<String> iconList = new ArrayList<String>(2); // 프사 리스트
+	ArrayList<String> idLabelList = new ArrayList<String>(2); // 아이디 라벨 리스트
+//	ArrayList<ImageIcon> iconList = new ArrayList<ImageIcon>(2); // 프사 리스트
+//	ArrayList<JLabel> idLabelList = new ArrayList<JLabel>(2); // 아이디 라벨 리스트
 
 	// Constructor
 	public GameUI() {
@@ -52,6 +53,7 @@ public class GameUI {
 		initialize();
 	}
 
+	// 클라이언트 시스템, 서버에서 받아온 방 정보, 선공/후공
 	public GameUI(ClientSystem client, RoomVO room, boolean turnflag) {
 		this.client = client;
 		this.room = room;
@@ -68,12 +70,10 @@ public class GameUI {
 
 		frame = new JFrame("쥐뢰찾기 - " + room.title);
 
-		JPanel center_panel = new JPanel(); // 쥐뢰게임
-		JPanel west_panel = new JPanel(new GridLayout(3, 1, 0, 10)); // 방장 프로필
-		JPanel east_panel = new JPanel(new GridLayout(3, 1, 0, 10)); // 참가자 프로필
-		JPanel south_panel = new JPanel(new BorderLayout()); // 채팅
-		// center_panel.setLayout(new GridLayout(0, 1, 0, 0));
-		// west_panel.setSize(300, 500);
+		center_panel = new JPanel(); // 쥐뢰게임
+		west_panel = new JPanel(new GridLayout(3, 1, 0, 10)); // 방장 프로필
+		east_panel = new JPanel(new GridLayout(3, 1, 0, 10)); // 참가자 프로필
+		south_panel = new JPanel(new BorderLayout()); // 채팅
 
 		// 방장(왼쪽)
 		JPanel master_icon_panel = new JPanel();
@@ -90,14 +90,7 @@ public class GameUI {
 		JLabel icon_label = new JLabel(master_changeIcon);
 		master_icon_panel.add(icon_label);
 
-		// 방장 이미지 가져오기 위한 msgVO
-//		MessageVO msg = new MessageVO();
-//		msg.setStatus(MessageVO.GAME_IMG);
-//		msg.setId(room.userList.get(0));
-//		MemberVO gameImg = client.gameImg(msg);
-
 		// 방장 이미지
-//		icon = new ImageIcon("" + gameImg.getImg());
 		icon = new ImageIcon("images/고양이.png");
 		Image img = icon.getImage();
 		Image changeImg = img.getScaledInstance(160, 160, Image.SCALE_SMOOTH);
@@ -106,8 +99,7 @@ public class GameUI {
 		master_image_panel.add(img_label);
 
 		// 방장 아이디
-		master_id_label = new JLabel("" + room.userList.get(0));
-//		bangjangidlabel.setHorizontalAlignment(SwingConstants.CENTER);
+		master_id_label = new JLabel("대기중");
 		master_id_label.setFont(Commons.getFont());
 		master_id_panel.add(master_id_label);
 		master_panel.add(master_id_panel);
@@ -133,14 +125,7 @@ public class GameUI {
 		JLabel user_icon = new JLabel("");
 		user_icon_panel.add(user_icon);
 
-		// 참가자 이미지 가져오기 위한 msgVO
-//		MessageVO msg2 = new MessageVO();
-//		msg2.setStatus(MessageVO.GAME_IMG);
-//		msg2.setId(room.userList.get(1));
-//		MemberVO gameImg2 = client.gameImg(msg2);
-
 		// 참가자 이미지
-//		icon2 = new ImageIcon("" + gameImg.getImg());
 		icon2 = new ImageIcon("images/쥐.png");
 		Image img2 = icon2.getImage();
 		Image changeImg2 = img2.getScaledInstance(160, 160, Image.SCALE_SMOOTH);
@@ -149,9 +134,7 @@ public class GameUI {
 		user_image_panel.add(img_label2);
 
 		// 참가자 아이디
-//		user_id_label = new JLabel("" + room.userList.get(0));
-		user_id_label = new JLabel("aaaa");
-//		bangjangidlabel.setHorizontalAlignment(SwingConstants.CENTER);
+		user_id_label = new JLabel("대기중");
 		user_id_label.setFont(Commons.getFont());
 		user_id_panel.add(user_id_label);
 		user_panel.add(user_id_panel);
@@ -190,7 +173,7 @@ public class GameUI {
 		JPanel chat_panel = new JPanel(new BorderLayout());
 		JPanel chat_send_panel = new JPanel(new BorderLayout());
 		JPanel menu_panel = new JPanel(new GridLayout(2, 1, 0, 20));
-		
+
 		// 준비, 나가기 버튼
 		ready_btn = new JButton("준비");
 		exit_btn = new JButton("나가기");
@@ -207,15 +190,15 @@ public class GameUI {
 //		JLabel label_chatID = new JLabel(client.getId());
 //		label_chatID.setFont(Commons.getFont());
 //		chat_send_panel.add(label_chatID, BorderLayout.WEST);
-		
+
 		// 채팅 입력창
 		chat_tf = new JTextField(40);
 		chat_tf.requestFocus();
-		
+
 		// 보내기 버튼
 		send_btn = new JButton("send");
 		send_btn.setFont(Commons.getFont());
-		
+
 		chat_send_panel.add(chat_tf, BorderLayout.CENTER);
 		chat_send_panel.add(send_btn, BorderLayout.EAST);
 		chat_panel.add(chat_ta, BorderLayout.CENTER);
@@ -225,23 +208,31 @@ public class GameUI {
 		south_panel.add(chat_panel, BorderLayout.CENTER);
 
 		// 버튼 & 텍스트 필드 이벤트
-		watch_profile_btn.addActionListener(event);
-		watch_profile_btn2.addActionListener(event);
 		ready_btn.addActionListener(event);
 		exit_btn.addActionListener(event);
 		chat_tf.addActionListener(event);
 		send_btn.addActionListener(event);
-		
+
 		frame.add(west_panel, BorderLayout.WEST);
 		frame.add(east_panel, BorderLayout.EAST);
 		frame.add(center_panel, BorderLayout.CENTER);
 		frame.add(south_panel, BorderLayout.SOUTH);
 
 		frame.setSize(900, 730);
-		frame.setResizable(false);	// 창 크기 변경X
+		frame.setResizable(false); // 창 크기 변경X
 		frame.setVisible(true);
 
 		frame.addWindowListener(event);
+	}
+
+	public void fillUserPanel() {
+		gdao = new GameDAO();
+		
+		for (int i = 0; i < room.userList.size(); i++) {
+			String id = room.userList.get(i);
+			iconList = gdao.getGameImgResult(id);
+			idLabelList.set(i, id);
+		}
 	}
 
 	public void exit() {
