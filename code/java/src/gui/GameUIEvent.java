@@ -50,8 +50,7 @@ public class GameUIEvent implements ActionListener, WindowListener, MouseListene
 			ui.textField.setText("");
 			System.out.println("텍스트");
 		} else if (obj == ui.readybutton) { // 레디
-			win();
-			// lose();
+			gsc.turnflag=true;
 		} else if (obj == ui.exitbutton) { // 나가기
 			exit();
 		} else if (obj == ui.watchprofilebtn_2) { // 도전자 프로필
@@ -69,6 +68,7 @@ public class GameUIEvent implements ActionListener, WindowListener, MouseListene
 			clickmice.add(btnNo); // 지뢰 클릭 시 클릭된 지뢰 리스트에 추가
 			System.out.println(clickmice);
 			gvo.setClickmice(clickmice); // 리스트 갱신
+			gvo.setClickflag(true);//클릭했다는 정보 갱신
 			ui.gsc.calcBtnClick();
 			System.out.println(gvo.getClickmice());// 이따삭제
 		}
