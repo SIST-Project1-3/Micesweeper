@@ -136,8 +136,9 @@ public class GameUI {
 		user_icon_panel.add(user_icon);
 
 		// 참가자 이미지
-		if (!iconList[1].equals("images/쥐.png")) {
+		if (iconList[1] != null) {
 			icon2 = new ImageIcon(iconList[1]);
+			System.out.println(111 + iconList[1]);
 		} else {
 			icon2 = new ImageIcon("images/쥐.png");
 		}
@@ -148,8 +149,10 @@ public class GameUI {
 		user_image_panel.add(img_label2);
 
 		// 참가자 아이디
-		if (!room.userList.get(1).equals("대기중")) {
+		System.out.println(room.userList.size());
+		if (room.userList.size() == 2) {
 			user_id_label = new JLabel(room.userList.get(1));
+			System.out.println(222222+room.userList.get(1));
 		} else {
 			user_id_label = new JLabel("대기중");
 		}
