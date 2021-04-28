@@ -31,49 +31,6 @@ public class GameSystemClient {
 
 	// method
 	// 버튼 클릭 연산
-	public void calcBtnClick() {
-
-		if (turnflag == true) {
-			gameplay();
-			if (winflag == true) {
-				gvo.setWinflag(true);
-				gvo.setCount(count);
-				// 승리 팝업창
-				count = 0;
-				exit();
-			} else if (loseflag == true) {
-				gvo.setLoseflag(true);
-				gvo.setCount(count);
-				// 패배 팝업창
-				count = 0;
-				exit();
-			} else {
-				turnflag = false;
-				count++;
-				calcBtnClick();
-
-			}
-		} else {
-			while (gvo.isClickflag() == true) {
-				gamewait();
-				if (winflag == true) {
-					// 패배 팝업창
-					count = 0;
-					// 종료
-				} else if (loseflag == true) {
-					// 승리 팝업창
-					count = 0;
-					// 종료
-				} else {
-					turnflag = true;
-					count++;
-
-				}
-			}
-		}
-	}
-
-	// 버튼 클릭 연산
 	public void calcBtnClick(int btnnum) {
 
 		gameplay(btnnum);
@@ -104,27 +61,8 @@ public class GameSystemClient {
 		}
 	}
 
-	public void gameplay() {
-		// UI에서 누른 버튼의 정보를 받아옴
-		System.out.println("내 턴");
-		System.out.println(count);
-		int btnnum = gvo.getClickmice().get(count); //
-		open(btnnum);
-		gvo.setClickflag(false);
-	}
-
 	public void gameplay(int btnnum) {
 		open(btnnum);
-	}
-
-	public void gamewait() {
-		// Server에서 눌려진 버튼의 정보를 받아옴
-		System.out.println("상대 턴");
-		System.out.println(count);
-		System.out.println(gvo.getClickmice());
-		int btnnum = gvo.getClickmice().get(count);
-		open(btnnum);
-		gvo.setClickflag(false);
 	}
 
 	public void open(int btnnum) {
