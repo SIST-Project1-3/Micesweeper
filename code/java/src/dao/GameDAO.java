@@ -8,7 +8,7 @@ import vo.MessageVO;
 public class GameDAO extends DAO {
 	// Constructor
 	public GameDAO() {
-		System.out.println("4: GameDAO load");
+		System.out.println("3: GameDAO load");
 	}
 
 	// Method
@@ -30,7 +30,7 @@ public class GameDAO extends DAO {
 		}
 		return gameImg;
 	}
-	
+
 	// 게임화면 프로필 보기 (내 프로필, 상대 프로필)
 	public MemberVO getGameProfileResult(MessageVO msg) {
 		MemberVO profile = new MemberVO();
@@ -62,7 +62,7 @@ public class GameDAO extends DAO {
 
 			pstmt.setString(1, msg.getId());
 			pstmt.executeUpdate();
-			
+
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
@@ -77,7 +77,7 @@ public class GameDAO extends DAO {
 
 			pstmt.setString(1, msg.getId());
 			pstmt.executeUpdate();
-			
+
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
