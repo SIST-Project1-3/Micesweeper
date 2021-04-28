@@ -43,6 +43,8 @@ public class GameUIEvent implements ActionListener, WindowListener, MouseListene
 			ProfileUI pui = new ProfileUI();
 			pui.game_Profile(gameProfile);
 		} else if (obj == ui.send || obj == ui.textField) { // 채팅
+			ui.client.sendGameChat(ui.textField.getText());
+			ui.textField.setText("");
 			System.out.println("텍스트");
 		} else if (obj == ui.readybutton) { // 레디
 			win();

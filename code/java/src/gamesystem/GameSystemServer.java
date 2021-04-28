@@ -3,7 +3,10 @@ package gamesystem;
 import java.net.Socket;
 import java.util.ArrayList;
 import java.util.Iterator;
+
+import system.server.ServerSystem;
 import vo.GameVO;
+import vo.MessageVO;
 import vo.RoomVO;
 
 public class GameSystemServer {
@@ -15,7 +18,8 @@ public class GameSystemServer {
 	public GameVO gvo;
 	public int loc; // 누른 버튼의 좌표
 	public RoomVO room;
-	public ArrayList<Socket> socketList = new ArrayList<Socket>(2); // 연결된 소켓 리스트
+//	public ArrayList<ServerSystem.ServerThread> clientList = new ArrayList<ServerSystem.ServerThread>(2); // 연결된 클라이언트
+																											// 리스트
 //	public String title; // 방 이름
 //	public int userCount; // 인원 수
 //	public ArrayList<String> userIdList = new ArrayList<String>(2); // 연결된 유저의 이름
@@ -29,7 +33,20 @@ public class GameSystemServer {
 
 	// Method
 
-	//
+	// 게임 채팅 메소드. 미사용
+//	public void sendChat(MessageVO msg) {
+//		try {
+//			for (ServerSystem.ServerThread st : clientList) {
+//				st.oos.writeObject(msg);
+//				System.out.println("게임 채팅 메시지 송신. 방 번호: " + room.no + ", 송신하는 메시지의 방 번호: " + msg.getNo());
+//			}
+//		} catch (Exception e) {
+//			System.out.println("GameSystemServer에서 채팅 전송 실패");
+//			e.printStackTrace();
+//		}
+//	}
+
+	// 메소드 명을 알아보기 쉽게 수정해주세요.
 	public void init() {
 		gameflag = false; // 나중에 false로 바꾸고, 시작하면 true 되는 로직 생성해야함
 		// 준비 + 시작하는 과정
@@ -62,8 +79,7 @@ public class GameSystemServer {
 			System.out.println(mflag);
 			if (mflag == false) {
 				i--;
-				System.out.println(
-						"중복!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!");
+				System.out.println("중복!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!");
 				mflag = true;
 			} else if (mflag == true) {
 				mice.add(l);

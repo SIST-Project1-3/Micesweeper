@@ -48,7 +48,7 @@ public class StartUIEvent implements ActionListener {
 			if (result) {
 				// 로그인 성공
 				JOptionPane.showMessageDialog(null, Commons.getMsg("로그인 되었습니다"));
-				client.setId(sui.id_tf.getText());
+				client.id = sui.id_tf.getText();
 				new MainUI(client);
 				sui.f.dispose();
 			} else {

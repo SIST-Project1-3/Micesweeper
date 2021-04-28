@@ -9,24 +9,25 @@ public class MessageVO implements Serializable {
 	public static final int BOARD_WRITE = 1; // 게시글 작성
 	public static final int BOARD_READ_LIST = 2; // 게시글 목록 불러오기
 	public static final int BOARD_READ_ARTICLE = 3; // 특정 게시글 읽기
-	public static final int BOARD_UPDATE_ARTICLE = 14; // 특정 게시글 수정
-	public static final int BOARD_DELETE_ARTICLE = 15; // 특정 게시글 삭제
-	public static final int BOARD_SEARCH_TITLE = 8; // 게시글 제목 검색
-	public static final int BOARD_SEARCH_WRITER = 9; // 게시글 작성자 검색
-	public static final int LOGIN = 4; // 로그인
-	public static final int CONNECT = 16; // 게임종료 및 로그아웃
-	public static final int EXIT = 5; // 게임종료 및 로그아웃
-	public static final int JOIN = 6; // 회원가입
-	public static final int IDCHECK = 10; // 아이디 중복확인
-	public static final int SERVERCHAT = 7; // 멀티 채팅
-	public static final int MY_PROFILE = 11; // 내 프로필 정보 요청
-	public static final int IMG_REQUEST = 12; // 프로필 이미지 요청
-	public static final int IMG_UPDATE = 13; // 수정할 이미지 경로 가져오기
-	public static final int GAME_PROFILE = 14; // 상대 프로필 정보 요청
-	public static final int ANOTHER_PROFILE = 15; // 상대 프로필 정보 요청
-	public static final int ROOM_CREATE = 16; // 방 생성
-	public static final int ROOM_JOIN = 17; // 방 참가
-	public static final int WIN_OR_LOSE = 18; // 승패기록
+	public static final int BOARD_UPDATE_ARTICLE = 4; // 특정 게시글 수정
+	public static final int BOARD_DELETE_ARTICLE = 5; // 특정 게시글 삭제
+	public static final int BOARD_SEARCH_TITLE = 6; // 게시글 제목 검색
+	public static final int BOARD_SEARCH_WRITER = 7; // 게시글 작성자 검색
+	public static final int LOGIN = 8; // 로그인
+	public static final int CONNECT = 9; // 게임종료 및 로그아웃
+	public static final int EXIT = 10; // 게임종료 및 로그아웃
+	public static final int JOIN = 11; // 회원가입
+	public static final int IDCHECK = 12; // 아이디 중복확인
+	public static final int SERVERCHAT = 13; // 멀티 채팅
+	public static final int GAMECHAT = 14; // 게임 채팅
+	public static final int MY_PROFILE = 15; // 내 프로필 정보 요청
+	public static final int IMG_REQUEST = 16; // 프로필 이미지 요청
+	public static final int IMG_UPDATE = 17; // 수정할 이미지 경로 가져오기
+	public static final int GAME_PROFILE = 18; // 상대 프로필 정보 요청
+	public static final int ANOTHER_PROFILE = 19; // 상대 프로필 정보 요청
+	public static final int ROOM_CREATE = 20; // 방 생성
+	public static final int ROOM_JOIN = 21; // 방 참가
+	public static final int WIN_OR_LOSE = 22; // 승패기록
 
 	int status;// MsgVO의 상태
 	int no; // 게시글 No, 게임방 No

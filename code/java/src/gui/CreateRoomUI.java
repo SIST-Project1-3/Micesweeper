@@ -80,8 +80,9 @@ public class CreateRoomUI implements ActionListener {
 				RoomVO room = client.createRoom(tf_roomName.getText()); // 방을 생성하고 생성된 방의 정보를 가져옴
 				if (room != null) {
 					JOptionPane.showMessageDialog(null, Commons.getMsg("방 생성 성공"));
-					mainui.frame.dispose();
 					new GameUI(client, room);
+					client.mainui = null; // GameUI로 화면 전환되므로 연결 해제
+					mainui.frame.dispose();
 					exit();
 				} else {
 					JOptionPane.showMessageDialog(null, Commons.getMsg("방 생성 실패"));

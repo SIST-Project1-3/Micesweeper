@@ -32,7 +32,7 @@ public class MainUIEvent implements ActionListener, WindowListener, MouseListene
 		} else if (obj == ui.list_btn.get(1)) { // 내 프로필
 			MessageVO msg = new MessageVO();
 			msg.setStatus(MessageVO.MY_PROFILE);
-			msg.setId(ui.client.getId());
+			msg.setId(ui.client.id);
 			MemberVO profile = ui.client.myProfile(msg);
 			new ProfileUI(profile);
 		} else if (obj == ui.list_btn.get(2)) { // 커뮤니티
@@ -43,7 +43,7 @@ public class MainUIEvent implements ActionListener, WindowListener, MouseListene
 			if (!ui.tf_chat.getText().isEmpty()) { // 입력한 내용이 있는 경우 실행
 				MessageVO msg = new MessageVO();
 				msg.setStatus(MessageVO.SERVERCHAT);
-				msg.setId(ui.client.getId());
+				msg.setId(ui.client.id);
 				msg.setContent(ui.tf_chat.getText());
 				ui.client.sendMultiChat(msg);
 				ui.tf_chat.setText("");
@@ -108,8 +108,9 @@ public class MainUIEvent implements ActionListener, WindowListener, MouseListene
 				RoomVO room = ui.client.joinRoom(roomNo);
 				if (room != null) { // 방 참가 성공시
 					JOptionPane.showMessageDialog(null, Commons.getMsg("방 입장"));
-					ui.frame.dispose();
 					new GameUI(ui.client, room);
+					ui.client.mainui = null; // 방 입장하면 GameUI로 전환되므로 MainUI 연결 해제
+					ui.frame.dispose();
 				} else { // 방 참가 실패시
 					JOptionPane.showMessageDialog(null, Commons.getMsg("방 입장 실패"));
 				}

@@ -20,7 +20,7 @@ public class ClientSystem {
 	// Field
 	Socket client;
 	Socket client_chat;
-	String id; // 접속한 유저의 ID정보를 담고 있는 속성
+	public String id; // 접속한 유저의 ID정보를 담고 있는 속성
 	public BoardDAO bdao = new BoardDAO();
 	MemberDAO mdao = new MemberDAO();
 	ObjectOutputStream oos;
@@ -146,15 +146,6 @@ public class ClientSystem {
 			e.printStackTrace();
 		}
 		return result;
-	}
-
-	// 멀티채팅
-	public void sendMultiChat(MessageVO msg) {
-		try {
-			oos_chat.writeObject(msg);
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
 	}
 
 	// 회원가입
@@ -301,14 +292,6 @@ public class ClientSystem {
 		}
 	}
 
-	public String getId() {
-		return id;
-	}
-
-	public void setId(String id) {
-		this.id = id;
-	}
-
 	// 방 정보 목록을 Vector형태로 반환
 	public Vector<String> getRoomInfoList() {
 		Vector<String> list = new Vector<String>();
@@ -316,6 +299,30 @@ public class ClientSystem {
 			list.add(room.getInfo());
 		}
 		return list;
+	}
+
+	// 멀티채팅
+	public void sendMultiChat(MessageVO msg) {
+		try {
+			oos_chat.writeObject(msg);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+	}
+
+	// 1:1 게임 채팅 전송
+	public void sendGameChat(String txt) {
+		try {
+			MessageVO msg = new MessageVO();
+			msg.setStatus(MessageVO.GAMECHAT);
+			msg.setNo(gameui.room.no);
+			msg.setId(id);
+			msg.setContent(txt);
+			oos_chat.writeObject(msg); // 채팅 서버를 이용함
+			System.out.println("게임 채팅 메시지 전송 성공");
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
 	}
 
 	class ClientThread extends Thread {
@@ -337,7 +344,9 @@ public class ClientSystem {
 				while (true) {
 					MessageVO msg = (MessageVO) ois_chat.readObject();
 					if (msg.getStatus() == MessageVO.SERVERCHAT) { // 멀티채팅
-						mainui.ta_chat.append(msg.getId() + ": " + msg.getContent() + "\n");
+						if (mainui != null) { // 게임에 들어가면 mainui가 사라짐
+							mainui.ta_chat.append(msg.getId() + ": " + msg.getContent() + "\n");
+						}
 					} else if (msg.getStatus() == MessageVO.LOGIN) { // 사용자 접속
 						userList = msg.getUserList();
 						if (mainui != null) { // 로그인하기 전에 코드를 실행하면 에러가 나므로 if 문으로 검증
@@ -357,6 +366,11 @@ public class ClientSystem {
 						roomList = msg.getRoomList();
 						if (mainui != null) {
 							mainui.jlist_room.setListData(getRoomInfoList());
+						}
+					} else if (msg.getStatus() == MessageVO.GAMECHAT) {
+						if (gameui != null && (msg.getNo() == gameui.room.no)) { // 게임 중이고, 받은 메시지의 방 번호가 나의 방 번호일 때 실행
+							gameui.textArea.append(msg.getId() + ": " + msg.getContent() + "\n");
+							System.out.println(msg.getNo() + "번 방 채팅: " + msg.getId() + ": " + msg.getContent() + "\n");
 						}
 					}
 				}

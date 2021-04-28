@@ -49,7 +49,7 @@ public class MainUI {
 	private void initialize() {
 		frame = new JFrame();
 		frame.setLayout(new BorderLayout(10, 10));
-		frame.setTitle("쥐뢰찾기 - " + client.getId());
+		frame.setTitle("쥐뢰찾기 - " + client.id);
 
 		frame.getContentPane().add(createNorthPanel(), "North");
 		frame.getContentPane().add(createCenterPanel(), "Center");
@@ -144,7 +144,7 @@ public class MainUI {
 
 		// tf 패널은 채팅 입력 부분. 라벨, 입력창, 전송 버튼으로 구성
 		JPanel panel_tf = new JPanel(new BorderLayout());
-		JLabel label_id = new JLabel(client.getId()); // 접속한 아이디로 입력창 왼쪽에 표시
+		JLabel label_id = new JLabel(client.id); // 접속한 아이디로 입력창 왼쪽에 표시
 		label_id.setFont(Commons.getFont());
 		btn_send = new JButton("전송");
 		btn_send.setFont(Commons.getFont());

@@ -39,18 +39,22 @@ public class GameUI {
 	GameSystemClient gsc;
 	GameSystemServer gss;
 	ClientSystem client;
-	RoomVO room; // 방 정보
+	public RoomVO room; // 방 정보
 
 	// Constructor
 	public GameUI() {
+		client = new ClientSystem();
+		client.id = "Test";
 		room = new RoomVO();
 		room.title = "test";
+		room.no=0;
 		initialize();
 	}
 
 	public GameUI(ClientSystem client, RoomVO room) {
 		this.client = client;
 		this.room = room;
+		client.gameui = this; // 클아이언트에 ui 등록
 		initialize();
 	}
 
@@ -212,9 +216,12 @@ public class GameUI {
 		frame.setVisible(true);
 
 		frame.addWindowListener(event);
+
+		textField.requestFocus();
 	}
 
 	public void exit() {
+		client.gameui = null; // 클라이언트와 ui 연결 해제
 		frame.dispose();
 	}
 

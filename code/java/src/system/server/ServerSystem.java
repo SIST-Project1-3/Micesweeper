@@ -65,17 +65,17 @@ public class ServerSystem {
 	public ArrayList<RoomVO> getRoomList() {
 		ArrayList<RoomVO> list = new ArrayList<RoomVO>();
 		for (GameSystemServer gss : gssList) {
-			list.add((RoomVO)gss.room.clone());
+			list.add((RoomVO) gss.room.clone());
 		}
 		return list;
 	}
 
 	// 게임 방 생성 메소드
-	public RoomVO createRoom(MessageVO msg, Socket client) {
+	public RoomVO createRoom(MessageVO msg, ServerThread client) {
 		System.out.println("createRoom 메소드 실행");
 		RoomVO result = null;
 		GameSystemServer gss = new GameSystemServer();
-		gss.socketList.add(client); // 생성한 유저의 소켓 추가
+//		gss.clientList.add(client); // 생성한 유저의 소켓 추가
 		gss.room.userList.add(msg.getId()); // 해당 유저의 아이디 추가
 		gss.room.title = msg.getTitle(); // 해당 방의 이름 설정
 		gss.room.userCount = 1; // 방의 인원수 설정
@@ -95,11 +95,11 @@ public class ServerSystem {
 	}
 
 	// 방 참가 메소드
-	public RoomVO joinRoom(MessageVO msg, Socket client) {
+	public RoomVO joinRoom(MessageVO msg, ServerThread client) {
 		RoomVO result = null;
 		for (GameSystemServer gss : gssList) {
 			if (gss.room.no == msg.getNo()) { // 참가하려는 방의 번호를 찾아내면 실행
-				gss.socketList.add(client);
+//				gss.clientList.add(client);
 				gss.room.userList.add(msg.getId());
 				gss.room.userCount++;
 				System.out.println(
@@ -118,8 +118,8 @@ public class ServerSystem {
 	public class ServerThread extends Thread {
 		// Field
 		Socket client;
-		ObjectOutputStream oos;
-		ObjectInputStream ois;
+		public ObjectOutputStream oos;
+		public ObjectInputStream ois;
 
 		// Constructor
 		public ServerThread(Socket client) {
@@ -202,12 +202,12 @@ public class ServerSystem {
 //						returnMsg.setMyProfile(gameProfile);
 //						oos.writeObject(returnMsg);
 					} else if (msg.getStatus() == MessageVO.ROOM_CREATE) { // 방 생성 요청, 성공 여부 반환
-						returnMsg.setRoom(createRoom(msg, this.client)); // 자신의 소켓 정보까지 넘김
+						returnMsg.setRoom(createRoom(msg, this)); // 자신의 소켓 정보까지 넘김
 						oos.writeObject(returnMsg);
 					} else if (msg.getStatus() == MessageVO.ROOM_JOIN) { // 방 참가 요청, 성공 여부 반환
-						returnMsg.setRoom(joinRoom(msg, this.client));
+						returnMsg.setRoom(joinRoom(msg, this));
 						oos.writeObject(returnMsg);
-					}
+					} 
 				}
 			} catch (Exception e) {
 				e.printStackTrace();
