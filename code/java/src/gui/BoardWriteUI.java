@@ -119,7 +119,7 @@ public class BoardWriteUI implements ActionListener {
 				// 작성한 글을 msg에 담아서 clientsystem을 통해 서버에 전송
 				MessageVO msg = new MessageVO();
 				msg.setStatus(MessageVO.BOARD_WRITE);
-				msg.setId(client.getId());
+				msg.setId(client.id);
 				msg.setTitle(tf_title.getText());
 				msg.setContent(tf_content.getText());
 				// clientsystem을 이용해 서버에 전송

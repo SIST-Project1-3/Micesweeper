@@ -193,7 +193,7 @@ public class BoardListUI implements ActionListener, MouseListener {
 
 		String name = e.getActionCommand(); // 수정, 삭제 버튼 분류에 사용
 		int r = table.getSelectedRow(); // 선택된 행이 몇번째 행인지
-		String userId = client.getId();
+		String userId = client.id;
 		String writer;
 
 		if (obj == btn_search || obj == tf_search) { // 검색
@@ -209,7 +209,7 @@ public class BoardListUI implements ActionListener, MouseListener {
 			
 		} else if (name.equals("수정")) {
 			writer = (String) table.getValueAt(r, 2); // 해당 글 작성자
-			System.out.printf("접속자: %s, %d번 게시글의 작성자: %s\n", client.getId(), table.getValueAt(r, 0), writer);
+			System.out.printf("접속자: %s, %d번 게시글의 작성자: %s\n", client.id, table.getValueAt(r, 0), writer);
 			if (userId.equals(writer)) {
 				System.out.println(table.getValueAt(r, 0) + "번 게시물 수정");
 				BoardVO article = client.readArticle((int) table.getValueAt(r, 0));
