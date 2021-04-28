@@ -397,6 +397,18 @@ public class ClientSystem {
 								gameui.gsc.calcBtnClick(msg.getNo());
 							}
 						}
+					} else if (msg.getStatus() == MessageVO.GAME_READY) { // 게임 레디
+						if (gameui != null) { // 게임 중이면 실행
+							if (msg.getRoom().no == gameui.room.no) { // 방 번호가 맞으면 실행
+								gameui.gsc.calcBtnClick(msg.getNo());
+							}
+						}
+					} else if (msg.getStatus() == MessageVO.GAME_LEAVE) { // 게임 탈주
+						if (gameui != null) { // 게임 중이면 실행
+							if (msg.getRoom().no == gameui.room.no) { // 방 번호가 맞으면 실행
+								gameui.gsc.calcBtnClick(msg.getNo());
+							}
+						}
 					}
 				}
 			} catch (Exception e) {

@@ -208,7 +208,7 @@ public class ServerSystem {
 					} else if (msg.getStatus() == MessageVO.ROOM_JOIN) { // 방 참가 요청, 성공 여부 반환
 						returnMsg.setRoom(joinRoom(msg, this));
 						oos.writeObject(returnMsg);
-					}
+					} 
 				}
 			} catch (Exception e) {
 				e.printStackTrace();

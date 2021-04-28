@@ -33,6 +33,8 @@ public class MessageVO implements Serializable {
 	public static final int GAME_IMG = 25;
 	public static final int GAME_WIN = 26; // 게임 승리
 	public static final int GAME_LOSE = 27; // 게임 패배
+	public static final int GAME_LEAVE = 28; // 게임 탈주
+	public static final int GAME_READY = 29; // 게임 탈주
 
 	int clickedBtn; // 누른 버튼
 	int status;// MsgVO의 상태
@@ -48,7 +50,15 @@ public class MessageVO implements Serializable {
 	Vector<String> userList; // 접속중인 유저 목록
 	ArrayList<RoomVO> roomList; // 방 목록
 	RoomVO room; // 방 정보
-	boolean winflag, loseflag;
+	boolean winflag, loseflag, readyflag;
+
+	public boolean isReadyflag() {
+		return readyflag;
+	}
+
+	public void setReadyflag(boolean readyflag) {
+		this.readyflag = readyflag;
+	}
 
 	public int getClickedBtn() {
 		return clickedBtn;

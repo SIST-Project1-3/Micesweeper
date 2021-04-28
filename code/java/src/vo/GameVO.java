@@ -12,7 +12,8 @@ public class GameVO implements Serializable {
 	public ArrayList<Integer> mice = new ArrayList<Integer>(); // 지뢰 위치
 	public ArrayList<Integer> clickmice = new ArrayList<Integer>(); // 클릭된 버튼
 	public ArrayList<Integer> number = new ArrayList<Integer>(); // 숫자 위치
-	boolean clickflag = false, winflag = false, loseflag = false, gameflag = false; // 클릭, 승리, 종료 플래그
+	boolean clickflag = false, winflag = false, loseflag = false; // 클릭, 승리, 종료 플래그
+	public boolean gameflag = false;
 	public boolean isGameflag() {
 		return gameflag;
 	}

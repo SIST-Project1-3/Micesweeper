@@ -51,12 +51,25 @@ public class GameUIEvent implements ActionListener, WindowListener, MouseListene
 			ui.chat_tf.setText("");
 			System.out.println("텍스트");
 		} else if (obj == ui.ready_btn) { // 준비
-			gsc.turnflag = true; // 임시로 해놓은것
+			if(ui.gsc.turnflag == false) {
+				MessageVO msg = new MessageVO();
+				msg.setStatus(MessageVO.GAME_READY);
+				ui.ready_btn.setEnabled(false);
+				ui.gsc.gameflag = true; // 참가자 준비
+			}else {
+				MessageVO msg = new MessageVO();
+				msg.setStatus(MessageVO.GAME_READY);
+				ui.ready_btn.setEnabled(false);
+				gvo.gameflag = true; // 방장 준비 처음에 비활성화 - 다음에 활성화시킬 것
+				
+			}
 		} else if (obj == ui.exit_btn) { // 나가기
 			if (gvo.isGameflag() == true) {
 				int answer = JOptionPane.showConfirmDialog(null, Commons.getMsg("게임 중 종료시 패배처리됩니다. 정말로 종료하시겠습니까?"));
 				if (answer == 0) {
-					gvo.setLoseflag(true);
+					MessageVO msg = new MessageVO();
+					msg.setStatus(MessageVO.GAME_LEAVE);
+					msg.setId(ui.user_id_label.getText());
 					exit();
 					// 게임종료시 패배처리됩니다 종료하시겠습니까
 				}
@@ -111,10 +124,11 @@ public class GameUIEvent implements ActionListener, WindowListener, MouseListene
 		if (gvo.isGameflag() == true) {
 			int answer = JOptionPane.showConfirmDialog(null, Commons.getMsg("게임 중 종료시 패배처리됩니다. 정말로 종료하시겠습니까?"));
 			if (answer == 0) {
-				gvo.setLoseflag(true);
+				MessageVO msg = new MessageVO();
+				msg.setStatus(MessageVO.GAME_LEAVE);
+				msg.setId(ui.user_id_label.getText());
 				exit();
 				// 게임종료시 패배처리됩니다 종료하시겠습니까
-
 			}
 		} else {
 			exit();
