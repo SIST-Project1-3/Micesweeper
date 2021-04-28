@@ -13,17 +13,17 @@ public class GameDAO extends DAO {
 
 	// Method
 	// 게임화면 방장 이미지, 참가자 이미지 가져오기
-	public ArrayList<String> getGameImgResult(String id) {
-		ArrayList<String> gameImg = null;
+	public String getGameImgResult(String id) {
+		String gameImg = new String();
 		try {
-			String sql = "select id,img from member where id=?";
+			String sql = "select img from member where id=?";
 			getPreparedStatement(sql);
 
 			pstmt.setString(1, id);
 
 			rs = pstmt.executeQuery();
 			while (rs.next()) {
-				rs.getString(1);
+				gameImg = rs.getString(1);
 			}
 		} catch (Exception e) {
 			e.printStackTrace();
