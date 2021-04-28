@@ -57,6 +57,7 @@ public class GameUI {
 		gsc = new GameSystemClient(this, turnflag, room);
 		gvo = gsc.gvo;
 		initialize();
+		System.out.println("유저수: "+room.userList.size());
 	}
 
 	// Method
