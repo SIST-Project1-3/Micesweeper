@@ -10,7 +10,28 @@ public class GameDAO extends DAO {
 	}
 
 	// Method
-	// 게임화면 프로필 (내 프로필, 상대 프로필)
+	// 게임화면 방장 이미지, 참가자 이미지 가져오기
+	public MemberVO getGameImgResult(MessageVO msg) {
+		MemberVO gameImg = new MemberVO();
+		try {
+			String sql = "select IMG from member where id=? or id=?";
+			getPreparedStatement(sql);
+
+			pstmt.setString(1, msg.getId());
+			pstmt.setString(2, msg.getId2());
+
+			rs = pstmt.executeQuery();
+			while (rs.next()) {
+				gameImg.setImg(rs.getString(2));
+				gameImg.setImg2(rs.getString(2));
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return gameImg;
+	}
+	
+	// 게임화면 프로필 보기 (내 프로필, 상대 프로필)
 	public MemberVO getGameProfileResult(MessageVO msg) {
 		MemberVO profile = new MemberVO();
 		try {
