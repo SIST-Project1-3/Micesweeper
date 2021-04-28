@@ -18,11 +18,6 @@ public class GameSystemServer {
 	public GameVO gvo;
 	public int loc; // 누른 버튼의 좌표
 	public RoomVO room;
-//	public ArrayList<ServerSystem.ServerThread> clientList = new ArrayList<ServerSystem.ServerThread>(2); // 연결된 클라이언트
-																											// 리스트
-//	public String title; // 방 이름
-//	public int userCount; // 인원 수
-//	public ArrayList<String> userIdList = new ArrayList<String>(2); // 연결된 유저의 이름
 
 	// Constructor
 	public GameSystemServer() {
@@ -32,19 +27,6 @@ public class GameSystemServer {
 	}
 
 	// Method
-
-	// 게임 채팅 메소드. 미사용
-//	public void sendChat(MessageVO msg) {
-//		try {
-//			for (ServerSystem.ServerThread st : clientList) {
-//				st.oos.writeObject(msg);
-//				System.out.println("게임 채팅 메시지 송신. 방 번호: " + room.no + ", 송신하는 메시지의 방 번호: " + msg.getNo());
-//			}
-//		} catch (Exception e) {
-//			System.out.println("GameSystemServer에서 채팅 전송 실패");
-//			e.printStackTrace();
-//		}
-//	}
 
 	// 메소드 명을 알아보기 쉽게 수정해주세요.
 	public void init() {

@@ -14,7 +14,7 @@ import vo.GameVO;
 
 public class GameSystemClient {
 	// field
-	boolean turnflag = true, winflag = false, loseflag = false;
+	public boolean turnflag = true, winflag = false, loseflag = false;
 	int count = 0;
 	GameVO gvo;
 	GameUI ui;
@@ -28,7 +28,8 @@ public class GameSystemClient {
 	}
 
 	// method
-	public void init() {
+	// 버튼 클릭 연산
+	public void calcBtnClick() {
 
 		if (turnflag == true) {
 			gameplay();
@@ -47,7 +48,7 @@ public class GameSystemClient {
 			} else {
 				turnflag = false;
 				count++;
-				// init();
+				calcBtnClick();
 
 			}
 		} else {
@@ -63,7 +64,6 @@ public class GameSystemClient {
 			} else {
 				turnflag = true;
 				count++;
-				init();
 
 			}
 		}

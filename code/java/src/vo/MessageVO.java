@@ -28,6 +28,7 @@ public class MessageVO implements Serializable {
 	public static final int ROOM_CREATE = 20; // 방 생성
 	public static final int ROOM_JOIN = 21; // 방 참가
 	public static final int WIN_OR_LOSE = 22; // 승패기록
+	public static final int GAME_CLICK = 23;
 
 	int status;// MsgVO의 상태
 	int no; // 게시글 No, 게임방 No

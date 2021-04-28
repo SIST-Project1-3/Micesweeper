@@ -12,6 +12,7 @@ import javax.swing.JButton;
 
 import dao.GameDAO;
 import gamesystem.GameSystemClient;
+import gamesystem.GameSystemServer;
 import vo.GameVO;
 import vo.MemberVO;
 import vo.MessageVO;
@@ -22,12 +23,14 @@ public class GameUIEvent implements ActionListener, WindowListener, MouseListene
 	GameUI ui;
 	GameDAO gdao;
 	GameVO gvo;
+	GameSystemClient gsc;
 
 	public GameUIEvent(GameUI ui) {
 		gdao = new GameDAO();
 		gvo = new GameVO();
 		this.ui = ui;
 		gvo = ui.gvo;
+		gsc = ui.gsc;
 	}
 
 	@Override
@@ -58,11 +61,12 @@ public class GameUIEvent implements ActionListener, WindowListener, MouseListene
 			MemberVO gameProfile = gdao.getGameProfileResult(msg);
 			ProfileUI pui = new ProfileUI();
 			pui.game_Profile(gameProfile);
-		} else { // 지뢰 버튼 클릭 처리
-			int a;
-			a = (Integer.parseInt(((JButton) obj).getName())) / 10 * 9
-					+ (Integer.parseInt(((JButton) obj).getName())) % 10;
-			clickmice.add(a); // 지뢰 클릭 시 클릭된 지뢰 리스트에 추가
+		} else if(gsc.turnflag == true){ // 지뢰 버튼 클릭 처리
+
+//			String btnName = ((JButton) obj).getName();
+			int btnName = Integer.parseInt(((JButton) obj).getName());
+			int btnNo = btnName / 10 * 9 + btnName % 10; // 버튼의 순서: 00 ~ 88 까지 매핑된 버튼의 이름을 0 ~ 81
+			clickmice.add(btnNo); // 지뢰 클릭 시 클릭된 지뢰 리스트에 추가
 			System.out.println(clickmice);
 			gvo.setClickmice(clickmice); // 리스트 갱신
 			ui.gsc.init();
