@@ -51,14 +51,22 @@ public class MessageVO implements Serializable {
 	Vector<String> userList; // 접속중인 유저 목록
 	ArrayList<RoomVO> roomList; // 방 목록
 	RoomVO room; // 방 정보
-	boolean winflag, loseflag, readyflag;
+	boolean winflag, loseflag, readyflag2, gameflag;
 
-	public boolean isReadyflag() {
-		return readyflag;
+	public boolean isGameflag() {
+		return gameflag;
 	}
 
-	public void setReadyflag(boolean readyflag) {
-		this.readyflag = readyflag;
+	public void setGameflag(boolean gameflag) {
+		this.gameflag = gameflag;
+	}
+
+	public boolean isReadyflag2() {
+		return readyflag2;
+	}
+
+	public void setReadyflag2(boolean readyflag2) {
+		this.readyflag2 = readyflag2;
 	}
 
 	public int getClickedBtn() {

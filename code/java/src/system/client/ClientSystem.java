@@ -1,5 +1,6 @@
 package system.client;
 
+import java.awt.Color;
 import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
@@ -369,6 +370,19 @@ public class ClientSystem {
 			e.printStackTrace();
 		}
 	}
+	//게임 준비
+	public void sendReady(Boolean readyflag2) {
+		try {
+			MessageVO msg = new MessageVO();
+			msg.setStatus(MessageVO.GAME_READY);
+			msg.setRoom(new RoomVO());
+			msg.getRoom().no = gameui.room.no; // 방 번호
+			msg.setReadyflag2(true); // 누른 버튼
+			oos_chat.writeObject(msg);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+	}
 
 	class ClientThread extends Thread {
 		// Field
@@ -426,7 +440,8 @@ public class ClientSystem {
 					} else if (msg.getStatus() == MessageVO.GAME_READY) { // 게임 레디
 						if (gameui != null) { // 게임 중이면 실행
 							if (msg.getRoom().no == gameui.room.no) { // 방 번호가 맞으면 실행
-								gameui.gsc.calcBtnClick(msg.getNo());
+								gameui.gvo.setReadyflag2(msg.isReadyflag2());
+								gameui.ready_btn.setBackground(Color.ORANGE);
 							}
 						}
 					} else if (msg.getStatus() == MessageVO.GAME_LEAVE) { // 게임 탈주
