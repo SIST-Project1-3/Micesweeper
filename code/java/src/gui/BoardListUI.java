@@ -9,24 +9,20 @@ import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
-import java.awt.event.WindowListener;
 import java.util.ArrayList;
 
 import javax.swing.AbstractCellEditor;
 import javax.swing.JButton;
 import javax.swing.JComboBox;
 import javax.swing.JFrame;
-import javax.swing.JList;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
 import javax.swing.JTextField;
-import javax.swing.ListSelectionModel;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.table.TableCellEditor;
 import javax.swing.table.TableCellRenderer;
-import javax.swing.table.TableColumnModel;
 
 import dao.BoardDAO;
 import system.client.ClientSystem;
@@ -58,9 +54,9 @@ public class BoardListUI implements ActionListener, MouseListener {
 		frame = new JFrame();
 		frame.setTitle("커뮤니티");
 
-		frame.add(createNorthPanel(), "North");
-		frame.add(createCenterPanel(), "Center");
-		frame.add(createSouthPanel(), "South");
+		frame.add(createNorthPanel(), "North"); // 검색 패널 생성
+		frame.add(createCenterPanel(), "Center"); // 게시글 목록 패널 생성
+		frame.add(createSouthPanel(), "South"); // 버튼 패널 생성
 
 		frame.setSize(1000, 500);
 		frame.setVisible(true);
@@ -73,46 +69,51 @@ public class BoardListUI implements ActionListener, MouseListener {
 		});
 	}
 
+	// 검색 패널 생성
 	public JPanel createNorthPanel() {
 		JPanel panel = new JPanel();
 		JPanel panel_inner = new JPanel(new BorderLayout());
+
 		String[] searchTarget = { "제목", "글쓴이" };
 		cb_search = new JComboBox<String>(searchTarget);
 		cb_search.setFont(Commons.getFont());
+
 		tf_search = new JTextField(20);
 		tf_search.setFont(Commons.getFont());
-		tf_search.addActionListener(this);
+
 		btn_search = new JButton("검색");
 		btn_search.setFont(Commons.getFont());
+
+		tf_search.addActionListener(this);
 		btn_search.addActionListener(this);
+
 		panel_inner.add(cb_search, "West");
 		panel_inner.add(tf_search, "Center");
 		panel_inner.add(btn_search, "East");
+
 		panel.add(panel_inner);
+
 		return panel;
 	}
 
+	// 게시글 목록 패널 생성
 	public JPanel createCenterPanel() {
 		JPanel panel = new JPanel(new BorderLayout());
-//		model = new DefaultTableModel(colNames, 10);
 
-		// table에 전체 데이터 추가
-		createJtableData();
+		createJtableData(); // table에 전체 데이터 추가
 		model.setColumnIdentifiers(colNames);
 
 		table = new JTable(model);
+		table.setFont(Commons.getFont());
 		table.setFillsViewportHeight(true);
-//		table.setSelectionMode(ListSelectionModel.MULTIPLE_INTERVAL_SELECTION);
 		table.setColumnSelectionAllowed(false);
 		table.setRowSelectionAllowed(true);
-//		table.setAutoCreateRowSorter(false);
 
 		table.getColumn("수정").setCellRenderer(new TableUpdateCell("수정", this, client.bdao, 1));
 		table.getColumn("수정").setCellEditor(new TableUpdateCell("수정", this, client.bdao, 1));
 		table.getColumn("삭제").setCellRenderer(new TableUpdateCell("삭제", this, client.bdao, 1));
 		table.getColumn("삭제").setCellEditor(new TableUpdateCell("삭제", this, client.bdao, 1));
 
-//		TableColumnModel tcm = table.getColumnModel();
 		table.getColumn("글번호").setResizable(false);
 		table.getColumn("글번호").setPreferredWidth(100);
 
@@ -134,14 +135,16 @@ public class BoardListUI implements ActionListener, MouseListener {
 		table.getColumn("삭제").setResizable(false);
 		table.getColumn("삭제").setPreferredWidth(100);
 
-		table.setFont(Commons.getFont());
 		table.addMouseListener(this);
+		
 		JScrollPane sp_table = new JScrollPane(table);
 
 		panel.add(sp_table);
+		
 		return panel;
 	}
 
+	
 	public JPanel createSouthPanel() {
 		JPanel panel = new JPanel(new FlowLayout(FlowLayout.RIGHT));
 		btn_write = new JButton("글쓰기");
@@ -215,9 +218,7 @@ public class BoardListUI implements ActionListener, MouseListener {
 
 		} else if (name.equals("수정")) {
 			writer = (String) table.getValueAt(r, 2); // 해당 글 작성자
-			System.out.printf("접속자: %s, %d번 게시글의 작성자: %s\n", client.id, table.getValueAt(r, 0), writer);
 			if (userId.equals(writer)) {
-				System.out.println(table.getValueAt(r, 0) + "번 게시물 수정");
 				BoardVO article = client.readArticle((int) table.getValueAt(r, 0));
 				new BoardWriteUI(this, article);
 			} else {
@@ -245,9 +246,7 @@ public class BoardListUI implements ActionListener, MouseListener {
 	@Override
 	public void mouseClicked(MouseEvent e) {
 		int r = table.getSelectedRow();
-//		System.out.println(r);
 		if (e.getClickCount() == 2) {
-			System.out.println("Selected Index: " + r + ", article no: " + table.getValueAt(r, 0));
 			BoardVO article = client.readArticle((int) table.getValueAt(r, 0));
 			new BoardViewUI(article, client);
 			createJtableData();
