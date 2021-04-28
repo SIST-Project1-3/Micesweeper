@@ -34,15 +34,16 @@ public class MessageVO implements Serializable {
 	public static final int GAME_WIN = 26; // 게임 승리
 	public static final int GAME_LOSE = 27; // 게임 패배
 
-	int status;// MsgVO의 상태
-	int no; // 게시글 No, 게임방 No,
 	int clickedBtn; // 누른 버튼
-	String title, content, id, pw, img; // 게시글 제목, (내용, 채팅메시지), 내ID, 패스워드, 내프로필이미지
+	int status;// MsgVO의 상태
+	int no; // 게시글 No, 게임방 No
+	String title, content, id, id2, pw, img; // 게시글 제목, (내용, 채팅메시지), 내ID or 방장ID, 참가자ID, 패스워드, 내프로필이미지
 	boolean result; // DAO 결과값
 	ArrayList<BoardVO> boardList; // 게시글 목록 불러오기
 	BoardVO article; // 게시글 읽기
 	MemberVO myProfile; // 내 프로필 정보 (메인화면)
 	String[] imgList; // 프로필 이미지
+	MemberVO gameImg; // 게임화면 이미지 (방장, 참가자)
 	MemberVO gameProfile; // 게임화면 프로필 정보 (나 ,상대)
 	Vector<String> userList; // 접속중인 유저 목록
 	ArrayList<RoomVO> roomList; // 방 목록
@@ -129,6 +130,14 @@ public class MessageVO implements Serializable {
 		this.id = id;
 	}
 
+	public String getId2() {
+		return id2;
+	}
+
+	public void setId2(String id2) {
+		this.id2 = id2;
+	}
+
 	public String getPw() {
 		return pw;
 	}
@@ -183,6 +192,14 @@ public class MessageVO implements Serializable {
 
 	public void setMyProfile(MemberVO myProfile) {
 		this.myProfile = myProfile;
+	}
+
+	public MemberVO getGameImg() {
+		return gameImg;
+	}
+
+	public void setGameImg(MemberVO gameImg) {
+		this.gameImg = gameImg;
 	}
 
 	public MemberVO getGameProfile() {
