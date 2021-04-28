@@ -12,12 +12,12 @@ public class BoardDAO extends DAO {
 	}
 
 	// Method
-	// 글쓰기
+	// 게시글 작성
 	public boolean getInsertResult(MessageVO msg) {
 		boolean result = false;
 
 		try {
-			String sql = "INSERT INTO BOARD VALUES(BOARD_NO_SEQ.NEXTVAL, ?, ?, ?, 0, SYSDATE)";
+			String sql = "INSERT INTO BOARD(NO, TITLE, CONTENT, ID) VALUES(BOARD_NO_SEQ.NEXTVAL, ?, ?, ?)";
 			getPreparedStatement(sql);
 
 			pstmt.setString(1, msg.getTitle());
@@ -35,7 +35,7 @@ public class BoardDAO extends DAO {
 		return result;
 	}
 
-	// 글 목록 불러오기
+	// 게시글 목록
 	public ArrayList<BoardVO> getSelectResult() {
 		ArrayList<BoardVO> list = new ArrayList<BoardVO>();
 		try {
@@ -47,10 +47,11 @@ public class BoardDAO extends DAO {
 				BoardVO board = new BoardVO();
 				board.setNo(rs.getInt(1));
 				board.setTitle(rs.getString(2));
-				board.setContent(rs.getString(3));
+//				board.setContent(rs.getString(3)); // 게시글 목록을 보여줄 때 내용은 필요 없으므로 생략
 				board.setWriter(rs.getString(4));
 				board.setViewcount(rs.getInt(5));
 				board.setWdate(rs.getString(6));
+//				board.setComments(rs.getString(7)); // 댓글도 필요 없으므로 생략
 				list.add(board);
 			}
 		} catch (Exception e) {
@@ -63,16 +64,16 @@ public class BoardDAO extends DAO {
 	public ArrayList<BoardVO> getSearchResult(MessageVO msg) {
 		ArrayList<BoardVO> list = new ArrayList<BoardVO>();
 		try {
-			String sql=null;
-			if(msg.getStatus()== MessageVO.BOARD_SEARCH_TITLE) {
-				sql = "SELECT * FROM BOARD WHERE TITLE LIKE '%'||?||'%' ORDER BY NO DESC";				
-			}else if(msg.getStatus()==MessageVO.BOARD_SEARCH_WRITER) {
-				sql = "SELECT * FROM BOARD WHERE ID LIKE '%'||?||'%' ORDER BY NO DESC";								
+			String sql = null;
+			if (msg.getStatus() == MessageVO.BOARD_SEARCH_TITLE) {
+				sql = "SELECT * FROM BOARD WHERE TITLE LIKE '%'||?||'%' ORDER BY NO DESC";
+			} else if (msg.getStatus() == MessageVO.BOARD_SEARCH_WRITER) {
+				sql = "SELECT * FROM BOARD WHERE ID LIKE '%'||?||'%' ORDER BY NO DESC";
 			}
 			getPreparedStatement(sql);
 			String target = msg.getArticle().getContent();
 			pstmt.setString(1, target);
-			
+
 			rs = pstmt.executeQuery();
 			while (rs.next()) {
 				BoardVO board = new BoardVO();
@@ -90,7 +91,7 @@ public class BoardDAO extends DAO {
 		return list;
 	}
 
-	// 글 읽기
+	// 게시글 읽기
 	public BoardVO getReadResult(MessageVO msg) {
 		BoardVO article = new BoardVO();
 		try {
@@ -99,6 +100,9 @@ public class BoardDAO extends DAO {
 			getPreparedStatement(sql);
 			pstmt.setInt(1, msg.getNo());
 			int val = pstmt.executeUpdate();
+			System.out.println("조회수 증가 적용. " + msg.getNo() + "번 게시글 조회수 증가 결과: " + val);
+
+			// 조회수 증가 코드가 제대로 적용되면 실행
 			if (val == 1) {
 				System.out.println(msg.getNo() + "번 게시글 조회수 증가");
 			}
@@ -116,6 +120,8 @@ public class BoardDAO extends DAO {
 				article.setWriter(rs.getString(4));
 				article.setViewcount(rs.getInt(5));
 				article.setWdate(rs.getString(6));
+				article.setComments(rs.getString(7));
+				System.out.println("댓글: " + article.getComments());
 			}
 
 		} catch (Exception e) {
@@ -123,7 +129,7 @@ public class BoardDAO extends DAO {
 		}
 		return article;
 	}
-	
+
 	// 글 수정
 	public boolean getUpdateResult(MessageVO msg) {
 		boolean result = false;
@@ -146,7 +152,7 @@ public class BoardDAO extends DAO {
 		}
 		return result;
 	}
-	
+
 	// 글 삭제
 	public boolean getDeleteResult(MessageVO msg) {
 		boolean result = false;
@@ -154,8 +160,30 @@ public class BoardDAO extends DAO {
 		try {
 			String sql = "DELETE FROM BOARD WHERE NO = ?";
 			getPreparedStatement(sql);
-			
+
 			pstmt.setInt(1, msg.getNo());
+
+			int val = pstmt.executeUpdate();
+
+			if (val != 0) {
+				result = true;
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return result;
+	}
+
+	// 댓글 작성
+	public boolean getWriteCommentResult(MessageVO msg) {
+		boolean result = false;
+		try {
+			String sql = "UPDATE BOARD SET COMMENTS = COMMENTS || ? || ':' || ? || '\n' WHERE NO = ?";
+			getPreparedStatement(sql);
+
+			pstmt.setString(1, msg.getId()); // 댓글 작성자 ID
+			pstmt.setString(2, msg.getContent()); // 댓글 작성 내용
+			pstmt.setInt(3, msg.getNo()); // 댓글을 추가할 게시글 번호
 
 			int val = pstmt.executeUpdate();
 

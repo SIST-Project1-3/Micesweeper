@@ -249,7 +249,7 @@ public class BoardListUI implements ActionListener, MouseListener {
 		if (e.getClickCount() == 2) {
 			System.out.println("Selected Index: " + r + ", article no: " + table.getValueAt(r, 0));
 			BoardVO article = client.readArticle((int) table.getValueAt(r, 0));
-			new BoardViewUI(article);
+			new BoardViewUI(article, client);
 			createJtableData();
 		}
 	}

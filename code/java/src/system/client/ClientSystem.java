@@ -101,7 +101,7 @@ public class ClientSystem {
 		return list;
 	}
 
-	// 글 읽기
+	// 게시글 읽기
 	public BoardVO readArticle(int no) {
 		BoardVO article = null;
 		MessageVO msg = new MessageVO();
@@ -109,7 +109,9 @@ public class ClientSystem {
 		msg.setNo(no);
 		try {
 			oos.writeObject(msg);
+			System.out.println("게시글 읽기 요청 전송");
 			article = ((MessageVO) ois.readObject()).getArticle();
+			System.out.println("게시글을 받아옴");
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
@@ -139,6 +141,24 @@ public class ClientSystem {
 		msg.setStatus(MessageVO.BOARD_DELETE_ARTICLE);
 		msg.setNo(no);
 		try {
+			oos.writeObject(msg);
+			MessageVO recieveMsg = (MessageVO) ois.readObject();
+			result = recieveMsg.getResult();
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return result;
+	}
+
+	// 댓글 작성
+	public boolean writeComment(int no, String id, String content) {
+		boolean result = false;
+		try {
+			MessageVO msg = new MessageVO();
+			msg.setStatus(MessageVO.BOARD_WRITE_COMMENT);
+			msg.setNo(no); // 게시글 번호
+			msg.setId(id); // 작성자
+			msg.setContent(content); // 작성 내용
 			oos.writeObject(msg);
 			MessageVO recieveMsg = (MessageVO) ois.readObject();
 			result = recieveMsg.getResult();

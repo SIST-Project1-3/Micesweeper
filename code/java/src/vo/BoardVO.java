@@ -2,8 +2,8 @@ package vo;
 
 import java.io.Serializable;
 
-public class BoardVO implements Serializable{
-	String title, content, writer, wdate; // 제목, 내용, 작성자, 작성일자
+public class BoardVO implements Serializable {
+	String title, content, writer, wdate, comments; // 제목, 내용, 작성자, 작성일자, 댓글
 	int no, viewcount; // 글번호, 조회수
 
 	public String getTitle() {
@@ -18,16 +18,16 @@ public class BoardVO implements Serializable{
 		return content;
 	}
 
+	public String getComments() {
+		return comments;
+	}
+
+	public void setComments(String comments) {
+		this.comments = comments;
+	}
+
 	public void setContent(String content) {
 		this.content = content;
-	}
-
-	public String getDate() {
-		return wdate;
-	}
-
-	public void setDate(String date) {
-		this.wdate = date;
 	}
 
 	public String getWdate() {

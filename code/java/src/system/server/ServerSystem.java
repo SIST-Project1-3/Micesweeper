@@ -75,7 +75,6 @@ public class ServerSystem {
 		System.out.println("createRoom 메소드 실행");
 		RoomVO result = null;
 		GameSystemServer gss = new GameSystemServer();
-//		gss.clientList.add(client); // 생성한 유저의 소켓 추가
 		gss.room.userList.add(msg.getId()); // 해당 유저의 아이디 추가
 		gss.room.title = msg.getTitle(); // 해당 방의 이름 설정
 		gss.room.userCount = 1; // 방의 인원수 설정
@@ -84,7 +83,6 @@ public class ServerSystem {
 			System.out.println("방 생성 성공");
 			MessageVO returnMsg = new MessageVO(); // 모든 클라이언트에게 방이 생성되었음을 알림
 			returnMsg.setStatus(MessageVO.ROOM_CREATE);
-//			returnMsg.setRoomList((ArrayList<RoomVO>) getRoomList().clone()); // 방 목록을 메시지에 추가
 			returnMsg.setRoomList(getRoomList()); // 방 목록을 메시지에 추가
 			chatServer.broadcastMsg(returnMsg);
 			result = gss.room;
@@ -100,7 +98,6 @@ public class ServerSystem {
 		RoomVO result = null;
 		for (GameSystemServer gss : gssList) {
 			if (gss.room.no == msg.getNo()) { // 참가하려는 방의 번호를 찾아내면 실행
-//				gss.clientList.add(client);
 				gss.room.userList.add(msg.getId());
 				gss.room.userCount++;
 				System.out.println(
@@ -139,6 +136,7 @@ public class ServerSystem {
 			try {
 				while (true) {
 					MessageVO msg = (MessageVO) ois.readObject();
+					System.out.println("메시지 수신");
 					MessageVO returnMsg = new MessageVO();
 					returnMsg.setStatus(msg.getStatus()); // 요청한 상태와 같은 상태로 답신
 					if (msg.getStatus() == MessageVO.BOARD_WRITE) { // 게시글 작성
@@ -149,14 +147,19 @@ public class ServerSystem {
 						returnMsg.setBoardList(boardlist);
 						oos.writeObject(returnMsg);
 					} else if (msg.getStatus() == MessageVO.BOARD_READ_ARTICLE) { // 특정 게시글 읽기
+						System.out.println("게시글 읽기 메시지 수신");
 						BoardVO article = bdao.getReadResult(msg);
 						returnMsg.setArticle(article);
 						oos.writeObject(returnMsg);
+						System.out.println("게시글 읽기 메시지 답신");
 					} else if (msg.getStatus() == MessageVO.BOARD_UPDATE_ARTICLE) { // 특정 게시글 수정
 						returnMsg.setResult(bdao.getUpdateResult(msg));
 						oos.writeObject(returnMsg);
 					} else if (msg.getStatus() == MessageVO.BOARD_DELETE_ARTICLE) { // 특정 게시글 삭제
 						returnMsg.setResult(bdao.getDeleteResult(msg));
+						oos.writeObject(returnMsg);
+					} else if (msg.getStatus() == MessageVO.BOARD_WRITE_COMMENT) { // 댓글 작성
+						returnMsg.setResult(bdao.getWriteCommentResult(msg));
 						oos.writeObject(returnMsg);
 					} else if (msg.getStatus() == MessageVO.JOIN) { // 회원가입
 						returnMsg.setResult(mdao.getJoinResult(msg));
@@ -200,7 +203,7 @@ public class ServerSystem {
 //						MemberVO gameImg = gdao.getGameImgResult(msg);
 //						returnMsg.setGameImg(gameImg);
 //						oos.writeObject(returnMsg);
-					} else if (msg.getStatus() == MessageVO.GAME_PROFILE) { //게임 프로필 정보 요청
+					} else if (msg.getStatus() == MessageVO.GAME_PROFILE) { // 게임 프로필 정보 요청
 						MemberVO gameProfile = gdao.getGameProfileResult(msg);
 						returnMsg.setGameProfile(gameProfile);
 						oos.writeObject(returnMsg);
@@ -210,7 +213,7 @@ public class ServerSystem {
 					} else if (msg.getStatus() == MessageVO.ROOM_JOIN) { // 방 참가 요청, 성공 여부 반환
 						returnMsg.setRoom(joinRoom(msg, this));
 						oos.writeObject(returnMsg);
-					} 
+					}
 				}
 			} catch (Exception e) {
 				e.printStackTrace();

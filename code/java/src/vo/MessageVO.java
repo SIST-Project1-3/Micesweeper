@@ -35,6 +35,7 @@ public class MessageVO implements Serializable {
 	public static final int GAME_LOSE = 27; // 게임 패배
 	public static final int GAME_LEAVE = 28; // 게임 탈주
 	public static final int GAME_READY = 29; // 게임 탈주
+	public static final int BOARD_WRITE_COMMENT = 29; // 댓글 작성
 
 	int clickedBtn; // 누른 버튼
 	int status;// MsgVO의 상태
