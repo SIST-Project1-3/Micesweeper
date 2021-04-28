@@ -65,8 +65,8 @@ public class ServerSystem {
 	public ArrayList<RoomVO> getRoomList() {
 		ArrayList<RoomVO> list = new ArrayList<RoomVO>();
 		for (GameSystemServer gss : gssList) {
-//			list.add((RoomVO) gss.room.clone());
-			list.add(gss.room);
+			list.add((RoomVO) gss.room.clone());
+//			list.add(gss.room);
 		}
 		return list;
 	}
@@ -84,7 +84,8 @@ public class ServerSystem {
 			System.out.println("방 생성 성공");
 			MessageVO returnMsg = new MessageVO(); // 모든 클라이언트에게 방이 생성되었음을 알림
 			returnMsg.setStatus(MessageVO.ROOM_CREATE);
-			returnMsg.setRoomList((ArrayList<RoomVO>) getRoomList().clone()); // 방 목록을 메시지에 추가
+//			returnMsg.setRoomList((ArrayList<RoomVO>) getRoomList().clone()); // 방 목록을 메시지에 추가
+			returnMsg.setRoomList(getRoomList()); // 방 목록을 메시지에 추가
 			chatServer.broadcastMsg(returnMsg);
 			result = gss.room;
 			result.game = gss.gvo;
@@ -105,7 +106,8 @@ public class ServerSystem {
 						msg.getNo() + "번 방 참가자: " + gss.room.userList.get(0) + ", " + gss.room.userList.get(1));
 				MessageVO returnMsg = new MessageVO();
 				returnMsg.setStatus(MessageVO.ROOM_JOIN);
-				returnMsg.setRoomList((ArrayList<RoomVO>) getRoomList().clone());
+//				returnMsg.setRoomList((ArrayList<RoomVO>) getRoomList().clone());
+				returnMsg.setRoomList(getRoomList());
 				chatServer.broadcastMsg(returnMsg);
 				result = gss.room;
 				break;

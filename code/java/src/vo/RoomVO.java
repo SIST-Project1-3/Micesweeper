@@ -12,6 +12,25 @@ public class RoomVO implements Serializable, Cloneable {
 
 	// Method
 
+	// 방 참가에서 소켓 통신을 할 때, 클라이언트에서 목록 갱신이 안돼서 cloneable을 적용 후 clone 오버라이딩
+	public Object clone() {
+		RoomVO result = new RoomVO();
+		try {
+			result.setTitle(title);
+			result.setNo(no);
+			result.setUserCount(userCount);
+			ArrayList<String> list = new ArrayList<String>();
+			for(String str : userList) {
+				list.add(str);
+			}
+			result.setUserList(list);
+			result.setGame(game);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return result;
+	}
+
 	public String getTitle() {
 		return title;
 	}
@@ -65,15 +84,4 @@ public class RoomVO implements Serializable, Cloneable {
 		this.userList = userIdList;
 	}
 
-	// 방 참가에서 소켓 통신을 할 때, 클라이언트에서 목록 갱신이 안돼서 cloneable을 적용 후 clone 오버라이딩
-	public Object clone() {
-		RoomVO result = null;
-		try {
-			result = (RoomVO) super.clone();
-		} catch (CloneNotSupportedException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-		return result;
-	}
 }
