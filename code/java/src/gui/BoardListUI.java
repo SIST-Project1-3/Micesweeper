@@ -95,16 +95,6 @@ public class BoardListUI implements ActionListener, MouseListener {
 	public JPanel createCenterPanel() {
 		JPanel panel = new JPanel(new BorderLayout());
 //		model = new DefaultTableModel(colNames, 10);
-		model = new DefaultTableModel(colNames, 10) {
-			// 행 수정 여부 메소드
-			@Override
-			public boolean isCellEditable(int row, int column) {
-				if (column == 5 || column == 6) { // 테이블의 5번 째(수정), 6번 째(삭제)는 선택할 수 있도록 설정
-					return true;
-				}
-				return false;
-			}
-		};
 
 		// table에 전체 데이터 추가
 		createJtableData();
@@ -163,6 +153,16 @@ public class BoardListUI implements ActionListener, MouseListener {
 
 	// 테이블에 데이터 입력 및 테이블 새로고침 기능
 	public void createJtableData() {
+		model = new DefaultTableModel(colNames, 10) {
+			// 행 수정 여부 메소드
+			@Override
+			public boolean isCellEditable(int row, int column) {
+				if (column == 5 || column == 6) { // 테이블의 5번 째(수정), 6번 째(삭제)는 선택할 수 있도록 설정
+					return true;
+				}
+				return false;
+			}
+		};
 		model.setNumRows(0);
 		for (BoardVO post : client.readBoard()) {
 			row[0] = post.getNo();
