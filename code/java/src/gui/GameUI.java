@@ -37,11 +37,7 @@ public class GameUI {
 	public GameSystemClient gsc;
 	ClientSystem client;
 	public RoomVO room; // 방 정보
-	public GameDAO gdao;
-	ArrayList<String> iconList = new ArrayList<String>(2); // 프사 리스트
-	ArrayList<String> idLabelList = new ArrayList<String>(2); // 아이디 라벨 리스트
-//	ArrayList<ImageIcon> iconList = new ArrayList<ImageIcon>(2); // 프사 리스트
-//	ArrayList<JLabel> idLabelList = new ArrayList<JLabel>(2); // 아이디 라벨 리스트
+	String[] iconList = new String[2]; // 프사 리스트
 
 	// Constructor
 	public GameUI() {
@@ -64,7 +60,6 @@ public class GameUI {
 	}
 
 	// Method
-
 	private void initialize() {
 		event = new GameUIEvent(this);
 
@@ -74,6 +69,8 @@ public class GameUI {
 		west_panel = new JPanel(new GridLayout(3, 1, 0, 10)); // 방장 프로필
 		east_panel = new JPanel(new GridLayout(3, 1, 0, 10)); // 참가자 프로필
 		south_panel = new JPanel(new BorderLayout()); // 채팅
+
+		fillUserPanel();
 
 		// 방장(왼쪽)
 		JPanel master_icon_panel = new JPanel();
@@ -91,7 +88,11 @@ public class GameUI {
 		master_icon_panel.add(icon_label);
 
 		// 방장 이미지
-		icon = new ImageIcon("images/고양이.png");
+		if (!iconList[0].equals("images/쥐.png")) {
+			icon = new ImageIcon(iconList[0]);
+		} else {
+			icon = new ImageIcon("images/쥐.png");
+		}
 		Image img = icon.getImage();
 		Image changeImg = img.getScaledInstance(160, 160, Image.SCALE_SMOOTH);
 		ImageIcon changeIcon = new ImageIcon(changeImg);
@@ -99,7 +100,11 @@ public class GameUI {
 		master_image_panel.add(img_label);
 
 		// 방장 아이디
-		master_id_label = new JLabel("대기중");
+		if (!room.userList.get(0).equals("대기중")) {
+			master_id_label = new JLabel(room.userList.get(0));
+		} else {
+			master_id_label = new JLabel("대기중");
+		}
 		master_id_label.setFont(Commons.getFont());
 		master_id_panel.add(master_id_label);
 		master_panel.add(master_id_panel);
@@ -109,6 +114,11 @@ public class GameUI {
 		watch_profile_btn.setFont(Commons.getFont());
 		master_btn_panel.add(watch_profile_btn);
 		master_panel.add(master_btn_panel);
+		if (master_id_label.getText().equals("대기중")) {
+			watch_profile_btn.setEnabled(false);
+		} else {
+			watch_profile_btn.setEnabled(true);
+		}
 
 		west_panel.add(master_icon_panel);
 		west_panel.add(master_image_panel);
@@ -126,7 +136,11 @@ public class GameUI {
 		user_icon_panel.add(user_icon);
 
 		// 참가자 이미지
-		icon2 = new ImageIcon("images/쥐.png");
+		if (!iconList[1].equals("images/쥐.png")) {
+			icon2 = new ImageIcon(iconList[1]);
+		} else {
+			icon2 = new ImageIcon("images/쥐.png");
+		}
 		Image img2 = icon2.getImage();
 		Image changeImg2 = img2.getScaledInstance(160, 160, Image.SCALE_SMOOTH);
 		ImageIcon changeIcon2 = new ImageIcon(changeImg2);
@@ -134,7 +148,11 @@ public class GameUI {
 		user_image_panel.add(img_label2);
 
 		// 참가자 아이디
-		user_id_label = new JLabel("대기중");
+		if (!room.userList.get(1).equals("대기중")) {
+			user_id_label = new JLabel(room.userList.get(1));
+		} else {
+			user_id_label = new JLabel("대기중");
+		}
 		user_id_label.setFont(Commons.getFont());
 		user_id_panel.add(user_id_label);
 		user_panel.add(user_id_panel);
@@ -144,6 +162,8 @@ public class GameUI {
 		watch_profile_btn2.setFont(Commons.getFont());
 		user_btn_panel.add(watch_profile_btn2);
 		user_panel.add(user_btn_panel);
+		if (user_id_label.getText().equals("대기중"))
+			watch_profile_btn2.setEnabled(false);
 
 		east_panel.add(user_icon_panel);
 		east_panel.add(user_image_panel);
@@ -226,12 +246,10 @@ public class GameUI {
 	}
 
 	public void fillUserPanel() {
-		gdao = new GameDAO();
-		
 		for (int i = 0; i < room.userList.size(); i++) {
 			String id = room.userList.get(i);
-			iconList = gdao.getGameImgResult(id);
-			idLabelList.set(i, id);
+			GameDAO gdao = new GameDAO();
+			iconList[i] = gdao.getGameImgResult(id);
 		}
 	}
 
