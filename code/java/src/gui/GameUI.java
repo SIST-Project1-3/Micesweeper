@@ -30,13 +30,13 @@ public class GameUI {
 
 	// Field
 	public JFrame frame;
-	public JTextField textField;
-	public JTextArea textArea;
-	public ArrayList<JButton> micebtn;
-	public JButton watchprofilebtn, readybutton, exitbutton, send, watchprofilebtn_2;
+	public JTextField chat_tf;
+	public JTextArea chat_ta;
+	public ArrayList<JButton> mice_btn;
+	public JButton watch_profile_btn, watch_profile_btn2, ready_btn, exit_btn, send_btn;
 	GameUIEvent event;
 	ImageIcon icon, icon2;
-	JLabel bangjangidlabel, idlabel;
+	JLabel master_id_label, user_id_label;
 	public GameVO gvo;
 	GameSystemClient gsc;
 	GameSystemServer gss;
@@ -68,168 +68,182 @@ public class GameUI {
 		gsc = new GameSystemClient(this);
 		event = new GameUIEvent(this);
 
-		MessageVO msg = new MessageVO();
-		msg.setStatus(MessageVO.GAME_IMG);
-		msg.setId(room.userList.get(0));
-		MemberVO gameImg = client.gameImg(msg);
-
 		frame = new JFrame("쥐뢰찾기 - " + room.title);
 
-		JPanel westpanel = new JPanel(); // 방장 패널 (세로로 3칸)
-		westpanel.setSize(300, 500);
-		westpanel.setLayout(new GridLayout(3, 1, 0, 50));
+		JPanel center_panel = new JPanel(); // 쥐뢰게임
+		JPanel west_panel = new JPanel(new GridLayout(3, 1, 0, 50)); // 방장 프로필
+		JPanel east_panel = new JPanel(new GridLayout(3, 1, 0, 50)); // 참가자 프로필
+		JPanel south_panel = new JPanel(new BorderLayout()); // 채팅
+		// center_panel.setLayout(new GridLayout(0, 1, 0, 0));
+		// west_panel.setSize(300, 500);
 
-		JPanel bangjangpanel = new JPanel(); // 방장 표시용 패널(1번째 패널)
-		westpanel.add(bangjangpanel);
+		// 방장(왼쪽)
+		JPanel master_icon_panel = new JPanel();
+		JPanel master_image_panel = new JPanel();
+		JPanel master_id_panel = new JPanel();
+		JPanel master_btn_panel = new JPanel();
+		JPanel master_panel = new JPanel(new GridLayout(2, 1, 0, 20)); // id, btn 패널 넣음
 
-		JLabel bangjangpyosilabel = new JLabel("방장 표시용");
-		bangjangpanel.add(bangjangpyosilabel);
+		// 방장표시 아이콘
+		ImageIcon master_icon = new ImageIcon("방장 표시용");
+		Image master_img = master_icon.getImage();
+		Image master_changeImg = master_img.getScaledInstance(10, 10, Image.SCALE_SMOOTH);
+		ImageIcon master_changeIcon = new ImageIcon(master_changeImg);
+		JLabel icon_label = new JLabel(master_changeIcon);
+		master_icon_panel.add(icon_label);
 
-		JPanel bangjangimagepanel = new JPanel(); // 방장의 프로필 이미지 넣는 패널(2번째 패널)
-		icon = new ImageIcon("" + gameImg.getImg());
+		// 방장 이미지 가져오기 위한 msgVO
+//		MessageVO msg = new MessageVO();
+//		msg.setStatus(MessageVO.GAME_IMG);
+//		msg.setId(room.userList.get(0));
+//		MemberVO gameImg = client.gameImg(msg);
+
+		// 방장 이미지
+//		icon = new ImageIcon("" + gameImg.getImg());
+		icon = new ImageIcon("images/고양이.png");
 		Image img = icon.getImage();
-		Image changeImg = img.getScaledInstance(150, 150, Image.SCALE_SMOOTH);
+		Image changeImg = img.getScaledInstance(160, 160, Image.SCALE_SMOOTH);
 		ImageIcon changeIcon = new ImageIcon(changeImg);
 		JLabel img_label = new JLabel(changeIcon);
-		bangjangimagepanel.add(img_label);
-		westpanel.add(bangjangimagepanel);
+		master_image_panel.add(img_label);
 
-		JPanel bangjangprofilepanel = new JPanel(); // 3번째 패널
-		bangjangprofilepanel.setVisible(true);
-		westpanel.add(bangjangprofilepanel);
-		bangjangprofilepanel.setLayout(new GridLayout(2, 1, 0, 20));
+		// 방장 아이디
+		master_id_label = new JLabel("" + room.userList.get(0));
+//		bangjangidlabel.setHorizontalAlignment(SwingConstants.CENTER);
+		master_id_label.setFont(Commons.getFont());
+		master_id_panel.add(master_id_label);
+		master_panel.add(master_id_panel);
 
-		bangjangidlabel = new JLabel("" + room.userList.get(0)); // 방장 id 넣는 라벨
-		bangjangidlabel.setHorizontalAlignment(SwingConstants.CENTER);
-		bangjangidlabel.setFont(Commons.getFont());
-		bangjangprofilepanel.add(bangjangidlabel);
+		// 방장 프로필 보기 버튼
+		watch_profile_btn = new JButton("프로필 보기");
+		watch_profile_btn.setFont(Commons.getFont());
+		master_btn_panel.add(watch_profile_btn);
+		master_panel.add(master_btn_panel);
 
-		JPanel panel_1 = new JPanel();
-		bangjangprofilepanel.add(panel_1);
+		west_panel.add(master_icon_panel);
+		west_panel.add(master_image_panel);
+		west_panel.add(master_panel);
 
-		watchprofilebtn = new JButton("프로필 보기");
-		watchprofilebtn.setFont(new Font("맑은 고딕", Font.BOLD, 12));
-		watchprofilebtn.addActionListener(event);
-		panel_1.add(watchprofilebtn);
+		// 참가자 (오른쪽)
+		JPanel user_icon_panel = new JPanel();
+		JPanel user_image_panel = new JPanel();
+		JPanel user_id_panel = new JPanel();
+		JPanel user_btn_panel = new JPanel();
+		JPanel user_panel = new JPanel(new GridLayout(2, 1, 0, 20)); // id, btn 패널 넣음
+
+		// 참가자표시 아이콘 (대칭 맞추기 위해 빈칸 삽입)
+		JLabel user_icon = new JLabel("");
+		user_icon_panel.add(user_icon);
+
+		// 참가자 이미지 가져오기 위한 msgVO
+//		MessageVO msg2 = new MessageVO();
+//		msg2.setStatus(MessageVO.GAME_IMG);
+//		msg2.setId(room.userList.get(1));
+//		MemberVO gameImg2 = client.gameImg(msg2);
+
+		// 참가자 이미지
+//		icon2 = new ImageIcon("" + gameImg.getImg());
+		icon2 = new ImageIcon("images/쥐.png");
+		Image img2 = icon2.getImage();
+		Image changeImg2 = img2.getScaledInstance(160, 160, Image.SCALE_SMOOTH);
+		ImageIcon changeIcon2 = new ImageIcon(changeImg2);
+		JLabel img_label2 = new JLabel(changeIcon2);
+		user_image_panel.add(img_label2);
+
+		// 참가자 아이디
+//		user_id_label = new JLabel("" + room.userList.get(0));
+		user_id_label = new JLabel("aaaa");
+//		bangjangidlabel.setHorizontalAlignment(SwingConstants.CENTER);
+		user_id_label.setFont(Commons.getFont());
+		user_id_panel.add(user_id_label);
+		user_panel.add(user_id_panel);
+
+		// 참가자 프로필 보기 버튼
+		watch_profile_btn2 = new JButton("프로필 보기");
+		watch_profile_btn2.setFont(Commons.getFont());
+		user_btn_panel.add(watch_profile_btn2);
+		user_panel.add(user_btn_panel);
+
+		east_panel.add(user_icon_panel);
+		east_panel.add(user_image_panel);
+		east_panel.add(user_panel);
+
 		// 지뢰 버튼 생성
-		JPanel centerpanel = new JPanel(); // 커다란 중앙 패널
-		centerpanel.setLayout(new GridLayout(0, 1, 0, 0));
-
-		JPanel panel = new JPanel(); // 중앙 패널 안의 패널
-		centerpanel.add(panel);
-		panel.setLayout(new FlowLayout(FlowLayout.CENTER, 5, 5));
-
-		JPanel gamepanel = new JPanel(); // 지뢰 81개 버튼이 들어가는 패널
-		panel.add(gamepanel);
-		gamepanel.setLayout(new GridLayout(9, 9, 0, 0));
+		JPanel game_panel = new JPanel(new FlowLayout(FlowLayout.CENTER, 5, 5));
+		JPanel game_in_panel = new JPanel(new GridLayout(9, 9, 0, 0));
 
 		for (int a = 0; a < 9; a++) {
 			for (int b = 0; b < 9; b++) {
-				micebtn = gvo.getMicebtn();
+				mice_btn = gvo.getMicebtn();
 				JButton btn = new JButton(a + "_" + b);
 				btn.setFont(Commons.getFont());
 				btn.setPreferredSize(new Dimension(52, 52));
 				btn.setName(Integer.toString(a) + Integer.toString(b));
-				gamepanel.add(btn);
+				game_in_panel.add(btn);
 				btn.addActionListener(event);
-				micebtn.add(btn);
-				gvo.setMicebtn(micebtn);
+				mice_btn.add(btn);
+				gvo.setMicebtn(mice_btn);
 			}
 		}
+		game_panel.add(game_in_panel);
+		center_panel.add(game_panel);
 
-		JPanel southpanel = new JPanel(); // 채팅, 준비, 나가기 패널
-		southpanel.setLayout(new BorderLayout(0, 0));
+		// 채팅
+		JPanel chat_panel = new JPanel(new BorderLayout());
+		JPanel chat_send_panel = new JPanel(new BorderLayout());
+		JPanel menu_panel = new JPanel(new GridLayout(2, 1, 0, 20));
+		
+		// 준비, 나가기 버튼
+		ready_btn = new JButton("준비");
+		exit_btn = new JButton("나가기");
+		ready_btn.setFont(Commons.getFont());
+		exit_btn.setFont(Commons.getFont());
+		menu_panel.add(ready_btn);
+		menu_panel.add(exit_btn);
 
-		JPanel readypanel = new JPanel(); // 준비, 나가기 패널
-		southpanel.add(readypanel, BorderLayout.EAST);
-		readypanel.setLayout(new GridLayout(2, 0, 0, 20));
-
-		readybutton = new JButton("준비");
-		readybutton.setFont(Commons.getFont());
-		readybutton.addActionListener(event);
-		readypanel.add(readybutton);
-
-		exitbutton = new JButton("나가기");
-		exitbutton.setFont(Commons.getFont());
-		exitbutton.addActionListener(event);
-		readypanel.add(exitbutton);
-
-		JPanel chatpanel = new JPanel();
-		southpanel.add(chatpanel, BorderLayout.CENTER);
-		chatpanel.setLayout(new BorderLayout(0, 0));
-
-		textArea = new JTextArea();
-		textArea.setEditable(false);
-		textArea.setRows(10);
-		chatpanel.add(textArea, BorderLayout.CENTER);
-
-		JPanel chatpanel_send = new JPanel();
-		chatpanel.add(chatpanel_send, BorderLayout.SOUTH);
-		chatpanel_send.setLayout(new BorderLayout(0, 0));
+		// 채팅창
+		chat_ta = new JTextArea(10, 50);
+		chat_ta.setEditable(false);
 
 		// 채팅 입력창 왼쪽 유저 ID 표시
 //		JLabel label_chatID = new JLabel(client.getId());
 //		label_chatID.setFont(Commons.getFont());
-//		chatpanel_send.add(label_chatID, BorderLayout.WEST);
-
-		textField = new JTextField(); // 챗패널센드에 있는 텍스트필드
-		textField.setColumns(1);
-		textField.addActionListener(event);
-		chatpanel_send.add(textField);
-
-		send = new JButton("send"); // 챗패널센드에 있는 보내기버튼
-		send.addActionListener(event);
-		chatpanel_send.add(send, BorderLayout.EAST);
-
-		JPanel eastpanel = new JPanel();
-		frame.getContentPane().add(eastpanel, BorderLayout.EAST);
-		eastpanel.setLayout(new GridLayout(3, 1, 0, 50));
-
-		MessageVO msg2 = new MessageVO();
-		msg2.setStatus(MessageVO.GAME_IMG);
-		msg2.setId(room.userList.get(1));
-		MemberVO gameImg2 = client.gameImg(msg2);
+//		chat_send_panel.add(label_chatID, BorderLayout.WEST);
 		
-		JPanel imsipanel = new JPanel();
-		eastpanel.add(imsipanel);
+		// 채팅 입력창
+		chat_tf = new JTextField(40);
+		chat_tf.requestFocus();
+		
+		// 보내기 버튼
+		send_btn = new JButton("send");
+		send_btn.setFont(Commons.getFont());
+		
+		chat_send_panel.add(chat_tf, BorderLayout.CENTER);
+		chat_send_panel.add(send_btn, BorderLayout.EAST);
+		chat_panel.add(chat_ta, BorderLayout.CENTER);
+		chat_panel.add(chat_send_panel, BorderLayout.SOUTH);
 
-		JPanel imagepanel = new JPanel();
-		icon2 = new ImageIcon("" + gameImg2.getImg());
-		Image img2 = icon2.getImage();
-		Image changeImg2 = img2.getScaledInstance(150, 150, Image.SCALE_SMOOTH);
-		ImageIcon changeIcon2 = new ImageIcon(changeImg2);
-		JLabel img_label2 = new JLabel(changeIcon2);
-		imagepanel.add(img_label2);
-		eastpanel.add(imagepanel);
+		south_panel.add(menu_panel, BorderLayout.EAST);
+		south_panel.add(chat_panel, BorderLayout.CENTER);
 
-		JPanel profilepanel = new JPanel();
-		eastpanel.add(profilepanel);
-		profilepanel.setLayout(new GridLayout(2, 1, 0, 20));
-
-		idlabel = new JLabel("" + room.userList.get(1));
-		idlabel.setHorizontalAlignment(SwingConstants.CENTER);
-		idlabel.setFont(Commons.getFont());
-		profilepanel.add(idlabel);
-
-		JPanel panel_1_1 = new JPanel();
-		profilepanel.add(panel_1_1);
-
-		watchprofilebtn_2 = new JButton("프로필 보기");
-		watchprofilebtn_2.setFont(new Font("맑은 고딕", Font.BOLD, 12));
-		watchprofilebtn_2.addActionListener(event);
-		panel_1_1.add(watchprofilebtn_2);
-
-		frame.add(westpanel, BorderLayout.WEST);
-		frame.add(centerpanel, BorderLayout.CENTER);
-		frame.add(southpanel, BorderLayout.SOUTH);
+		// 버튼 & 텍스트 필드 이벤트
+		watch_profile_btn.addActionListener(event);
+		watch_profile_btn2.addActionListener(event);
+		ready_btn.addActionListener(event);
+		exit_btn.addActionListener(event);
+		chat_tf.addActionListener(event);
+		send_btn.addActionListener(event);
+		
+		frame.add(west_panel, BorderLayout.WEST);
+		frame.add(east_panel, BorderLayout.EAST);
+		frame.add(center_panel, BorderLayout.CENTER);
+		frame.add(south_panel, BorderLayout.SOUTH);
 
 		frame.setSize(810, 730);
-		frame.setResizable(false);
+		frame.setResizable(false);	// 창 크기 변경X
 		frame.setVisible(true);
 
 		frame.addWindowListener(event);
-
-		textField.requestFocus();
 	}
 
 	public void exit() {
