@@ -42,7 +42,7 @@ public class BoardListUI implements ActionListener, MouseListener {
 	JComboBox<String> cb_search;
 	ClientSystem client;
 	DefaultTableModel model;
-	String[] colNames = { "글번호", "제목", "글쓴이", "조회수", "수정", "삭제" };
+	String[] colNames = { "글번호", "제목", "글쓴이", "작성일", "조회수", "수정", "삭제" };
 	Object[] row = new Object[colNames.length];
 	JTable table;
 
@@ -99,7 +99,7 @@ public class BoardListUI implements ActionListener, MouseListener {
 			// 행 수정 여부 메소드
 			@Override
 			public boolean isCellEditable(int row, int column) {
-				if (column == 4 || column == 5) {
+				if (column == 5 || column == 6) { // 테이블의 5번 째(수정), 6번 째(삭제)는 선택할 수 있도록 설정
 					return true;
 				}
 				return false;
@@ -125,21 +125,25 @@ public class BoardListUI implements ActionListener, MouseListener {
 //		TableColumnModel tcm = table.getColumnModel();
 		table.getColumn("글번호").setResizable(false);
 		table.getColumn("글번호").setPreferredWidth(100);
+
 		table.getColumn("제목").setResizable(false);
-		;
-		table.getColumn("제목").setPreferredWidth(700);
+		table.getColumn("제목").setPreferredWidth(600);
+
 		table.getColumn("글쓴이").setResizable(false);
-		;
-		table.getColumn("글쓴이").setPreferredWidth(200);
+		table.getColumn("글쓴이").setPreferredWidth(100);
+
+		table.getColumn("작성일").setResizable(false);
+		table.getColumn("작성일").setPreferredWidth(170);
+
 		table.getColumn("조회수").setResizable(false);
-		;
-		table.getColumn("조회수").setPreferredWidth(100);
+		table.getColumn("조회수").setPreferredWidth(50);
+
 		table.getColumn("수정").setResizable(false);
-		;
 		table.getColumn("수정").setPreferredWidth(100);
+
 		table.getColumn("삭제").setResizable(false);
-		;
 		table.getColumn("삭제").setPreferredWidth(100);
+
 		table.setFont(Commons.getFont());
 		table.addMouseListener(this);
 		JScrollPane sp_table = new JScrollPane(table);
@@ -164,7 +168,8 @@ public class BoardListUI implements ActionListener, MouseListener {
 			row[0] = post.getNo();
 			row[1] = post.getTitle();
 			row[2] = post.getWriter();
-			row[3] = post.getViewcount();
+			row[3] = post.getWdate();
+			row[4] = post.getViewcount();
 			model.addRow(row);
 		}
 		model.fireTableDataChanged();
@@ -177,7 +182,8 @@ public class BoardListUI implements ActionListener, MouseListener {
 			row[0] = post.getNo();
 			row[1] = post.getTitle();
 			row[2] = post.getWriter();
-			row[3] = post.getViewcount();
+			row[3] = post.getWdate();
+			row[4] = post.getViewcount();
 			model.addRow(row);
 		}
 		model.fireTableDataChanged();
@@ -203,10 +209,10 @@ public class BoardListUI implements ActionListener, MouseListener {
 			} else if (category.contentEquals("글쓴이")) {
 				createJtableData(client.searchBoard(MessageVO.BOARD_SEARCH_WRITER, tf_search.getText()));
 			}
-			
+
 		} else if (obj == btn_write) { // 글쓰기
 			new BoardWriteUI(this);
-			
+
 		} else if (name.equals("수정")) {
 			writer = (String) table.getValueAt(r, 2); // 해당 글 작성자
 			System.out.printf("접속자: %s, %d번 게시글의 작성자: %s\n", client.id, table.getValueAt(r, 0), writer);
@@ -217,16 +223,16 @@ public class BoardListUI implements ActionListener, MouseListener {
 			} else {
 				JOptionPane.showMessageDialog(null, Commons.getMsg("작성자만 수정이 가능합니다."));
 			}
-			
+
 		} else if (name.equals("삭제")) {
 			writer = (String) table.getValueAt(r, 2); // 해당 글 작성자
 			if (userId.equals(writer)) {
 				int result = JOptionPane.showConfirmDialog(null, Commons.getMsg("정말로 삭제하시겠습니까?"));
-				if(result == 0) { // 확인버튼 클릭
-					if(client.deleteBoard((int)table.getValueAt(r, 0))) {					
+				if (result == 0) { // 확인버튼 클릭
+					if (client.deleteBoard((int) table.getValueAt(r, 0))) {
 						createJtableData();
 						JOptionPane.showMessageDialog(null, Commons.getMsg("삭제 완료"));
-					}else {
+					} else {
 						JOptionPane.showMessageDialog(null, Commons.getMsg("삭제 실패"));
 					}
 				}
