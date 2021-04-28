@@ -65,7 +65,8 @@ public class ServerSystem {
 	public ArrayList<RoomVO> getRoomList() {
 		ArrayList<RoomVO> list = new ArrayList<RoomVO>();
 		for (GameSystemServer gss : gssList) {
-			list.add((RoomVO) gss.room.clone());
+//			list.add((RoomVO) gss.room.clone());
+			list.add(gss.room);
 		}
 		return list;
 	}
