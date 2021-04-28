@@ -75,17 +75,17 @@ public class GameUI {
 
 		frame = new JFrame("쥐뢰찾기 - " + room.title);
 
-		JPanel westpanel = new JPanel();
+		JPanel westpanel = new JPanel(); // 방장 패널 (세로로 3칸)
 		westpanel.setSize(300, 500);
 		westpanel.setLayout(new GridLayout(3, 1, 0, 50));
 
-		JPanel bangjangpanel = new JPanel();
+		JPanel bangjangpanel = new JPanel(); // 방장 표시용 패널(1번째 패널)
 		westpanel.add(bangjangpanel);
 
 		JLabel bangjangpyosilabel = new JLabel("방장 표시용");
 		bangjangpanel.add(bangjangpyosilabel);
 
-		JPanel bangjangimagepanel = new JPanel();
+		JPanel bangjangimagepanel = new JPanel(); // 방장의 프로필 이미지 넣는 패널(2번째 패널)
 		icon = new ImageIcon("" + gameImg.getImg());
 		Image img = icon.getImage();
 		Image changeImg = img.getScaledInstance(150, 150, Image.SCALE_SMOOTH);
@@ -94,12 +94,12 @@ public class GameUI {
 		bangjangimagepanel.add(img_label);
 		westpanel.add(bangjangimagepanel);
 
-		JPanel bangjangprofilepanel = new JPanel();
+		JPanel bangjangprofilepanel = new JPanel(); // 3번째 패널
 		bangjangprofilepanel.setVisible(true);
 		westpanel.add(bangjangprofilepanel);
 		bangjangprofilepanel.setLayout(new GridLayout(2, 1, 0, 20));
 
-		bangjangidlabel = new JLabel("" + room.userList.get(0));
+		bangjangidlabel = new JLabel("" + room.userList.get(0)); // 방장 id 넣는 라벨
 		bangjangidlabel.setHorizontalAlignment(SwingConstants.CENTER);
 		bangjangidlabel.setFont(Commons.getFont());
 		bangjangprofilepanel.add(bangjangidlabel);
@@ -111,15 +111,15 @@ public class GameUI {
 		watchprofilebtn.setFont(new Font("맑은 고딕", Font.BOLD, 12));
 		watchprofilebtn.addActionListener(event);
 		panel_1.add(watchprofilebtn);
-		JPanel centerpanel = new JPanel();
+		// 지뢰 버튼 생성
+		JPanel centerpanel = new JPanel(); // 커다란 중앙 패널
 		centerpanel.setLayout(new GridLayout(0, 1, 0, 0));
 
-		// 지뢰 버튼 생성
-		JPanel panel = new JPanel();
+		JPanel panel = new JPanel(); // 중앙 패널 안의 패널
 		centerpanel.add(panel);
 		panel.setLayout(new FlowLayout(FlowLayout.CENTER, 5, 5));
 
-		JPanel gamepanel = new JPanel();
+		JPanel gamepanel = new JPanel(); // 지뢰 81개 버튼이 들어가는 패널
 		panel.add(gamepanel);
 		gamepanel.setLayout(new GridLayout(9, 9, 0, 0));
 
@@ -137,10 +137,10 @@ public class GameUI {
 			}
 		}
 
-		JPanel southpanel = new JPanel();
+		JPanel southpanel = new JPanel(); // 채팅, 준비, 나가기 패널
 		southpanel.setLayout(new BorderLayout(0, 0));
 
-		JPanel readypanel = new JPanel();
+		JPanel readypanel = new JPanel(); // 준비, 나가기 패널
 		southpanel.add(readypanel, BorderLayout.EAST);
 		readypanel.setLayout(new GridLayout(2, 0, 0, 20));
 
@@ -172,12 +172,12 @@ public class GameUI {
 //		label_chatID.setFont(Commons.getFont());
 //		chatpanel_send.add(label_chatID, BorderLayout.WEST);
 
-		textField = new JTextField();
+		textField = new JTextField(); // 챗패널센드에 있는 텍스트필드
 		textField.setColumns(1);
 		textField.addActionListener(event);
 		chatpanel_send.add(textField);
 
-		send = new JButton("send");
+		send = new JButton("send"); // 챗패널센드에 있는 보내기버튼
 		send.addActionListener(event);
 		chatpanel_send.add(send, BorderLayout.EAST);
 
