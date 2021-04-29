@@ -1,10 +1,12 @@
 package gamesystem;
 
 import java.awt.Color;
+import java.awt.Image;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Iterator;
 
+import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JOptionPane;
 
@@ -89,7 +91,11 @@ public class GameSystemClient {
 		if (btn.isEnabled() == true) {
 			if (btnnum == gvo.getMice().get(0)) {// 첫번째 지뢰(고양이) 누를시
 				btn.setBackground(Color.BLUE); // 색 설정
-				// btn.setIcon();//고양이 아이콘 삽입
+				ImageIcon cat = new ImageIcon("images/고양이.png");
+				Image img = cat.getImage();
+				Image changeImg = img.getScaledInstance(30, 30, Image.SCALE_SMOOTH);
+				ImageIcon cat2 = new ImageIcon(changeImg);
+				btn.setIcon(cat2);//고양이 아이콘 삽입
 				btn.setEnabled(false); // 버튼 비활성화
 				ArrayList<JButton> arjb;
 				arjb = gvo.getMicebtn();
@@ -102,7 +108,11 @@ public class GameSystemClient {
 					if (btnnum == gvo.getMice().get(k)) {
 
 						btn.setBackground(Color.RED); // 색 설정
-						// btn.setIcon();//고양이 아이콘 삽입
+						ImageIcon mice = new ImageIcon("images/쥐.png");
+						Image img = mice.getImage();
+						Image changeImg = img.getScaledInstance(30, 30, Image.SCALE_SMOOTH);
+						ImageIcon mice2 = new ImageIcon(changeImg);
+						btn.setIcon(mice2);//쥐 아이콘 삽입
 						btn.setEnabled(false); // 버튼 비활성화
 						ArrayList<JButton> arjb;
 						arjb = gvo.getMicebtn();
@@ -130,7 +140,6 @@ public class GameSystemClient {
 					gvo.setMicebtn(arjb);
 				} else {// 지뢰 칸이 공백일때(주변에 지뢰 없음)
 					btn.setBackground(Color.GRAY); // 색 설정
-					btn.setText(Integer.toString(numcount));// 주변 지뢰 숫자 표시
 					btn.setEnabled(false); // 버튼 비활성화
 					ArrayList<JButton> arjb;
 					arjb = gvo.getMicebtn();

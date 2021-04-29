@@ -190,7 +190,7 @@ public class GameUI {
 		for (int a = 0; a < 9; a++) {
 			for (int b = 0; b < 9; b++) {
 				mice_btn = gvo.getMicebtn();
-				JButton btn = new JButton(a + "_" + b);
+				JButton btn = new JButton();
 				btn.setFont(Commons.getFont());
 				btn.setPreferredSize(new Dimension(52, 52));
 				btn.setName(Integer.toString(a) + Integer.toString(b));
