@@ -209,11 +209,14 @@ public class ServerSystem {
 					} else if (msg.getStatus() == MessageVO.ROOM_JOIN) { // 방 참가 요청, 성공 여부 반환
 						returnMsg.setRoom(joinRoom(msg, this));
 						oos.writeObject(returnMsg);
-					} else if (msg.getStatus() == MessageVO.GAME_WIN) {
+					} else if (msg.getStatus() == MessageVO.GAME_WIN) { // 게임 승리 메시지
 						returnMsg.setResult(gdao.getWinResult(msg));
 						oos.writeObject(returnMsg);
-					} else if (msg.getStatus() == MessageVO.GAME_LOSE) {
+					} else if (msg.getStatus() == MessageVO.GAME_LOSE) { // 게임 패배 메시지
 						returnMsg.setResult(gdao.getLoseResult(msg));
+						oos.writeObject(returnMsg);
+					} else if (msg.getStatus() == MessageVO.PROFILE_IMAGE) { // 프로필 이미지 요청
+						returnMsg.setImg(gdao.getGameImgResult(msg.getId()));
 						oos.writeObject(returnMsg);
 					}
 				}

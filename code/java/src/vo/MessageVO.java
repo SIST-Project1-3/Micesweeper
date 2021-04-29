@@ -29,7 +29,6 @@ public class MessageVO implements Serializable {
 	public static final int ANOTHER_PROFILE = 19; // 상대 프로필 정보 요청
 	public static final int ROOM_CREATE = 20; // 방 생성
 	public static final int ROOM_JOIN = 21; // 방 참가
-//	public static final int WIN_OR_LOSE = 22; // 승패기록
 	public static final int GAME_CLICK = 23; // 게임 클릭
 	public static final int GAME_QUIT = 24; // 게임 탈주
 	public static final int GAME_IMG = 25;
@@ -37,7 +36,8 @@ public class MessageVO implements Serializable {
 	public static final int GAME_LOSE = 27; // 게임 패배
 	public static final int GAME_LEAVE = 28; // 게임 탈주
 	public static final int GAME_READY = 29; // 게임 탈주
-	public static final int BOARD_WRITE_COMMENT = 29; // 댓글 작성
+	public static final int BOARD_WRITE_COMMENT = 30; // 댓글 작성
+	public static final int PROFILE_IMAGE = 31; // 이미지 요청
 
 	int clickedBtn; // 누른 버튼
 	int status;// MsgVO의 상태

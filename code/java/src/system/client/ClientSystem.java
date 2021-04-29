@@ -239,7 +239,7 @@ public class ClientSystem {
 		return myProfile;
 	}
 
-	// 프로필 이미지 요청
+	// 프로필 이미지 목록 요청
 	public ImageIcon[] requestImg() {
 		ImageIcon[] img_list = new ImageIcon[6];
 		try {
@@ -439,6 +439,22 @@ public class ClientSystem {
 			oos.writeObject(msg);
 			MessageVO recieveMsg = (MessageVO) ois.readObject();
 			result = recieveMsg.isResult();
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return result;
+	}
+
+	// 프로필 이미지 요청
+	public ImageIcon getProfileImg(String id) {
+		ImageIcon result = null;
+		try {
+			MessageVO msg = new MessageVO();
+			msg.setStatus(MessageVO.PROFILE_IMAGE);
+			msg.setId(id);
+			oos.writeObject(msg);
+			MessageVO recieveMsg = (MessageVO) ois.readObject();
+			result = recieveMsg.getImg();
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
