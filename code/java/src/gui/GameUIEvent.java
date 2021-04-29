@@ -43,7 +43,8 @@ public class GameUIEvent implements ActionListener, WindowListener, MouseListene
 			MessageVO msg = new MessageVO();
 			msg.setStatus(MessageVO.GAME_PROFILE);
 			msg.setId(ui.master_id_label.getText());
-			MemberVO gameProfile = gdao.getGameProfileResult(msg);
+			MemberVO gameProfile = ui.client.gameProfile(msg);
+//			MemberVO gameProfile = gdao.getGameProfileResult(msg);
 			ProfileUI pui = new ProfileUI();
 			pui.game_Profile(gameProfile);
 		} else if (obj == ui.send_btn || obj == ui.chat_tf) { // 채팅
