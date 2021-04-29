@@ -175,7 +175,7 @@ public class ProfileUIEvent implements ActionListener, MouseListener {
 
 		boolean result = pui.client.updateImg(msg);
 
-		if (result == false) {
+		if (result == true) {
 			// 프로필 변경 성공 + 프로필 바꾸기 창 종료
 			JOptionPane.showMessageDialog(null, Commons.getMsg("프로필 이미지가 변경되었습니다"));
 			f.dispose();
