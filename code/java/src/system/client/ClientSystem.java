@@ -8,8 +8,11 @@ import java.net.Socket;
 import java.util.ArrayList;
 import java.util.Vector;
 
+import javax.swing.JOptionPane;
+
 import dao.BoardDAO;
 import dao.MemberDAO;
+import gui.Commons;
 import gui.GameUI;
 import gui.MainUI;
 import vo.BoardVO;
@@ -387,7 +390,7 @@ public class ClientSystem {
 		}
 	}
 	//게임 탈주
-	public void sendLeave() {
+	public void sendLeave(String txt) {
 		
 		try {
 			MessageVO msg = new MessageVO();
@@ -476,10 +479,13 @@ public class ClientSystem {
 					} else if (msg.getStatus() == MessageVO.GAME_LEAVE) { // 게임 탈주
 						if (gameui != null) { // 게임 중이면 실행
 							if (msg.getRoom().no == gameui.room.no) { // 방 번호가 맞으면 실행
-								if(msg.getId()==gameui.client.id) {
+								if(msg.getId().equals(gameui.client.id)) {
 									gameui.event.lose();
+									gameui.gvo.setGameflag(false);
 								}else {
 									gameui.event.win();
+									JOptionPane.showMessageDialog(null, Commons.getMsg("상대가 떠났습니다!!"));
+									gameui.gvo.setGameflag(false);
 								}
 							}
 						}
