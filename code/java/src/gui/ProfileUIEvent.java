@@ -48,7 +48,7 @@ public class ProfileUIEvent implements ActionListener, MouseListener {
 			btn_img2.setEnabled(true);
 			btn_img3.setEnabled(true);
 			btn_img4.setEnabled(true);
-			btn_img6.setEnabled(true);
+			btn_img5.setEnabled(true);
 			btn_img6.setEnabled(true);
 			btn_img1.setBorder(null);
 			btn_img2.setBorder(null);
