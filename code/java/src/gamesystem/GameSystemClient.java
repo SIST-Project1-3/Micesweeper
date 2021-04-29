@@ -35,7 +35,7 @@ public class GameSystemClient {
 	// 버튼 클릭 연산
 	public void calcBtnClick(int btnnum) {
 
-		gameplay(btnnum);
+		gameplay(btnnum);//승패 기록 갱신 안됨
 		if (turnflag == true) {
 			if (winflag == true) {
 				gvo.setWinflag(true);
