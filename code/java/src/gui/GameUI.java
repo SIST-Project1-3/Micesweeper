@@ -57,7 +57,7 @@ public class GameUI {
 		gsc = new GameSystemClient(this, turnflag, room);
 		gvo = gsc.gvo;
 		initialize();
-		System.out.println("유저수: "+room.userList.size());
+		System.out.println("유저수: " + room.userList.size());
 	}
 
 	// Method
@@ -120,6 +120,7 @@ public class GameUI {
 		} else {
 			watch_profile_btn.setEnabled(true);
 		}
+		watch_profile_btn.addActionListener(event);
 
 		west_panel.add(master_icon_panel);
 		west_panel.add(master_image_panel);
@@ -153,7 +154,7 @@ public class GameUI {
 		System.out.println(room.userList.size());
 		if (room.userList.size() == 2) {
 			user_id_label = new JLabel(room.userList.get(1));
-			System.out.println(222222+room.userList.get(1));
+			System.out.println(222222 + room.userList.get(1));
 		} else {
 			user_id_label = new JLabel("대기중");
 		}
@@ -168,6 +169,7 @@ public class GameUI {
 		user_panel.add(user_btn_panel);
 		if (user_id_label.getText().equals("대기중"))
 			watch_profile_btn2.setEnabled(false);
+		watch_profile_btn2.addActionListener(event);
 
 		east_panel.add(user_icon_panel);
 		east_panel.add(user_image_panel);
@@ -262,7 +264,4 @@ public class GameUI {
 		frame.dispose();
 	}
 
-	public static void main(String[] args) {
-		new GameUI();
-	}
 }
