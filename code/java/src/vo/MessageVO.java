@@ -53,22 +53,6 @@ public class MessageVO implements Serializable {
 	RoomVO room; // 방 정보
 	boolean winflag, loseflag, readyflag2, gameflag;
 
-	public boolean isGameflag() {
-		return gameflag;
-	}
-
-	public void setGameflag(boolean gameflag) {
-		this.gameflag = gameflag;
-	}
-
-	public boolean isReadyflag2() {
-		return readyflag2;
-	}
-
-	public void setReadyflag2(boolean readyflag2) {
-		this.readyflag2 = readyflag2;
-	}
-
 	public int getClickedBtn() {
 		return clickedBtn;
 	}
@@ -77,52 +61,20 @@ public class MessageVO implements Serializable {
 		this.clickedBtn = clickedBtn;
 	}
 
-	public boolean isWinflag() {
-		return winflag;
-	}
-
-	public void setWinflag(boolean winflag) {
-		this.winflag = winflag;
-	}
-
-	public boolean isLoseflag() {
-		return loseflag;
-	}
-
-	public void setLoseflag(boolean loseflag) {
-		this.loseflag = loseflag;
-	}
-
-	public RoomVO getRoom() {
-		return room;
-	}
-
-	public void setRoom(RoomVO room) {
-		this.room = room;
-	}
-
-	public ArrayList<RoomVO> getRoomList() {
-		return roomList;
-	}
-
-	public void setRoomList(ArrayList<RoomVO> roomList) {
-		this.roomList = roomList;
-	}
-
-	public Vector<String> getUserList() {
-		return userList;
-	}
-
-	public void setUserList(Vector<String> userList) {
-		this.userList = userList;
-	}
-
 	public int getStatus() {
 		return status;
 	}
 
 	public void setStatus(int status) {
 		this.status = status;
+	}
+
+	public int getNo() {
+		return no;
+	}
+
+	public void setNo(int no) {
+		this.no = no;
 	}
 
 	public String getTitle() {
@@ -165,7 +117,15 @@ public class MessageVO implements Serializable {
 		this.pw = pw;
 	}
 
-	public boolean getResult() {
+	public String getImg() {
+		return img;
+	}
+
+	public void setImg(String img) {
+		this.img = img;
+	}
+
+	public boolean isResult() {
 		return result;
 	}
 
@@ -181,14 +141,6 @@ public class MessageVO implements Serializable {
 		this.boardList = boardList;
 	}
 
-	public int getNo() {
-		return no;
-	}
-
-	public void setNo(int no) {
-		this.no = no;
-	}
-
 	public BoardVO getArticle() {
 		return article;
 	}
@@ -197,20 +149,20 @@ public class MessageVO implements Serializable {
 		this.article = article;
 	}
 
-	public String getImg() {
-		return img;
-	}
-
-	public void setImg(String img) {
-		this.img = img;
-	}
-
 	public MemberVO getMyProfile() {
 		return myProfile;
 	}
 
 	public void setMyProfile(MemberVO myProfile) {
 		this.myProfile = myProfile;
+	}
+
+	public String[] getImgList() {
+		return imgList;
+	}
+
+	public void setImgList(String[] imgList) {
+		this.imgList = imgList;
 	}
 
 	public MemberVO getGameImg() {
@@ -229,12 +181,168 @@ public class MessageVO implements Serializable {
 		this.gameProfile = gameProfile;
 	}
 
-	public String[] getImgList() {
-		return imgList;
+	public Vector<String> getUserList() {
+		return userList;
 	}
 
-	public void setImgList(String[] imgList) {
-		this.imgList = imgList;
+	public void setUserList(Vector<String> userList) {
+		this.userList = userList;
+	}
+
+	public ArrayList<RoomVO> getRoomList() {
+		return roomList;
+	}
+
+	public void setRoomList(ArrayList<RoomVO> roomList) {
+		this.roomList = roomList;
+	}
+
+	public RoomVO getRoom() {
+		return room;
+	}
+
+	public void setRoom(RoomVO room) {
+		this.room = room;
+	}
+
+	public boolean isWinflag() {
+		return winflag;
+	}
+
+	public void setWinflag(boolean winflag) {
+		this.winflag = winflag;
+	}
+
+	public boolean isLoseflag() {
+		return loseflag;
+	}
+
+	public void setLoseflag(boolean loseflag) {
+		this.loseflag = loseflag;
+	}
+
+	public boolean isReadyflag2() {
+		return readyflag2;
+	}
+
+	public void setReadyflag2(boolean readyflag2) {
+		this.readyflag2 = readyflag2;
+	}
+
+	public boolean isGameflag() {
+		return gameflag;
+	}
+
+	public void setGameflag(boolean gameflag) {
+		this.gameflag = gameflag;
+	}
+
+	public static int getBoardWrite() {
+		return BOARD_WRITE;
+	}
+
+	public static int getBoardReadList() {
+		return BOARD_READ_LIST;
+	}
+
+	public static int getBoardReadArticle() {
+		return BOARD_READ_ARTICLE;
+	}
+
+	public static int getBoardUpdateArticle() {
+		return BOARD_UPDATE_ARTICLE;
+	}
+
+	public static int getBoardDeleteArticle() {
+		return BOARD_DELETE_ARTICLE;
+	}
+
+	public static int getBoardSearchTitle() {
+		return BOARD_SEARCH_TITLE;
+	}
+
+	public static int getBoardSearchWriter() {
+		return BOARD_SEARCH_WRITER;
+	}
+
+	public static int getLogin() {
+		return LOGIN;
+	}
+
+	public static int getConnect() {
+		return CONNECT;
+	}
+
+	public static int getExit() {
+		return EXIT;
+	}
+
+	public static int getJoin() {
+		return JOIN;
+	}
+
+	public static int getIdcheck() {
+		return IDCHECK;
+	}
+
+	public static int getServerchat() {
+		return SERVERCHAT;
+	}
+
+	public static int getGamechat() {
+		return GAMECHAT;
+	}
+
+	public static int getImgRequest() {
+		return IMG_REQUEST;
+	}
+
+	public static int getImgUpdate() {
+		return IMG_UPDATE;
+	}
+
+	public static int getAnotherProfile() {
+		return ANOTHER_PROFILE;
+	}
+
+	public static int getRoomCreate() {
+		return ROOM_CREATE;
+	}
+
+	public static int getRoomJoin() {
+		return ROOM_JOIN;
+	}
+
+	public static int getWinOrLose() {
+		return WIN_OR_LOSE;
+	}
+
+	public static int getGameClick() {
+		return GAME_CLICK;
+	}
+
+	public static int getGameQuit() {
+		return GAME_QUIT;
+	}
+
+	public static int getGameWin() {
+		return GAME_WIN;
+	}
+
+	public static int getGameLose() {
+		return GAME_LOSE;
+	}
+
+	public static int getGameLeave() {
+		return GAME_LEAVE;
+	}
+
+	public static int getGameReady() {
+		return GAME_READY;
+	}
+
+	public static int getBoardWriteComment() {
+		return BOARD_WRITE_COMMENT;
 	}
 
 }

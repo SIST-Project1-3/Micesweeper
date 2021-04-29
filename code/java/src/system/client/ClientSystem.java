@@ -65,7 +65,7 @@ public class ClientSystem {
 			// 소켓통신을 이용해 msg에 담아서 서버에 전송
 			oos.writeObject(msg);
 			MessageVO recieveMsg = (MessageVO) ois.readObject();
-			result = recieveMsg.getResult();
+			result = recieveMsg.isResult();
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
@@ -128,7 +128,7 @@ public class ClientSystem {
 		try {
 			oos.writeObject(msg);
 			MessageVO recieveMsg = (MessageVO) ois.readObject();
-			result = recieveMsg.getResult();
+			result = recieveMsg.isResult();
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
@@ -144,7 +144,7 @@ public class ClientSystem {
 		try {
 			oos.writeObject(msg);
 			MessageVO recieveMsg = (MessageVO) ois.readObject();
-			result = recieveMsg.getResult();
+			result = recieveMsg.isResult();
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
@@ -162,7 +162,7 @@ public class ClientSystem {
 			msg.setContent(content); // 작성 내용
 			oos.writeObject(msg);
 			MessageVO recieveMsg = (MessageVO) ois.readObject();
-			result = recieveMsg.getResult();
+			result = recieveMsg.isResult();
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
@@ -176,7 +176,7 @@ public class ClientSystem {
 		try {
 			oos.writeObject(msg);
 			MessageVO recieveMsg = (MessageVO) ois.readObject();
-			result = recieveMsg.getResult();
+			result = recieveMsg.isResult();
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
@@ -190,7 +190,7 @@ public class ClientSystem {
 		try {
 			oos.writeObject(msg);
 			MessageVO recieveMsg = (MessageVO) ois.readObject();
-			result = recieveMsg.getResult();
+			result = recieveMsg.isResult();
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
@@ -204,7 +204,7 @@ public class ClientSystem {
 		try {
 			oos.writeObject(msg);
 			MessageVO recieveMsg = (MessageVO) ois.readObject();
-			result = recieveMsg.getResult();
+			result = recieveMsg.isResult();
 			if (result) { // 로그인 성공 시 접속중인 유저 목록과 방 목록을 수신
 				userList = recieveMsg.getUserList();
 				roomList = recieveMsg.getRoomList();
@@ -245,7 +245,7 @@ public class ClientSystem {
 		try {
 			oos.writeObject(msg);
 			MessageVO recieveMsg = (MessageVO) ois.readObject();
-			result = recieveMsg.getResult();
+			result = recieveMsg.isResult();
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
@@ -263,7 +263,7 @@ public class ClientSystem {
 //			}
 //			return gameImg;
 //		}
-	
+
 	// 게임화면 프로필보기 정보 요청
 	public MemberVO gameProfile(MessageVO msg) {
 		MemberVO gameProfile = null;
@@ -370,7 +370,8 @@ public class ClientSystem {
 			e.printStackTrace();
 		}
 	}
-	//게임 준비
+
+	// 게임 준비
 	public void sendReady(Boolean readyflag2) {
 		try {
 			MessageVO msg = new MessageVO();
@@ -425,6 +426,15 @@ public class ClientSystem {
 						roomList = msg.getRoomList();
 						if (mainui != null) {
 							mainui.jlist_room.setListData(getRoomInfoList());
+						} else if (gameui != null) {
+							System.out.println("방장이 방 참가 요청 메시지를 수신. 인원수: " + roomList.get(0).userList.size());
+							for (RoomVO room : roomList) {
+								if (room.no == gameui.room.no) { // 내 방 번호 데이터를 목록에서 찾아서 gameui의 데이터 갱신
+									gameui.room = room;
+									break;
+								}
+							}
+							gameui.fillUserPanel();
 						}
 					} else if (msg.getStatus() == MessageVO.GAMECHAT) { // 게임 채팅
 						if (gameui != null && (msg.getNo() == gameui.room.no)) { // 게임 중이고, 받은 메시지의 방 번호가 나의 방 번호일 때 실행

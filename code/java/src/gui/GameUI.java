@@ -38,6 +38,9 @@ public class GameUI {
 	ClientSystem client;
 	public RoomVO room; // 방 정보
 	String[] iconList = new String[2]; // 프사 리스트
+	GameDAO gdao = new GameDAO();
+	JLabel img_label2;
+	JPanel user_image_panel;
 
 	// Constructor
 	public GameUI() {
@@ -71,7 +74,11 @@ public class GameUI {
 		east_panel = new JPanel(new GridLayout(3, 1, 0, 10)); // 참가자 프로필
 		south_panel = new JPanel(new BorderLayout()); // 채팅
 
-		fillUserPanel();
+		for (int i = 0; i < room.userList.size(); i++) {
+			String id = room.userList.get(i);
+			GameDAO gdao = new GameDAO();
+			iconList[i] = gdao.getGameImgResult(id);
+		}
 
 		// 방장(왼쪽)
 		JPanel master_icon_panel = new JPanel();
@@ -128,7 +135,7 @@ public class GameUI {
 
 		// 참가자 (오른쪽)
 		JPanel user_icon_panel = new JPanel();
-		JPanel user_image_panel = new JPanel();
+		user_image_panel = new JPanel();
 		JPanel user_id_panel = new JPanel();
 		JPanel user_btn_panel = new JPanel();
 		JPanel user_panel = new JPanel(new GridLayout(2, 1, 0, 20)); // id, btn 패널 넣음
@@ -147,7 +154,7 @@ public class GameUI {
 		Image img2 = icon2.getImage();
 		Image changeImg2 = img2.getScaledInstance(160, 160, Image.SCALE_SMOOTH);
 		ImageIcon changeIcon2 = new ImageIcon(changeImg2);
-		JLabel img_label2 = new JLabel(changeIcon2);
+		img_label2 = new JLabel(changeIcon2);
 		user_image_panel.add(img_label2);
 
 		// 참가자 아이디
@@ -251,11 +258,23 @@ public class GameUI {
 		frame.addWindowListener(event);
 	}
 
+	// 참가자 패널 갱신 메소드
 	public void fillUserPanel() {
-		for (int i = 0; i < room.userList.size(); i++) {
-			String id = room.userList.get(i);
-			GameDAO gdao = new GameDAO();
-			iconList[i] = gdao.getGameImgResult(id);
+		// 참가자가 있으면 참가자 패널 갱신
+		if (room.userList.size() >= 2) {
+			String id1 = room.userList.get(1);
+			user_id_label.setText(id1);
+			watch_profile_btn2.setEnabled(true);
+			icon2 = new ImageIcon(gdao.getGameImgResult(id1));
+			Image img2 = icon2.getImage();
+			Image changeImg2 = img2.getScaledInstance(160, 160, Image.SCALE_SMOOTH);
+			ImageIcon changeIcon2 = new ImageIcon(changeImg2);
+			img_label2 = new JLabel(changeIcon2);
+			user_image_panel.remove(0);
+			user_image_panel.add(img_label2);
+			user_image_panel.setVisible(false); // 패널 새로고침
+			user_image_panel.setVisible(true);
+			frame.repaint(); // 프레임 새로고침
 		}
 	}
 

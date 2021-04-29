@@ -28,11 +28,8 @@ public class StartUI {
 
 	// Constructor
 	public StartUI() {
-		System.out.println("StartUI 실행");
 		client = new ClientSystem();
-		System.out.println("UI와 클라이언트 연결");
 		loginEvent = new StartUIEvent(this, client);
-		System.out.println("StartUI 이벤트 연결");
 		init();
 	}
 
