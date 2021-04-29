@@ -64,7 +64,7 @@ public class ProfileUI {
 		int win_score = myProfile.getWin();
 		int lose_score = myProfile.getLose();
 		int total_score = win_score + lose_score;
-		JLabel scoreData_lable = new JLabel(win_score + "승  " + total_score + "전  " + lose_score + "패");
+		JLabel scoreData_lable = new JLabel(total_score + "전  " + win_score + "승  " + lose_score + "패");
 		id_lable.setFont(Commons.getFont());
 		score_lable.setFont(Commons.getFont());
 		name_panel.add(id_lable);
@@ -132,7 +132,7 @@ public class ProfileUI {
 		int win_score = gameProfile.getWin();
 		int lose_score = gameProfile.getLose();
 		int total_score = win_score + lose_score;
-		JLabel scoreData_lable = new JLabel(win_score + "승  " + total_score + "전  " + lose_score + "패");
+		JLabel scoreData_lable = new JLabel(total_score + "전  " + win_score + "승  " + lose_score + "패");
 		id_lable.setFont(Commons.getFont());
 		score_lable.setFont(Commons.getFont());
 		name_panel.add(id_lable);
