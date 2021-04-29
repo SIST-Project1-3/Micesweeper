@@ -37,11 +37,13 @@ public class GameSystemClient {
 		if (turnflag == true) {
 			if (winflag == true) {
 				gvo.setWinflag(true);
+				gvo.setGameflag(false);
 
 				// 승리 팝업창
 				exit();
 			} else if (loseflag == true) {
 				gvo.setLoseflag(true);
+				gvo.setGameflag(false);
 				// 패배 팝업창
 				exit();
 			} else {
@@ -49,9 +51,13 @@ public class GameSystemClient {
 			}
 		} else {
 			if (winflag == true) {
+				gvo.setLoseflag(true);
+				gvo.setGameflag(false);
 				// 패배 팝업창
 				// 종료
 			} else if (loseflag == true) {
+				gvo.setWinflag(true);
+				gvo.setGameflag(false);
 				// 승리 팝업창
 				// 종료
 			} else {
