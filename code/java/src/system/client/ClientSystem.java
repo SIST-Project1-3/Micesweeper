@@ -8,6 +8,7 @@ import java.net.Socket;
 import java.util.ArrayList;
 import java.util.Vector;
 
+import javax.swing.ImageIcon;
 import javax.swing.JOptionPane;
 
 import dao.BoardDAO;
@@ -36,6 +37,7 @@ public class ClientSystem {
 	public Vector<String> userList = new Vector<String>(); // 접속중인 유저 목록
 	public ArrayList<RoomVO> roomList = new ArrayList<RoomVO>(); // 생성된 방 목록
 	MemberVO gameProfile;
+	String ip = "127.0.0.1";
 
 	// Constructor
 	public ClientSystem() {
@@ -48,8 +50,8 @@ public class ClientSystem {
 	// 초기화
 	public void initialize() {
 		try {
-
-			client = new Socket("127.0.0.1", 9000);
+			setIP();
+			client = new Socket(ip, 9000);
 			oos = new ObjectOutputStream(client.getOutputStream());
 			ois = new ObjectInputStream(client.getInputStream());
 			System.out.println("커뮤니티 통신 소켓 연결");
@@ -58,6 +60,10 @@ public class ClientSystem {
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
+	}
+
+	public void setIP() {
+		ip = JOptionPane.showInputDialog(null, Commons.getMsg("접속할 IP 주소"), "127.0.0.1");
 	}
 
 	// 글 작성 - MessageVO를 인자로 받아서 메소드 실행
@@ -219,9 +225,12 @@ public class ClientSystem {
 	}
 
 	// 내 프로필 요청 & 정보 받기
-	public MemberVO myProfile(MessageVO msg) {
+	public MemberVO myProfile() {
 		MemberVO myProfile = null;
 		try {
+			MessageVO msg = new MessageVO();
+			msg.setStatus(MessageVO.MY_PROFILE);
+			msg.setId(id);
 			oos.writeObject(msg);
 			myProfile = ((MessageVO) ois.readObject()).getMyProfile();
 		} catch (Exception e) {
@@ -231,9 +240,11 @@ public class ClientSystem {
 	}
 
 	// 프로필 이미지 요청
-	public String[] requestImg(MessageVO msg) {
-		String[] img_list = new String[6];
+	public ImageIcon[] requestImg() {
+		ImageIcon[] img_list = new ImageIcon[6];
 		try {
+			MessageVO msg = new MessageVO();
+			msg.setStatus(MessageVO.IMG_REQUEST);
 			oos.writeObject(msg);
 			img_list = ((MessageVO) ois.readObject()).getImgList();
 		} catch (Exception e) {
@@ -374,9 +385,7 @@ public class ClientSystem {
 		}
 	}
 
-
-
-	//게임 준비
+	// 게임 준비
 	public void sendReady() {
 
 		try {
@@ -389,9 +398,9 @@ public class ClientSystem {
 			e.printStackTrace();
 		}
 	}
-	//게임 탈주
+
+	// 게임 탈주
 	public void sendLeave(String txt) {
-		
 		try {
 			MessageVO msg = new MessageVO();
 			msg.setStatus(MessageVO.GAME_LEAVE);
@@ -404,6 +413,38 @@ public class ClientSystem {
 		}
 	}
 
+	// 게임 승리 결과 전송
+	public boolean sendWinResult() {
+		boolean result = false;
+		try {
+			MessageVO msg = new MessageVO();
+			msg.setStatus(MessageVO.GAME_WIN);
+			msg.setId(id);
+			oos.writeObject(msg);
+			MessageVO recieveMsg = (MessageVO) ois.readObject();
+			result = recieveMsg.isResult();
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return result;
+	}
+
+	// 게임 패배 결과 전송
+	public boolean sendLoseResult() {
+		boolean result = false;
+		try {
+			MessageVO msg = new MessageVO();
+			msg.setStatus(MessageVO.GAME_LOSE);
+			msg.setId(id);
+			oos.writeObject(msg);
+			MessageVO recieveMsg = (MessageVO) ois.readObject();
+			result = recieveMsg.isResult();
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return result;
+	}
+
 	class ClientThread extends Thread {
 		// Field
 
@@ -414,7 +455,7 @@ public class ClientSystem {
 		public void run() {
 			try {
 
-				client_chat = new Socket("127.0.0.1", 10000);
+				client_chat = new Socket(ip, 10000);
 				System.out.println("채팅 통신 소켓 연결");
 				ois_chat = new ObjectInputStream(client_chat.getInputStream());
 				System.out.println("채팅 소켓 ois 생성");
@@ -469,9 +510,9 @@ public class ClientSystem {
 					} else if (msg.getStatus() == MessageVO.GAME_READY) { // 게임 레디
 						if (gameui != null) { // 게임 중이면 실행
 							if (msg.getRoom().no == gameui.room.no) { // 방 번호가 맞으면 실행
-								gameui.gvo.readycount ++;
+								gameui.gvo.readycount++;
 								gameui.ready_btn.setBackground(Color.ORANGE);
-								if(gameui.gvo.readycount == 2) {
+								if (gameui.gvo.readycount == 2) {
 									gameui.gvo.setGameflag(true);
 								}
 							}
@@ -479,10 +520,10 @@ public class ClientSystem {
 					} else if (msg.getStatus() == MessageVO.GAME_LEAVE) { // 게임 탈주
 						if (gameui != null) { // 게임 중이면 실행
 							if (msg.getRoom().no == gameui.room.no) { // 방 번호가 맞으면 실행
-								if(msg.getId().equals(gameui.client.id)) {
+								if (msg.getId().equals(gameui.client.id)) {
 									gameui.event.lose();
 									gameui.gvo.setGameflag(false);
-								}else {
+								} else {
 									gameui.event.win();
 									JOptionPane.showMessageDialog(null, Commons.getMsg("상대가 떠났습니다!!"));
 									gameui.gvo.setGameflag(false);

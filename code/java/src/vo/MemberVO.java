@@ -2,9 +2,12 @@ package vo;
 
 import java.io.Serializable;
 
+import javax.swing.ImageIcon;
+
 // DAO를 통해 DB에 접근하기위한 VO
 public class MemberVO implements Serializable {
-	String id, pw, name, rdate, img, img2; // ID, PW, 이름, 등록일자, 방장이미지, 참가자이미지
+	String id, pw, name, rdate, img2; // ID, PW, 이름, 등록일자, 참가자이미지
+	ImageIcon img; // 방장이미지
 	int win, lose; // 승리횟수, 패배횟수
 
 	public String getId() {
@@ -39,12 +42,12 @@ public class MemberVO implements Serializable {
 		this.rdate = rdate;
 	}
 
-	public String getImg() {
+	public ImageIcon getImg() {
 		return img;
 	}
 
-	public String setImg(String img) {
-		return this.img = img;
+	public void setImg(ImageIcon img) {
+		this.img = img;
 	}
 
 	public String getImg2() {

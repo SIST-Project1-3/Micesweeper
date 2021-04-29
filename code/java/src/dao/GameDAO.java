@@ -2,6 +2,8 @@ package dao;
 
 import java.util.ArrayList;
 
+import javax.swing.ImageIcon;
+
 import vo.MemberVO;
 import vo.MessageVO;
 
@@ -45,7 +47,7 @@ public class GameDAO extends DAO {
 				profile.setId(rs.getString(1));
 				profile.setWin(rs.getInt(3));
 				profile.setLose(rs.getInt(4));
-				profile.setImg(rs.getString(6));
+				profile.setImg(new ImageIcon(rs.getString(6)));
 			}
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -54,33 +56,43 @@ public class GameDAO extends DAO {
 	}
 
 	// 승리 기록 저장
-	public void getWinResult(MessageVO msg) {
+	public boolean getWinResult(MessageVO msg) {
+		boolean result = false;
 		try {
 			// 승리 횟수 증가
 			String sql = "update member set win = win+1 where id=?";
 			getPreparedStatement(sql);
 
 			pstmt.setString(1, msg.getId());
-			pstmt.executeUpdate();
+			int val = pstmt.executeUpdate();
 
+			if (val != 0) {
+				result = true;
+			}
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
+		return result;
 	}
 
 	// 패배 기록 저장
-	public void getLoseResult(MessageVO msg) {
+	public boolean getLoseResult(MessageVO msg) {
+		boolean result = false;
 		try {
 			// 승리 횟수 증가
 			String sql = "update member set lose = lose+1 where id=?";
 			getPreparedStatement(sql);
 
 			pstmt.setString(1, msg.getId());
-			pstmt.executeUpdate();
+			int val = pstmt.executeUpdate();
 
+			if (val != 0) {
+				result = true;
+			}
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
+		return result;
 	}
 
 }

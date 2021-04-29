@@ -30,11 +30,11 @@ public class MainUIEvent implements ActionListener, WindowListener, MouseListene
 		if (obj == ui.list_btn.get(0)) {// 방 생성
 			new CreateRoomUI(ui.client, ui);
 		} else if (obj == ui.list_btn.get(1)) { // 내 프로필
-			MessageVO msg = new MessageVO();
-			msg.setStatus(MessageVO.MY_PROFILE);
-			msg.setId(ui.client.id);
-			MemberVO profile = ui.client.myProfile(msg);
-			new ProfileUI(profile);
+//			MessageVO msg = new MessageVO();
+//			msg.setStatus(MessageVO.MY_PROFILE);
+//			msg.setId(ui.client.id);
+			MemberVO profile = ui.client.myProfile();
+			new ProfileUI(profile, ui.client);
 		} else if (obj == ui.list_btn.get(2)) { // 커뮤니티
 			new BoardListUI(ui.client);
 		} else if (obj == ui.list_btn.get(3)) { // 게임종료

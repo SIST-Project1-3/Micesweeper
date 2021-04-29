@@ -7,6 +7,8 @@ import java.net.Socket;
 import java.util.ArrayList;
 import java.util.Vector;
 
+import javax.swing.ImageIcon;
+
 import dao.BoardDAO;
 import dao.GameDAO;
 import dao.MemberDAO;
@@ -191,7 +193,7 @@ public class ServerSystem {
 						returnMsg.setMyProfile(myProfile);
 						oos.writeObject(returnMsg);
 					} else if (msg.getStatus() == MessageVO.IMG_REQUEST) { // 프로필 이미지 요청
-						String[] img_list = mdao.getImgResult(msg);
+						ImageIcon[] img_list = mdao.getImgResult(msg);
 						returnMsg.setImgList(img_list);
 						oos.writeObject(returnMsg);
 					} else if (msg.getStatus() == MessageVO.IMG_UPDATE) { // 프로필 이미지 수정
@@ -206,6 +208,12 @@ public class ServerSystem {
 						oos.writeObject(returnMsg);
 					} else if (msg.getStatus() == MessageVO.ROOM_JOIN) { // 방 참가 요청, 성공 여부 반환
 						returnMsg.setRoom(joinRoom(msg, this));
+						oos.writeObject(returnMsg);
+					} else if (msg.getStatus() == MessageVO.GAME_WIN) {
+						returnMsg.setResult(gdao.getWinResult(msg));
+						oos.writeObject(returnMsg);
+					} else if (msg.getStatus() == MessageVO.GAME_LOSE) {
+						returnMsg.setResult(gdao.getLoseResult(msg));
 						oos.writeObject(returnMsg);
 					}
 				}

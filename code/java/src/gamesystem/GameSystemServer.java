@@ -47,27 +47,27 @@ public class GameSystemServer {
 		number = gvo.getNumber();// 지뢰, 숫자 어레이리스트 생성
 		boolean mflag = true; // 중복값 판단하는 flag
 		miceCount = 10 + (int) ((Math.random()) * 10000) % 6; // 지뢰갯수 설정
-		System.out.println("k=" + miceCount); // 지뢰갯수 출력
+//		System.out.println("k=" + miceCount); // 지뢰갯수 출력
 		for (int i = 0; i < miceCount; i++) {
-			System.out.println(i);
+//			System.out.println(i);
 			int l = (int) (Math.random() * 10000) % 81;
-			System.out.println("지뢰=" + l);
-			System.out.println(mice.size());
+//			System.out.println("지뢰=" + l);
+//			System.out.println(mice.size());
 			for (int m = 0; m < mice.size(); m++) {
 				int value = mice.get(m);
 				if (value == l) {
 					mflag = false;
 				}
 			}
-			System.out.println(mflag);
+//			System.out.println(mflag);
 			if (mflag == false) {
 				i--;
-				System.out.println("중복!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!");
+//				System.out.println("중복!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!");
 				mflag = true;
 			} else if (mflag == true) {
 				mice.add(l);
 				gvo.setMice(mice);
-				System.out.println(gvo.getMice());
+//				System.out.println(gvo.getMice());
 				int a = l / 9;
 				int b = l % 9;
 				if (a == 0) {
@@ -127,7 +127,7 @@ public class GameSystemServer {
 					}
 				}
 				gvo.setNumber(number);
-				System.out.println(gvo.getNumber());
+//				System.out.println(gvo.getNumber());
 			} // else
 		} // for
 

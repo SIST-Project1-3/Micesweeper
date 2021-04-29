@@ -2,6 +2,8 @@ package dao;
 
 import java.util.ArrayList;
 
+import javax.swing.ImageIcon;
+
 import vo.BoardVO;
 import vo.MemberVO;
 import vo.MessageVO;
@@ -93,7 +95,7 @@ public class MemberDAO extends DAO {
 				profile.setId(rs.getString(1));
 				profile.setWin(rs.getInt(3));
 				profile.setLose(rs.getInt(4));
-				profile.setImg(rs.getString(6));
+				profile.setImg(new ImageIcon(rs.getString(6)));
 			}
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -102,8 +104,8 @@ public class MemberDAO extends DAO {
 	}
 	
 	// 프로필 이미지 가져오기
-	 public String[] getImgResult(MessageVO msg) {
-		 String[] img = new String[6];
+	 public ImageIcon[] getImgResult(MessageVO msg) {
+		 ImageIcon[] img = new ImageIcon[6];
 		
 		try {
 			String sql = "select * from img";
@@ -113,7 +115,9 @@ public class MemberDAO extends DAO {
 			rs = pstmt.executeQuery();
 			while (rs.next()) {
 				MemberVO member = new MemberVO();
-				member.setImg(rs.getString(1));
+				ImageIcon icon = new ImageIcon(rs.getBytes(1));
+				icon.setDescription(rs.getString(1));
+				member.setImg(new ImageIcon(rs.getString(1)));
 				img[i] = member.getImg();
 				i++;
 			}
@@ -133,7 +137,7 @@ public class MemberDAO extends DAO {
 				String sql = "UPDATE MEMBER SET IMG=? WHERE ID=?";
 				getPreparedStatement(sql);
 				
-				pstmt.setString(1, msg.getImg());
+				pstmt.setString(1, msg.getImg().getDescription());
 				pstmt.setString(2, msg.getId());
 				
 				int val = pstmt.executeUpdate();

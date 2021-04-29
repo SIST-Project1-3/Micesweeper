@@ -21,26 +21,21 @@ public class ProfileUI {
 	JButton file_change_btn, exit_btn;
 	ImageIcon changeIcon;
 	JLabel idData_lable, img_label, gid_lable;
-	ProfileUIEvent profileEvent = new ProfileUIEvent(this);
-	ClientSystem client = new ClientSystem();
+	ClientSystem client;
 	GameUI game;
-	MemberVO myProfile;
-	MemberVO gameProfile;
-	
+	MemberVO myProfile; // 메인화면에서 내 프로필 클릭시
+	MemberVO gameProfile; // 게임 안에서 프로필 보기 클릭시
+	ProfileUIEvent profileEvent = new ProfileUIEvent(this);
+
 	// 메인화면 -> 내 프로필
-	public ProfileUI(MemberVO myProfile) {
+	public ProfileUI(MemberVO myProfile, ClientSystem client) {
 		this.myProfile = myProfile;
+		this.client = client;
 		main_myProfile();
 	}
-	
-	// 게임화면 -> 프로필 보기
-//	public ProfileUI(MemberVO gameProfile) {
-//		this.gameProfile = gameProfile;
-//		game_Profile();
-//	}
-	
+
 	public ProfileUI() {
-		
+
 	}
 
 	// 메인화면의 내 프로필 (프로필 수정 가능)
@@ -60,7 +55,7 @@ public class ProfileUI {
 		// ID, 승패기록 생성
 		JLabel id_lable = new JLabel("ID");
 		JLabel score_lable = new JLabel("전적");
-		idData_lable = new JLabel(""+ myProfile.getId() +"");
+		idData_lable = new JLabel("" + myProfile.getId() + "");
 		int win_score = myProfile.getWin();
 		int lose_score = myProfile.getLose();
 		int total_score = win_score + lose_score;
@@ -87,7 +82,7 @@ public class ProfileUI {
 
 		// 프로필 이미지 & 크기조절
 		// 사용자가 프로필 수정 창에서 선택한 이미지가 삽입될 수 있게 만들기
-		ImageIcon icon = new ImageIcon(""+myProfile.getImg()+"");
+		ImageIcon icon = new ImageIcon("" + myProfile.getImg() + "");
 		Image img = icon.getImage();
 		Image changeImg = img.getScaledInstance(200, 200, Image.SCALE_SMOOTH);
 		changeIcon = new ImageIcon(changeImg);
@@ -112,7 +107,7 @@ public class ProfileUI {
 
 	public void game_Profile(MemberVO gameProfile) {
 		this.gameProfile = gameProfile;
-		
+
 		// 게임화면의 프로필 보기 (프로필 수정 불가능)
 		f = new JFrame("프로필");
 		center_panel = new JPanel(new BorderLayout());
@@ -124,11 +119,11 @@ public class ProfileUI {
 		data_panel = new JPanel(new GridLayout(2, 1));
 		nd_panel = new JPanel();
 		exit_panel = new JPanel();
-		
+
 		// ID, 승패기록 생성
 		JLabel id_lable = new JLabel("ID");
 		JLabel score_lable = new JLabel("전적");
-		gid_lable = new JLabel(""+ gameProfile.getId());
+		gid_lable = new JLabel("" + gameProfile.getId());
 		int win_score = gameProfile.getWin();
 		int lose_score = gameProfile.getLose();
 		int total_score = win_score + lose_score;
@@ -149,7 +144,7 @@ public class ProfileUI {
 		exit_btn.addActionListener(profileEvent);
 
 		// 프로필 이미지 & 크기조절
-		ImageIcon icon = new ImageIcon(""+ gameProfile.getImg());
+		ImageIcon icon = new ImageIcon("" + gameProfile.getImg());
 		Image img = icon.getImage();
 		Image changeImg = img.getScaledInstance(200, 200, Image.SCALE_SMOOTH);
 		ImageIcon changeIcon = new ImageIcon(changeImg);

@@ -93,20 +93,14 @@ public class GameUIEvent implements ActionListener, WindowListener, MouseListene
 		ui.exit();
 	}
 
-	// 승리하면 데이터베이스에 승리 횟수 +1 증가 
-	public void win() {	
-		MessageVO msg = new MessageVO();
-		msg.setStatus(MessageVO.WIN_OR_LOSE);
-		msg.setId(ui.client.id);
-		gdao.getWinResult(msg);
+	// 승리하면 데이터베이스에 승리 횟수 +1 증가
+	public boolean win() {
+		return ui.client.sendWinResult();
 	}
-	
-	// 패배하면 데이터베이스에 패배 횟수 +1 증가 
-	public void lose() { 
-		MessageVO msg = new MessageVO();
-		msg.setStatus(MessageVO.WIN_OR_LOSE);
-		msg.setId(ui.client.id);
-		gdao.getLoseResult(msg);
+
+	// 패배하면 데이터베이스에 패배 횟수 +1 증가
+	public boolean lose() {
+		return ui.client.sendLoseResult();
 	}
 
 	@Override

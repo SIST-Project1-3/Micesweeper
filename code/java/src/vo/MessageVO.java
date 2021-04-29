@@ -4,6 +4,8 @@ import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Vector;
 
+import javax.swing.ImageIcon;
+
 // 서버와 클라이언트가 통신할 때 사용하는 VO
 public class MessageVO implements Serializable {
 	public static final int BOARD_WRITE = 1; // 게시글 작성
@@ -27,7 +29,7 @@ public class MessageVO implements Serializable {
 	public static final int ANOTHER_PROFILE = 19; // 상대 프로필 정보 요청
 	public static final int ROOM_CREATE = 20; // 방 생성
 	public static final int ROOM_JOIN = 21; // 방 참가
-	public static final int WIN_OR_LOSE = 22; // 승패기록
+//	public static final int WIN_OR_LOSE = 22; // 승패기록
 	public static final int GAME_CLICK = 23; // 게임 클릭
 	public static final int GAME_QUIT = 24; // 게임 탈주
 	public static final int GAME_IMG = 25;
@@ -40,12 +42,13 @@ public class MessageVO implements Serializable {
 	int clickedBtn; // 누른 버튼
 	int status;// MsgVO의 상태
 	int no; // 게시글 No, 게임방 No
-	String title, content, id, id2, pw, img; // 게시글 제목, (내용, 채팅메시지), 내ID or 방장ID, 참가자ID, 패스워드, 내프로필이미지
+	String title, content, id, id2, pw; // 게시글 제목, (내용, 채팅메시지), 내ID or 방장ID, 참가자ID, 패스워드, 내프로필이미지
 	boolean result; // DAO 결과값
 	ArrayList<BoardVO> boardList; // 게시글 목록 불러오기
 	BoardVO article; // 게시글 읽기
 	MemberVO myProfile; // 내 프로필 정보 (메인화면)
-	String[] imgList; // 프로필 이미지
+	ImageIcon[] imgList; // 프로필 이미지
+	ImageIcon img; // 내 프로필 이미지
 	MemberVO gameImg; // 게임화면 이미지 (방장, 참가자)
 	MemberVO gameProfile; // 게임화면 프로필 정보 (나 ,상대)
 	Vector<String> userList; // 접속중인 유저 목록
@@ -117,11 +120,11 @@ public class MessageVO implements Serializable {
 		this.pw = pw;
 	}
 
-	public String getImg() {
+	public ImageIcon getImg() {
 		return img;
 	}
 
-	public void setImg(String img) {
+	public void setImg(ImageIcon img) {
 		this.img = img;
 	}
 
@@ -157,11 +160,11 @@ public class MessageVO implements Serializable {
 		this.myProfile = myProfile;
 	}
 
-	public String[] getImgList() {
+	public ImageIcon[] getImgList() {
 		return imgList;
 	}
 
-	public void setImgList(String[] imgList) {
+	public void setImgList(ImageIcon[] imgList) {
 		this.imgList = imgList;
 	}
 
@@ -311,10 +314,6 @@ public class MessageVO implements Serializable {
 
 	public static int getRoomJoin() {
 		return ROOM_JOIN;
-	}
-
-	public static int getWinOrLose() {
-		return WIN_OR_LOSE;
 	}
 
 	public static int getGameClick() {

@@ -25,7 +25,7 @@ public class ProfileUIEvent implements ActionListener, MouseListener {
 	JFrame f;
 	JButton btn_update, btn_cancel, btn_img1, btn_img2, btn_img3, btn_img4, btn_img5, btn_img6;
 	ImageIcon changeIcon1, changeIcon2, changeIcon3, changeIcon4, changeIcon5, changeIcon6;
-	String[] img_list;
+	ImageIcon[] img_list;
 
 	public ProfileUIEvent(ProfileUI pui) {
 		this.pui = pui;
@@ -36,9 +36,7 @@ public class ProfileUIEvent implements ActionListener, MouseListener {
 		Object obj = e.getSource();
 
 		if (obj == pui.file_change_btn) { // 프로필 바꾸기
-			MessageVO msg = new MessageVO();
-			msg.setStatus(MessageVO.IMG_REQUEST);
-			img_list = pui.client.requestImg(msg);
+			img_list = pui.client.requestImg();
 			file_form();
 		} else if (obj == btn_update) { // 확인 (선택한 이미지 저장)
 			imgUpdate_from();
@@ -56,7 +54,7 @@ public class ProfileUIEvent implements ActionListener, MouseListener {
 			btn_img4.setBorder(null);
 			btn_img5.setBorder(null);
 			btn_img6.setBorder(null);
-		} else if (obj == pui.exit_btn) { // 나가기 (프로필 창 종료) 
+		} else if (obj == pui.exit_btn) { // 나가기 (프로필 창 종료)
 			pui.f.dispose();
 		}
 	}
@@ -74,32 +72,32 @@ public class ProfileUIEvent implements ActionListener, MouseListener {
 		JPanel img6_panel = new JPanel();
 
 		// 프로필 이미지 6개 생성 & 크기조절
-		ImageIcon icon1 = new ImageIcon("" + img_list[0] + "");
+		ImageIcon icon1 = img_list[0];
 		Image img1 = icon1.getImage();
 		Image changeImg1 = img1.getScaledInstance(200, 200, Image.SCALE_SMOOTH);
 		changeIcon1 = new ImageIcon(changeImg1);
 		btn_img1 = new JButton(changeIcon1);
-		ImageIcon icon2 = new ImageIcon("" + img_list[1] + "");
+		ImageIcon icon2 = img_list[1];
 		Image img2 = icon2.getImage();
 		Image changeImg2 = img2.getScaledInstance(200, 200, Image.SCALE_SMOOTH);
 		changeIcon2 = new ImageIcon(changeImg2);
 		btn_img2 = new JButton(changeIcon2);
-		ImageIcon icon3 = new ImageIcon("" + img_list[2] + "");
+		ImageIcon icon3 = img_list[2];
 		Image img3 = icon3.getImage();
 		Image changeImg3 = img3.getScaledInstance(200, 200, Image.SCALE_SMOOTH);
 		changeIcon3 = new ImageIcon(changeImg3);
 		btn_img3 = new JButton(changeIcon3);
-		ImageIcon icon4 = new ImageIcon("" + img_list[3] + "");
+		ImageIcon icon4 = img_list[3];
 		Image img4 = icon4.getImage();
 		Image changeImg4 = img4.getScaledInstance(200, 200, Image.SCALE_SMOOTH);
 		changeIcon4 = new ImageIcon(changeImg4);
 		btn_img4 = new JButton(changeIcon4);
-		ImageIcon icon5 = new ImageIcon("" + img_list[4] + "");
+		ImageIcon icon5 = img_list[4];
 		Image img5 = icon5.getImage();
 		Image changeImg5 = img5.getScaledInstance(200, 200, Image.SCALE_SMOOTH);
 		changeIcon5 = new ImageIcon(changeImg5);
 		btn_img5 = new JButton(changeIcon5);
-		ImageIcon icon6 = new ImageIcon("" + img_list[5] + "");
+		ImageIcon icon6 = img_list[5];
 		Image img6 = icon6.getImage();
 		Image changeImg6 = img6.getScaledInstance(200, 200, Image.SCALE_SMOOTH);
 		changeIcon6 = new ImageIcon(changeImg6);
