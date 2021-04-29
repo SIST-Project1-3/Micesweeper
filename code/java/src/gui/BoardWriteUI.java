@@ -28,22 +28,25 @@ public class BoardWriteUI implements ActionListener {
 	JTextArea tf_content;
 	ClientSystem client;
 	BoardListUI boardListUI;
-	BoardVO article; 
+	BoardVO article;
 
 	public static final int WRITE = 0;
 	public static final int UPDATE = 1;
-	
+
 	// Constructor
+	// 글쓰기용 생성자
 	public BoardWriteUI(BoardListUI boardListUI) {
 		this.status = WRITE;
 		this.boardListUI = boardListUI;
 		this.client = boardListUI.client;
 		initialize();
 	}
-	
+
+	// 글수정용 생성자
 	public BoardWriteUI(BoardListUI boardListUI, BoardVO article) {
 		this(boardListUI);
 		this.status = UPDATE;
+		// 글 내용 불러오기
 		this.article = article;
 		this.tf_title.setText(article.getTitle());
 		this.tf_content.setText(article.getContent());
@@ -105,17 +108,17 @@ public class BoardWriteUI implements ActionListener {
 			JOptionPane.showMessageDialog(null, Commons.getMsg("제목을 입력해주세요"));
 		} else if (tf_content.getText().isEmpty()) { // 내용 입력 확인
 			JOptionPane.showMessageDialog(null, Commons.getMsg("내용을 입력해주세요"));
-		}else {
+		} else {
 			result = true;
 		}
 		return result;
 	}
-	
+
 	@Override
 	public void actionPerformed(ActionEvent e) {
 		Object obj = e.getSource();
 		if (status == WRITE && obj == btn_write) { // 새로운 글 작성
-			if (inputChk()){ // 글 작성
+			if (inputChk()) { // 글 작성
 				// 작성한 글을 msg에 담아서 clientsystem을 통해 서버에 전송
 				MessageVO msg = new MessageVO();
 				msg.setStatus(MessageVO.BOARD_WRITE);
@@ -132,10 +135,10 @@ public class BoardWriteUI implements ActionListener {
 				}
 			}
 		} else if (status == UPDATE && obj == btn_write) { // 기존 글 수정
-			if(inputChk()) {
+			if (inputChk()) {
 				article.setTitle(tf_title.getText());
 				article.setContent(tf_content.getText());
-				if(client.updateBoard(article)) { // 전송 성공
+				if (client.updateBoard(article)) { // 전송 성공
 					JOptionPane.showMessageDialog(null, Commons.getMsg("글 수정 성공"));
 					boardListUI.createJtableData();
 					exit(); // 창 종료
@@ -144,7 +147,7 @@ public class BoardWriteUI implements ActionListener {
 				}
 			}
 		}
-		
+
 	}
 
 }
