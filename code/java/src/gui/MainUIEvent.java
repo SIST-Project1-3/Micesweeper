@@ -107,7 +107,6 @@ public class MainUIEvent implements ActionListener, WindowListener, MouseListene
 			if (answer == 0) { // 확인 누르면
 				RoomVO room = ui.client.joinRoom(roomNo);
 				if (room != null) { // 방 참가 성공시
-					JOptionPane.showMessageDialog(null, Commons.getMsg("방 입장"));
 					new GameUI(ui.client, room, false);
 					ui.client.mainui = null; // 방 입장하면 GameUI로 전환되므로 MainUI 연결 해제
 					ui.frame.dispose();

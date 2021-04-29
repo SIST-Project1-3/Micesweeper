@@ -30,7 +30,7 @@ public class GameUI {
 	public JTextArea chat_ta;
 	public ArrayList<JButton> mice_btn;
 	public JButton watch_profile_btn, watch_profile_btn2, ready_btn, exit_btn, send_btn;
-	GameUIEvent event;
+	public GameUIEvent event;
 	ImageIcon icon, icon2;
 	JLabel master_id_label, user_id_label;
 	public GameVO gvo;

@@ -6,7 +6,9 @@ import java.util.HashMap;
 import java.util.Iterator;
 
 import javax.swing.JButton;
+import javax.swing.JOptionPane;
 
+import gui.Commons;
 import gui.GameUI;
 import gui.JoinUI;
 import system.client.ClientSystem;
@@ -37,12 +39,16 @@ public class GameSystemClient {
 		if (turnflag == true) {
 			if (winflag == true) {
 				gvo.setWinflag(true);
+				ui.event.win();
+				JOptionPane.showMessageDialog(null, Commons.getMsg("승리!!"));
 				gvo.setGameflag(false);
 
 				// 승리 팝업창
 				exit();
 			} else if (loseflag == true) {
 				gvo.setLoseflag(true);
+				ui.event.lose();
+				JOptionPane.showMessageDialog(null, Commons.getMsg("패배..."));
 				gvo.setGameflag(false);
 				// 패배 팝업창
 				exit();
@@ -52,11 +58,15 @@ public class GameSystemClient {
 		} else {
 			if (winflag == true) {
 				gvo.setLoseflag(true);
+				ui.event.lose();
+				JOptionPane.showMessageDialog(null, Commons.getMsg("패배..."));
 				gvo.setGameflag(false);
 				// 패배 팝업창
 				// 종료
 			} else if (loseflag == true) {
 				gvo.setWinflag(true);
+				ui.event.win();
+				JOptionPane.showMessageDialog(null, Commons.getMsg("승리!!"));
 				gvo.setGameflag(false);
 				// 승리 팝업창
 				// 종료
