@@ -386,6 +386,20 @@ public class ClientSystem {
 			e.printStackTrace();
 		}
 	}
+	//게임 탈주
+	public void sendLeave() {
+		
+		try {
+			MessageVO msg = new MessageVO();
+			msg.setStatus(MessageVO.GAME_LEAVE);
+			msg.setRoom(new RoomVO());
+			msg.getRoom().no = gameui.room.no; // 방 번호
+			msg.setId(id);
+			oos_chat.writeObject(msg);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+	}
 
 	class ClientThread extends Thread {
 		// Field
@@ -462,7 +476,11 @@ public class ClientSystem {
 					} else if (msg.getStatus() == MessageVO.GAME_LEAVE) { // 게임 탈주
 						if (gameui != null) { // 게임 중이면 실행
 							if (msg.getRoom().no == gameui.room.no) { // 방 번호가 맞으면 실행
-								gameui.gsc.calcBtnClick(msg.getNo());
+								if(msg.getId()==gameui.client.id) {
+									gameui.event.lose();
+								}else {
+									gameui.event.win();
+								}
 							}
 						}
 					}

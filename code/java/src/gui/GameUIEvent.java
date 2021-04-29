@@ -62,9 +62,7 @@ public class GameUIEvent implements ActionListener, WindowListener, MouseListene
 			if (gvo.isGameflag() == true) {
 				int answer = JOptionPane.showConfirmDialog(null, Commons.getMsg("게임 중 종료시 패배처리됩니다. 정말로 종료하시겠습니까?"));
 				if (answer == 0) {
-					MessageVO msg = new MessageVO();
-					msg.setStatus(MessageVO.GAME_LEAVE);
-					msg.setId(ui.user_id_label.getText());
+					ui.client.sendLeave();
 					exit();
 					// 게임종료시 패배처리됩니다 종료하시겠습니까
 				}
@@ -122,9 +120,7 @@ public class GameUIEvent implements ActionListener, WindowListener, MouseListene
 		if (gvo.isGameflag() == true) {
 			int answer = JOptionPane.showConfirmDialog(null, Commons.getMsg("게임 중 종료시 패배처리됩니다. 정말로 종료하시겠습니까?"));
 			if (answer == 0) {
-				MessageVO msg = new MessageVO();
-				msg.setStatus(MessageVO.GAME_LEAVE);
-				msg.setId(ui.user_id_label.getText());
+				ui.client.sendLeave();
 				exit();
 				// 게임종료시 패배처리됩니다 종료하시겠습니까
 			}

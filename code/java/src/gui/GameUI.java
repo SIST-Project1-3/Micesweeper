@@ -32,10 +32,11 @@ public class GameUI {
 	public JButton watch_profile_btn, watch_profile_btn2, ready_btn, exit_btn, send_btn;
 	public GameUIEvent event;
 	ImageIcon icon, icon2;
-	JLabel master_id_label, user_id_label;
+	JLabel master_id_label;
+	public JLabel user_id_label;
 	public GameVO gvo;
 	public GameSystemClient gsc;
-	ClientSystem client;
+	public ClientSystem client;
 	public RoomVO room; // 방 정보
 	String[] iconList = new String[2]; // 프사 리스트
 	GameDAO gdao = new GameDAO();
