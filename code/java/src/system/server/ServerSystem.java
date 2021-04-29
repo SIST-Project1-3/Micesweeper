@@ -197,10 +197,6 @@ public class ServerSystem {
 					} else if (msg.getStatus() == MessageVO.IMG_UPDATE) { // 프로필 이미지 수정
 						returnMsg.setResult(mdao.getUpdateResult(msg));
 						oos.writeObject(returnMsg);
-//					} else if (msg.getStatus() == MessageVO.GAME_IMG) { // 게임화면 이미지 요청
-//						MemberVO gameImg = gdao.getGameImgResult(msg);
-//						returnMsg.setGameImg(gameImg);
-//						oos.writeObject(returnMsg);
 					} else if (msg.getStatus() == MessageVO.GAME_PROFILE) { // 게임 프로필 정보 요청
 						MemberVO gameProfile = gdao.getGameProfileResult(msg);
 						returnMsg.setGameProfile(gameProfile);

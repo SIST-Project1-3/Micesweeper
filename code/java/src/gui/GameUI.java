@@ -220,9 +220,9 @@ public class GameUI {
 		chat_ta.setEditable(false);
 
 		// 채팅 입력창 왼쪽 유저 ID 표시
-//		JLabel label_chatID = new JLabel(client.getId());
-//		label_chatID.setFont(Commons.getFont());
-//		chat_send_panel.add(label_chatID, BorderLayout.WEST);
+		JLabel label_chatID = new JLabel(client.id);
+		label_chatID.setFont(Commons.getFont());
+		chat_send_panel.add(label_chatID, BorderLayout.WEST);
 
 		// 채팅 입력창
 		chat_tf = new JTextField(40);
