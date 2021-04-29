@@ -371,14 +371,16 @@ public class ClientSystem {
 		}
 	}
 
-	// 게임 준비
-	public void sendReady(Boolean readyflag2) {
+
+
+	//게임 준비
+	public void sendReady() {
+
 		try {
 			MessageVO msg = new MessageVO();
 			msg.setStatus(MessageVO.GAME_READY);
 			msg.setRoom(new RoomVO());
 			msg.getRoom().no = gameui.room.no; // 방 번호
-			msg.setReadyflag2(true); // 누른 버튼
 			oos_chat.writeObject(msg);
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -450,8 +452,11 @@ public class ClientSystem {
 					} else if (msg.getStatus() == MessageVO.GAME_READY) { // 게임 레디
 						if (gameui != null) { // 게임 중이면 실행
 							if (msg.getRoom().no == gameui.room.no) { // 방 번호가 맞으면 실행
-								gameui.gvo.setReadyflag2(msg.isReadyflag2());
+								gameui.gvo.readycount ++;
 								gameui.ready_btn.setBackground(Color.ORANGE);
+								if(gameui.gvo.readycount == 2) {
+									gameui.gvo.setGameflag(true);
+								}
 							}
 						}
 					} else if (msg.getStatus() == MessageVO.GAME_LEAVE) { // 게임 탈주

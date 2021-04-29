@@ -52,15 +52,12 @@ public class GameUIEvent implements ActionListener, WindowListener, MouseListene
 			ui.chat_tf.setText("");
 			System.out.println("텍스트");
 		} else if (obj == ui.ready_btn) { // 준비
-			gvo.setReadyflag(true);
-			MessageVO msg = new MessageVO();
-			msg.setStatus(MessageVO.GAME_READY);
 			ui.ready_btn.setEnabled(false);
-			if (gvo.isReadyflag() == true && gvo.isReadyflag2() == true) {
-				gvo.setGameflag(true);
-			}
+			ui.client.sendReady();
+//			if(gvo.isReadyflag()==true && gvo.isReadyflag2()==true) {
+//				gvo.setGameflag(true);
+//			}
 			// gvo.gameflag = true; // 방장 준비 처음에 비활성화 - 다음에 활성화시킬 것
-
 		} else if (obj == ui.exit_btn) { // 나가기
 			if (gvo.isGameflag() == true) {
 				int answer = JOptionPane.showConfirmDialog(null, Commons.getMsg("게임 중 종료시 패배처리됩니다. 정말로 종료하시겠습니까?"));

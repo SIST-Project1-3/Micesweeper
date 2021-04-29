@@ -13,21 +13,16 @@ public class GameVO implements Serializable {
 	public ArrayList<Integer> clickmice = new ArrayList<Integer>(); // 클릭된 버튼
 	public ArrayList<Integer> number = new ArrayList<Integer>(); // 숫자 위치
 	boolean clickflag = false, winflag = false, loseflag = false; // 클릭, 승리, 종료 플래그
-	public boolean gameflag = false, readyflag = false, readyflag2 = false;
-	public boolean isReadyflag() {
-		return readyflag;
+	public boolean gameflag = false;
+	public int readycount = 0;
+	
+
+	public int getReadycount() {
+		return readycount;
 	}
 
-	public void setReadyflag(boolean readyflag) {
-		this.readyflag = readyflag;
-	}
-
-	public boolean isReadyflag2() {
-		return readyflag2;
-	}
-
-	public void setReadyflag2(boolean readyflag2) {
-		this.readyflag2 = readyflag2;
+	public void setReadycount(int readycount) {
+		this.readycount = readycount;
 	}
 
 	public boolean isGameflag() {
