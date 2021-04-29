@@ -22,12 +22,10 @@ public class GameUIEvent implements ActionListener, WindowListener, MouseListene
 
 	ArrayList<Integer> clickmice;
 	GameUI ui;
-	GameDAO gdao;
 	GameVO gvo;
 	GameSystemClient gsc;
 
 	public GameUIEvent(GameUI ui) {
-		gdao = new GameDAO();
 		gvo = new GameVO();
 		this.ui = ui;
 		gvo = ui.gvo;
@@ -40,10 +38,10 @@ public class GameUIEvent implements ActionListener, WindowListener, MouseListene
 		Object obj = e.getSource();
 
 		if (obj == ui.watch_profile_btn) { // 방장 프로필 보기
-			MessageVO msg = new MessageVO();
-			msg.setStatus(MessageVO.GAME_PROFILE);
-			msg.setId(ui.master_id_label.getText());
-			MemberVO gameProfile = ui.client.gameProfile(msg);
+//			MessageVO msg = new MessageVO();
+//			msg.setStatus(MessageVO.GAME_PROFILE);
+//			msg.setId(ui.master_id_label.getText());
+			MemberVO gameProfile = ui.client.gameProfile(ui.master_id_label.getText());
 //			MemberVO gameProfile = gdao.getGameProfileResult(msg);
 			ProfileUI pui = new ProfileUI();
 			pui.game_Profile(gameProfile);
@@ -70,10 +68,11 @@ public class GameUIEvent implements ActionListener, WindowListener, MouseListene
 				exit();
 			}
 		} else if (obj == ui.watch_profile_btn2) { // 참가자 프로필 보기
-			MessageVO msg = new MessageVO();
-			msg.setStatus(MessageVO.GAME_PROFILE);
-			msg.setId(ui.user_id_label.getText());
-			MemberVO gameProfile = gdao.getGameProfileResult(msg);
+//			MessageVO msg = new MessageVO();
+//			msg.setStatus(MessageVO.GAME_PROFILE);
+//			msg.setId(ui.user_id_label.getText());
+//			MemberVO gameProfile = gdao.getGameProfileResult(msg);
+			MemberVO gameProfile = ui.client.gameProfile(ui.user_id_label.getText());
 			ProfileUI pui = new ProfileUI();
 			pui.game_Profile(gameProfile);
 		} else if (gsc.turnflag == true) { // 지뢰 버튼 클릭 처리

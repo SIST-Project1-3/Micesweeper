@@ -37,7 +37,7 @@ public class ClientSystem {
 	public Vector<String> userList = new Vector<String>(); // 접속중인 유저 목록
 	public ArrayList<RoomVO> roomList = new ArrayList<RoomVO>(); // 생성된 방 목록
 	MemberVO gameProfile;
-	String ip = "127.0.0.1";
+	String ip;
 
 	// Constructor
 	public ClientSystem() {
@@ -59,6 +59,8 @@ public class ClientSystem {
 			new ClientThread().start();
 		} catch (Exception e) {
 			e.printStackTrace();
+			JOptionPane.showMessageDialog(null, Commons.getMsg("연결 실패"));
+			System.exit(0);
 		}
 	}
 
@@ -279,9 +281,12 @@ public class ClientSystem {
 //		}
 
 	// 게임화면 프로필보기 정보 요청
-	public MemberVO gameProfile(MessageVO msg) {
+	public MemberVO gameProfile(String id) {
 		MemberVO gameProfile = null;
 		try {
+			MessageVO msg = new MessageVO();
+			msg.setStatus(MessageVO.GAME_PROFILE);
+			msg.setId(id);
 			oos.writeObject(msg);
 			gameProfile = ((MessageVO) ois.readObject()).getGameProfile();
 		} catch (Exception e) {
