@@ -5,7 +5,7 @@ CREATE TABLE MEMBER(
     WIN NUMBER(5) DEFAULT 0 NOT NULL, -- 승리횟수는 기본값 0, 반드시 입력
     LOSE NUMBER(5) DEFAULT 0 NOT NULL, -- 패배횟수도 기본값 0, 이하동문
     RDATE DATE DEFAULT SYSDATE NOT NULL, -- 등록일자는 기본값 SYSDATE, 반드시 입력
-    IMG VARCHAR2(40) DEFAULT 'images/쥐.png' NOT NULL, -- 해당 프로필의 이미지 사진
+    IMG VARCHAR2(40) DEFAULT 'images/쥐.png' NOT NULL -- 해당 프로필의 이미지 사진
 );
 
 -- 게시글 번호 시퀀스 생성
