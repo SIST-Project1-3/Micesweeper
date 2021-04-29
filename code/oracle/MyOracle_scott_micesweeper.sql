@@ -6,7 +6,6 @@ CREATE TABLE MEMBER(
     LOSE NUMBER(5) DEFAULT 0 NOT NULL, -- 패배횟수도 기본값 0, 이하동문
     RDATE DATE DEFAULT SYSDATE NOT NULL, -- 등록일자는 기본값 SYSDATE, 반드시 입력
     IMG VARCHAR2(40) DEFAULT 'images/쥐.png' NOT NULL, -- 해당 프로필의 이미지 사진
-    COMMENTS VARCHAR2(4000) -- 댓글을 VARCHAR2 형태로 저장함. 댓글 하나는 \n로 구분하여 저장. id와 내용은 : 를 이용하여 구분
 );
 
 -- 게시글 번호 시퀀스 생성
