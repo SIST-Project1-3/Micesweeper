@@ -56,12 +56,11 @@ public class GameUIEvent implements ActionListener, WindowListener, MouseListene
 			MessageVO msg = new MessageVO();
 			msg.setStatus(MessageVO.GAME_READY);
 			ui.ready_btn.setEnabled(false);
-			if(gvo.isReadyflag()==true && gvo.isReadyflag2()==true) {
+			if (gvo.isReadyflag() == true && gvo.isReadyflag2() == true) {
 				gvo.setGameflag(true);
 			}
-				//gvo.gameflag = true; // 방장 준비 처음에 비활성화 - 다음에 활성화시킬 것
-				
-			
+			// gvo.gameflag = true; // 방장 준비 처음에 비활성화 - 다음에 활성화시킬 것
+
 		} else if (obj == ui.exit_btn) { // 나가기
 			if (gvo.isGameflag() == true) {
 				int answer = JOptionPane.showConfirmDialog(null, Commons.getMsg("게임 중 종료시 패배처리됩니다. 정말로 종료하시겠습니까?"));
@@ -83,16 +82,15 @@ public class GameUIEvent implements ActionListener, WindowListener, MouseListene
 			ProfileUI pui = new ProfileUI();
 			pui.game_Profile(gameProfile);
 		} else if (gsc.turnflag == true) { // 지뢰 버튼 클릭 처리
-			if(gvo.gameflag == true) {
-			int btnName = Integer.parseInt(((JButton) obj).getName());
-			int btnNo = btnName / 10 * 9 + btnName % 10; // 버튼의 순서: 00 ~ 88 까지 매핑된 버튼의 이름을 0 ~ 81
-			ui.client.sendGameClick(btnNo);
+			if (gvo.gameflag == true) {
+				int btnName = Integer.parseInt(((JButton) obj).getName());
+				int btnNo = btnName / 10 * 9 + btnName % 10; // 버튼의 순서: 00 ~ 88 까지 매핑된 버튼의 이름을 0 ~ 81
+				ui.client.sendGameClick(btnNo);
 //			gvo.setClickflag(true);// 클릭했다는 정보 갱신
 //			ui.gsc.calcBtnClick();
 //			System.out.println(gvo.getClickmice());// 이따삭제
+			}
 		}
-		}
-
 	}
 
 	public void exit() {
@@ -103,14 +101,14 @@ public class GameUIEvent implements ActionListener, WindowListener, MouseListene
 	public void win() {
 		MessageVO msg = new MessageVO();
 		msg.setStatus(MessageVO.WIN_OR_LOSE);
-		msg.setId(ui.watch_profile_btn.getText());
+		msg.setId(ui.client.id);
 		gdao.getWinResult(msg);
 	}
 
 	public void lose() {
 		MessageVO msg = new MessageVO();
 		msg.setStatus(MessageVO.WIN_OR_LOSE);
-		msg.setId(ui.watch_profile_btn.getText());
+		msg.setId(ui.client.id);
 		gdao.getLoseResult(msg);
 	}
 
