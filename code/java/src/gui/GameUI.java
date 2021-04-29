@@ -39,7 +39,6 @@ public class GameUI {
 	public ClientSystem client;
 	public RoomVO room; // 방 정보
 	String[] iconList = new String[2]; // 프사 리스트
-	GameDAO gdao = new GameDAO();
 	JLabel img_label2;
 	JPanel user_image_panel;
 
@@ -77,8 +76,9 @@ public class GameUI {
 
 		for (int i = 0; i < room.userList.size(); i++) {
 			String id = room.userList.get(i);
-			GameDAO gdao = new GameDAO();
-			iconList[i] = gdao.getGameImgResult(id);
+			ImageIcon test = client.getProfileImg(id);
+			String str = test.getDescription();
+			iconList[i] = str;
 		}
 
 		// 방장(왼쪽)
@@ -266,7 +266,7 @@ public class GameUI {
 			String id1 = room.userList.get(1);
 			user_id_label.setText(id1);
 			watch_profile_btn2.setEnabled(true);
-			icon2 = new ImageIcon(gdao.getGameImgResult(id1));
+			icon2 = client.getProfileImg(id1);
 			Image img2 = icon2.getImage();
 			Image changeImg2 = img2.getScaledInstance(160, 160, Image.SCALE_SMOOTH);
 			ImageIcon changeIcon2 = new ImageIcon(changeImg2);

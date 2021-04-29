@@ -57,7 +57,6 @@ public class MemberDAO extends DAO {
 		return result;
 	}
 
-
 	// 로그인
 	public boolean getLoginResult(MessageVO msg) {
 		boolean result = false;
@@ -87,9 +86,9 @@ public class MemberDAO extends DAO {
 		try {
 			String sql = "select * from member where id=?";
 			getPreparedStatement(sql);
-			
+
 			pstmt.setString(1, msg.getId());
-			
+
 			rs = pstmt.executeQuery();
 			while (rs.next()) {
 				profile.setId(rs.getString(1));
@@ -102,22 +101,22 @@ public class MemberDAO extends DAO {
 		}
 		return profile;
 	}
-	
+
 	// 프로필 이미지 가져오기
-	 public ImageIcon[] getImgResult(MessageVO msg) {
-		 ImageIcon[] img = new ImageIcon[6];
-		
+	public ImageIcon[] getImgResult(MessageVO msg) {
+		ImageIcon[] img = new ImageIcon[6];
+
 		try {
 			String sql = "select * from img";
 			getPreparedStatement(sql);
-			int i =0;
-			
+			int i = 0;
+
 			rs = pstmt.executeQuery();
 			while (rs.next()) {
 				MemberVO member = new MemberVO();
-				ImageIcon icon = new ImageIcon(rs.getBytes(1));
+				ImageIcon icon = new ImageIcon(rs.getString(1));
 				icon.setDescription(rs.getString(1));
-				member.setImg(new ImageIcon(rs.getString(1)));
+				member.setImg(icon);
 				img[i] = member.getImg();
 				i++;
 			}
@@ -128,26 +127,25 @@ public class MemberDAO extends DAO {
 	}
 
 	// 프로필 이미지 수정
-	 public boolean getUpdateResult(MessageVO msg) {
-			boolean result = false;
-			
-			System.out.println("dao - getUpdateResult");
-			
-			try {
-				String sql = "UPDATE MEMBER SET IMG=? WHERE ID=?";
-				getPreparedStatement(sql);
-				
-				pstmt.setString(1, msg.getImg().getDescription());
-				pstmt.setString(2, msg.getId());
-				
-				int val = pstmt.executeUpdate();
-				if (val == 1)
-					result = true;
-			} catch (Exception e) {
-				e.printStackTrace();
-			}
-			return result;
-		}
+	public boolean getUpdateResult(MessageVO msg) {
+		boolean result = false;
 
-	 
+		System.out.println("dao - getUpdateResult");
+
+		try {
+			String sql = "UPDATE MEMBER SET IMG=? WHERE ID=?";
+			getPreparedStatement(sql);
+
+			pstmt.setString(1, msg.getImg().getDescription());
+			pstmt.setString(2, msg.getId());
+
+			int val = pstmt.executeUpdate();
+			if (val == 1)
+				result = true;
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return result;
+	}
+
 }

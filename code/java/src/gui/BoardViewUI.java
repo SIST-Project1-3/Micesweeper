@@ -180,12 +180,17 @@ public class BoardViewUI implements ActionListener {
 	public void actionPerformed(ActionEvent e) {
 		Object obj = e.getSource();
 		if (obj == tf_write || obj == btn_write) { // 댓글 입력창에서 엔터를 누르거나, 댓글 작성 버튼을 누른 경우.
-			if (client.writeComment(article.getNo(), client.id, tf_write.getText())) { // 댓글 작성 성공
-				article = client.readArticle(article.getNo());
-				createCommentTable(getCommentList(article.getComments()));
-				tf_write.setText("");
+			if (!tf_write.getText().isEmpty()) { // 빈칸 체크
+				if (client.writeComment(article.getNo(), client.id, tf_write.getText())) { // 댓글 작성 성공
+					article = client.readArticle(article.getNo());
+					createCommentTable(getCommentList(article.getComments()));
+					tf_write.setText("");
+				} else {
+					JOptionPane.showMessageDialog(null, Commons.getMsg("댓글 작성 실패"));
+				}
 			} else {
-				JOptionPane.showMessageDialog(null, Commons.getMsg("댓글 작성 실패"));
+				JOptionPane.showMessageDialog(null, Commons.getMsg("내용을 작성해주세요"));
+				tf_write.requestFocus();
 			}
 
 		}
