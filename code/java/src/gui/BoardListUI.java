@@ -100,6 +100,16 @@ public class BoardListUI implements ActionListener, MouseListener {
 	public JPanel createCenterPanel() {
 		JPanel panel = new JPanel(new BorderLayout());
 
+		model = new DefaultTableModel(colNames, 10) {
+			// 행 수정 여부 메소드
+			@Override
+			public boolean isCellEditable(int row, int column) {
+				if (column == 5 || column == 6) { // 테이블의 5번 째(수정), 6번 째(삭제)는 선택할 수 있도록 설정
+					return true;
+				}
+				return false;
+			}
+		};
 		createJtableData(); // table에 전체 데이터 추가
 		model.setColumnIdentifiers(colNames);
 
@@ -136,15 +146,14 @@ public class BoardListUI implements ActionListener, MouseListener {
 		table.getColumn("삭제").setPreferredWidth(100);
 
 		table.addMouseListener(this);
-		
+
 		JScrollPane sp_table = new JScrollPane(table);
 
 		panel.add(sp_table);
-		
+
 		return panel;
 	}
 
-	
 	public JPanel createSouthPanel() {
 		JPanel panel = new JPanel(new FlowLayout(FlowLayout.RIGHT));
 		btn_write = new JButton("글쓰기");
@@ -156,18 +165,8 @@ public class BoardListUI implements ActionListener, MouseListener {
 
 	// 테이블에 데이터 입력 및 테이블 새로고침 기능
 	public void createJtableData() {
-		model = new DefaultTableModel(colNames, 10) {
-			// 행 수정 여부 메소드
-			@Override
-			public boolean isCellEditable(int row, int column) {
-				if (column == 5 || column == 6) { // 테이블의 5번 째(수정), 6번 째(삭제)는 선택할 수 있도록 설정
-					return true;
-				}
-				return false;
-			}
-		};
 		model.setNumRows(0);
-		for (BoardVO post : client.readBoard()) {
+		for (BoardVO post : client.readBoard()) { // Client에 게시글 요청
 			row[0] = post.getNo();
 			row[1] = post.getTitle();
 			row[2] = post.getWriter();
