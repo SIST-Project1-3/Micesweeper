@@ -248,7 +248,8 @@ public class ClientSystem {
 			MessageVO msg = new MessageVO();
 			msg.setStatus(MessageVO.IMG_REQUEST);
 			oos.writeObject(msg);
-			img_list = ((MessageVO) ois.readObject()).getImgList();
+			MessageVO recieveMsg = (MessageVO) ois.readObject();
+			img_list = recieveMsg.getImgList();
 		} catch (Exception e) {
 			e.printStackTrace();
 		}

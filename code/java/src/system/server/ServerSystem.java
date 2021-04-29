@@ -195,6 +195,9 @@ public class ServerSystem {
 					} else if (msg.getStatus() == MessageVO.IMG_REQUEST) { // 프로필 이미지 요청
 						ImageIcon[] img_list = mdao.getImgResult(msg);
 						returnMsg.setImgList(img_list);
+						for (int i = 0; i < 6; i++) {
+							System.out.println("서버가 보내는 " + i + "번째 이미지" + returnMsg.getImgList()[i]);
+						}
 						oos.writeObject(returnMsg);
 					} else if (msg.getStatus() == MessageVO.IMG_UPDATE) { // 프로필 이미지 수정
 						returnMsg.setResult(mdao.getUpdateResult(msg));

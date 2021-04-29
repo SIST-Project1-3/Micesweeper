@@ -1,10 +1,7 @@
 package dao;
 
-import java.util.ArrayList;
-
 import javax.swing.ImageIcon;
 
-import vo.BoardVO;
 import vo.MemberVO;
 import vo.MessageVO;
 
@@ -102,35 +99,33 @@ public class MemberDAO extends DAO {
 		return profile;
 	}
 
-	// 프로필 이미지 가져오기
+	// 프로필 이미지 목록 가져오기
 	public ImageIcon[] getImgResult(MessageVO msg) {
-		ImageIcon[] img = new ImageIcon[6];
+		ImageIcon[] imgList = new ImageIcon[6];
 
 		try {
-			String sql = "select * from img";
+			String sql = "SELECT * FROM IMG";
 			getPreparedStatement(sql);
-			int i = 0;
-
 			rs = pstmt.executeQuery();
+
+			int i = 0;
 			while (rs.next()) {
-				MemberVO member = new MemberVO();
 				ImageIcon icon = new ImageIcon(rs.getString(1));
 				icon.setDescription(rs.getString(1));
-				member.setImg(icon);
-				img[i] = member.getImg();
+				imgList[i] = icon;
 				i++;
 			}
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
-		return img;
+		return imgList;
 	}
 
 	// 프로필 이미지 수정
 	public boolean getUpdateResult(MessageVO msg) {
 		boolean result = false;
 
-		System.out.println("dao - getUpdateResult");
+//		System.out.println("dao - getUpdateResult");
 
 		try {
 			String sql = "UPDATE MEMBER SET IMG=? WHERE ID=?";
