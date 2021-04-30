@@ -9,6 +9,7 @@ import java.util.Iterator;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JOptionPane;
+import javax.swing.border.LineBorder;
 
 import gui.Commons;
 import gui.GameUI;
@@ -81,6 +82,11 @@ public class GameSystemClient {
 
 	public void gameplay(int btnnum) {
 		open(btnnum);
+		if(turnflag == false) {
+			ui.center_panel.setBorder(new LineBorder(Color.red,1));
+		}else {
+			ui.center_panel.setBorder(null);
+		}
 	}
 
 	public void open(int btnnum) {

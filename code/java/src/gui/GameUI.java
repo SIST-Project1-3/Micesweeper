@@ -1,12 +1,14 @@
 package gui;
 
 import java.awt.BorderLayout;
+import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.FlowLayout;
 import java.awt.GridLayout;
 import java.awt.Image;
 import java.util.ArrayList;
 
+import javax.swing.BorderFactory;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JFrame;
@@ -14,6 +16,7 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JTextArea;
 import javax.swing.JTextField;
+import javax.swing.border.LineBorder;
 
 import dao.GameDAO;
 import gamesystem.GameSystemClient;
@@ -25,7 +28,7 @@ public class GameUI {
 
 	// Field
 	public JFrame frame;
-	JPanel center_panel, west_panel, east_panel, south_panel;
+	public JPanel center_panel, west_panel, east_panel, south_panel;
 	public JTextField chat_tf;
 	public JTextArea chat_ta;
 	public ArrayList<JButton> mice_btn;
